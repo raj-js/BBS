@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using EDoc2.UAS.Data;
+using EDoc2.UAS.Models;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using EDoc2.UAS.Data;
-using EDoc2.UAS.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace EDoc2.UAS
 {
@@ -64,7 +58,8 @@ namespace EDoc2.UAS
                     // this enables automatic token cleanup. this is optional.
                     options.EnableTokenCleanup = true;
                     options.TokenCleanupInterval = 30;
-                });
+                })
+                .AddAspNetIdentity<ApplicationUser>();
 
             services.AddAuthentication();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
