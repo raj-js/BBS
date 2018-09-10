@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Nav>
+
+<div class="edoc-panel edoc-column">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            @foreach (var nav in Model)
+            {
+                <li class="@nav.Class">
+                    @Html.ActionLink(nav.LinkText, nav.ActionName, nav.ControllerName, nav.RouteValues)
+                </li>
+            }
+        </ul>
+        <div class="layui-layout-right layui-hide-xs">
+            <span class="edoc-search">
+                <i class="layui-icon layui-icon-search"></i>
+            </span>
+            @Html.ActionLink("发表新帖", "Add", "Article", null, new { @class = "layui-btn layui-icon layui-icon-edit" })
+        </div>
+        <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
+            @Html.ActionLink("发表新帖", "Add", "Article", null, new { @class = "layui-btn layui-icon layui-icon-edit" })
+        </div>
+    </div>
+</div>

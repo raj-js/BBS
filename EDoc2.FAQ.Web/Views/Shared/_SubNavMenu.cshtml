@@ -1,0 +1,12 @@
+﻿@model List<Nav>
+
+<div class="edoc-panel-title edoc-filter">
+    @for (var i = 0; i < Model.Count; i++)
+    {
+        @Html.ActionLink(Model[i].LinkText, Model[i].ActionName, Model[i].ControllerName, Model[i].RouteValues, new { @class = Model[i].Class })
+        if (i != Model.Count - 1)
+        {
+            <span class="edoc-mid"></span>
+        }
+    }
+</div>
