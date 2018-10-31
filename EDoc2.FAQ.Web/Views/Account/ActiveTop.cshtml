@@ -1,0 +1,263 @@
+﻿@model VmActiveTop
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>活跃榜</title>
+    <link rel="shortcut icon" type="image/x-icon" media="screen" href="~/images/shortcuticon.png">
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+    
+    <style>
+        .edoc-signin-list {
+            padding: 0;
+            line-height: 30px;
+        }
+
+            .edoc-signin-list .layui-tab-item {
+                padding: 10px;
+                height: 320px;
+                overflow-x: hidden;
+                overflow-y: auto;
+            }
+
+            .edoc-signin-list li {
+                margin-top: 5px;
+                padding-bottom: 5px;
+                border-bottom: 1px dotted #e2e2e2;
+                white-space: nowrap;
+            }
+
+                .edoc-signin-list li:first-child {
+                    margin-top: 0;
+                }
+
+                .edoc-signin-list li:last-child {
+                    border: none 0;
+                }
+
+            .edoc-signin-list img {
+                width: 30px;
+                height: 30px;
+                margin-right: 10px;
+                border-radius: 2px;
+            }
+
+            .edoc-signin-list span {
+                padding-left: 10px;
+            }
+
+                .edoc-signin-list span i {
+                    color: #FF5722;
+                }
+
+            .edoc-signin-list .edoc-none {
+                padding-top: 20px;
+                min-height: 0;
+            }
+
+        .edoc-signin-days {
+            position: absolute;
+            right: 15px;
+            padding-left: 10px;
+            color: #999;
+        }
+
+        .edoc-signin-main {
+            position: relative;
+            height: 38px;
+            padding: 24px 15px;
+            text-align: center;
+        }
+
+            .edoc-signin-main span {
+                padding-left: 10px;
+            }
+
+        /* 榜单 */
+        .edoc-rank {
+            padding-bottom: 10px;
+        }
+
+            .edoc-rank dl {
+                position: relative;
+                min-height: 100px;
+                overflow: hidden;
+                margin-left: 20px;
+                text-align: center;
+                font-size: 0;
+            }
+
+            .edoc-rank dd {
+                position: relative;
+                width: 65px;
+                height: 85px;
+                margin: 10px 25px 5px 0;
+                display: inline-block;
+                *display: inline;
+                *zoom: 1;
+                vertical-align: top;
+                font-size: 12px;
+            }
+
+                .edoc-rank dd a img {
+                    width: 65px;
+                    height: 65px;
+                    border-radius: 2px;
+                }
+
+                .edoc-rank dd a cite {
+                    position: absolute;
+                    bottom: 20px;
+                    left: 0;
+                    width: 100%;
+                    height: 20px;
+                    line-height: 20px;
+                    text-align: center;
+                    background-color: rgba(0,0,0,.2);
+                    color: #fff;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                .edoc-rank dd a:hover cite {
+                    display: block;
+                }
+
+                .edoc-rank dd a i {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    text-align: center;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    font-style: normal;
+                }
+
+        .edoc-link dd {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .edoc-link a {
+            line-height: 24px;
+            padding-right: 15px;
+        }
+
+        
+        .edoc-link {
+            color: #01AAED;
+        }
+
+        .edoc-link:hover {
+            color: #5FB878;
+        }
+
+        .edoc-grey {
+            color: #999;
+        }
+
+        .edoc-msg, .edoc-error {
+            padding: 10px 15px;
+            line-height: 24px;
+        }
+
+        .edoc-msg {
+            background-color: #F8F8F8;
+            color: #666;
+        }
+
+        .edoc-msg a {
+            color: #4F99CF
+        }
+
+        .edoc-error {
+            color: #FF5722;
+        }
+
+    </style>
+
+    <script src="~/layui/layui.js"></script>
+    <script>
+        layui.use('element', function () { });
+    </script>
+</head>
+<body>
+    <div class="layui-layer-content">
+        <div class="layui-tab layui-tab-brief" style="margin: 5px 0 0;">
+            <ul class="layui-tab-title">
+                <li class="layui-this">最新签到</li>
+                <li>今日最快</li>
+                <li>连续签到</li>
+            </ul>
+            <div class="layui-tab-content edoc-signin-list">
+                <ul class="layui-tab-item layui-show">
+                    @if (Model.Newest.Any())
+                    {
+                        foreach (var item in Model.Newest)
+                        {
+                            <li>
+                                <a asp-controller="Account" asp-action="Home" asp-route-accountId="@item.UserId" target="_blank">
+                                    <img width="30" height="30" src="/Account/GetAvatar?accountId=@item.UserId">
+                                    <cite class="edoc-link">@item.User</cite>
+                                </a>
+                                <span class="edoc-grey">签到于 <cite>@item.SignTime.ToString("HH:mm:ss")</cite></span>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="text-center">暂无数据...</li>
+                    }
+                </ul>
+                <ul class="layui-tab-item">
+                    @if (Model.Fastest.Any())
+                    {
+                        foreach (var item in Model.Fastest)
+                        {
+                            <li>
+                                <a asp-controller="Account" asp-action="Home" asp-route-accountId="@item.UserId" target="_blank">
+                                    <img width="30" height="30" src="/Account/GetAvatar?accountId=@item.UserId">
+                                    <cite class="edoc-link">@item.User</cite>
+                                </a>
+                                <span class="edoc-grey">签到于 <cite>@item.SignTime.ToString("HH:mm:ss")</cite></span>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="text-center">暂无数据...</li>
+                    }
+                </ul>
+                <ul class="layui-tab-item">
+                    @if (Model.Fastest.Any())
+                    {
+                        foreach (var item in Model.Longest)
+                        {
+                            <li>
+                                <a asp-controller="Account" asp-action="Home" asp-route-accountId="@item.UserId" target="_blank">
+                                    <img width="30" height="30" src="/Account/GetAvatar?accountId=@item.UserId">
+                                    <cite class="edoc-link">@item.User</cite>
+                                </a>
+                                <span class="edoc-grey">已连续签到 <i>@item.KeepSignDays</i> 天</span>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="text-center">暂无数据...</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

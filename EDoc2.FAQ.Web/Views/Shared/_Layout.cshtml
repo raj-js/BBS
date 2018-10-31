@@ -1,4 +1,12 @@
-﻿@using IdentityServer4.Extensions
+﻿@using System.Security.Claims
+@using EDoc2.FAQ.Web.Data.Identity
+@using EDoc2.FAQ.Web.Extensions
+@using EDoc2.FAQ.Web.Services
+@using EDoc2.FAQ.Web.Data.Common
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<AppUser> UserManager
+@inject ISystemManager SystemManager
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,100 +17,81 @@
     <title>@ViewData["Title"] - EDoc2社区</title>
     <link href="~/layui/css/layui.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
-    <script src="~/layui/layui.js" async></script>
-
-    <environment include="Development">
-        @*开发环境
-            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-            <link rel="stylesheet" href="~/css/site.css" />
-        *@
-    </environment>
-    <environment exclude="Development">
-        @*非开发环境
-            <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        *@
-    </environment>
+    <link href="~/layui/font/custom/customfont.css" rel="stylesheet" />
+    @RenderSection("Css", required: false)
+    @*<script data-main="../js/main" src="~/js/require.js"></script>*@
+    <script src="~/layui/layui.js"></script>
+    <script>
+        layui.config({
+            base: '/js/views/exts/'
+        }).extend({
+            sys: 'sys',
+        });
+        layui.use('element', function () { });
+    </script>
 </head>
 <body>
     <div class="edoc-header layui-header layui-bg-black">
         <div class="layui-container">
             <a class="edoc-logo" href="/"> <img src="~/images/logo.png" alt="layui"> </a>
+            @{
+                var isProduct = Url.ActionContext.HttpContext.Request.Query.ContainsKey("Product");
+            }
             <ul class="layui-nav edoc-nav layui-hide-xs">
-                <li class="layui-nav-item layui-this"> <a href="/"><i class="layui-icon layui-icon-survey"></i>问答</a></li>
-                <li class="layui-nav-item"> <a href="/"><i class="layui-icon layui-icon-app"></i>专区</a></li>
-            </ul>
-            <ul class="layui-nav edoc-nav-user">
-                <li class="layui-nav-item">
-                    <a class="iconfont icon-touxiang layui-hide-xs" href="/user/login/">
-                        <i class="layui-icon layui-icon-friends" style="font-size: 30px;"></i>
+                <li class="layui-nav-item @(isProduct? string.Empty:"layui-this")">
+                    <a asp-action="Index" asp-controller="Home">
+                        <i style="line-height: 60px; vertical-align: middle;" class="icon-communication"></i>交流
                     </a>
                 </li>
-
-                @if (User.IsAuthenticated())
+                <li class="layui-nav-item @(isProduct? "layui-this":string.Empty)">
+                    <a href="javascript:void(0);">
+                        <i class="layui-icon layui-icon-component" style="top: 1px;"></i>专区<span class="layui-nav-more"></span>
+                    </a>
+                    <dl class="layui-nav-child edoc-nav-child layui-anim layui-anim-upbit">
+                        @foreach (var product in await SystemManager.GetCategories(ArticleSubTypes.Product))
+                        {
+                            <dd>
+                                <a asp-controller="Home" asp-action="Index" asp-route-product="@product.Id">@product.Display</a>
+                            </dd>
+                        }
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav edoc-nav-user">
+                @if (User.Identity.IsAuthenticated)
                 {
                     <li class="layui-nav-item">
-                        @Html.ActionLink("注销", "Logout", "Account")
+                        <a class="icon-touxiang" title="个人中心" asp-action="Home" asp-controller="Account">
+                            <cite>@((await UserManager.GetUserAsync(User)).UserClaims.Get<string>(ClaimTypes.Name))</cite>
+                            <img src="/Account/GetAvatar?accountId=@((await UserManager.GetUserAsync(User))?.Id)" height="30" width="30">
+                        </a>
+                        <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                            @*<dd><a asp-action="Index" asp-controller="Account"><i class="layui-icon layui-icon-user"></i>用户中心</a></dd>*@
+                            <dd><a asp-action="Setting" asp-controller="Account"><i class="layui-icon layui-icon-set"></i>基本设置</a></dd>
+                            <dd><a asp-action="Article" asp-controller="Account"><i class="layui-icon layui-icon-file"></i>我的贴子</a></dd>
+                            <dd><a asp-action="Message" asp-controller="Account"><i class="layui-icon layui-icon-notice"></i>我的消息</a></dd>
+                            <hr style="margin: 5px 0;">
+                            <dd><a asp-action="Logout" asp-controller="Account" style="text-align: center;">退出</a></dd>
+                        </dl>
                     </li>
+                    @*<li class="layui-nav-item"><a asp-action="Logout" asp-controller="Account">注销</a></li>*@
                 }
                 else
                 {
-                    <li class="layui-nav-item">
-                        @Html.ActionLink("登录", "Login", "Account")
-                    </li>
-                    <li class="layui-nav-item">
-                        @Html.ActionLink("注册", "Register", "Account")
-                    </li>
+                    <li class="layui-nav-item"><a asp-action="Login" asp-controller="Account" class="icon-touxiang" title="登录"></a></li>
+                    <li class="layui-nav-item"><a asp-action="Login" asp-controller="Account">登录</a></li>
+                    <li class="layui-nav-item"><a asp-action="Register" asp-controller="Account">注册</a></li>
                 }
-                @*<li class="layui-nav-item layui-hide-xs">
-            <a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', { icon: 16, shade: 0.1, time: 0 })" title="QQ登入">
-                <i class="layui-icon layui-icon-login-qq" style="font-size: 30px;"></i>
-            </a>
-        </li>
-        <li class="layui-nav-item layui-hide-xs">
-            <a href="/app/wechat/" onclick="layer.msg('正在通过Wechat登入', { icon: 16, shade: 0.1, time: 0 })" title="Wechat登入">
-                <i class="layui-icon layui-icon-login-wechat" style="font-size: 30px;"></i>
-            </a>
-        </li>*@
             </ul>
             <span class="layui-nav-bar" style="left: 25px; top: 55px; width: 0px; opacity: 0;"></span>
         </div>
     </div>
-    <partial name="_CookieConsentPartial" />
 
     @RenderBody()
 
     <div class="edoc-footer">
         <p>&copy; 2018 - EDoc2社区</p>
     </div>
-
-    <environment include="Development">
-        @*
-            <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        *@
-    </environment>
-    <environment exclude="Development">
-        @*
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                    crossorigin="anonymous"
-                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-            </script>
-            <script src="~/js/site.min.js" asp-append-version="true"></script>
-        *@
-    </environment>
-    @RenderSection("Scripts", required: false)
 
     <ul class="layui-fixbar">
         <li class="layui-icon" lay-type="bar1" style="background-color: #009688">
@@ -112,5 +101,10 @@
             @Html.ActionLink("", "Add", "Article", null, new { @class = "layui-icon layui-icon-edit", style = "font-size: 30px; " })
         </li>
     </ul>
+
+    @RenderSection("Scripts", required: false)
 </body>
+
+@RenderSection("Modals", required: false)
+
 </html>

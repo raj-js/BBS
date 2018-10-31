@@ -1,0 +1,35 @@
+﻿@model string
+
+<ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
+    <li class="layui-nav-item">
+        <a asp-action="Home" asp-controller="Account">
+            <i class="layui-icon layui-icon-home"></i>
+            我的主页
+        </a>
+    </li>
+    @*<li class="layui-nav-item @("index".Equals(Model.ToLower()) ? "layui-this" : string.Empty)">
+        <a asp-action="Index" asp-controller="Account">
+            <i class="layui-icon layui-icon-user" ></i>
+            用户中心
+        </a>
+    </li>*@
+    <li class="layui-nav-item @("setting".Equals(Model.ToLower()) ? "layui-this" : string.Empty)">
+        <a asp-action="Setting" asp-controller="Account">
+            <i class="layui-icon layui-icon-set"></i>
+            基本设置
+        </a>
+    </li>
+    <li class="layui-nav-item @("article".Equals(Model.ToLower()) ? "layui-this" : string.Empty)">
+        <a asp-action="Article" asp-controller="Account">
+            <i class="layui-icon layui-icon-file"></i>
+            我的帖子
+        </a>
+    </li>
+    <li class="layui-nav-item @("message".Equals(Model.ToLower()) ? "layui-this" : string.Empty)">
+        <a asp-action="Message" asp-controller="Account">
+            <i class="layui-icon layui-icon-notice"></i>
+            我的消息
+        </a>
+    </li>
+</ul>
+<span class="layui-nav-bar" style="height: 0px; top: 0px; opacity: 0;"></span>

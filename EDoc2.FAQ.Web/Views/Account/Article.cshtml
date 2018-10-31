@@ -1,0 +1,51 @@
+﻿@model VmAccount
+
+@{
+    ViewBag.Title = "我的帖子";
+    Layout = "_Layout";
+}
+
+<input type="hidden" id="articleTotal" value="@ViewBag.ArticleTotal" />
+<input type="hidden" id="favoriteTotal" value="@ViewBag.FavoriteTotal" />
+
+<div class="layui-container edoc-marginTop edoc-user-main">
+    <partial name="_PersonalCenter" model="@ViewBag.Selected" />
+
+    <div class="edoc-panel edoc-panel-user" pad20="">
+        <div class="layui-tab layui-tab-brief" lay-filter="article">
+            <ul class="layui-tab-title" id="LAY_mine">
+                <li class="layui-this">我发的帖（<span> @ViewBag.ArticleTotal </span>）</li>
+                <li lay-id="collection">我收藏的帖（<span> @ViewBag.FavoriteTotal </span>）</li>
+            </ul>
+            <div class="layui-tab-content" style="padding: 20px 0;">
+                <div class="layui-tab-item layui-show">
+                    <ul class="jie-row" id="articlesContainer"></ul>
+                    <div style="text-align: center">
+                        <div id="articlesPager"></div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <ul class="jie-row" id="favoriteContainer"></ul>
+                    <div style="text-align: center">
+                        <div id="favoritePager"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+    <script id="articleTpl" type="text/html">
+        {{# layui.each(d, function(index, item) { }}
+        <li>
+            <a class="jie-title" href="/Article/Detail?articleId={{ item.id }}" target="_blank">{{ item.title }}</a>
+            <i>{{ layui.util.toDateString(item.publishDate) }}</i>
+            <em>{{ item.views }}阅/{{ item.replies }}答</em>
+        </li>
+        {{# }); }}
+    </script>
+    <script asp-append-version="true" src="~/js/views/account/article.js"></script>
+}

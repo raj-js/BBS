@@ -1,5 +1,3 @@
-using System;
-
 namespace EDoc2.FAQ.Web.Models
 {
     public class ErrorViewModel

@@ -1,0 +1,83 @@
+﻿@using Microsoft.AspNetCore.Authentication
+@model LoginForm
+@{
+    ViewData["Title"] = "登录";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var externalLogins = ViewBag.ExternalLogins as List<AuthenticationScheme>;
+}
+
+<div class="layui-container edoc-marginTop">
+    <div class="edoc-panel edoc-panel-user" pad20="">
+        <div class="layui-tab layui-tab-brief" lay-filter="user">
+            <ul class="layui-tab-title">
+                <li class="layui-this">登入</li>
+                <li><a asp-action="Register">注册</a></li>
+            </ul>
+            <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-form layui-form-pane">
+                        <form method="post">
+                            <div class="layui-form-item">
+                                @Html.LabelFor(m => m.Email, new { @class = "layui-form-label" })
+                                <div class="layui-input-inline">
+                                    <input type="text" id="Email" name="Email" value="@Model?.Email" 
+                                          asp-for="Email" class="layui-input" />
+                                </div>
+                                <span class="layui-form-mid layui-word-aux field-validation-valid" 
+                                      asp-validation-for="Email"></span>
+                            </div>
+                            <div class="layui-form-item">
+                                @Html.LabelFor(m => m.Password, new { @class = "layui-form-label" })
+                                <div class="layui-input-inline">
+                                    <input type="password" id="Password" name="Password"
+                                           asp-for="Password" class="layui-input" />
+                                </div>
+                                <span class="layui-form-mid layui-word-aux field-validation-valid"
+                                      asp-validation-for="Email"></span>
+                            </div>
+                            <div class="layui-form-item">
+                                <button class="layui-btn" lay-filter="*" lay-submit="">立即登录</button>
+                                <span style="padding-left:20px;">
+                                    <a asp-action="ForgotPassword">忘记密码？</a>
+                                </span>
+                            </div>
+                        </form>
+                        <div class="layui-form-item edoc-form-app">
+                            @if (externalLogins?.Any() ?? false)
+                            {
+                                <span>或者使用社交账号登入</span>
+                                <form asp-action="ExternalLogin" asp-route-returnUrl="@ViewBag.ReturnUrl" method="post" class="form-horizontal">
+                                    <div>
+                                        <p>
+                                            @foreach (var provider in externalLogins)
+                                            {
+                                                <button type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                            }
+                                        </p>
+                                    </div>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+    @if (ViewBag.Errors != null)
+    {
+        <script>
+            layui.use(['layer'], function() {
+                layer.msg('@ViewBag.Errors');
+            });
+        </script>
+    }
+}

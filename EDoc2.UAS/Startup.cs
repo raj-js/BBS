@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using EDoc2.UAS.Core;
 
 namespace EDoc2.UAS
 {
@@ -59,7 +60,8 @@ namespace EDoc2.UAS
                     options.EnableTokenCleanup = true;
                     options.TokenCleanupInterval = 30;
                 })
-                .AddAspNetIdentity<ApplicationUser>();
+                .AddAspNetIdentity<ApplicationUser>()
+                .AddProfileService<ProfileService>();
 
             services.AddAuthentication();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

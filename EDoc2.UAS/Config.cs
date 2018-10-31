@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using IdentityServer4;
+﻿using IdentityServer4;
 using IdentityServer4.Models;
+using System.Collections.Generic;
+using IdentityModel;
 
 namespace EDoc2.UAS
 {
@@ -11,7 +12,8 @@ namespace EDoc2.UAS
             return new List<IdentityResource>
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
+                new IdentityResources.Profile(),
+
             };
         }
 
@@ -19,7 +21,11 @@ namespace EDoc2.UAS
         {
             return new List<ApiResource>
             {
-                new ApiResource("AccountApi", "Account Api")
+                new ApiResource("AccountApi", "Account Api", new List<string>
+                {
+                    JwtClaimTypes.NickName,
+                    JwtClaimTypes.Picture
+                })
             };
         }
 
@@ -31,7 +37,10 @@ namespace EDoc2.UAS
                 {
                     ClientId = "MVC",
                     ClientName = "Mvc Client",
-                    AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
+
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    AllowOfflineAccess = true,
+
                     ClientSecrets = { new Secret("secret".Sha256()) },
 
                     RequireConsent = false,                                                     //如果不需要显示是否同意授权， 则设置 false
@@ -44,8 +53,7 @@ namespace EDoc2.UAS
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         "AccountApi"
-                    },
-                    AllowOfflineAccess = true
+                    }
                 }
             };
         }

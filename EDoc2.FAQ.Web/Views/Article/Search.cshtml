@@ -1,0 +1,61 @@
+﻿@model IEnumerable<VmArticleForList>
+@{
+    ViewData["Title"] = $"搜索{ViewBag.Keyword}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input type="hidden" id="total" value="@ViewBag.Total" />
+
+<hr />
+<div class="layui-container">
+    <div class="layui-row layui-col-space15">
+        <div class="edoc-panel" style="margin-bottom: 0;">
+            <div class="edoc-panel-title edoc-filter">
+                <a>搜索结果</a>
+            </div>
+            <form action="/" class="layui-form" style="display: none;" method="get">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">输入框</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="keyword" name="keyword" value="@ViewBag.Keyword" autocomplete="on" class="layui-input">
+                    </div>
+                </div>
+            </form>
+            <ul class="edoc-list" id="articlesContainer">
+                <li style="text-align: center">暂无数据</li>
+            </ul>
+            <hr/>
+            <div style="text-align: center">
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script id="articleTpl" type="text/html">
+        {{# layui.each(d, function(index, item) { }}
+        <li>
+            <a href="/Account/Home?accountId={{ item.publisherId }}" class="edoc-avatar">
+                <img src="/Account/GetAvatar?accountId={{ item.publisherId }}" height="45" width="45" alt="{{ item.publisher }}">
+            </a>
+            <h2>
+                <a class="layui-badge">{{ item.category }}</a>
+                <a href="/Article/Detail?articleId={{ item.id }}">{{ item.title }}</a>
+            </h2>
+            <div class="edoc-list-info">
+                <a href="/Account/Home?accountId={{ item.publisherId }}" link="">
+                    <cite>{{ item.publisher }}</cite>
+                </a>
+                <span>{{ layui.util.toDateString(item.publishDate) }}</span>
+                <span class="edoc-list-nums">
+                    <i class="layui-icon layui-icon-reply-fill" title="回答"></i> {{ item.replies }}
+                </span>
+            </div>
+            <div class="edoc-list-badge"> </div>
+        </li>
+        {{# }); }}
+    </script>
+    <script src="~/js/views/article/search.js"></script>
+}

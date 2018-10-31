@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "ConfirmEmail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (string.IsNullOrEmpty(ViewBag.Errors))
+{
+    <h5>用户激活成功</h5>
+}
+else
+{
+    <h5>@ViewBag.Errors</h5>
+}
+
+
+
+
+
+
+

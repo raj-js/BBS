@@ -1,87 +1,157 @@
-﻿@{
+﻿@model VmHomeIndex
+@{
     ViewData["Title"] = "首页";
 }
 
-@await Html.PartialAsync("_NavMenu", ViewData["Navs"])
+@section Css
+    {
+    <style>
+        .tile {
+            min-width: 60px;
+            min-height: 60px;
+            line-height: 65px;
+            text-align: center;
+            vertical-align: middle;
+            margin: 6px 3px;
+            display: inline-block;
+            background-color: #009688;
+            color: #fff;
+            white-space: nowrap;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+
+            .tile:hover {
+                color: white;
+            }
+    </style>
+}
+
+@await Html.PartialAsync("_NavMenu", Model.Nav)
+
+<input type="hidden" id="productId" value="@Model.Product" />
+<input type="hidden" id="categoryId" value="@Model.Category" />
+<input type="hidden" id="tagId" value="@Model.Tag" />
+<input type="hidden" id="state" value="@Model.State" />
+
+<input type="hidden" id="total" value="@Model.Total" />
 
 <div class="layui-container">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md8">
             <div class="edoc-panel">
                 <div class="edoc-panel-title edoc-filter">
-                     <a>置顶</a>
-                     <a href="#signin" class="layui-hide-sm layui-show-xs-block edoc-right" id="LAY_goSignin" style="color: #FF5722;">去签到</a>
+                    <a>置顶</a>
                 </div>
-                <ul class="edoc-list">
-                    <li>
-                        <a href="/u/12559680" class="edoc-avatar"> <img src="//res.layui.com/images/fly/avatar/9.jpg" alt="sakuya88"> </a>
-                        <h2> <a class="layui-badge">分享</a> <a href="/jie/33208/">TableSelect 下拉表格数据选择器</a> </h2>
-                        <div class="edoc-list-info">
-                            <a href="/u/12559680" link=""><cite>sakuya88</cite></a>
-                            <span>4天前</span>
-                            <span class="edoc-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> 20</span>
-                            <span class="edoc-list-nums"> <i class="iconfont icon-pinglun1" title="回答"></i> 42 </span>
-                        </div>
-                        <div class="edoc-list-badge"> <span class="layui-badge layui-bg-red">精帖</span> </div>
-                    </li>
+                <ul class="edoc-list" id="topArticleContainer">
+                    <li style="text-align: center">暂无数据</li>
                 </ul>
             </div>
 
             <div class="edoc-panel" style="margin-bottom: 0;">
-                @await Html.PartialAsync("_SubNavMenu", ViewData["SubNav"])
-                <ul class="edoc-list">
-                    <li>
-                        <a href="/u/24105312" class="edoc-avatar"> <img src="//thirdqq.qlogo.cn/qqapp/101235792/4738737D2833AF2C41F9115FCF6F5966/100" alt="cngga"> </a>
-                        <h2> <a class="layui-badge">提问</a> <a href="/jie/33654/">layui框架栏目点击多次会激活页面里弹窗多次方法调用</a> </h2>
-                        <div class="edoc-list-info"> <a href="/u/24105312" link=""> <cite>cngga</cite> </a> <span>29分钟前</span> <span class="edoc-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> 50</span> <span class="edoc-list-nums"> <i class="iconfont icon-pinglun1" title="回答"></i> 1 </span> </div>
-                        <div class="edoc-list-badge"> </div>
-                    </li>
+                @await Html.PartialAsync("_SubNavMenu", Model.Nav)
+                <ul class="edoc-list" id="articlesContainer">
+                    <li style="text-align: center">暂无数据</li>
                 </ul>
+                <hr />
                 <div style="text-align: center">
-                    <div class="laypage-main"> <a href="/column/all/page/2/" class="laypage-next">更多求解</a> </div>
+                    <div id="footPager"></div>
                 </div>
             </div>
         </div>
 
         <div class="layui-col-md4">
-            <div class="edoc-panel">
-                <div class="edoc-panel-title">标签</div>
-                <div class="edoc-panel-main">
-                    <a href="#" class="layui-badge layui-bg-orange edoc-tag">转档预览</a>
-                    <a href="#" class="layui-badge layui-bg-green edoc-tag">组织</a>
-                    <a href="#" class="layui-badge layui-bg-cyan edoc-tag">流程</a>
-                    <a href="#" class="layui-badge layui-bg-cyan edoc-tag">安装部署</a>
-                    <a href="#" class="layui-badge layui-bg-orange edoc-tag">转档预览</a>
-                    <a href="#" class="layui-badge layui-bg-cyan edoc-tag">安装部署</a>
-                    <a href="#" class="layui-badge layui-bg-cyan edoc-tag">安装部署</a>
-                    <a href="#" class="layui-badge layui-bg-green edoc-tag">组织</a>
-                    <a href="#" class="layui-badge layui-bg-cyan edoc-tag">流程</a>
-                    <a href="#" class="layui-badge layui-bg-orange edoc-tag">转档预览</a>
-                    <a href="#" class="layui-badge layui-bg-green edoc-tag">组织</a>
-                    <a href="#" class="layui-badge layui-bg-cyan edoc-tag">流程</a>
-                    <a href="#" class="layui-badge layui-bg-orange edoc-tag">转档预览</a>
-                    <a href="#" class="layui-badge layui-bg-green edoc-tag">组织</a>
-                    <a href="#" class="layui-badge layui-bg-cyan edoc-tag">流程</a>
+            <div class="edoc-panel edoc-signin">
+                <div class="edoc-panel-title">
+                    签到
+                    <i class="edoc-mid"></i>
+                    <a href="javascript:;" class="edoc-link" id="signinHelp">说明</a>
+                    <i class="edoc-mid"></i>
+                    <a href="javascript:;" class="edoc-link" id="signinTop">活跃榜</a>
+                    <span class="edoc-signin-days">已连续签到<cite id="keepSignInDays">0</cite>天</span>
+                </div>
+                <div class="edoc-panel-main edoc-signin-main">
+                    <button class="layui-btn layui-btn-danger" id="signin">今日签到</button>
+                    <span><span id="scoreTip">可获得</span><cite id="signInScore">0</cite>财富值</span>
                 </div>
             </div>
-            <dl class="edoc-panel edoc-list-one">
-                <dt class="edoc-panel-title">本周热议</dt>
-                <dd> <a href="/jie/33209/">基于 layui 的 treeGrid 插件【第二版发布！】</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 78</span> </dd>
-                <dd> <a href="/jie/33309/">layui 2.4.3 发布</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 54</span> </dd>
-                <dd> <a href="/jie/33208/">TableSelect 下拉表格数据选择器</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 42</span> </dd>
-                <dd> <a href="/jie/33600/">怎么用Ajax处理后台数据，并刷新当前页面的数据</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 29</span> </dd>
-                <dd> <a href="/jie/33351/">table如何实现，动态添加行，并且table内部都是表单控件</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 21</span> </dd>
-                <dd> <a href="/jie/33536/">关于2.4.3版本的table的一些bug还有功能的加强建议</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 19</span> </dd>
-                <dd> <a href="/jie/33416/">怎么把表单元格里的表单元素的值赋值给当前单元格</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 19</span> </dd>
-                <dd> <a href="/jie/33544/">表格怎么实现分页</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 18</span> </dd>
-                <dd> <a href="/jie/33509/">table新增一行后，页面不显示新增的行？</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 16</span> </dd>
-                <dd> <a href="/jie/33592/">layui富文本字体颜色</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 15</span> </dd>
-                <dd> <a href="/jie/33384/">layui table 的field 能否支持对象属性的嵌套获取值</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 13</span> </dd>
-                <dd> <a href="/jie/33647/">treeGrid树状图</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 13</span> </dd>
-                <dd> <a href="/jie/33362/">建议可以将以往版本的文档都放在网站上，方便我们维护代码</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 13</span> </dd>
-                <dd> <a href="/jie/33193/">ajax提交数据返回内容如何接收指定值</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 13</span> </dd>
-                <dd> <a href="/jie/33420/">怎么提交选中的复选框？能监听吗？</a> <span><i class="layui-icon layui-icon-reply-fill"></i> 13</span> </dd>
-            </dl>
+            <div class="edoc-panel">
+                <div class="edoc-panel-title">标签</div>
+                <div class="edoc-panel-main" id="tagsContainer">
+                </div>
+            </div>
+            <dl class="edoc-panel edoc-list-one" id="buzzTopicContainer"></dl>
+            <div class="edoc-panel edoc-rank">
+                <h3 class="edoc-panel-title">回贴周榜</h3>
+                <dl>
+                    @foreach (var item in Model.TopReplies)
+                    {
+                        <dd>
+                            <a asp-controller="Account" asp-action="Home" asp-route-accountId="@item.UserId">
+                                <img width="65" height="65" src="/Account/GetAvatar?accountId=@item.UserId">
+                                <cite>@item.User</cite>
+                                <i>
+                                    @item.Replies 次回答
+                                </i>
+                            </a>
+                        </dd>
+                    }
+                </dl>
+            </div>
         </div>
     </div>
 </div>
+
+@section Scripts
+    {
+    <script id="articleTpl" type="text/html">
+        {{# layui.each(d, function(index, item) { }}
+        <li>
+            <a href="/Account/Home?accountId={{ item.publisherId }}" class="edoc-avatar">
+                <img src="/Account/GetAvatar?accountId={{ item.publisherId }}" height="45" width="45" alt="{{ item.publisher }}">
+            </a>
+            <h2>
+                <a class="layui-badge">{{ item.category }}</a>
+                <a href="/Article/Detail?articleId={{ item.id }}">{{ item.title }}</a>
+            </h2>
+            <div class="edoc-list-info">
+                <a href="/Account/Home?accountId={{ item.publisherId }}" link="">
+                    <cite class="edoc-link">{{ item.publisher }}</cite>
+                </a>
+                <span>{{ layui.util.toDateString(item.publishDate) }}</span>
+                <span class="edoc-list-kiss" title="悬赏财富值">
+                    <i class="icon-coin"></i> <cite>{{ item.rewardScore }}</cite>
+                </span>
+                {{# if(item.isSolved) { }}
+                <span class="layui-badge edoc-badge-accept layui-hide-xs">已结</span>
+                {{# } }}
+                <span class="edoc-list-nums">
+                    <i class="layui-icon layui-icon-dialogue" title="回答"></i> {{ item.replies }}
+                </span>
+            </div>
+            <div class="edoc-list-badge">
+                {{# if(item.isCream) { }}
+                <span class="layui-badge layui-bg-red">精帖</span>
+                {{# } }}
+            </div>
+        </li>
+        {{# }); }}
+    </script>
+    <script id="tagTpl" type="text/html">
+        {{# layui.each(d, function(index, item) { }}
+        <a href="/Home/Index?tag={{ item.id }}" class="tile">{{item.display}}</a>
+        {{# }); }}
+    </script>
+    <script id="buzzTopicTpl" type="text/html">
+        <dt class="edoc-panel-title">近日热议</dt>
+        {{# layui.each(d, function(index, item) { }}
+        <dd>
+            <a href="/Article/Detail?articleId={{ item.id }}">{{ item.title }}</a>
+            <span><i class="layui-icon layui-icon-dialogue"></i> {{ item.replies }}</span>
+        </dd>
+        {{# }); }}
+    </script>
+
+    <script asp-append-version="true" src="~/js/views/home/index.js"></script>
+}

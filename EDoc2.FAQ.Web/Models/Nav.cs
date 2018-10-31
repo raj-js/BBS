@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using EDoc2.FAQ.Web.Data.Discuss;
+using EDoc2.FAQ.Web.Extensions;
+using System.Collections.Generic;
 
 namespace EDoc2.FAQ.Web.Models
 {
@@ -12,49 +14,77 @@ namespace EDoc2.FAQ.Web.Models
 
         private static readonly Dictionary<string, string> Navs = new Dictionary<string, string>
         {
-            { "index", "首页" },
-            { "faq", "问答" },
-            { "share", "分享" },
-            { "discuss", "讨论" },
-            { "suggest", "建议" },
-            { "notice", "公告" }
+            { string.Empty, "首页" },
+            { CategoryConsts.Question, "问答" },
+            { CategoryConsts.Share, "分享"},
+            { CategoryConsts.Discuss, "讨论" },
+            { CategoryConsts.Suggest, "建议" }
         };
 
         private static readonly Dictionary<string, string> SubNavs = new Dictionary<string, string>
         {
-            { "index", "综合" },
-            { "unsolve", "未结" },
-            { "solved", "已结" },
-            { "wonderful", "精华" }
+            { string.Empty, "综合" },
+            { ArticleState.NotSolve.ToString("F"), "未结" },
+            { ArticleState.Solved.ToString("F"), "已结" },
+            { ArticleState.Wonderful.ToString("F"), "精华" }
         };
 
-        public static IEnumerable<Nav> SelectNav(string nav)
+        public static IEnumerable<Nav> SelectNav(VmNav vm)
         {
-            var selected = Navs.ContainsKey(nav) ? nav : "index";
             foreach (var key in Navs.Keys)
             {
+                object routeValues = null;
+                if (string.IsNullOrEmpty(key))
+                    routeValues = new VmNav { Product = vm.Product };
+                else
+                    routeValues = new VmNav
+                    {
+                        Product = vm.Product,
+                        Category = key,
+                        State = vm.State,
+                        Tag = vm.Tag
+                    };
+
                 yield return new Nav
                 {
                     LinkText = Navs[key],
-                    RouteValues = new { nav = key },
-                    Class = selected.Equals(key) ? "layui-this" : string.Empty
+                    RouteValues = routeValues,
+                    Class = key.Equals(vm.Category) ? "layui-this" : string.Empty
                 };
             }
         }
 
-        public static IEnumerable<Nav> SelectSubNav(string nav, string subNav)
+        public static IEnumerable<Nav> SelectSubNav(VmNav vm)
         {
-            nav = Navs.ContainsKey(nav) ? nav : "index";
-            var selected = SubNavs.ContainsKey(subNav) ? subNav : "index";
             foreach (var key in SubNavs.Keys)
             {
+                object routeValues = null;
+                if (string.IsNullOrEmpty(vm.Category))
+                    routeValues = new VmNav { Product = vm.Product, State = key };
+                else
+                    routeValues = new VmNav
+                    {
+                        Product = vm.Product,
+                        Category = vm.Category,
+                        State = key,
+                        Tag = vm.Tag
+                    };
+
                 yield return new Nav
                 {
                     LinkText = SubNavs[key],
-                    RouteValues = new { nav, subNav = key },
-                    Class = selected.Equals(key) ? "layui-this" : string.Empty
+                    RouteValues = routeValues,
+                    Class = key.Equals(vm.State) ? "layui-this" : string.Empty
                 };
             }
         }
+    }
+
+    public class VmNav
+    {
+        public string Product { get; set; }
+        public string Category { get; set; }
+        public string Tag { get; set; }
+        public string State { get; set; }
     }
 }

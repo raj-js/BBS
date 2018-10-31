@@ -1,23 +1,58 @@
-﻿@model IEnumerable<Nav>
+﻿@model VmNav
 
 <div class="edoc-panel edoc-column">
     <div class="layui-container">
         <ul class="layui-clear">
-            @foreach (var nav in Model)
+            @foreach (var item in Nav.SelectNav(Model))
             {
-                <li class="@nav.Class">
-                    @Html.ActionLink(nav.LinkText, nav.ActionName, nav.ControllerName, nav.RouteValues)
+                <li class="@item.Class">
+                    @Html.ActionLink(item.LinkText, item.ActionName, item.ControllerName, item.RouteValues)
+                </li>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="layui-show-md-inline-block"><span class="edoc-mid"></span></li>
+                <li class="layui-show-md-inline-block">
+                    <a asp-action="Article" asp-controller="Account">我发表的贴</a>
+                </li>
+                <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
+                    <a asp-action="Article" asp-controller="Account" asp-fragment="collection">我收藏的贴</a>
                 </li>
             }
         </ul>
         <div class="layui-layout-right layui-hide-xs">
-            <span class="edoc-search">
+            <span class="edoc-search" id="globalSearch">
                 <i class="layui-icon layui-icon-search"></i>
             </span>
-            @Html.ActionLink("发表新帖", "Add", "Article", null, new { @class = "layui-btn layui-icon layui-icon-edit" })
-        </div>
-        <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
-            @Html.ActionLink("发表新帖", "Add", "Article", null, new { @class = "layui-btn layui-icon layui-icon-edit" })
+            <a asp-action="Add" asp-controller="Article" class="layui-btn layui-icon layui-icon-edit">发表新帖</a>
         </div>
     </div>
 </div>
+
+
+<script>
+    layui.use(['layer', 'jquery'], function () {
+        var layer = layui.layer,
+            $ = layui.jquery;
+
+        $('#globalSearch').on('click', function () {
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: false,
+                shade: [0.5, '#fff'],
+                shadeClose: true,
+                maxWidth: 10000,
+                skin: 'edoc-layer-search',
+                content: [
+                    '<form action="/Article/Search">',
+                    '<input autocomplete="off" placeholder="搜索内容，回车跳转" type="text" name="keyword">',
+                    '</form>'
+                ].join(''),
+                success: function (form) {
+                    form.find('input').focus();
+                }
+            });
+        });
+    })
+</script>

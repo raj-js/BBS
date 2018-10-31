@@ -1,22 +1,81 @@
-﻿@using IdentityServer4.Extensions
-@using Microsoft.AspNetCore.Authentication
-@model object
-
+﻿@model VmAccount
 @{
     ViewBag.Title = "个人中心";
     Layout = "_Layout";
 }
 
-<dl>
-    @foreach (var claim in User.Claims)
-    {
-        <dt>@claim.Type</dt>
-        <dd>@claim.Value</dd>
+<div class="edoc-home edoc-panel" style="background-image: url();">
+    <img src="GetAvatar?accountId=@Model.Id" alt="@Model.NickName" />
+    <h1>
+        @Model.NickName
+    </h1>
+    <p class="edoc-home-info">
+        <i title="财富值" class="layui-icon icon-coin"></i><span>财富值：@Model.Score</span>
+        <i class="layui-icon layui-icon-date"></i><span>@Model.JoinDate?.ToString("yyyy-MM-dd") 加入</span>
+        <i class="layui-icon layui-icon-location"></i><span>来自 @Html.Raw(Model.ComeFrom ?? "未知城市")</span>
+    </p>
+    <p class="edoc-home-sign"> @Html.Raw(Model.Signature ?? "暂无个性签名") </p>
+</div>
 
-    }
-    <dt>access token</dt>
-    <dd>@await ViewContext.HttpContext.GetTokenAsync("access_token")</dd>
-
-    <dt>refresh token</dt>
-    <dd>@await ViewContext.HttpContext.GetTokenAsync("refresh_token")</dd>
-</dl>
+<div class="layui-container">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md6 edoc-home-jie">
+            <div class="edoc-panel">
+                <h3 class="edoc-panel-title">@Model.NickName 最近的交流</h3>
+                <ul class="jie-row">
+                    @if (Model.RecentQuestions.Any())
+                    {
+                        foreach (var question in Model.RecentQuestions)
+                        {
+                            <li>
+                                @if (question.IsCream)
+                                {
+                                    <span class="edoc-jing layui-hide-xs">精</span>
+                                }
+                                <a href="/Article/Detail?articleId=@question.Id" class="jie-title">@(question.Title.Length > 25 ? $"{question.Title.Substring(0, 25)}..." : question.Title )</a>
+                                <i>@Html.Raw(question.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"))</i>
+                                <em class="layui-hide-xs">@question.Views 阅/ @question.Replies 答</em>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <div class="edoc-none" style="min-height: 50px; padding: 30px 0; height: auto;">
+                            <i style="font-size: 14px;">没有任何交流</i>
+                        </div>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="layui-col-md6 edoc-home-da">
+            <div class="edoc-panel">
+                <h3 class="edoc-panel-title">@Model.NickName 最近的回复</h3>
+                <ul class="home-jieda">
+                    @if (Model.RecentAnswers.Any())
+                    {
+                        foreach (var answer in Model.RecentAnswers)
+                        {
+                            <li>
+                            <p>
+                                <span>@Html.Raw(answer.AnswerDate.ToString("yyyy-MM-dd HH:mm:ss"))</span> 在
+                                <a href="/Article/Detail?articleId=@answer.QId#item-@answer.Id" target="_blank">
+                                    @(answer.QTitle.Length > 25 ? $"{answer.QTitle.Substring(0, 25)}..." : answer.QTitle )
+                                </a>中回复：
+                            </p>
+                            <div class="home-dacontent">
+                                @Html.Raw(answer.AnswerContent)
+                            </div>
+                        </li>
+                        }
+                    }
+                    else
+                    {
+                        <div class="edoc-none" style="min-height: 50px; padding: 30px 0; height: auto;">
+                            <i style="font-size: 14px;">没有任何回复</i>
+                        </div>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

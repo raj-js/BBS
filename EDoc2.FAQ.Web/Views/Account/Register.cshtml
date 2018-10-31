@@ -1,0 +1,106 @@
+﻿@using Microsoft.AspNetCore.Authentication
+@model RegisterForm
+@{
+    ViewData["Title"] = "注册";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var externalLogins = ViewBag.ExternalLogins as List<AuthenticationScheme>;
+}
+
+<div class="layui-container edoc-marginTop">
+    <div class="edoc-panel edoc-panel-user" pad20="">
+        <div class="layui-tab layui-tab-brief" lay-filter="user">
+            <ul class="layui-tab-title">
+                <li><a asp-action="Login">登入</a></li>
+                <li class="layui-this">注册</li>
+            </ul>
+            <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-form layui-form-pane">
+                        <form method="post">
+                            <div class="layui-form-item">
+                                @Html.LabelFor(m => m.Email, new { @class = "layui-form-label" })
+                                <div class="layui-input-inline">
+                                    <input type="text" id="Email" name="Email" value="@Model?.Email"
+                                           asp-for="Email" class="layui-input" />
+                                </div>
+                                <span class="layui-form-mid layui-word-aux field-validation-valid"
+                                      asp-validation-for="Email"></span>
+                            </div>
+                            <div class="layui-form-item">
+                                @Html.LabelFor(m => m.ImageCode, new { @class = "layui-form-label" })
+                                <div class="layui-input-inline">
+                                    <input type="text" id="ImageCode" name="ImageCode"
+                                           asp-for="ImageCode" class="layui-input" />
+                                </div>
+                                <div class="layui-form-mid" style="padding: 0 !important;">
+                                    <img id="edoc-imagecode" src="GetImgCode" class="edoc-imagecode" width="150" height="50">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                @Html.LabelFor(m => m.VerifyCode, new { @class = "layui-form-label" })
+                                <div class="layui-input-inline">
+                                    <input type="text" id="VerifyCode" name="VerifyCode"
+                                           asp-for="VerifyCode" class="layui-input" />
+                                </div>
+                                <div class="layui-form-mid" style="padding: 0 !important;">
+                                    <button type="button" class="layui-btn layui-btn-normal" id="edoc-getvercode">获取验证码</button>
+                                </div>
+                                <span class="layui-form-mid layui-word-aux field-validation-valid"
+                                      asp-validation-for="VerifyCode"></span>
+                            </div>
+                            <div class="layui-form-item">
+                                @Html.LabelFor(m => m.NickName, new { @class = "layui-form-label" })
+                                <div class="layui-input-inline">
+                                    <input type="text" id="NickName" name="NickName" value="@Model?.NickName"
+                                           asp-for="NickName" class="layui-input" />
+                                </div>
+                                <span class="layui-form-mid layui-word-aux field-validation-valid"
+                                      asp-validation-for="NickName"></span>
+                            </div>
+                            <div class="layui-form-item">
+                                @Html.LabelFor(m => m.Password, new { @class = "layui-form-label" })
+                                <div class="layui-input-inline">
+                                    <input type="password" id="Password" name="Password" autocomplete="off"
+                                           asp-for="Password" class="layui-input" />
+                                </div>
+                                <span class="layui-form-mid layui-word-aux field-validation-valid"
+                                      asp-validation-for="Password"></span>
+                            </div>
+                            <div class="layui-form-item">
+                                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "layui-form-label" })
+                                <div class="layui-input-inline">
+                                    <input type="password" id="ConfirmPassword" name="ConfirmPassword" autocomplete="off"
+                                           asp-for="ConfirmPassword" class="layui-input" />
+                                </div>
+                                <span class="layui-form-mid layui-word-aux field-validation-valid"
+                                      asp-validation-for="ConfirmPassword"></span>
+                            </div>
+                            @*<div class="layui-form-item" style="position: relative; left: -10px; height: 32px;"> <input type="checkbox" name="agreement" lay-skin="primary" title="" checked=""><div class="layui-unselect layui-form-checkbox layui-form-checked" lay-skin="primary"><i class="layui-icon layui-icon-ok"></i></div> <a href="/instructions/terms.html" target="_blank" style="position: relative; top: 4px; left: 5px; color: #999;">同意用户服务条款</a> </div>*@
+                            <div class="layui-form-item">
+                                <button class="layui-btn" lay-filter="*" lay-submit="">立即注册</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/views/account/register.js" asp-append-version="true"></script>
+
+    @if (ViewBag.Success != null)
+    {
+        <script>
+            layui.use(['layer'], function() {
+                layer.msg('@ViewBag.Success');
+            });
+        </script>
+    }
+}

@@ -1,0 +1,23 @@
+﻿@using EDoc2.FAQ.Web.Data.Common
+@using EDoc2.FAQ.Web.Extensions
+
+<div id="dialogReport" class="layui-form layui-form-pane" style="display: none;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">举报类型</label>
+        <div class="layui-input-block">
+            <select name="SubType" lay-verify="required">
+                @foreach (var subType in Enum.GetNames(typeof(ReportSubType)))
+                {
+                    var em = Enum.Parse<ReportSubType>(subType);
+                    <option value="@em.ToString()">@em.Display()</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">&nbsp;&nbsp;&nbsp;举报说明</label>
+        <div class="layui-input-block">
+            <textarea name="Description" placeholder="请输入内容" rows="7" class="layui-textarea"></textarea>
+        </div>
+    </div>
+</div>

@@ -1,148 +1,246 @@
-﻿@{
-    ViewBag.Title = ViewData["Title"];
+﻿@using EDoc2.FAQ.Web.Data.Common
+@using EDoc2.FAQ.Web.Data.Discuss
+@using EDoc2.FAQ.Web.Extensions
+@model VmArticleForDetail
+@{
+    ViewBag.Title = Model.Title;
     Layout = "_Layout";
 }
 
-@await Html.PartialAsync("_NavMenu", ViewData["Navs"])
+@section Css
+    {
+    <link href="~/lib/highlight/styles/monokai-sublime.css" rel="stylesheet" />
+    <style type="text/css">
+        .toolbar {
+            border: 1px solid #ccc;
+        }
+
+        .editor {
+            border: 1px solid #ccc;
+            height: 150px;
+        }
+
+        .tile {
+            min-width: 60px;
+            min-height: 60px;
+            line-height: 65px;
+            text-align: center;
+            vertical-align: middle;
+            margin: 6px 3px;
+            display: inline-block;
+            background-color: #009688;
+            color: #fff;
+            white-space: nowrap;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+
+            .tile:hover {
+                color: white;
+            }
+
+        .jieda .icon-caina {
+            position: absolute;
+            right: 10px;
+            top: 15px;
+            font-size: 60px;
+            color: #58A571;
+        }
+    </style>
+}
+
+@Html.HiddenFor(m => m.Id)
+
+@await Html.PartialAsync("_NavMenu", new VmNav())
 
 <div class="layui-container">
     <div class="layui-row layui-col-space15">
-        <div class="layui-col-md12">
+        <div class="layui-col-md8 detail">
             <div class="edoc-panel detail-box">
-                <h1>@ViewData["Title"]</h1>
+                <h1>@Model.Title</h1>
+                <!-- #region badge -->
                 <div class="edoc-detail-info">
-                    <span class="layui-badge layui-bg-green"> 提问 </span>
-                    <span class="layui-badge" style="background-color: #999;">未结</span>
-                    <div class="edoc-admin-box" data-id="33662"> </div>
+                    <span class="layui-badge layui-bg-green"> @Model.Category </span>
+                    @foreach (var iEnum in EnumExtensions.GetEnums<ArticleState>())
+                    {
+                        if ((Model.State & iEnum) > 0)
+                        {
+                            <span class="layui-badge layui-bg-green">@iEnum.Display()</span>
+                        }
+                    }
+
                     <span class="edoc-list-nums">
-                        <a href="#comment">
-                            <i class="layui-icon layui-icon-reply-fill" title="回答"></i> 4
+                        <a href="#comment" title="回答">
+                            <i class="layui-icon layui-icon-dialogue"></i> @Model.Replies
                         </a>
-                        <i class="layui-icon layui-icon-fire" title="人气"></i> 19
+                        <a href="javascript:void(0)" title="人气">
+                            <i class="layui-icon icon-view"></i> @Model.Views
+                        </a>
+                        <a href="javascript:void(0)" class="reporter" title="举报" data-id="@Model.Id" data-type="@ReportTargetType.Article">
+                            <i class="layui-icon icon-report"></i>
+                        </a>
+                        @if (Model.IsAuthor && (Model.State & ArticleState.NotSolve) > 0)
+                        {
+                            <a href="javascript:void(0)" class="closeArticle" title="无满意结贴">
+                                <i class="layui-icon layui-icon-close"></i>
+                            </a>
+                        }
+                        @Html.HiddenFor(m => m.IsFavorite)
+                        <a href="javascript:void(0)" title="@(Model.IsFavorite ? "取消收藏":"收藏")" id="favorite">
+                            <i class="layui-icon @(Model.IsFavorite ? "layui-icon-star-fill": "layui-icon-star")"></i>
+                        </a>
                     </span>
                 </div>
-                <div class="detail-about">
-                    <a class="edoc-avatar" href="/u/12049968/">
-                        <img src="//cdn.layui.com/avatar/12049968.gif?t=1528855845462" alt="方丈">
+                <!-- #endregion -->
+                <div class="detail-about" style="height: 45px;">
+                    <a class="edoc-avatar" asp-route="/Account/Home?accountId=@Model.PublisherId">
+                        <img src="/Account/GetAvatar?accountId=@Model.PublisherId" height="45" width="45" alt="@Model.Publisher">
                     </a>
                     <div class="edoc-detail-user">
-                        <a href="/u/12049968/" class="edoc-link">
-                            <cite>方丈</cite>
+                        <a asp-route="/Account/Home?accountId=@Model.PublisherId" class="edoc-link">
+                            <cite>@Model.Publisher</cite>
                         </a>
-                        <span>56分钟前</span>
+                        <span>于 <cite> <i class="layui-icon layui-icon-date"></i> @Model.PublishDate?.ToString("yyyy-MM-dd HH:mm:ss") </cite> 发布 </span>
                     </div>
-                    <div class="detail-hits" id="LAY_jieAdmin" data-id="33662">
-                        <span style="padding-right: 10px; color: #FF7200">悬赏：20飞吻</span>
-                        <span class="layui-btn layui-btn-xs jie-admin " type="collect" data-type="add">收藏</span>
+                    <div class="detail-hits">
+                        <span style="padding-right: 10px; color: #FF7200">
+                            <i class="icon-coin"></i>
+                            悬赏：<cite> @Model.RewardScore </cite> 财富值
+                        </span>
                     </div>
                 </div>
-                <div class="detail-body layui-text photos">
-                    <table class="layui-table">
-                        <tbody>
-                            <tr> <td>版本：layui </td> <td>浏览器：</td> </tr>
-                        </tbody>
-                    </table>
-                    <img src="~/images/12049296_1536292372547_97991.png" />
-                    <br>子窗口高度不知道为啥才100多..
+                <div class="detail-body photos">
+                    @Html.Raw(@Model.Content)
                 </div>
             </div>
-
             <div class="edoc-panel detail-box" id="flyReply">
                 <fieldset class="layui-elem-field layui-field-title" style="text-align: center;"> <legend>回帖</legend> </fieldset>
-                <ul class="jieda" id="jieda">
-                    <li data-id="134497">
-                        <a name="item-1536292664472"></a>
-                        <div class="detail-about detail-about-reply">
-                            <a class="edoc-avatar" href="/u/10320576/"> <img src="//cdn.layui.com/avatar/10320576.jpg?t=1533620037005" alt="一个幽默的代码"> </a>
-                            <div class="edoc-detail-user"> <a href="/u/10320576/" class="edoc-link"> <cite>一个幽默的代码</cite> </a> </div>
-                            <div class="detail-hits">
-                                <span>54分钟前</span>
-                            </div>
-                        </div>
-                        <div class="detail-body layui-text jieda-body photos"> 是用的html5么 </div>
-                        <div class="jieda-reply">
-                            <span class="jieda-zan " type="zan">
-                                <i class="iconfont icon-zan"></i> <em>0</em>
-                            </span> <span type="reply"> <i class="iconfont icon-svgmoban53"></i> 回复 </span>
-                        </div>
-                    </li>
-                    <li data-id="134498">
-                        <a name="item-1536292783165"></a>
-                        <div class="detail-about detail-about-reply">
-                            <a class="edoc-avatar" href="/u/12049968/"> <img src="//cdn.layui.com/avatar/12049968.gif?t=1528855845462" alt="方丈"> </a>
-                            <div class="edoc-detail-user"> <a href="/u/12049968/" class="edoc-link"> <cite>方丈</cite> </a> </div>
-                            <div class="detail-hits">
-                                <span>52分钟前</span>
-                            </div>
-                        </div>
-                        <div class="detail-body layui-text jieda-body photos"> 对啊就是 <br>咋了 </div>
-                        <div class="jieda-reply">
-                            <span class="jieda-zan " type="zan">
-                                <i class="iconfont icon-zan"></i> <em>0</em>
-                            </span> <span type="reply"> <i class="iconfont icon-svgmoban53"></i> 回复 </span>
-                        </div>
-                    </li>
-                    <li data-id="134499">
-                        <a name="item-1536292868508"></a>
-                        <div class="detail-about detail-about-reply">
-                            <a class="edoc-avatar" href="/u/10320576/"> <img src="//cdn.layui.com/avatar/10320576.jpg?t=1533620037005" alt="一个幽默的代码"> </a>
-                            <div class="edoc-detail-user">
-                                <a href="/u/10320576/" class="edoc-link"> <cite>一个幽默的代码</cite> </a>
-                            </div>
-                            <div class="detail-hits"> <span>51分钟前</span> </div>
-                        </div>
-                        <div class="detail-body layui-text jieda-body photos">
-                            @Html.Raw("@")<a href="javascript:;" class="edoc-aite">方丈</a> 那就对了，我也遇到了这样的问题，昨天刚解决
-                        </div>
-                        <div class="jieda-reply">
-                            <span class="jieda-zan " type="zan">
-                                <i class="iconfont icon-zan"></i> <em>0</em>
-                            </span> <span type="reply"> <i class="iconfont icon-svgmoban53"></i> 回复 </span>
-                        </div>
-                    </li>
-                    <li data-id="134502">
-                        <a name="item-1536293282394"></a>
-                        <div class="detail-about detail-about-reply">
-                            <a class="edoc-avatar" href="/u/10320576/">
-                                <img src="//cdn.layui.com/avatar/10320576.jpg?t=1533620037005" alt="一个幽默的代码">
-                            </a>
-                            <div class="edoc-detail-user">
-                                <a href="/u/10320576/" class="edoc-link"> <cite>一个幽默的代码</cite> </a>
-                            </div>
-                            <div class="detail-hits"> <span>44分钟前</span> </div>
-                        </div>
-                        <div class="detail-body layui-text jieda-body photos">
-                            说一下解决步骤
-                            <br>- 1.生成选项卡的时候需要把iframe的父容器的高度设置为100%<br><pre>$(".layui-tab-item.layui-show").height("100%");</pre>
-                            - 2. 页面加载完之后执行这个方法<br><pre>/**<br>         * 手动设定尺寸<br>         */<br>        function setSize() {<br>            let $main_tab = $("#main-tab");<br>            $main_tab.height($("#container").height() - 20);<br>            $(".layui-tab-content").height(($main_tab.height() - $(".layui-tab-title").height()) - 11);<br>        }</pre>- 3. 监听窗口大小改变，当窗口大小改变时，重新设置iframe父元素的高度<br><pre> // 定时事件索引<br>        let resizeTimer;<br>        $(window).resize(function () {<br>            if (resizeTimer) {<br>                clearTimeout(resizeTimer);<br>            }<br>            resizeTimer = setTimeout(function () {<br>                resizeTimer = null;<br>                setSize();<br>            }, 200);<br>        });</pre>- 4.iframe中加上宽高的样式<br><pre>//添加tab选项卡<br>                element.tabAdd('tabs', {<br>                    title: title,<br>                    content: '&lt;iframe id="ifr' + tabCode + '" scrolling="auto"  frameborder="0"  src="' + url + '" style="width:100%;height:100%"&gt;&lt;/iframe&gt;',<br>                    id: tabCode<br>                });</pre>
-                        </div>
-                        <div class="jieda-reply">
-                            <span class="jieda-zan " type="zan">
-                                <i class="iconfont icon-zan"></i> <em>0</em>
-                            </span>
-                            <span type="reply">
-                                <i class="iconfont icon-svgmoban53"></i> 回复
-                            </span>
-                        </div>
-                    </li>
-                </ul>
+                <ul class="jieda" id="comments"></ul>
                 <div style="text-align: center"> </div>
                 <a id="comment"> </a>
                 <div class="layui-form layui-form-pane">
-                    <form action="/jie/reply/" method="post">
-                        <div class="layui-form-item layui-form-text">
-                            <div class="layui-input-block">
-                                <textarea id="L_content" name="content" required="" lay-verify="required" placeholder="请输入内容" class="layui-textarea edoc-editor" style="height: 150px;"></textarea>
-                            </div>
+                    <form asp-action="SubmitComment" method="post">
+                        <input type="hidden" name="ArticleId" value="@Model.Id" />
+                        <input type="hidden" id="toCommentId" name="ToCommentId" />
+                        <input type="hidden" name="Content" id="commentContent" value="" />
+                        <div id="L_editor_toolbar" class="toolbar">
                         </div>
-                        <div class="layui-form-item">
-                            <input type="hidden" name="jid" value="33662">
-                            <input type="hidden" name="daPages" value="1">
-                            <button class="layui-btn" lay-filter="*" lay-submit="">提交回复</button>
-                        </div>
+                        <div id="L_editor" class="editor"></div>
+                        <br />
+                        <button class="layui-btn @(User.Identity.IsAuthenticated ? string.Empty : "layui-btn-disabled")">提交回复</button>
                     </form>
                 </div>
             </div>
         </div>
+        <div class="layui-col-md4">
+            <div class="edoc-panel">
+                <div class="edoc-panel-title">标签</div>
+                <div class="edoc-panel-main" id="tagsContainer">
+                </div>
+            </div>
+            <dl class="edoc-panel edoc-list-one" id="buzzTopicContainer"></dl>
+        </div>
     </div>
 </div>
+
+@section Scripts
+    {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+    <script src="~/lib/highlight/highlight.pack.js"></script>
+    <script src="~/editor/wangEditor.min.js"></script>
+    <script src="~/xss/xss.min.js"></script>
+
+    <script>
+        var E = window.wangEditor;
+        var editor = new E("#L_editor_toolbar", "#L_editor");
+        var content = document.getElementById("commentContent");
+        editor.customConfig.onchange = function (html) {
+            content.value = filterXSS(html);
+        }
+        editor.create();
+    </script>
+    <script id="commentTpl" type="text/html">
+        {{# layui.each(d, function(index, item) { }}
+        <li>
+            <a name="item-{{ item.id }}"></a>
+            <div class="detail-about detail-about-reply">
+                <a class="edoc-avatar" href="/Account/Home?accountId={{ item.fromUserId }}">
+                    <img src="/Account/GetAvatar?accountId={{ item.fromUserId }}" height="45" width="45" alt="{{ item.fromUser }}">
+                </a>
+                <div class="edoc-detail-user">
+                    <a href="/Account/Home?accountId={{ item.fromUserId }}" class="edoc-link">
+                        <cite>{{ item.fromUser }}</cite>
+                    </a>
+                </div>
+                <div class="detail-hits">
+                    <span>于 <cite><i class="layui-icon layui-icon-date"></i> {{ layui.util.toDateString(item.replyDate) }} </cite> 回复：</span>
+                </div>
+                @Html.Raw("{{# if(item.id === '" + Model.AdoptComment + "') { }}")
+                <i class="icon-caina" title="最佳答案"></i>
+                @Html.Raw("{{# } }}")
+            </div>
+            <div id="ref-{{ item.id }}" class="detail-body layui-text jieda-body photos">
+                {{# if(item.isReplyToComment) { }}
+                <a href="#item-{{ item.toCommentId }}" class="edoc-aite">@Html.Raw("@"){{ item.toCommentUser }}</a>
+                {{# } }}
+                {{ item.content }}
+            </div>
+            <div class="jieda-reply">
+                <span>
+                    <a href="javascript:void(0);" class="commentOp" data-op="praise" data-commentId="{{ item.id }}">
+                        <i class="layui-icon layui-icon-praise"></i>
+                        <em>{{ item.goods }}</em>
+                    </a>
+                </span>
+                <span>
+                    <a href="javascript:void(0);" class="commentOp" data-op="tread" data-commentId="{{ item.id }}">
+                        <i class="layui-icon layui-icon-tread"></i>
+                        <em>{{ item.bads }}</em>
+                    </a>
+                </span>
+                <span>
+                    <a href="javascript:void(0)" data-id="{{ item.id }}" title="举报" data-type="@ReportTargetType.Comment" class="reporter">
+                        <i class="layui-icon icon-report"></i>
+                    </a>
+                </span>
+                <span>
+                    <a href="#L_editor" data-commentId="{{ item.id }}" title="回复" class="replyComment">
+                        <i class="layui-icon layui-icon-dialogue"></i>
+                    </a>
+                </span>
+                @if (Model.IsAuthor && (Model.State & ArticleState.NotSolve) > 0)
+                {
+                    @Html.Raw("{{# if(item.fromUserId !== '" + Model.PublisherId + "') { }}")
+                    @Html.Raw("<span class=\"edoc-right\">" +
+                              "<a href=\"javascript:void(0)\" class=\"closeArticle\" data-commentId=\"{{ item.id }}\" title=\"满意结贴\">" +
+                              "<i class=\"layui-icon layui-icon-ok\"></i>" +
+                              "</a>" +
+                              "</span>");
+                    @Html.Raw("{{# } }}")
+                }
+            </div>
+        </li>
+        {{# }); }}
+    </script>
+    <script id="tagTpl" type="text/html">
+        {{# layui.each(d, function(index, item) { }}
+        <a href="/Home/Index?tag={{ item.id }}" class="tile">{{item.display}}</a>
+        {{# }); }}
+    </script>
+    <script id="buzzTopicTpl" type="text/html">
+        <dt class="edoc-panel-title">近日热议</dt>
+        {{# layui.each(d, function(index, item) { }}
+        <dd>
+            <a href="/Article/Detail?articleId={{ item.id }}">{{ item.title }}</a>
+            <span><i class="layui-icon layui-icon-dialogue"></i> {{ item.replies }}</span>
+        </dd>
+        {{# }); }}
+    </script>
+    <script asp-append-version="true" src="~/js/views/article/detail.js"></script>
+}
+
+@section Modals
+    {
+    <partial name="_Report" />
+}

@@ -1,13 +1,18 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using EDoc2.FAQ.Web.Data;
+using EDoc2.FAQ.Web.Data.Identity;
+using EDoc2.FAQ.Web.Infrastructure;
+using EDoc2.FAQ.Web.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.IdentityModel.Tokens.Jwt;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using System;
 
 namespace EDoc2.FAQ.Web
 {
@@ -20,66 +25,73 @@ namespace EDoc2.FAQ.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            var connectionString = Configuration.GetConnectionString("AppDbContext");
+            services.AddDbContext<AppDbContext>(
+                    b => b.UseSqlServer(connectionString)
+                        .UseLazyLoadingProxies())
+                .AddIdentity<AppUser, AppRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
-            services.AddAuthentication(options =>
-                {
-                    options.DefaultScheme = "Cookies";
-                    options.DefaultChallengeScheme = "oidc";
-                })
-                .AddCookie("Cookies")
-                .AddOpenIdConnect("oidc", options =>
-                {
-                    options.SignInScheme = "Cookies";
+            var identityOptions = Configuration.GetSection("IdentityOptions");
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
 
-                    options.Authority = "http://localhost:4999";
-                    options.RequireHttpsMetadata = false;
+                //英文数字字母的组合
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
 
-                    options.ClientId = "MVC";
-                    options.ClientSecret = "secret";
-                    options.ResponseType = "code id_token";
+                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
 
-                    options.SaveTokens = true;
-                    options.GetClaimsFromUserInfoEndpoint = true;
+                options.User.AllowedUserNameCharacters = identityOptions.GetSection("User")["AllowedUserNameCharacters"];
+                options.User.RequireUniqueEmail = true;
+            });
 
-                    options.Scope.Add("openid");
-                    options.Scope.Add("profile");
-                    options.Scope.Add("AccountApi");
-                    options.Scope.Add("offline_access");
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = "EDoc2.FAQ.Identity";
+                options.Cookie.HttpOnly = true;
 
-                    options.Events.OnRemoteFailure = context =>
-                    {
-                        context.HandleResponse();
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.SlidingExpiration = true;
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+            });
 
-                        if (context.Failure is OpenIdConnectProtocolException && context.Failure.Message.Contains("access_denied"))
-                            context.Response.Redirect("/");
-                        else
-                            context.Response.Redirect("/Home/Error?message=" + WebUtility.UrlEncode(context.Failure.Message));
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IArticleManager, ArticleManager>();
+            services.AddTransient<IUserManagerExt, UserManagerExt>();
+            services.AddTransient<ISystemManager, SystemManager>();
 
-                        return Task.CompletedTask;
-                    };
-                });
-
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMemoryCache();
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {

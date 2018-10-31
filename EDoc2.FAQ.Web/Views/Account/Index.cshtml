@@ -1,111 +1,53 @@
 ﻿@model EDoc2.FAQ.Web.Models.VmAccount
 
 @{
-    ViewBag.Title = $"{Model?.NickName}的主页";
+    ViewBag.Title = "用户中心";
     Layout = "_Layout";
 }
 
-<div class="edoc-home edoc-panel" style="background-image: url();">
-    <img src="//cdn.layui.com/avatar/6497232.jpg?t=1523408456711" alt="岁月小偷"> <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
-    <h1>
-        岁月小偷
-        <i class="layui-icon layui-icon-male"></i>
-        <i class="layui-badge edoc-badge-vip">VIP3</i>
-    </h1>
-    <p style="padding: 10px 0; color: #5FB878;">认证信息：2018年度 layui “社区之光”</p>
-    <p class="edoc-home-info">
-        <i class="layui-icon layui-icon-rate" title="星星"></i>
-        <span style="color: red;">20290 颗星星</span>
-        <i class="layui-icon layui-icon-date"></i>
-        <span>2017-9-5 加入</span>
-        <i class="layui-icon layui-icon-location"></i>
-        <span>来自广州</span>
-    </p>
-    <p class="edoc-home-sign">（这个人懒得留下签名）</p>
-</div>
+<input type="hidden" id="articleTotal" value="@ViewBag.ArticleTotal" />
+<input type="hidden" id="favoriteTotal" value="@ViewBag.FavoriteTotal" />
 
-<div class="layui-container">
-    <div class="layui-row layui-col-space15">
-        <div class="layui-col-md6 edoc-home-jie">
-            <div class="edoc-panel">
-                <h3 class="edoc-panel-title">岁月小偷 最近的提问</h3> <ul class="jie-row"> <li> <span class="edoc-jing layui-hide-xs">精</span> <a href="/jie/33664/" class="jie-title">table 如何更优雅的 reload</a> <i>1小时前</i> <em class="layui-hide-xs">157阅/8答</em> </li> <li> <a href="/jie/33536/" class="jie-title">关于2.4.3版本的table的一些bug还有功能的加强建议</a> <i>1天前</i> <em class="layui-hide-xs">231阅/19答</em> </li> <li> <span class="edoc-jing layui-hide-xs">精</span> <a href="/jie/31824/" class="jie-title">关于layui表格表格列宽自适应的一些经验还有建议</a> <i>2018-8-11 </i> <em class="layui-hide-xs">774阅/35答</em> </li> <li> <span class="edoc-jing layui-hide-xs">精</span> <a href="/jie/30928/" class="jie-title">如何保留select里面的change事件又采用layui的美化</a> <i>2018-7-26 </i> <em class="layui-hide-xs">1963阅/11答</em> </li> <li> <span class="edoc-jing layui-hide-xs">精</span> <a href="/jie/30353/" class="jie-title">试水select唯一性选择</a> <i>2018-7-17 </i> <em class="layui-hide-xs">869阅/40答</em> </li> <li> <span class="edoc-jing layui-hide-xs">精</span> <a href="/jie/29708/" class="jie-title">laydate特殊需求--下篇（倚天剑篇）</a> <i>2018-7-5 </i> <em class="layui-hide-xs">2224阅/36答</em> </li> <li> <a href="/jie/29609/" class="jie-title">关于layui.each在iframe中的应用出现的问题</a> <i>2018-7-4 </i> <em class="layui-hide-xs">329阅/3答</em> </li> <li> <span class="edoc-jing layui-hide-xs">精</span> <a href="/jie/29496/" class="jie-title">一个简单table的checkbox单选实现思路</a> <i>2018-7-2 </i> <em class="layui-hide-xs">5703阅/68答</em> </li> <li> <span class="edoc-jing layui-hide-xs">精</span> <a href="/jie/29442/" class="jie-title">关于table的templet、toolbar和update的理解和建议</a> <i>2018-6-30 </i> <em class="layui-hide-xs">555阅/8答</em> </li> <li> <span class="edoc-jing layui-hide-xs">精</span> <a href="/jie/29372/" class="jie-title">简单实现tab浏览历史功能</a> <i>2018-6-29 </i> <em class="layui-hide-xs">474阅/6答</em> </li> <li> <a href="/jie/28954/" class="jie-title">关于laydate参数动态修改的实现</a> <i>2018-6-21 </i> <em class="layui-hide-xs">747阅/3答</em> </li> <li> <a href="/jie/28311/" class="jie-title">table纯data模式下的新增与删除</a> <i>2018-6-7 </i> <em class="layui-hide-xs">993阅/53答</em> </li> <li> <a href="/jie/28176/" class="jie-title">table用最小的修改来支持最大的数据结构自由</a> <i>2018-6-5 </i> <em class="layui-hide-xs">830阅/26答</em> </li> <li> <a href="/jie/27729/" class="jie-title">关于table的功能实现之checkbox状态的跨页保存</a> <i>2018-5-29 </i> <em class="layui-hide-xs">537阅/9答</em> </li> <li> <span class="edoc-jing layui-hide-xs">精</span> <a href="/jie/27143/" class="jie-title">探索 layui 的 onevent 和 event</a> <i>2018-5-20 </i> <em class="layui-hide-xs">3969阅/29答</em> </li> <li> <a href="/jie/27108/" class="jie-title">写给还在为时间控件渲染出问题而挣扎的同学</a> <i>2018-5-19 </i> <em class="layui-hide-xs">562阅/13答</em> </li> <li> <a href="/jie/26871/" class="jie-title">table组件复杂表头的一个bug</a> <i>2018-5-15 </i> <em class="layui-hide-xs">797阅/9答</em> </li> <li> <a href="/jie/26493/" class="jie-title">关于新版本的表单“初始赋值”功能</a> <i>2018-5-8 </i> <em class="layui-hide-xs">826阅/20答</em> </li> <li> <a href="/jie/25907/" class="jie-title">关于util倒计时的实现问题。</a> <i>2018-4-26 </i> <em class="layui-hide-xs">317阅/2答</em> </li> <li> <a href="/jie/25359/" class="jie-title">laydate设置时间范围的一个bug（开始时间大于结束时间）</a> <i>2018-4-17 </i> <em class="layui-hide-xs">582阅/2答</em> </li> <li> <a href="/jie/24793/" class="jie-title">根据社区的问题出来的灵感，实现laydate日期控件在min max的基础上增加每天可选中的时间范围</a> <i>2018-4-4 </i> <em class="layui-hide-xs">635阅/3答</em> </li> <li> <a href="/jie/21507/" class="jie-title">给laydate添加一个reload方法，实现更大的可能。</a> <i>2017-12-22 </i> <em class="layui-hide-xs">979阅/1答</em> </li> <li> <a href="/jie/21467/" class="jie-title">upload的before应该支持阻止上传</a> <i>2017-12-21 </i> <em class="layui-hide-xs">816阅/0答</em> </li> <li> <a href="/jie/20024/" class="jie-title">工具栏改变宽度之后按钮显示不全的问题</a> <i>2017-12-4 </i> <em class="layui-hide-xs">500阅/0答</em> </li> <li> <a href="/jie/19825/" class="jie-title">疑是 element 组件中 tab 的一个 bug</a> <i>2017-12-1 </i> <em class="layui-hide-xs">486阅/1答</em> </li> <li> <a href="/jie/19739/" class="jie-title">表格bug</a> <i>2017-11-30 </i> <em class="layui-hide-xs">617阅/6答</em> </li> <li> <a href="/jie/19230/" class="jie-title">2.2.2版本table模块reload两种方式还有区别？</a> <i>2017-11-23 </i> <em class="layui-hide-xs">1673阅/10答</em> </li> <li> <a href="/jie/19032/" class="jie-title">关于html分页与不分页之间切换之后得到的结果和相关源码优化意见</a> <i>2017-11-21 </i> <em class="layui-hide-xs">694阅/3答</em> </li> <li> <a href="/jie/14171/" class="jie-title">发现了layui table的一个bug</a> <i>2017-9-6 </i> <em class="layui-hide-xs">2000阅/2答</em> </li> <li> <a href="/jie/14057/" class="jie-title">请教一个问题，layui table能否支持自定义request的body内容</a> <i>2017-9-5 </i> <em class="layui-hide-xs">1382阅/4答</em> </li> </ul>
-            </div>
-        </div>
-        <div class="layui-col-md6 edoc-home-da">
-            <div class="edoc-panel">
-                <h3 class="edoc-panel-title">岁月小偷 最近的回答</h3>
-                <ul class="home-jieda">
-                    <li>
-                        <p>
-                            <span>33分钟前</span> 在<a href="/jie/33664/#item-1536302072028" target="_blank">table 如何更优雅的 reload</a>中回答：
-                        </p>
-                        <div class="home-dacontent">
-                            <a href="javascript:;" class="edoc-aite">随海逸</a>
-                            <a href="javascript:;" class="edoc-aite">莫辞</a>
-                            <a href="javascript:;" class="edoc-aite">sleep_开拓者</a>
-                            谢谢支持
-                            <img alt="[嘻嘻]" title="[嘻嘻]" src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/0b/tootha_thumb.gif">
-                            ，漏掉的链接已经补上了哈，感兴趣可以看看，有bug的话欢迎反馈一下哈，自己测了一通没暂时没遇到什么问题。
-                        </div>
-                    </li>
-                    <li>
-                        <p> <span>1小时前</span> 在<a href="/jie/33664/#item-1536299335086" target="_blank">table 如何更优雅的 reload</a>中回答： </p>
-                        <div class="home-dacontent"> 链接忘记写了，一会回去加上其实就跟上个帖子里面的链接一样的 </div>
-                    </li>
-                    <li>
-                        <p> <span>3小时前</span> 在<a href="/jie/33439/#item-1536290376503" target="_blank">超链接打开新标签页，原标签页的内容也刷新成新标签页的内容</a>中回答： </p>
-                        <div class="home-dacontent"> <span style="color: #FF5722">内容属于 <strong>layuiadmin</strong> 会员专区，此处不予展示</span> </div>
-                    </li>
-                    <li>
-                        <p> <span>4小时前</span> 在<a href="/jie/33621/#item-1536287505544" target="_blank">如何取消tab中添加的监听事件。</a>中回答： </p>
-                        <div class="home-dacontent"> 所以应该是你这个逻辑放的位置不对，如果是单页面的这个逻辑应该放在宿主页面或者一个只会执行一次的地方，而不是每次加载都绑定一次事件。 </div>
-                    </li>
-                    <li>
-                        <p> <span>4小时前</span> 在<a href="/jie/33601/#item-1536287283161" target="_blank">在数据网格中加入表单复选框的问题</a>中回答： </p>
-                        <div class="home-dacontent"> <a href="javascript:;" class="edoc-aite">无聊先生</a> 这个目前除了修改源码没啥特别好的办法，因为没有一个提供一个不要这个逻辑的配置，原来table里面就是写死的排除掉它自己的checkbox列和radio列其他的都没有忽略，以前是这个逻辑，估计目前也是，所以一般来说更合理的情况是应该提供一个字段参数设置来胡烈某些列可以不要这个功能。 </div>
-                    </li>
-                    <li>
-                        <p> <span>6小时前</span> 在<a href="/jie/33630/#item-1536282092098" target="_blank">Layui JS 输出 select 怎么选中</a>中回答： </p>
-                        <div class="home-dacontent"> <a href="javascript:;" class="edoc-aite">祝福</a> 不客气<img alt="[微笑]" title="[微笑]" src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/5c/huanglianwx_thumb.gif"> </div>
-                    </li>
-                    <li>
-                        <p> <span>17小时前</span> 在<a href="/jie/33633/#item-1536241805294" target="_blank">数据表格中的data后的LAY_TABLE_INDEX问题</a>中回答： </p>
-                        <div class="home-dacontent"> <a href="javascript:;" class="edoc-aite">此间少年</a> 额，这样子那就不是上面说的了，不过你这是使用方式更加奇特哈，这个数组render过后会被修改是吧？以前没注意这个，不过按照常理来说，应该不不要让它修改才对的额，就是原始数据应该是不管你怎么render，reload应该是保持原始数据原有的，尽量不要出现说render了之后会变了的情况。你在什么时候想要得到这个的呢？我建议你还是在render或者reload里面的去得到当前的data，原始数据让它保持不被table修改，比如，<br><pre>// 原始数据<br>var testdata=[<br>   {id:1001,name:"张三"},<br>   {id:1002,name:"李四"},<br>];<br><br>// 初始化<br>var tableIns = table.render({data: $.extend(true, [], testdata), ...});<br>console.log(tableIns.config.data[1].LAY_TABLE_INDEX, testdata[1].LAY_TABLE_INDEX);<br><br>// 新增数据<br>testdata.push({id: 1003, name:'王五'});<br>tableIns = table.reload(tableId, {data: $.extend(true, [], testdata)});<br>console.log(tableIns.config.data[2].LAY_TABLE_INDEX, testdata[2].LAY_TABLE_INDEX);</pre> </div>
-                    </li>
-                    <li>
-                        <p> <span>18小时前</span> 在<a href="/jie/33536/#item-1536239173662" target="_blank">关于2.4.3版本的table的一些bug还有功能的加强建议</a>中回答： </p>
-                        <div class="home-dacontent"> <a href="javascript:;" class="edoc-aite">Drupal猎人</a> 比较少用git后面改进一下哈<img alt="[微笑]" title="[微笑]" src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/5c/huanglianwx_thumb.gif"> </div>
-                    </li>
-                    <li>
-                        <p> <span>18小时前</span> 在<a href="/jie/33633/#item-1536239040660" target="_blank">数据表格中的data后的LAY_TABLE_INDEX问题</a>中回答： </p>
-                        <div class="home-dacontent"> 应该是有的，关键看你说的reload之后，data，你说的这个data是什么？这个才是关键，得看代码代码才能知道是不是我猜想的情况，我猜想你是用一个变量tableIns来保存render返回的对象，然后push进去reload了，但是你后面找data还是在原来的那个变量里面找它的data，如果是这样问题就在于你需要实时的接收reload返回的对象，这个才是最新的状态，所以在reload的时候也加上tableIns = table.reload(tableId, {data: dataNew})。看看是不是这个问题。 </div>
-                    </li>
-                    <li>
-                        <p> <span>20小时前</span> 在<a href="/jie/33601/#item-1536231522766" target="_blank">在数据网格中加入表单复选框的问题</a>中回答： </p>
-                        <div class="home-dacontent"> 这个是列宽不够导致的，调整一下宽度设置大一点就可以了应该 </div>
-                    </li>
-                    <li>
-                        <p> <span>20小时前</span> 在<a href="/jie/33621/#item-1536231165940" target="_blank">如何取消tab中添加的监听事件。</a>中回答： </p>
-                        <div class="home-dacontent"> 你要的是什么？如果是要在添加一个tab之前判断是否已经存在了，不能在tab切换回调里面做而是在tabAdd之前就要用逻辑判断一下这个tab里面的li有没有lay-id一样的， </div>
-                    </li>
-                    <li>
-                        <p> <span>20小时前</span> 在<a href="/jie/33628/#item-1536231059560" target="_blank">请问行内表单里,为什么下拉框和单选框等还是原生样式,当我用常用表单时又能正常渲染样式</a>中回答： </p>
-                        <div class="home-dacontent"> <a href="javascript:;" class="edoc-aite">夜寰</a> 不客气<img alt="[微笑]" title="[微笑]" src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/5c/huanglianwx_thumb.gif"> </div>
-                    </li>
-                    <li>
-                        <p> <span>20小时前</span> 在<a href="/jie/33630/#item-1536230664700" target="_blank">Layui JS 输出 select 怎么选中</a>中回答： </p>
-                        <div class="home-dacontent"> 要让select选中某个option不是在option里面添加checked，而是selected，先改了这个再看看， </div>
-                    </li>
-                    <li>
-                        <p> <span>20小时前</span> 在<a href="/jie/33628/#item-1536230544388" target="_blank">请问行内表单里,为什么下拉框和单选框等还是原生样式,当我用常用表单时又能正常渲染样式</a>中回答： </p>
-                        <div class="home-dacontent"> 需要被美化的表单元素必须放在一个.layui-form里面所以可以在下面这里添加一个layui-form再试试看<br><img src="//cdn.layui.com/upload/2018_9/6497232_1536230542375_89395.png"> </div>
-                    </li>
-                    <li>
-                        <p> <span>22小时前</span> 在<a href="/jie/33594/#item-1536223424577" target="_blank">如何实现跟登录，注册 页面一样不包含在框架里</a>中回答： </p>
-                        <div class="home-dacontent"> <span style="color: #FF5722">内容属于 <strong>layuiadmin</strong> 会员专区，此处不予展示</span> </div>
-                    </li>
-                </ul>
+<div class="layui-container edoc-marginTop edoc-user-main">
+    <partial name="_PersonalCenter" model="@ViewBag.Selected" />
+
+    <div class="edoc-panel edoc-panel-user" pad20="">
+        <div class="layui-tab layui-tab-brief" lay-filter="user">
+            <ul class="layui-tab-title" id="LAY_mine">
+                <li data-type="mine-jie" lay-id="index" class="layui-this">我发的帖（<span>89</span>）</li>
+                <li data-type="collection" data-url="/collection/find/" lay-id="collection">我收藏的帖（<span>16</span>）</li>
+            </ul>
+            <div class="layui-tab-content" style="padding: 20px 0;">
+                <div class="layui-tab-item layui-show" style="height: 600px; ">
+                    <ul class="jie-row" id="articlesContainer">
+                    </ul>
+                    <div style="text-align: center">
+                        <div id="articlesPager"></div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <ul class="jie-row" id="favoriteContainer">
+                    </ul>
+                    <div style="text-align: center">
+                        <div id="favoritePager"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+    <script id="articleTpl" type="text/html">
+        {{# layui.each(d, function(index, item) { }}
+        <li>
+            <a class="jie-title" href="/Article/Detail?articleId={{ item.id }}" target="_blank">{{ item.title }}</a>
+            <i>{{ layui.util.toDateString(item.publishDate) }}</i>
+            <em>{{ item.views }}阅/{{ item.replies }}答</em>
+        </li>
+        {{# }); }}
+    </script>
+    <script asp-append-version="true" src="~/js/views/account/index.js"></script>
+}
