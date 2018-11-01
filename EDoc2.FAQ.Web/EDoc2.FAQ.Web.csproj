@@ -37,8 +37,8 @@
   <ItemGroup>
     <ProjectReference Include="..\EDoc2.FAQ.Email\EDoc2.FAQ.Email.csproj" />
     <ProjectReference Include="..\EDoc2.FAQ.EventBus.RabbitMQ\EDoc2.FAQ.EventBus.RabbitMQ.csproj" />
-    <ProjectReference Include="..\EDoc2.FAQ.ImageCode\EDoc2.FAQ.ImageCode.csproj" />
     <ProjectReference Include="..\EDoc2.FAQ.Notification.Mail\EDoc2.FAQ.Notification.Mail.csproj" />
+    <ProjectReference Include="..\EDoc2.FAQ.VerifyCode\EDoc2.FAQ.VerifyCode.csproj" />
   </ItemGroup>
 
   <ItemGroup>

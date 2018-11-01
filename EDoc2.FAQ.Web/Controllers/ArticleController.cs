@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Security.Policy;
-using System.Threading.Tasks;
-using EDoc2.FAQ.ImageCode;
+﻿using EDoc2.FAQ.VerifyCode;
 using EDoc2.FAQ.Web.Data.Common;
 using EDoc2.FAQ.Web.Data.Discuss;
 using EDoc2.FAQ.Web.Data.Identity;
@@ -17,6 +11,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace EDoc2.FAQ.Web.Controllers
 {
@@ -147,10 +146,10 @@ namespace EDoc2.FAQ.Web.Controllers
         {
             if (string.IsNullOrWhiteSpace(r)) return File(new byte[0], "image/png");
 
-            var imgCode = CodeGenerator.CreateCode(4);
+            var imgCode = Gen.CreateCode(4);
             var key = $"imgcode_{r}";
             _memoryCache.Set(key, imgCode, TimeSpan.FromMinutes(5));
-            return File(CodeGenerator.CreateImageBytes(imgCode), "image/jpeg", "imgcode.png");
+            return File(Gen.CreateImageBytes(imgCode), "image/jpeg", "imgcode.png");
         }
 
         [HttpGet]

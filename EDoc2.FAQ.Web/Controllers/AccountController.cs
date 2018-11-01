@@ -1,4 +1,4 @@
-﻿using EDoc2.FAQ.ImageCode;
+﻿using EDoc2.FAQ.VerifyCode;
 using EDoc2.FAQ.Web.Data.Common;
 using EDoc2.FAQ.Web.Data.Discuss;
 using EDoc2.FAQ.Web.Data.Identity;
@@ -206,10 +206,10 @@ namespace EDoc2.FAQ.Web.Controllers
         public IActionResult GetImgCode()
         {
             var regId = Request.Cookies["regid"];
-            var imgCode = CodeGenerator.CreateCode(4);
+            var imgCode = Gen.CreateCode(4);
             var key = $"imgcode_{regId}";
             _memoryCache.Set(key, imgCode, TimeSpan.FromMinutes(5));
-            return File(CodeGenerator.CreateImageBytes(imgCode), "image/jpeg", "imgcode.png");
+            return File(Gen.CreateImageBytes(imgCode), "image/jpeg", "imgcode.png");
         }
 
         [AcceptVerbs("GET")]

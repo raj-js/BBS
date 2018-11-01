@@ -5,9 +5,9 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 
-namespace EDoc2.FAQ.ImageCode
+namespace EDoc2.FAQ.VerifyCode
 {
-    public class CodeGenerator
+    public class Gen
     {
         public enum CharType
         {
