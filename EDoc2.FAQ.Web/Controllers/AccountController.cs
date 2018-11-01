@@ -417,4 +417,103 @@ namespace EDoc2.FAQ.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> ModifyPas
+        public async Task<IActionResult> ModifyPassword([FromForm]VmModifyPassword vm)
+        {
+            ViewBag.Selected = nameof(Setting);
+            ViewBag.Msg = "修改失败";
+
+            var appUser = await _userManager.GetUserAsync(User);
+
+            if (ModelState.IsValid)
+            {
+                var verifyResult = _userManager.PasswordHasher.VerifyHashedPassword(appUser, appUser.PasswordHash, vm.OldPassword);
+                if (verifyResult == PasswordVerificationResult.Success)
+                {
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(appUser);
+                    var identityResult = await _userManager.ResetPasswordAsync(appUser, token, vm.Password);
+                    if (identityResult.Succeeded)
+                    {
+                        await _signInManager.SignOutAsync();
+                        await _signInManager.SignInAsync(appUser, false);
+                        ViewBag.Msg = "修改成功";
+                    }
+                }
+            }
+
+            var userClaims = appUser.UserClaims;
+            return View("Setting", new VmAccountForBasic
+            {
+                Id = appUser.Id,
+                NickName = userClaims.Get<string>(ClaimTypes.Name),
+                Gender = userClaims.Get(ClaimTypes.Gender, int.Parse),
+                ComeFrom = userClaims.Get<string>(ClaimConsts.ComeFrom),
+                Signature = userClaims.Get<string>(ClaimConsts.Signature)
+            });
+        }
+
+        #endregion
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> DailySignIn()
+        {
+            var appUser = await _userManager.GetUserAsync(User);
+            return Json(await _userManagerExt.DailySignIn(appUser, HttpContext.GetClientUserIp()));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LoadDailySign()
+        {
+            var isTodaySignIn = false;
+            var keepSignInDays = 0;
+            var signInScore = DailySignRule.Default.Score;
+
+            var appUser = await _userManager.GetUserAsync(User);
+            if (appUser != null)
+            {
+                //今日是否签到
+                isTodaySignIn = _userManagerExt.IsDailySignIn(appUser, DateTime.Now);
+                //持续签到天数
+                keepSignInDays = _userManagerExt.GetKeepSignInDays(appUser);
+                //今日签到可获财富值
+                signInScore = DailySignRule.MatchRule(keepSignInDays + (isTodaySignIn ? 0 : 1)).Score;
+            }
+
+            return Json(new
+            {
+                isTodaySignIn,
+                keepSignInDays,
+                signInScore
+            });
+        }
+
+        /// <summary>
+        /// 签到活跃榜 前15
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> ActiveTop()
+        {
+            var vm = new VmActiveTop();
+            var newestSignIns = await _userManagerExt.GetDailySignIns(where: item => item.SignInTime.Date == DateTime.Now.Date, orderBy: item => item.SignInTime);
+            vm.Newest = newestSignIns.Select(item => new VmDailySignIn(item)).ToList();
+
+            var fastestSignIns = await _userManagerExt.GetDailySignIns(where: item => item.SignInTime.Date == DateTime.Now.Date, isDesc: true, orderBy: item => item.SignInTime);
+            vm.Fastest = fastestSignIns.Select(item => new VmDailySignIn(item)).ToList();
+
+            var longestSignIns = await _userManagerExt.GetLongestDailySignIn(15);
+            vm.Longest = longestSignIns.Select(item => new VmDailySignIn(item)).ToList();
+            return View(vm);
+        }
+
+        [Authorize]
+        [AcceptVerbs("Post")]
+        public async Task<IActionResult> AddFavorite([FromForm]string articleId)
+        {
+            if (string.IsNullOrWhiteSpace(articleId)) return Json(false);
+
+            var appUser = await _userManager.GetUserAsync(User);
+            return Json(await _userManagerExt.AddFavorite(appUser, articleId));
+        }
+    }
+}
