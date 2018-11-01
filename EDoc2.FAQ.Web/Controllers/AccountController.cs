@@ -1,12 +1,15 @@
 ﻿using EDoc2.FAQ.ImageCode;
+using EDoc2.FAQ.Web.Data.Common;
 using EDoc2.FAQ.Web.Data.Discuss;
 using EDoc2.FAQ.Web.Data.Identity;
 using EDoc2.FAQ.Web.Extensions;
 using EDoc2.FAQ.Web.Models;
+using EDoc2.FAQ.Web.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -14,13 +17,8 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Web.Data.Common;
-using EDoc2.FAQ.Web.Services;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using SysFile = System.IO.File;
 
 namespace EDoc2.FAQ.Web.Controllers
@@ -33,7 +31,7 @@ namespace EDoc2.FAQ.Web.Controllers
         private readonly IArticleManager _articleManager;
         private readonly IMemoryCache _memoryCache;
         private readonly ILogger<AccountController> _logger;
-        private readonly IEmailSender _emailSender;
+        private readonly IMailService _mailService;
 
         public AccountController(SignInManager<AppUser> signInManager,
             IUserManagerExt userManagerExt,
@@ -41,7 +39,7 @@ namespace EDoc2.FAQ.Web.Controllers
             UserManager<AppUser> userManager,
             IMemoryCache memoryCache,
             ILogger<AccountController> logger,
-            IEmailSender emailSender)
+            IMailService mailService)
         {
             _signInManager = signInManager;
             _articleManager = articleManager;
@@ -49,7 +47,7 @@ namespace EDoc2.FAQ.Web.Controllers
             _userManagerExt = userManagerExt;
             _memoryCache = memoryCache;
             _logger = logger;
-            _emailSender = emailSender;
+            _mailService = mailService;
         }
 
         public async Task<IActionResult> Home(string accountId = null)
@@ -193,7 +191,7 @@ namespace EDoc2.FAQ.Web.Controllers
 
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var callbackUrl = Url.EmailConfirmationLink(user.Id, code, returnUrl, Request.Scheme);
-                await _emailSender.SendEmailConfirmationAsync(input.Email, callbackUrl);
+                _mailService.SendEmailConfirmationAsync(input.Email, callbackUrl);
                 ViewBag.Success = "已向您填写的邮箱发送了账号激活邮件，请确认激活";
                 return View();
             }
@@ -215,7 +213,7 @@ namespace EDoc2.FAQ.Web.Controllers
         }
 
         [AcceptVerbs("GET")]
-        public async Task<IActionResult> SendVerCode([FromQuery]string email, [FromQuery]string code)
+        public IActionResult SendVerCode([FromQuery]string email, [FromQuery]string code)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(code) || !Validator.CheckEmail(email))
                 return Json(false);
@@ -229,7 +227,7 @@ namespace EDoc2.FAQ.Web.Controllers
 
             var verCode = Guid.NewGuid().ToString("N").Substring(0, 6);
             var timeout = 5;
-            await _emailSender.SendRegisterCodeAsync(email, verCode, timeout);
+            _mailService.SendRegisterCodeAsync(email, verCode, timeout);
 
             key = $"vercode_{regId}";
             _memoryCache.Set(key, verCode, TimeSpan.FromMinutes(timeout));
@@ -419,103 +417,4 @@ namespace EDoc2.FAQ.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> ModifyPassword([FromForm]VmModifyPassword vm)
-        {
-            ViewBag.Selected = nameof(Setting);
-            ViewBag.Msg = "修改失败";
-
-            var appUser = await _userManager.GetUserAsync(User);
-
-            if (ModelState.IsValid)
-            {
-                var verifyResult = _userManager.PasswordHasher.VerifyHashedPassword(appUser, appUser.PasswordHash, vm.OldPassword);
-                if (verifyResult == PasswordVerificationResult.Success)
-                {
-                    var token = await _userManager.GeneratePasswordResetTokenAsync(appUser);
-                    var identityResult = await _userManager.ResetPasswordAsync(appUser, token, vm.Password);
-                    if (identityResult.Succeeded)
-                    {
-                        await _signInManager.SignOutAsync();
-                        await _signInManager.SignInAsync(appUser, false);
-                        ViewBag.Msg = "修改成功";
-                    }
-                }
-            }
-
-            var userClaims = appUser.UserClaims;
-            return View("Setting", new VmAccountForBasic
-            {
-                Id = appUser.Id,
-                NickName = userClaims.Get<string>(ClaimTypes.Name),
-                Gender = userClaims.Get(ClaimTypes.Gender, int.Parse),
-                ComeFrom = userClaims.Get<string>(ClaimConsts.ComeFrom),
-                Signature = userClaims.Get<string>(ClaimConsts.Signature)
-            });
-        }
-
-        #endregion
-
-        [Authorize]
-        [HttpGet]
-        public async Task<IActionResult> DailySignIn()
-        {
-            var appUser = await _userManager.GetUserAsync(User);
-            return Json(await _userManagerExt.DailySignIn(appUser, HttpContext.GetClientUserIp()));
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> LoadDailySign()
-        {
-            var isTodaySignIn = false;
-            var keepSignInDays = 0;
-            var signInScore = DailySignRule.Default.Score;
-
-            var appUser = await _userManager.GetUserAsync(User);
-            if (appUser != null)
-            {
-                //今日是否签到
-                isTodaySignIn = _userManagerExt.IsDailySignIn(appUser, DateTime.Now);
-                //持续签到天数
-                keepSignInDays = _userManagerExt.GetKeepSignInDays(appUser);
-                //今日签到可获财富值
-                signInScore = DailySignRule.MatchRule(keepSignInDays + (isTodaySignIn ? 0 : 1)).Score;
-            }
-
-            return Json(new
-            {
-                isTodaySignIn,
-                keepSignInDays,
-                signInScore
-            });
-        }
-
-        /// <summary>
-        /// 签到活跃榜 前15
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> ActiveTop()
-        {
-            var vm = new VmActiveTop();
-            var newestSignIns = await _userManagerExt.GetDailySignIns(where: item => item.SignInTime.Date == DateTime.Now.Date, orderBy: item => item.SignInTime);
-            vm.Newest = newestSignIns.Select(item => new VmDailySignIn(item)).ToList();
-
-            var fastestSignIns = await _userManagerExt.GetDailySignIns(where: item => item.SignInTime.Date == DateTime.Now.Date, isDesc: true, orderBy: item => item.SignInTime);
-            vm.Fastest = fastestSignIns.Select(item => new VmDailySignIn(item)).ToList();
-
-            var longestSignIns = await _userManagerExt.GetLongestDailySignIn(15);
-            vm.Longest = longestSignIns.Select(item => new VmDailySignIn(item)).ToList();
-            return View(vm);
-        }
-
-        [Authorize]
-        [AcceptVerbs("Post")]
-        public async Task<IActionResult> AddFavorite([FromForm]string articleId)
-        {
-            if (string.IsNullOrWhiteSpace(articleId)) return Json(false);
-
-            var appUser = await _userManager.GetUserAsync(User);
-            return Json(await _userManagerExt.AddFavorite(appUser, articleId));
-        }
-    }
-}
+        public async Task<IActionResult> ModifyPas

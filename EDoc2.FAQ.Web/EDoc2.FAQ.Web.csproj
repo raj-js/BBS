@@ -16,9 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.7.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,7 +36,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EDoc2.FAQ.Email\EDoc2.FAQ.Email.csproj" />
+    <ProjectReference Include="..\EDoc2.FAQ.EventBus.RabbitMQ\EDoc2.FAQ.EventBus.RabbitMQ.csproj" />
     <ProjectReference Include="..\EDoc2.FAQ.ImageCode\EDoc2.FAQ.ImageCode.csproj" />
+    <ProjectReference Include="..\EDoc2.FAQ.Notification.Mail\EDoc2.FAQ.Notification.Mail.csproj" />
   </ItemGroup>
 
   <ItemGroup>
