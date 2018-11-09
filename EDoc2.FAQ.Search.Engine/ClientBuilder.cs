@@ -8,12 +8,12 @@ namespace EDoc2.FAQ.Search.Engine
     public class ClientBuilder
     {
         private ConnectionSettings _settings;
-        private StaticConnectionPool _connectionPool;
+        private IConnectionPool _connectionPool;
 
         public ClientBuilder UseSingleNode(Uri node)
         {
-            _connectionPool = null;
-            _settings = new ConnectionSettings(node);
+            _connectionPool = new SingleNodeConnectionPool(node);
+            _settings = new ConnectionSettings(_connectionPool);
             return this;
         }
 
@@ -38,6 +38,8 @@ namespace EDoc2.FAQ.Search.Engine
             if (_settings == null)
                 throw new InvalidOperationException();
 
+            _settings.EnableDebugMode();
+            _settings.PrettyJson();
             _settings.DisableDirectStreaming(true);
             _settings.ThrowExceptions(true);
             return this;
@@ -47,9 +49,6 @@ namespace EDoc2.FAQ.Search.Engine
         {
             if (_settings == null)
                 throw new InvalidOperationException();
-
-            if (_connectionPool != null)
-                _settings.SniffOnStartup(false);
 
             _settings.ConnectionLimit(connectionLimit);
             _settings.DefaultFieldNameInferrer(s => s);
