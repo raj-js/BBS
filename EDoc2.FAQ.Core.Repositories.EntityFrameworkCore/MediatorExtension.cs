@@ -1,0 +1,32 @@
+﻿using System.Linq;
+using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Domain.SeedWork;
+using MediatR;
+
+namespace EDoc2.FAQ.Core.Repositories.EntityFrameworkCore
+{
+    public static class MediatorExtension
+    {
+        /// <summary>
+        /// 发布DB上下文中追踪实体所有的领域事件
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="ctx"></param>
+        /// <returns></returns>
+        public static async Task DispatchDomainEventsAsync(this IMediator @this, CommunityContext ctx)
+        {
+            var domainEntries = ctx.ChangeTracker.Entries<Entity>()
+                .Where(x => x.Entity.DomainEvents != null && x.Entity.DomainEvents.Any())
+                .ToList();
+
+            var domainEvents = domainEntries
+                .SelectMany(x => x.Entity.DomainEvents)
+                .ToList();
+
+            domainEntries.ForEach(entry => entry.Entity.ClearDomainEvent());
+
+            var tasks = domainEvents.Select(async (@event) => { await @this.Publish(@event); });
+            await Task.WhenAll(tasks);
+        }
+    }
+}

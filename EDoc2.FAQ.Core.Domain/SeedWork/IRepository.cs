@@ -6,12 +6,12 @@ namespace EDoc2.FAQ.Core.Domain.SeedWork
     {
         IUnitOfWork UnitOfWork { get; }
 
-        Task<T> AddAsync(T entity);
+        T Add(T entity);
 
-        Task<T> UpdateAsync(T entity);
+        void Delete(T entity);
+
+        T Update(T entity);
 
         Task<T> FindAsync(TPrimaryKey key);
-
-        Task<int> DeleteAsync(T entity);
     }
 }
