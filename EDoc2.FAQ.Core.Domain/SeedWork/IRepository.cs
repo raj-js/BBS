@@ -2,16 +2,8 @@
 
 namespace EDoc2.FAQ.Core.Domain.SeedWork
 {
-    public interface IRepository<T, in TPrimaryKey> where T: Entity<TPrimaryKey>
+    public interface IRepository<T> where T : IAggregateRoot
     {
         IUnitOfWork UnitOfWork { get; }
-
-        T Add(T entity);
-
-        void Delete(T entity);
-
-        T Update(T entity);
-
-        Task<T> FindAsync(TPrimaryKey key);
     }
 }

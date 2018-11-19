@@ -1,20 +1,22 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Domain.Models.ArticleAggregate;
-using EDoc2.FAQ.Core.Domain.Models.CommentAggregate;
+﻿using EDoc2.FAQ.Core.Domain.Articles;
 using EDoc2.FAQ.Core.Domain.SeedWork;
 using EDoc2.FAQ.Core.Repositories.EntityFrameworkCore.EntityConfigurations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EDoc2.FAQ.Core.Repositories.EntityFrameworkCore
 {
     public class CommunityContext : DbContext, IUnitOfWork
     {
         public DbSet<Article> Articles { get; set; }
-
-        public DbSet<Comment> Comments { get; set; }
+        public DbSet<ArticleComment> ArticleComments { get; set; }
+        public DbSet<ArticleState> ArticleStates { get; set; }
+        public DbSet<ArticleType> ArticleTypes { get; set; }
+        public DbSet<ArticleCommentState> ArticleCommentStates { get; set; }
+        public DbSet<ArticleProperty> ArticleProperties { get; set; }
 
         private readonly IMediator _mediator;
 
@@ -28,9 +30,11 @@ namespace EDoc2.FAQ.Core.Repositories.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ArticleEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new CommentEntityTypeConfiguration());
-
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new ArticleCommentEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ArticleCommentStateEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ArticlePropertyEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ArticleStateEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ArticleTypeEntityTypeConfiguration());
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))

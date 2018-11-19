@@ -11,7 +11,6 @@ namespace EDoc2.FAQ.Core.Domain.SeedWork
 
         /// <summary>
         /// 领域事件
-        ///
         /// 使用 MediatR（内存级中介者） 实现
         /// </summary>
         public IReadOnlyCollection<INotification> DomainEvents => _domainEvents?.AsReadOnly();
@@ -25,13 +24,23 @@ namespace EDoc2.FAQ.Core.Domain.SeedWork
         public void RemoveDomainEvent(INotification @event) => _domainEvents?.Remove(@event);
 
         public void ClearDomainEvent() => _domainEvents?.Clear();
+
+        public virtual bool IsTransient()
+        {
+            return Id.Equals(default(int));
+        }
     }
 
-    public abstract class Entity<TPrimaryKey> : Entity
+    public abstract class Entity<TKey> : Entity
     {
         /// <summary>
         /// 将Id的默认类型（int）变为用户指定
         /// </summary>
-        public new TPrimaryKey Id { get; set; }
+        public new TKey Id { get; set; }
+
+        public override bool IsTransient()
+        {
+            return Id.Equals(default(TKey));
+        }
     }
 }

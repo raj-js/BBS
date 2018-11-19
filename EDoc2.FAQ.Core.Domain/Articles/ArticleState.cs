@@ -3,14 +3,18 @@ using EDoc2.FAQ.Core.Domain.SeedWork;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EDoc2.FAQ.Core.Domain.Models.ArticleAggregate
+namespace EDoc2.FAQ.Core.Domain.Articles
 {
     public class ArticleState : Enumeration
     {
         public static ArticleState Draft = new ArticleState(1, "草稿");
-        public static ArticleState Approving = new ArticleState(2, "审批中");
-        public static ArticleState Published = new ArticleState(3, "已发布");
-        public static ArticleState Deleted = new ArticleState(4, "已删除");
+        public static ArticleState Auditing = new ArticleState(2, "审核中");
+        public static ArticleState Rejected = new ArticleState(3, "驳回");
+        public static ArticleState Published = new ArticleState(4, "已发布");
+        public static ArticleState UnSolved = new ArticleState(5, "未结帖");
+        public static ArticleState Solved = new ArticleState(6, "已结贴");
+        public static ArticleState Unsatisfactory = new ArticleState(7, "无满意结贴");
+        public static ArticleState Deleted = new ArticleState(8, "已删除");
 
         public ArticleState() { }
 
@@ -19,7 +23,7 @@ namespace EDoc2.FAQ.Core.Domain.Models.ArticleAggregate
         {
         }
 
-        public static IEnumerable<ArticleState> List() => new[] { Draft, Approving, Published, Deleted };
+        public static IEnumerable<ArticleState> List() => new[] { Draft, Auditing, Rejected, Published, UnSolved, Solved, Unsatisfactory, Deleted };
 
         public static ArticleState FromName(string name)
         {

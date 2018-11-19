@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EDoc2.FAQ.Core.Domain.Models.ArticleAggregate
+namespace EDoc2.FAQ.Core.Domain.Articles
 {
     public class ArticleType : Enumeration
     {
