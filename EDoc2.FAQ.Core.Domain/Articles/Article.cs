@@ -149,6 +149,38 @@ namespace EDoc2.FAQ.Core.Domain.Articles
             AddDomainEvent(new ArticleStateChangedToDeletedDomainEvent(this, operatorId));
         }
 
+        #endregion
+
+        #region 属性修改
+
+        private void SetProperty(string name, string value)
+        {
+            if (Properties == null)
+                Properties = new List<ArticleProperty>();
+
+            var prop = Properties.SingleOrDefault(p => p.Name == name);
+            if (prop == null)
+            {
+                prop = new ArticleProperty();
+                Properties.Add(prop);
+            }
+
+            prop.Name = name;
+            prop.Value = value;
+        }
+
+        private TValue GetProperty<TValue>(string name, Func<string, TValue> converter = null)
+        {
+            if (Properties == null)
+                Properties = new List<ArticleProperty>();
+
+            var prop = Properties.SingleOrDefault(p => p.Name == name);
+            if (prop == null)
+                return default(TValue);
+
+            return converter == null ? (TValue)(prop.Value as object) : converter(prop.Value); 
+        }
+
         /// <summary>
         /// 设置悬赏分
         /// </summary>
@@ -159,11 +191,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
             //只有状态为草稿的时候才能设置悬赏分
             if (State.Id != ArticleState.Draft.Id) return;
 
-            var prop = Properties?.SingleOrDefault(s=>s.Name == ArticleProperty.RewardScore);
-            if (prop == null)
-                prop = new ArticleProperty();
-
-            prop.Value = score.ToString();
+            SetProperty(ArticleProperty.RewardScore, score.ToString());
         }
 
         /// <summary>
@@ -172,9 +200,107 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// <returns></returns>
         public int GetRewardScore()
         {
-            var prop = Properties?.SingleOrDefault(s => s.Name == ArticleProperty.RewardScore);
+            return GetProperty<int>(ArticleProperty.RewardScore, int.Parse);
+        }
 
-            return prop == null ? 0 : (int.TryParse(prop.Value, out var e) ? e : 0); 
+        /// <summary>
+        /// 是否已经消耗了积分
+        /// </summary>
+        /// <returns></returns>
+        public bool HasSpentScore()
+        {
+            return GetProperty<bool>(ArticleProperty.HasSpentSocre, bool.Parse);
+        }
+
+        /// <summary>
+        /// 设置是否消耗过积分
+        /// </summary>
+        /// <param name="hasSpentScore"></param>
+        public void HasSpentScore(bool hasSpentScore)
+        {
+            SetProperty(ArticleProperty.HasSpentSocre, hasSpentScore.ToString());
+        }
+
+        /// <summary>
+        /// 获取访问量
+        /// </summary>
+        /// <returns></returns>
+        public int GetPV()
+        {
+            return GetProperty<int>(ArticleProperty.PvNumber, int.Parse);
+        }
+
+        /// <summary>
+        /// 设置访问量
+        /// </summary>
+        /// <param name="pageViews"></param>
+        public void SetPV(int pageViews)
+        {
+            SetProperty(ArticleProperty.PvNumber, pageViews.ToString());
+        }
+
+        /// <summary>
+        /// 获取最佳回复编号
+        /// </summary>
+        /// <returns></returns>
+        public string GetAdoptCommentId()
+        {
+            if (State.Id != ArticleState.Solved.Id) return string.Empty;
+
+            return GetProperty<string>(ArticleProperty.AdoptCommentId);
+        }
+
+        /// <summary>
+        /// 设置最佳回复编号
+        /// </summary>
+        /// <param name="adoptCommentId"></param>
+        public void SetAdoptCommentId(string adoptCommentId)
+        {
+            if (State.Id != ArticleState.Solved.Id) return;
+
+            SetProperty(ArticleProperty.AdoptCommentId, adoptCommentId);
+        }
+
+        /// <summary>
+        /// 获取赞数
+        /// </summary>
+        /// <returns></returns>
+        public int GetPraiseNumber()
+        {
+            return GetProperty<int>(ArticleProperty.PraiseNumber, int.Parse);
+        }
+
+        /// <summary>
+        /// 设置赞数
+        /// </summary>
+        /// <param name="praiseNumber"></param>
+        public void SetPraiseNumber(int praiseNumber)
+        {
+            if (praiseNumber < 0)
+                throw new ArgumentOutOfRangeException(nameof(praiseNumber));
+
+            SetProperty(ArticleProperty.PraiseNumber, praiseNumber.ToString());
+        }
+
+        /// <summary>
+        /// 获取踩数
+        /// </summary>
+        /// <returns></returns>
+        public int GetTreadNumber()
+        {
+            return GetProperty<int>(ArticleProperty.TreadNumber, int.Parse);
+        }
+
+        /// <summary>
+        /// 设置踩数
+        /// </summary>
+        /// <param name="treadNumber"></param>
+        public void SetTreadNumber(int treadNumber)
+        {
+            if (treadNumber < 0)
+                throw new ArgumentOutOfRangeException(nameof(treadNumber));
+
+            SetProperty(ArticleProperty.TreadNumber, treadNumber.ToString());
         }
 
         #endregion

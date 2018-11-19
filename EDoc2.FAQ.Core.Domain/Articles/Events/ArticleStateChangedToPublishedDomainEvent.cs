@@ -6,6 +6,7 @@ namespace EDoc2.FAQ.Core.Domain.Events
 {
     /// <summary>
     /// 文字状态改为发布
+    /// 需要修改积分
     /// </summary>
     public class ArticleStateChangedToPublishedDomainEvent : INotification
     {

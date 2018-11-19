@@ -36,6 +36,11 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// </summary>
         public const string AdoptCommentId = "Adopt";
 
+        /// <summary>
+        /// 是否消耗了积分
+        /// </summary>
+        public const string HasSpentSocre = "HasSpentScore";
+
         #endregion
 
 

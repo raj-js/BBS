@@ -17,6 +17,7 @@ namespace EDoc2.FAQ.Core.Repositories.EntityFrameworkCore
         public DbSet<ArticleType> ArticleTypes { get; set; }
         public DbSet<ArticleCommentState> ArticleCommentStates { get; set; }
         public DbSet<ArticleProperty> ArticleProperties { get; set; }
+        public DbSet<ArticleOperation> ArticleOperations { get; set; }
 
         private readonly IMediator _mediator;
 
