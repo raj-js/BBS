@@ -36,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EDoc2.FAQ.Core.Repositories.EntityFrameworkCore\EDoc2.FAQ.Core.Repositories.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\EDoc2.FAQ.EventBus.RabbitMQ\EDoc2.FAQ.EventBus.RabbitMQ.csproj" />
     <ProjectReference Include="..\EDoc2.FAQ.Notification.Mail\EDoc2.FAQ.Notification.Mail.csproj" />
     <ProjectReference Include="..\EDoc2.FAQ.VerifyCode\EDoc2.FAQ.VerifyCode.csproj" />

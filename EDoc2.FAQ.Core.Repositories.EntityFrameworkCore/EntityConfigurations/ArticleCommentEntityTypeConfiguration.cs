@@ -10,10 +10,7 @@ namespace EDoc2.FAQ.Core.Repositories.EntityFrameworkCore.EntityConfigurations
         {
             b.Ignore(e => e.DomainEvents);
 
-            b.HasKey(e => new { e.Id, e.ArticleId });
-
-            b.Property(e => e.Id)
-                .HasValueGenerator(typeof(int));
+            b.HasKey(e => e.Id);
 
             b.Property(e => e.ParentCommentId).IsRequired(false);
 

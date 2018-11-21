@@ -5,17 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Auditing\Dtos\" />
-    <Folder Include="Integration\Dtos\" />
-    <Folder Include="Notice\Dtos\" />
+    <Folder Include="Auditings\" />
+    <Folder Include="System\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="MessagePack" Version="1.7.3.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EDoc2.FAQ.Core.Domain\EDoc2.FAQ.Core.Domain.csproj" />
+    <ProjectReference Include="..\EDoc2.FAQ.Core.Infrastructure\EDoc2.FAQ.Core.Infrastructure.csproj" />
+    <ProjectReference Include="..\EDoc2.FAQ.EventBus\EDoc2.FAQ.EventBus.csproj" />
+    <ProjectReference Include="..\EDoc2.FAQ.Notification.Mail\EDoc2.FAQ.Notification.Mail.csproj" />
   </ItemGroup>
 
 </Project>

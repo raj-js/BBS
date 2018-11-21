@@ -19,12 +19,12 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// <summary>
         /// 赞数
         /// </summary>
-        public const string PraiseNumber = "Praise";
+        public const string Likes = "Likes";
 
         /// <summary>
         /// 踩数
         /// </summary>
-        public const string TreadNumber = "Tread";
+        public const string Dislikes = "Dislikes";
 
         /// <summary>
         /// 悬赏分

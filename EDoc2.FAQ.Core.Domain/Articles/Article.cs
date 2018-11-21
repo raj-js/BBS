@@ -265,42 +265,42 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// 获取赞数
         /// </summary>
         /// <returns></returns>
-        public int GetPraiseNumber()
+        public int GetLikes()
         {
-            return GetProperty<int>(ArticleProperty.PraiseNumber, int.Parse);
+            return GetProperty<int>(ArticleProperty.Likes, int.Parse);
         }
 
         /// <summary>
         /// 设置赞数
         /// </summary>
-        /// <param name="praiseNumber"></param>
-        public void SetPraiseNumber(int praiseNumber)
+        /// <param name="likes"></param>
+        public void SetLikes(int likes)
         {
-            if (praiseNumber < 0)
-                throw new ArgumentOutOfRangeException(nameof(praiseNumber));
+            if (likes < 0)
+                throw new ArgumentOutOfRangeException(nameof(likes));
 
-            SetProperty(ArticleProperty.PraiseNumber, praiseNumber.ToString());
+            SetProperty(ArticleProperty.Likes, likes.ToString());
         }
 
         /// <summary>
         /// 获取踩数
         /// </summary>
         /// <returns></returns>
-        public int GetTreadNumber()
+        public int GetDislikes()
         {
-            return GetProperty<int>(ArticleProperty.TreadNumber, int.Parse);
+            return GetProperty<int>(ArticleProperty.Dislikes, int.Parse);
         }
 
         /// <summary>
         /// 设置踩数
         /// </summary>
-        /// <param name="treadNumber"></param>
-        public void SetTreadNumber(int treadNumber)
+        /// <param name="dislikes"></param>
+        public void SetDislikes(int dislikes)
         {
-            if (treadNumber < 0)
-                throw new ArgumentOutOfRangeException(nameof(treadNumber));
+            if (dislikes < 0)
+                throw new ArgumentOutOfRangeException(nameof(dislikes));
 
-            SetProperty(ArticleProperty.TreadNumber, treadNumber.ToString());
+            SetProperty(ArticleProperty.Dislikes, dislikes.ToString());
         }
 
         #endregion

@@ -45,7 +45,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositorie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDoc2.FAQ.Core.Repositories.EntityFrameworkCore", "EDoc2.FAQ.Core.Repositories.EntityFrameworkCore\EDoc2.FAQ.Core.Repositories.EntityFrameworkCore.csproj", "{326C6BD7-CD13-4919-98FA-72614EA9552C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{74BF47C8-BCF3-49B7-96F1-235E514ECC87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDoc2.FAQ.Api", "EDoc2.FAQ.Api\EDoc2.FAQ.Api.csproj", "{DC054826-2F55-45F5-AF47-FB1B81B4B340}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +105,10 @@ Global
 		{326C6BD7-CD13-4919-98FA-72614EA9552C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{326C6BD7-CD13-4919-98FA-72614EA9552C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{326C6BD7-CD13-4919-98FA-72614EA9552C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC054826-2F55-45F5-AF47-FB1B81B4B340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC054826-2F55-45F5-AF47-FB1B81B4B340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC054826-2F55-45F5-AF47-FB1B81B4B340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC054826-2F55-45F5-AF47-FB1B81B4B340}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,6 +132,7 @@ Global
 		{4ADF6E4C-8561-42BC-B2E9-B3E329FE928E} = {71FDDE98-CEBD-4D9E-B97E-6E30D0887694}
 		{CD0F456F-9452-4B7B-912B-A4F664519DAD} = {71FDDE98-CEBD-4D9E-B97E-6E30D0887694}
 		{326C6BD7-CD13-4919-98FA-72614EA9552C} = {CD0F456F-9452-4B7B-912B-A4F664519DAD}
+		{DC054826-2F55-45F5-AF47-FB1B81B4B340} = {567EAA53-767E-47BA-9F13-6D2E8C70B93D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ADB21695-77C2-4599-8E89-C7DE97F412A6}

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using EDoc2.FAQ.Core.Application.Articles.Dtos;
-using EDoc2.FAQ.Core.Domain.Models.ArticleAggregate;
+using IMapper = EDoc2.FAQ.Core.Application.ServiceBase.IMapper;
 
 namespace EDoc2.FAQ.Core.Application.Articles.DtoMappers
 {
@@ -8,8 +7,7 @@ namespace EDoc2.FAQ.Core.Application.Articles.DtoMappers
     {
         public void Config(IMapperConfigurationExpression config)
         {
-            config.CreateMap<Article, ArticleDetailDto>();
-            config.CreateMap<ArticleDetailDto, Article>();
+            
         }
     }
 }

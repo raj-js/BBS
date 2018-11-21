@@ -6,7 +6,6 @@ using EDoc2.FAQ.EventBus.RabbitMQ;
 using EDoc2.FAQ.Notification.Mail;
 using EDoc2.FAQ.Web.Data;
 using EDoc2.FAQ.Web.Data.Identity;
-using EDoc2.FAQ.Web.Infrastructure;
 using EDoc2.FAQ.Web.IntegrationEvents;
 using EDoc2.FAQ.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -14,7 +13,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -51,6 +49,17 @@ namespace EDoc2.FAQ.Web
                 .AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
+
+            //services.AddDbContext<AppIdentityContext>(
+            //        b => b.UseSqlServer(Configuration.GetConnectionString("AppIdentityContext"))
+            //            .UseLazyLoadingProxies())
+            //    .AddIdentity<User, Role>()
+            //    .AddEntityFrameworkStores<AppIdentityContext>()
+            //    .AddDefaultTokenProviders();
+
+            //services.AddDbContext<CommunityContext>(
+            //        b => b.UseSqlServer(Configuration.GetConnectionString("CommunityContext"))
+            //            .UseLazyLoadingProxies());
 
             var identityOptions = Configuration.GetSection("IdentityOptions");
             services.Configure<IdentityOptions>(options =>

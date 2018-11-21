@@ -3,7 +3,38 @@ using System.Collections.Generic;
 
 namespace EDoc2.FAQ.Core.Domain.SeedWork
 {
-    public abstract class Entity
+    public interface IEntity
+    {
+        /// <summary>
+        /// 领域事件
+        /// </summary>
+        IReadOnlyCollection<INotification> DomainEvents { get; }
+
+        /// <summary>
+        /// 添加领域事件
+        /// </summary>
+        /// <param name="event"></param>
+        void AddDomainEvent(INotification @event);
+
+        /// <summary>
+        /// 移除领域事件
+        /// </summary>
+        /// <param name="event"></param>
+        void RemoveDomainEvent(INotification @event);
+
+        /// <summary>
+        /// 清除领域事件
+        /// </summary>
+        void ClearDomainEvent();
+
+        /// <summary>
+        /// 是否为瞬态
+        /// </summary>
+        /// <returns></returns>
+        bool IsTransient();
+    }
+
+    public abstract class Entity : IEntity
     {
         public virtual int Id { get; set; }
 

@@ -7,15 +7,15 @@ namespace EDoc2.FAQ.Core.Domain.Articles
 {
     public class ArticleOperationType : Enumeration
     {
-        public static ArticleOperationType Praise = new ArticleOperationType(1, "赞");
-        public static ArticleOperationType Tread = new ArticleOperationType(2, "踩");
+        public static ArticleOperationType Like = new ArticleOperationType(1, "赞");
+        public static ArticleOperationType Dislike = new ArticleOperationType(2, "踩");
         public static ArticleOperationType Report = new ArticleOperationType(3, "举报");
 
         public ArticleOperationType() { }
 
         public ArticleOperationType(int id, string name) : base(id, name) { }
 
-        public static IEnumerable<ArticleOperationType> List() => new[] { Praise, Tread, Report };
+        public static IEnumerable<ArticleOperationType> List() => new[] { Like, Dislike, Report };
 
         public static ArticleOperationType FromName(string name)
         {

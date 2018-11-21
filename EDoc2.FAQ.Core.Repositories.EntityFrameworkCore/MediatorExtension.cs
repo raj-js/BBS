@@ -1,7 +1,8 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Domain.SeedWork;
+﻿using EDoc2.FAQ.Core.Domain.SeedWork;
+using EDoc2.FAQ.Core.Repositories.EntityFrameworkCore.Contexts;
 using MediatR;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EDoc2.FAQ.Core.Repositories.EntityFrameworkCore
 {
@@ -13,6 +14,22 @@ namespace EDoc2.FAQ.Core.Repositories.EntityFrameworkCore
         /// <param name="this"></param>
         /// <param name="ctx"></param>
         /// <returns></returns>
+        public static async Task DispatchDomainEventsForIdentityAsync(this IMediator @this, AppIdentityContext ctx)
+        {
+            var domainEntries = ctx.ChangeTracker.Entries<IEntity>()
+                .Where(x => x.Entity.DomainEvents != null && x.Entity.DomainEvents.Any())
+                .ToList();
+
+            var domainEvents = domainEntries
+                .SelectMany(x => x.Entity.DomainEvents)
+                .ToList();
+
+            domainEntries.ForEach(entry => entry.Entity.ClearDomainEvent());
+
+            var tasks = domainEvents.Select(async (@event) => { await @this.Publish(@event); });
+            await Task.WhenAll(tasks);
+        }
+
         public static async Task DispatchDomainEventsAsync(this IMediator @this, CommunityContext ctx)
         {
             var domainEntries = ctx.ChangeTracker.Entries<Entity>()

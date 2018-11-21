@@ -9,9 +9,7 @@ namespace EDoc2.FAQ.Web.Services
     public class MailService : IMailService
     {
         private readonly IEventBus _eventBus;
-        private readonly IConfiguration _configuration;
-
-        private IConfigurationSection _mailSection;
+        private readonly IConfigurationSection _mailSection;
 
         public MailService(
             IEventBus eventBus,
@@ -19,8 +17,6 @@ namespace EDoc2.FAQ.Web.Services
             )
         {
             _eventBus = eventBus;
-            _configuration = configuration;
-
             _mailSection = configuration.GetSection("Mail");
         }
 
