@@ -1,7 +1,7 @@
 ﻿using EDoc2.FAQ.Core.Application.Articles.Dtos;
 using EDoc2.FAQ.Core.Domain.Articles;
-using EDoc2.FAQ.Core.Domain.Authorization;
-using EDoc2.FAQ.Core.Domain.System;
+using EDoc2.FAQ.Core.Domain.Accounts;
+using EDoc2.FAQ.Core.Domain.Applications;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;

@@ -6,7 +6,7 @@ namespace EDoc2.FAQ.Api.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        [HttpPost("/reg")]
+        [HttpPost("register")]
         public ActionResult Register(string email, string nickname, string password)
         {
             return NotFound();

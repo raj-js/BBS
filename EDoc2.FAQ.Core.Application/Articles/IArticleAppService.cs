@@ -34,7 +34,7 @@ namespace EDoc2.FAQ.Core.Application.Articles
         ArticleDtos.Details AddArticle(ArticleDtos.Add addDto);
 
         /// <summary>
-        /// 
+        /// 编辑文章
         /// </summary>
         /// <param name="editDto"></param>
         /// <returns></returns>

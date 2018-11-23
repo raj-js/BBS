@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Auditings\" />
-    <Folder Include="System\" />
+    <Folder Include="Applications\" />
   </ItemGroup>
 
   <ItemGroup>

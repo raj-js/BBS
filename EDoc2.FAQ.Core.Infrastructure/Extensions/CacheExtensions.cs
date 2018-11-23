@@ -1,4 +1,4 @@
-﻿namespace EDoc2.FAQ.Core.Infrastructure
+﻿namespace EDoc2.FAQ.Core.Infrastructure.Extensions
 {
     public static class CacheExtensions
     {
