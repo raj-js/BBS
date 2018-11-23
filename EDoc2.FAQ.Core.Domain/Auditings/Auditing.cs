@@ -21,21 +21,31 @@ namespace EDoc2.FAQ.Core.Domain.Auditings
         /// <summary>
         /// 审核结果
         /// </summary>
-        public AuditingResult Result { get; set; }
+        public AuditingResult Result { get; private set; }
 
         /// <summary>
         /// 审核人编号
         /// </summary>
-        public string AuditorId { get; set; }
+        public string AuditorId { get; private set; }
 
         /// <summary>
         /// 审核时间
         /// </summary>
-        public DateTime AuditingTime { get; set; }
+        public DateTime AuditingTime { get; private set; }
 
         /// <summary>
         /// 备注信息
         /// </summary>
-        public string Remark { get; set; }
+        public string Remark { get; private set; }
+
+        #region 审核结果
+
+        public void SetPassed()
+        {
+
+        }
+
+        #endregion
+
     }
 }
