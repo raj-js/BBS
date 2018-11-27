@@ -4,11 +4,10 @@ using EDoc2.FAQ.Web.Data.Identity;
 using EDoc2.FAQ.Web.Extensions;
 using EDoc2.FAQ.Web.Services;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace EDoc2.FAQ.Web.Pages.Account
+namespace EDoc2.FAQ.Web.Pages.Obsolete
 {
     public class ForgotPasswordModel : PageModel
     {

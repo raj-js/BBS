@@ -15,13 +15,6 @@ namespace EDoc2.FAQ.Core.Domain.Auditings
         Auditing Add(Auditing auditing);
 
         /// <summary>
-        /// 更新审核任务
-        /// </summary>
-        /// <param name="auditing"></param>
-        /// <returns></returns>
-        Auditing Update(Auditing auditing);
-
-        /// <summary>
         /// 根据编号查找审核任务
         /// </summary>
         /// <param name="id"></param>
@@ -40,5 +33,12 @@ namespace EDoc2.FAQ.Core.Domain.Auditings
         /// </summary>
         /// <returns></returns>
         Task<IQueryable<Auditing>> GetAuditings();
+
+        /// <summary>
+        /// 审核
+        /// </summary>
+        /// <param name="auditing"></param>
+        /// <param name="result"></param>
+        void Audit(Auditing auditing, AuditingResult result);
     }
 }

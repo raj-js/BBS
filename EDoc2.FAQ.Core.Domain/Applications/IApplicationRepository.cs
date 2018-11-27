@@ -1,32 +1,37 @@
 ﻿using EDoc2.FAQ.Core.Domain.SeedWork;
 using System;
+using System.Threading.Tasks;
 
 namespace EDoc2.FAQ.Core.Domain.Applications
 {
     public interface IApplicationRepository: IRepository<Application>
     {
         /// <summary>
-        /// 文章是否需要审核
+        /// 获取默认实例
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
-        bool IsArticleNeedAuditing();
+        Application GetDefault(Guid id);
 
         /// <summary>
-        /// 评论是否需要审核
+        /// 获取默认实例
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
-        bool IsCommentNeedAuditing();
+        Task<Application> GetDefaultAsync(Guid id);
 
         /// <summary>
-        /// 获取文章/回复 踩/赞 间隔时间（秒）
+        /// 初始化
         /// </summary>
+        /// <param name="application"></param>
         /// <returns></returns>
-        int GetArticleOperationInterval();
+        Application Initialize(Application application);
 
         /// <summary>
-        /// 获取缓存过期间隔
+        /// 更新
         /// </summary>
+        /// <param name="application"></param>
         /// <returns></returns>
-        TimeSpan GetCacheExpireTimespan();
+        Task<Application> UpdateAsync(Application application);
     }
 }

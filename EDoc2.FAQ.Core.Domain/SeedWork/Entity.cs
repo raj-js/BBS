@@ -40,10 +40,7 @@ namespace EDoc2.FAQ.Core.Domain.SeedWork
 
         private List<INotification> _domainEvents;
 
-        /// <summary>
-        /// 领域事件
-        /// 使用 MediatR（内存级中介者） 实现
-        /// </summary>
+        /// <inheritdoc />
         public IReadOnlyCollection<INotification> DomainEvents => _domainEvents?.AsReadOnly();
 
         public void AddDomainEvent(INotification @event)
@@ -65,7 +62,7 @@ namespace EDoc2.FAQ.Core.Domain.SeedWork
     public abstract class Entity<TKey> : Entity
     {
         /// <summary>
-        /// 将Id的默认类型（int）变为用户指定
+        /// 将Id的默认类型（int）重写为程序指定
         /// </summary>
         public new TKey Id { get; set; }
 

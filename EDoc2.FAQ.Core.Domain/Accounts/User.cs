@@ -1,11 +1,13 @@
-﻿using EDoc2.FAQ.Core.Domain.SeedWork;
+﻿using EDoc2.FAQ.Core.Domain.Applications.Events;
+using EDoc2.FAQ.Core.Domain.SeedWork;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
-namespace EDoc2.FAQ.Core.Domain.Accounts
+namespace EDoc2.FAQ.Core.Domain.Applications
 {
     public class User : IdentityUser, IEntity, IAggregateRoot
     {
@@ -18,6 +20,21 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         /// 昵称
         /// </summary>
         public string Nickname { get; set; }
+
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public Gender Gender { get; set; }
+
+        /// <summary>
+        /// 城市
+        /// </summary>
+        public string City { get; set; }
+
+        /// <summary>
+        /// 签名
+        /// </summary>
+        public string Signature { get; set; }
 
         /// <summary>
         /// 加入日期
@@ -42,7 +59,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
 
         public virtual bool IsTransient()
         {
-            return Id.Equals(default(int));
+            return Id.Equals(default(string));
         }
 
         #endregion
@@ -53,7 +70,10 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         public virtual ICollection<UserLogin> UserLogins { get; set; }
         public virtual ICollection<UserToken> UserTokens { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
-
+        public virtual ICollection<UserProperty> UserProperties { get; set; }
+        public virtual ICollection<UserFavorite> UserFavorites { get; set; }
+        public virtual ICollection<UserSubscriber> UserFollows { get; set; }
+        public virtual ICollection<UserSubscriber> UserFans { get; set; }
         #endregion
 
         #region Claims 存取
@@ -63,10 +83,10 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
             if (string.IsNullOrEmpty(type))
                 throw new ArgumentNullException(nameof(type));
 
-            return UserClaims.SingleOrDefault(c => c.ClaimType.Equals(type));
+            return UserClaims.SingleOrDefault(c => c.ClaimType.Equals(type, StringComparison.OrdinalIgnoreCase));
         }
 
-        private void SetClaim(string type, string value)
+        private void SetClaimValue(string type, string value)
         {
             if (string.IsNullOrEmpty(type))
                 throw new ArgumentNullException(nameof(type));
@@ -95,139 +115,344 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
                 : (converter == null ? (T)(claim.ClaimValue as object) : converter(claim.ClaimValue));
         }
 
-        /// <summary>
-        /// 获取昵称
-        /// </summary>
-        /// <returns></returns>
-        public string GetNickname()
+        #endregion
+
+        #region 用户属性存取
+
+        private UserProperty GetOrCreateProperty(string name, string @default = null)
         {
-            return GetClaimValue<string>(UserClaim.Nickname);
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException(nameof(name));
+
+            if (UserProperties == null)
+                UserProperties = new List<UserProperty>();
+
+            var property = UserProperties.SingleOrDefault(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            if (property == null)
+            {
+                property = new UserProperty
+                {
+                    Name = name,
+                    Value = @default
+                };
+                UserProperties.Add(property);
+            }
+            return property;
+        }
+
+        private void SetProperty(string name, string value) => GetOrCreateProperty(name, value);
+
+        public T GetProperty<T>(string name, string @default = null, Func<string, T> converter = null)
+        {
+            var property = GetOrCreateProperty(name, @default);
+
+            return converter == null ? (T)(property.Value as object) : converter(property.Value);
         }
 
         /// <summary>
-        /// 设置昵称
+        /// 坚持签到天数
         /// </summary>
-        /// <param name="nickname"></param>
-        public void SetNickname(string nickname)
-        {
-            SetClaim(UserClaim.Nickname, nickname);
-        }
-
+        public int PersistDays => GetProperty(UserProperty.PersistDays, converter: int.Parse);
 
         /// <summary>
-        /// 获取加入日期
+        /// 积分
         /// </summary>
-        /// <returns></returns>
-        public DateTime GetJoinDate()
-        {
-            return GetClaimValue(UserClaim.JoinDate, DateTime.Parse);
-        }
+        public int Score => GetProperty(UserProperty.Score, converter: int.Parse);
 
         /// <summary>
-        /// 设置加入日期
+        /// 粉丝数
         /// </summary>
-        /// <param name="joinDate"></param>
-        public void SetJoinDate(DateTime joinDate)
-        {
-            SetClaim(UserClaim.JoinDate, $"{joinDate:yyyy-MM-dd}");
-        }
+        public int Fans => GetProperty(UserProperty.Fans, converter: int.Parse);
 
         /// <summary>
-        /// 获取性别
+        /// 关注数
         /// </summary>
-        /// <returns></returns>
-        public int GetGender()
-        {
-            return GetClaimValue(UserClaim.Gender, int.Parse);
-        }
-
-        /// <summary>
-        /// 设置性别
-        /// </summary>
-        /// <param name="gender"></param>
-        public void SetGender(int gender)
-        {
-            SetClaim(UserClaim.Gender, gender.ToString());
-        }
-
-        /// <summary>
-        /// 获取城市
-        /// </summary>
-        /// <returns></returns>
-        public string GetCity()
-        {
-            return GetClaimValue<string>(UserClaim.City);
-        }
-
-        /// <summary>
-        /// 设置城市
-        /// </summary>
-        /// <param name="city"></param>
-        public void SetCity(string city)
-        {
-            SetClaim(UserClaim.City, city);
-        }
-
-        /// <summary>
-        /// 获取签名
-        /// </summary>
-        /// <returns></returns>
-        public string GetSignature()
-        {
-            return GetClaimValue<string>(UserClaim.Signature);
-        }
-
-        /// <summary>
-        /// 设置签名
-        /// </summary>
-        /// <param name="signature"></param>
-        public void SetSignature(string signature)
-        {
-            SetClaim(UserClaim.Signature, signature);
-        }
-
-        /// <summary>
-        /// 获取连续签到天数
-        /// </summary>
-        /// <returns></returns>
-        public int GetPersistSignInDays()
-        {
-            return GetClaimValue(UserClaim.PersistSignInDays, int.Parse);
-        }
+        public int Follows => GetProperty(UserProperty.Fans, converter: int.Parse);
 
         /// <summary>
         /// 设置连续签到天数
         /// </summary>
         /// <param name="days"></param>
-        public void SetPersistSignInDays(int days)
+        private void SetPersistDays(int days)
         {
             if (days < 0)
                 throw new ArgumentOutOfRangeException(nameof(days));
 
-            SetClaim(UserClaim.PersistSignInDays, days.ToString());
+            SetProperty(UserProperty.PersistDays, days.ToString());
         }
 
         /// <summary>
-        /// 获取积分
+        /// 增长持续签到天数
         /// </summary>
-        /// <returns></returns>
-        public int GetScore()
+        public void IncrementPersistDays()
         {
-            return GetClaimValue(UserClaim.Score, int.Parse);
+            SetPersistDays(PersistDays + 1);
+        }
+
+        /// <summary>
+        /// 签到天数清零
+        /// </summary>
+        public void ClearPersistDays()
+        {
+            SetPersistDays(0);
         }
 
         /// <summary>
         /// 设置积分
         /// </summary>
         /// <param name="score"></param>
-        public void SetScore(int score)
+        private void SetScore(int score)
         {
             if (score < 0)
                 throw new ArgumentOutOfRangeException(nameof(score));
 
-            SetClaim(UserClaim.Score, score.ToString());
+            SetProperty(UserProperty.Score, score.ToString());
+        }
+
+        /// <summary>
+        /// 增加积分
+        /// </summary>
+        /// <param name="score"></param>
+        /// <param name="reasonId"></param>
+        public void PlusScore(int score, int reasonId)
+        {
+            if (score < 0)
+                throw new ArgumentOutOfRangeException(nameof(score));
+
+
+            var originScore = Score;
+            SetScore(originScore + score);
+
+            AddDomainEvent(new ScoreChangeDomainEvent(this, originScore, score, reasonId));
+        }
+
+        /// <summary>
+        /// 减少积分
+        /// </summary>
+        /// <param name="score"></param>
+        /// <param name="reasonId"></param>
+        public void MinusScore(int score, int reasonId)
+        {
+            if (score < 0)
+                throw new ArgumentOutOfRangeException(nameof(score));
+
+            var originScore = Score;
+            if (originScore < score)
+                throw new InvalidOperationException($"score is not enough, have {Score}, minus {score}");
+
+            SetScore(originScore - score);
+            AddDomainEvent(new ScoreChangeDomainEvent(this, originScore, score, reasonId));
+        }
+
+        /// <summary>
+        /// 判断是否为某人的粉丝
+        /// </summary>
+        /// <param name="followId"></param>
+        /// <param name="subscriber"></param>
+        /// <returns></returns>
+        public bool IsFanOf(string followId, out UserSubscriber subscriber)
+        {
+            subscriber = null;
+
+            if (UserFollows == null) return false;
+
+            subscriber = UserFollows.SingleOrDefault(s =>
+                s.FanId.Equals(Id, StringComparison.OrdinalIgnoreCase) &&
+                s.FollowId.Equals(followId, StringComparison.OrdinalIgnoreCase));
+
+            return !subscriber?.IsCancel ?? false;
+        }
+
+        /// <summary>
+        /// 添加关注
+        /// </summary>
+        /// <param name="followId"></param>
+        public void Follow(string followId)
+        {
+            if (string.IsNullOrEmpty(followId))
+                throw new ArgumentNullException(nameof(followId));
+
+            if (IsFanOf(followId, out var follow)) return;
+
+            if (follow == null)
+            {
+                follow = new UserSubscriber
+                {
+                    FollowId = followId,
+                    OperationTime = DateTime.Now,
+                    IsCancel = false
+                };
+                UserFollows.Add(follow);
+            }
+            else
+            {
+                follow.IsCancel = false;
+                follow.OperationTime = DateTime.Now;
+            }
+
+            SetFollows(Follows + 1);
+            AddDomainEvent(new FollowUserDomainEvent(this, followId, follow.OperationTime));
+        }
+
+        /// <summary>
+        /// 取消关注
+        /// </summary>
+        /// <param name="followId"></param>
+        public void UnFollow(string followId)
+        {
+            if (string.IsNullOrEmpty(followId))
+                throw new ArgumentNullException(nameof(followId));
+
+            if (!IsFanOf(followId, out var follow)) return;
+
+            SetFollows(Follows - 1);
+            follow.IsCancel = true;
+            follow.OperationTime = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 设置关注数
+        /// </summary>
+        /// <param name="follows"></param>
+        private void SetFollows(int follows)
+        {
+            if(follows < 0)
+                throw new ArgumentOutOfRangeException(nameof(follows));
+
+            SetProperty(UserProperty.Follows, follows.ToString());
+        }
+
+        /// <summary>
+        /// 设置粉丝数
+        /// </summary>
+        /// <param name="fans"></param>
+        private void SetFans(int fans)
+        {
+            if (fans < 0)
+                throw new ArgumentOutOfRangeException(nameof(fans));
+
+            SetProperty(UserProperty.Fans, fans.ToString());
+        }
+
+        /// <summary>
+        /// 是否收藏文章
+        /// </summary>
+        /// <param name="articleId"></param>
+        /// <param name="favorite"></param>
+        /// <returns></returns>
+        public bool HasFavorite(Guid articleId, out UserFavorite favorite)
+        {
+            favorite = null;
+
+            if (UserFavorites == null) return false;
+
+            favorite = UserFavorites.SingleOrDefault(s => s.ArticleId == articleId);
+
+            return !favorite?.IsCancel ?? false;
+        }
+
+        /// <summary>
+        /// 添加收藏
+        /// </summary>
+        /// <param name="articleId"></param>
+        public void AddFavorite(Guid articleId)
+        {
+            if (HasFavorite(articleId, out var favorite)) return;
+
+            if (favorite == null)
+            {
+                favorite = new UserFavorite(Id, articleId);
+                UserFavorites.Add(favorite);
+            }
+            else
+            {
+                favorite.IsCancel = false;
+                favorite.OperationTime = DateTime.Now;
+            }
+        }
+
+        /// <summary>
+        /// 取下收藏
+        /// </summary>
+        /// <param name="articleId"></param>
+        public void RemoveFavorite(Guid articleId)
+        {
+            if (!HasFavorite(articleId, out var favorite)) return;
+
+            favorite.IsCancel = true;
+            favorite.OperationTime = DateTime.Now;
         }
 
         #endregion
+
+        /// <summary>
+        /// 初始化基本属性
+        /// </summary>
+        public void Initialize()
+        {
+            IsMuted = false;
+            Gender = Gender.Male;
+            City = string.Empty;
+            Signature = string.Empty;
+            JoinDate = DateTime.Now;
+
+            SetPersistDays(0);
+            SetScore(0);
+            SetFollows(0);
+            SetFans(0);
+        }
+
+        /// <summary>
+        /// 是否是指定角色
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        public bool InRole(Role role, out UserRole userRole)
+        {
+            userRole = null;
+
+            if (role == null) return false;
+
+            if (UserRoles == null)
+                UserRoles = new List<UserRole>();
+
+            userRole = UserRoles.SingleOrDefault(s => s.RoleId.Equals(role.Id, StringComparison.OrdinalIgnoreCase));
+            return userRole != null;
+        }
+
+        ///// <summary>
+        ///// 授予角色
+        ///// </summary>
+        ///// <param name="role"></param>
+        //public void GrantRole(Role role)
+        //{
+        //    if (role == null)
+        //        throw new ArgumentNullException(nameof(role));
+
+        //    if (InRole(role, out var userRole)) return;
+
+        //    UserRoles.Add(new UserRole
+        //    {
+        //        RoleId = role.Id
+        //    });
+        //}
+
+        ///// <summary>
+        ///// 回收角色
+        ///// </summary>
+        ///// <param name="role"></param>
+        //public void RecycleRole(Role role)
+        //{
+        //    if (!InRole(role, out var userRole)) return;
+
+        //    UserRoles.Remove(userRole);
+        //}
+    }
+
+    public enum Gender
+    {
+        Male = 0,
+        Female = 1,
+        Secret = -1
     }
 }

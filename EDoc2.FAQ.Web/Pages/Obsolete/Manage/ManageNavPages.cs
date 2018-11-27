@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace EDoc2.FAQ.Web.Pages.Account.Manage
+namespace EDoc2.FAQ.Web.Pages.Obsolete.Manage
 {
     public static class ManageNavPages
     {

@@ -1,23 +1,27 @@
 ﻿using MediatR;
+using System;
 
 namespace EDoc2.FAQ.Core.Domain.Applications.Events
 {
+    /// <summary>
+    /// 积分变动事件
+    /// </summary>
     public class ScoreChangeDomainEvent : INotification
     {
-        public string UserId { get; set; }
+        public User User { get; private set; }
 
-        public int OriginScore { get; set; }
+        public int OriginScore { get; private set; }
 
-        public int ChangeScore { get; set; }
+        public int ChangeScore { get; private set; }
 
-        public int FinalScore { get; set; }
+        public int ReasonId { get; private set; }
 
-        public ScoreChangeDomainEvent(string userId, int originScore, int changeScore, int finalScore)
+        public ScoreChangeDomainEvent(User user, int originScore, int changeScore, int reasonId)
         {
-            UserId = userId;
+            User = user ?? throw new ArgumentNullException(nameof(user));
             OriginScore = originScore;
             ChangeScore = changeScore;
-            FinalScore = finalScore;
+            ReasonId = reasonId;
         }
     }
 }

@@ -11,12 +11,12 @@ namespace EDoc2.FAQ.Core.Domain.Auditings
         /// <summary>
         /// 关联类型
         /// </summary>
-        public AuditingTargetType TargetType { get; set; }
+        public AuditingTargetType TargetType { get; private set; }
 
         /// <summary>
         /// 关联事物编号
         /// </summary>
-        public string TargetId { get; set; }
+        public string TargetId { get; private set; }
 
         /// <summary>
         /// 审核结果
@@ -38,14 +38,26 @@ namespace EDoc2.FAQ.Core.Domain.Auditings
         /// </summary>
         public string Remark { get; private set; }
 
-        #region 审核结果
-
-        public void SetPassed()
+        public Auditing(AuditingTargetType targetType, string targetId)
         {
-
+            TargetType = targetType ?? throw new ArgumentNullException(nameof(targetType));
+            TargetId = targetId ?? throw new ArgumentNullException(nameof(targetId));
         }
 
-        #endregion
+        public void SetPassed(string operatorId, string remark)
+        {
+            Result = AuditingResult.Passed;
+            AuditorId = operatorId;
+            AuditingTime = DateTime.Now;
+            Remark = remark;
+        }
 
+        public void SetRejected(string operatorId, string remark)
+        {
+            Result = AuditingResult.Rejected;
+            AuditorId = operatorId;
+            AuditingTime = DateTime.Now;
+            Remark = remark;
+        }
     }
 }

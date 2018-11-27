@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace EDoc2.FAQ.Web.Pages.Account
+namespace EDoc2.FAQ.Web.Pages.Obsolete
 {
     public class SignedOutModel : PageModel
     {

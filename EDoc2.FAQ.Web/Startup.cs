@@ -50,17 +50,6 @@ namespace EDoc2.FAQ.Web
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-            //services.AddDbContext<AppIdentityContext>(
-            //        b => b.UseSqlServer(Configuration.GetConnectionString("AppIdentityContext"))
-            //            .UseLazyLoadingProxies())
-            //    .AddIdentity<User, Role>()
-            //    .AddEntityFrameworkStores<AppIdentityContext>()
-            //    .AddDefaultTokenProviders();
-
-            //services.AddDbContext<CommunityContext>(
-            //        b => b.UseSqlServer(Configuration.GetConnectionString("CommunityContext"))
-            //            .UseLazyLoadingProxies());
-
             var identityOptions = Configuration.GetSection("IdentityOptions");
             services.Configure<IdentityOptions>(options =>
             {

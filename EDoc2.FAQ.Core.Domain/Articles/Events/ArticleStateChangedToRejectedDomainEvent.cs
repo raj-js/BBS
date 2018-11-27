@@ -1,8 +1,7 @@
-﻿using EDoc2.FAQ.Core.Domain.Articles;
+﻿using System;
 using MediatR;
-using System;
 
-namespace EDoc2.FAQ.Core.Domain.Events
+namespace EDoc2.FAQ.Core.Domain.Articles.Events
 {
     public class ArticleStateChangedToRejectedDomainEvent : INotification
     {

@@ -1,7 +1,6 @@
-﻿using EDoc2.FAQ.Core.Domain.Articles;
-using MediatR;
+﻿using MediatR;
 
-namespace EDoc2.FAQ.Core.Domain.Events
+namespace EDoc2.FAQ.Core.Domain.Articles.Events
 {
     public class ArticleStateChangedToUnsatisfactoryDomainEvent : INotification
     {

@@ -1,8 +1,8 @@
-﻿using EDoc2.FAQ.Core.Domain.Events;
-using EDoc2.FAQ.Core.Domain.SeedWork;
+﻿using EDoc2.FAQ.Core.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EDoc2.FAQ.Core.Domain.Articles.Events;
 
 namespace EDoc2.FAQ.Core.Domain.Articles
 {

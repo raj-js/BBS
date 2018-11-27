@@ -1,7 +1,7 @@
 ﻿using System;
 using EDoc2.FAQ.Core.Domain.SeedWork;
 
-namespace EDoc2.FAQ.Core.Domain.Accounts
+namespace EDoc2.FAQ.Core.Domain.Applications
 {
     /// <summary>
     /// 用户收藏文章
@@ -21,11 +21,29 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         /// <summary>
         /// 收藏时间
         /// </summary>
-        public DateTime CollectingTime { get; set; }
+        public DateTime OperationTime { get; set; }
 
         /// <summary>
         /// 是否取消
         /// </summary>
         public bool IsCancel { get; set; }
+
+        /// <summary>
+        /// 用户
+        /// </summary>
+        public virtual User User { get; set; }
+
+        /// <summary>
+        /// 收藏文章
+        /// </summary>
+        public virtual Articles.Article  Article { get; set; }
+
+        public UserFavorite(string userId, Guid articleId)
+        {
+            UserId = userId;
+            ArticleId = articleId;
+            OperationTime = DateTime.Now;
+            IsCancel = false;
+        }
     }
 }

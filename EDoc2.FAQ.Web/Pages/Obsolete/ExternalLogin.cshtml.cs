@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace EDoc2.FAQ.Web.Pages.Account
+namespace EDoc2.FAQ.Web.Pages.Obsolete
 {
     public class ExternalLoginModel : PageModel
     {

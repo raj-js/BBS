@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace EDoc2.FAQ.Core.Domain.Accounts
+namespace EDoc2.FAQ.Core.Domain.Applications
 {
     public class RoleClaim : IdentityRoleClaim<string>
     {

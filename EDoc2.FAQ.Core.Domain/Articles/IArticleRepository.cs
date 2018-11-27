@@ -67,6 +67,12 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// <param name="operatorId">操作人（游客为NULL）</param>
         /// <returns></returns>
         Article ViewArticle(Article article, DateTime viewTime, string clientIp, string operatorId = null);
+        /// <summary>
+        /// 文章能否收藏
+        /// </summary>
+        /// <param name="articleId"></param>
+        /// <returns></returns>
+        Task<bool> CanFavoriteArticle(Guid articleId);
         #endregion
 
         #region 评论相关

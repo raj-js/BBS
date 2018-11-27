@@ -1,12 +1,12 @@
+using System;
+using System.Threading.Tasks;
 using EDoc2.FAQ.Web.Data.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
 
-namespace EDoc2.FAQ.Web.Pages.Account.Manage
+namespace EDoc2.FAQ.Web.Pages.Obsolete.Manage
 {
     public class ResetAuthenticatorModel : PageModel
     {

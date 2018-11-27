@@ -1,15 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using EDoc2.FAQ.Api.Infrastructure;
+using EDoc2.FAQ.Api.Infrastructure.Modules;
+using EDoc2.FAQ.Core.Domain.Applications;
+using EDoc2.FAQ.Core.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using NLog.Extensions.Logging;
+using NLog.Web;
+using System;
+using System.Reflection;
 
 namespace EDoc2.FAQ.Api
 {
@@ -23,20 +29,61 @@ namespace EDoc2.FAQ.Api
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
             services.AddSwaggerDocument(setting =>
             {
                 setting.Title = "EDoc2问答社区Api文档";
                 setting.DocumentName = "v1";
                 setting.Description = "EDoc2问答社区Api文档";
             });
+
+            services.AddDbContext<CommunityContext>(options =>
+                options.UseSqlServer(Configuration["ConnectionString"],
+                sqlServerOptionsAction: sqlOptions =>
+                {
+                    sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                }));
+
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<CommunityContext>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+
+                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+
+                options.User.RequireUniqueEmail = true;
+            });
+
+            services.AddEventBus(Configuration);
+            services.UseMailSender(Configuration);
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            var container = new ContainerBuilder();
+            container.Populate(services);
+
+            //container.RegisterModule(new MediatorModule());
+            container.RegisterModule(new ApplicationModule());
+
+            return new AutofacServiceProvider(container.Build());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseStaticFiles();
 
@@ -51,10 +98,16 @@ namespace EDoc2.FAQ.Api
 
             app.UseHttpsRedirection();
 
-            app.UseSwagger();
-            app.UseSwaggerUi3();
+
+            loggerFactory.AddNLog();
+            env.ConfigureNLog("NLog.config");
+
+            app.UseSwagger()
+               .UseSwaggerUi3();
 
             app.UseMvc();
+
+            app.ConfigureEventBus();
         }
     }
 }
