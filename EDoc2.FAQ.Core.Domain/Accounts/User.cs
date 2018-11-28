@@ -402,12 +402,32 @@ namespace EDoc2.FAQ.Core.Domain.Applications
             SetFans(0);
         }
 
+        /// <summary>
+        /// 判断是否为指定角色
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
         public bool IsRole(Role role)
         {
             if (role == null) return false;
 
             return UserRoles?.Any(s => s.RoleId.Equals(role.Id, StringComparison.OrdinalIgnoreCase)) ?? false;
         }
+
+        /// <summary>
+        /// 是否为管理员
+        /// </summary>
+        public bool IsAdministrator => IsRole(Role.Administrator);
+
+        /// <summary>
+        /// 是否为版主
+        /// </summary>
+        public bool IsModerator => IsRole(Role.Moderator);
+
+        /// <summary>
+        /// 是否为会员
+        /// </summary>
+        public bool IsMember => IsRole(Role.Moderator);
 
         /// <summary>
         /// 是否是指定角色
