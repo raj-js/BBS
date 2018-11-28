@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -39,14 +40,21 @@ namespace EDoc2.FAQ.Api
             });
 
             services.AddDbContext<CommunityContext>(options =>
-                options.UseSqlServer(Configuration["ConnectionString"],
-                sqlServerOptionsAction: sqlOptions =>
-                {
-                    sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-                }));
+            {
+                options.UseSqlServer(
+                        Configuration["ConnectionString"],
+                        sqlOptions =>
+                        {
+                            sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                            sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                        }).UseLazyLoadingProxies();
 
-            services.AddIdentity<User, Role>()
+                //options.ConfigureWarnings(warning => 
+                //{
+                //    warning.Ignore(CoreEventId.DetachedLazyLoadingWarning);
+                //});
+            })
+                .AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<CommunityContext>()
                 .AddDefaultTokenProviders();
 

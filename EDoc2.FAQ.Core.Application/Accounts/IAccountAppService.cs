@@ -38,8 +38,9 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         /// 分页搜索
         /// </summary>
         /// <param name="dto"></param>
+        /// <param name="skipAdmin">不检索管理员信息</param>
         /// <returns></returns>
-        Task<PagingDto<AccountDtos.ListItem>> Search(AccountDtos.Search dto);
+        Task<PagingDto<AccountDtos.ListItem>> Search(AccountDtos.SearchReq dto, bool skipAdmin = true);
 
         /// <summary>
         /// 禁用用户
@@ -50,9 +51,8 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         /// <summary>
         /// 将用户设置为板块版主
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="moduleId"></param>
-        void GrantModerator(string userId, Guid moduleId);
+        /// <param name="dto"></param>
+        Task GrantModerator(AccountDtos.GrantModeratorReq dto);
 
         /// <summary>
         /// 获取用户详细信息
@@ -79,7 +79,5 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         /// </summary>
         /// <param name="userId"></param>
         void UnFollow(string userId);
-
-
     }
 }

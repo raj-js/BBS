@@ -28,6 +28,8 @@ namespace EDoc2.FAQ.Api.Infrastructure.Modules
                 .As<IArticleAppService>()
                 .InstancePerLifetimeScope();
 
+            //b.RegisterType<ModuleR>
+
             b.RegisterType<MailService>()
                 .As<IMailService>()
                 .SingleInstance();

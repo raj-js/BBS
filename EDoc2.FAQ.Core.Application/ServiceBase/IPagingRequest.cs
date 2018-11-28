@@ -20,6 +20,6 @@
         /// <summary>
         /// 是否升序
         /// </summary>
-        bool IsAsc { get; }
+        bool IsAscending { get; }
     }
 }

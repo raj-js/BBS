@@ -21,12 +21,12 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// <summary>
         /// 操作目标类型
         /// </summary>
-        public ArticleOperationSourceType SourceType  { get; set; }
+        public virtual ArticleOperationSourceType SourceType  { get; set; }
 
         /// <summary>
         /// 操作类型
         /// </summary>
-        public ArticleOperationType Type { get; set; }
+        public virtual ArticleOperationType Type { get; set; }
 
         /// <summary>
         /// 操作时间

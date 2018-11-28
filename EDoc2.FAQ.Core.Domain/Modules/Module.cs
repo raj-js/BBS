@@ -1,4 +1,5 @@
-﻿using EDoc2.FAQ.Core.Domain.SeedWork;
+﻿using EDoc2.FAQ.Core.Domain.Applications;
+using EDoc2.FAQ.Core.Domain.SeedWork;
 using System;
 
 namespace EDoc2.FAQ.Core.Domain.Modules
@@ -32,6 +33,16 @@ namespace EDoc2.FAQ.Core.Domain.Modules
         /// 启用
         /// </summary>
         public bool Enabled { get; private set; }
+
+        /// <summary>
+        /// 版主编号
+        /// </summary>
+        public string ModeratorId { get; set; }
+
+        /// <summary>
+        /// 版主
+        /// </summary>
+        public virtual User Moderator { get; set; }
 
         /// <summary>
         /// 启用/禁用当前模块

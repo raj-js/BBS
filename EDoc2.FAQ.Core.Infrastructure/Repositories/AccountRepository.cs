@@ -5,7 +5,6 @@ using EDoc2.FAQ.Core.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace EDoc2.FAQ.Core.Infrastructure.Repositories
@@ -64,19 +63,21 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
                 throw new ArgumentException(nameof(password));
 
             var identityResult = await _userManager.CreateAsync(user, password);
-
             if (identityResult.Succeeded)
             {
                 user.Initialize();
-                await _userManager.AddToRoleAsync(user, Role.Member.NormalizedName);
-                await UnitOfWork.SaveEntitiesAsync();
+                
+                identityResult = await _userManager.AddToRoleAsync(user, Role.Member.NormalizedName);
+                if (identityResult.Succeeded)
+                    await UnitOfWork.SaveEntitiesAsync();
             }
             return identityResult;
         }
 
-        public IQueryable<User> GetUsers()
+        public IQueryable<User> GetUsers(bool skipAdmin = true)
         {
-            return _userManager.Users;
+            return _userManager.Users
+                .WhereTure(skipAdmin, s => !s.UserRoles.Any(r => r.RoleId.Equals(Role.Administrator.Id, StringComparison.OrdinalIgnoreCase)));
         }
 
         public async Task<User> FindAsync(string id)
@@ -179,12 +180,19 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
             return user.UserFavorites.AsQueryable();
         }
 
-        public Task GrantModerator(User @operator, string userId, string moduleId)
+        public async Task<IdentityResult> GrantModerator(User @operator, string userId, Guid moduleId)
         {
-            throw new NotImplementedException();
+            if (!@operator.IsRole(Role.Administrator))
+                throw new UnauthorizedAccessException();
+
+            var targetUser = await _context.Users.FindAsync(userId);
+            if (targetUser == null)
+                throw new InvalidOperationException();
+
+            return await _userManager.AddToRoleAsync(targetUser, Role.Moderator.NormalizedName);
         }
 
-        public Task RecycleModerator(User @operator, string userId, string moduleId)
+        public Task<IdentityResult> RecycleModerator(User @operator, string userId)
         {
             throw new NotImplementedException();
         }

@@ -22,25 +22,25 @@ namespace EDoc2.FAQ.Api.Infrastructure
                     dbContext.SaveChanges();
                 }
 
-                var accountRepository = scope.ServiceProvider.GetService<IAccountRepository>();
-                var administrator = new User
-                {
-                    UserName = "rajesh.js@live.cn",
-                    Email = "rajesh.js@live.cn",
-                    Nickname = "administrator",
-                    JoinDate = DateTime.Now,
-                    IsMuted = false,
-                    EmailConfirmed = true
-                };
-                var identityResult = accountRepository.CreateAdmin(administrator, "ad123456!")
-                    .GetAwaiter()
-                    .GetResult();
+                //var accountRepository = scope.ServiceProvider.GetService<IAccountRepository>();
+                //var administrator = new User
+                //{
+                //    UserName = "rajesh.js@live.cn",
+                //    Email = "rajesh.js@live.cn",
+                //    Nickname = "administrator",
+                //    JoinDate = DateTime.Now,
+                //    IsMuted = false,
+                //    EmailConfirmed = true
+                //};
+                //var identityResult = accountRepository.CreateAdmin(administrator, "ad123456!")
+                //    .GetAwaiter()
+                //    .GetResult();
 
-                var logger = scope.ServiceProvider.GetService<ILogger>();
-                if (!identityResult.Succeeded)
-                {
-                    logger.LogError(identityResult.Errors.ToString());
-                }
+                //var logger = scope.ServiceProvider.GetService<ILogger>();
+                //if (!identityResult.Succeeded)
+                //{
+                //    logger.LogError(identityResult.Errors.ToString());
+                //}
             }
         }
     }

@@ -26,7 +26,7 @@ namespace EDoc2.FAQ.Api.Controllers
 
         [HttpPost("register")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IdentityResult))]
-        public async Task<IActionResult> Register([FromForm]VmRegister vm)
+        public async Task<IActionResult> Register([FromForm]VmRegisterReq vm)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -38,16 +38,6 @@ namespace EDoc2.FAQ.Api.Controllers
             });
 
             return Ok(identityResult);
-        }
-
-        public IActionResult Login()
-        {
-            return null; 
-        }
-
-        public IActionResult ForgetPassword()
-        {
-            return null;
         }
     }
 }

@@ -31,12 +31,12 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// <summary>
         /// 状态
         /// </summary>
-        public ArticleState State { get; set; }
+        public virtual ArticleState State { get; set; }
 
         /// <summary>
         /// 类型
         /// </summary>
-        public ArticleType Type { get; set; }
+        public virtual ArticleType Type { get; set; }
 
         /// <summary>
         /// 是否能够评论

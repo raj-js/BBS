@@ -13,7 +13,7 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         /// <summary>
         /// 分数变化原因
         /// </summary>
-        public ScoreChangeReason Reason { get; set; }
+        public virtual ScoreChangeReason Reason { get; set; }
 
         /// <summary>
         /// 初始分数

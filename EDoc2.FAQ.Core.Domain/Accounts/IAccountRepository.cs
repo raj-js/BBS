@@ -29,18 +29,17 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         /// </summary>
         /// <param name="operator">操作人</param>
         /// <param name="userId">关联用户编号</param>
-        /// <param name="moduleId">板块编号</param>
+        /// <param name="moduleId">模块编号</param>
         /// <returns></returns>
-        Task GrantModerator(User @operator, string userId, string moduleId);
+        Task<IdentityResult> GrantModerator(User @operator, string userId, Guid moduleId);
 
         /// <summary>
         /// 撤销版主
         /// </summary>
         /// <param name="operator"></param>
         /// <param name="userId">关联用户编号</param>
-        /// <param name="moduleId"></param>
         /// <returns></returns>
-        Task RecycleModerator(User @operator, string userId, string moduleId);
+        Task<IdentityResult> RecycleModerator(User @operator, string userId);
 
         /// <summary>
         /// 更替版主
@@ -56,7 +55,7 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         /// 获取所有用户
         /// </summary>
         /// <returns></returns>
-        IQueryable<User> GetUsers();
+        IQueryable<User> GetUsers(bool skipAdmin = true);
 
         /// <summary>
         /// 根据编号查找用户

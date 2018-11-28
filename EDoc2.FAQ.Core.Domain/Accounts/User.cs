@@ -402,6 +402,13 @@ namespace EDoc2.FAQ.Core.Domain.Applications
             SetFans(0);
         }
 
+        public bool IsRole(Role role)
+        {
+            if (role == null) return false;
+
+            return UserRoles?.Any(s => s.RoleId.Equals(role.Id, StringComparison.OrdinalIgnoreCase)) ?? false;
+        }
+
         /// <summary>
         /// 是否是指定角色
         /// </summary>

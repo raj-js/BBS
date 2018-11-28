@@ -15,15 +15,25 @@ namespace EDoc2.FAQ.Core.Infrastructure.Extensions
         /// <param name="condition"></param>
         /// <param name="expression"></param>
         /// <returns></returns>
-        public static IQueryable<T> WhereIf<T>(this IQueryable<T> @this, bool condition, Expression<Func<T, bool>> expression)
+        public static IQueryable<T> WhereTure<T>(this IQueryable<T> @this, bool condition, Expression<Func<T, bool>> expression)
         {
             return condition ? @this.Where(expression) : @this;
         }
 
-        public static IQueryable<T> WhereIfNot<T>(this IQueryable<T> @this, bool condition,
+        public static IQueryable<T> WhereFalse<T>(this IQueryable<T> @this, bool condition,
             Expression<Func<T, bool>> expression)
         {
-            return @this.WhereIf(!condition, expression);
+            return @this.WhereTure(!condition, expression);
+        }
+
+        public static IQueryable<T> WhereNotNull<T>(this IQueryable<T> @this, object obj, Expression<Func<T, bool>> expression)
+        {
+            return @this.WhereTure(obj != null, expression);
+        }
+
+        public static IQueryable<T> WhereNull<T>(this IQueryable<T> @this, object obj, Expression<Func<T, bool>> expression)
+        {
+            return @this.WhereTure(obj == null, expression);
         }
 
         /// <summary>

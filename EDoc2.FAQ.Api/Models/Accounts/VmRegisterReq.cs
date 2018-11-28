@@ -2,7 +2,7 @@
 
 namespace EDoc2.FAQ.Api.Models.Accounts
 {
-    public class VmRegister
+    public class VmRegisterReq
     {
         [EmailAddress]
         public string Email { get; set; }

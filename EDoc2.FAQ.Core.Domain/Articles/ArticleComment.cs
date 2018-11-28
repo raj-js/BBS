@@ -28,7 +28,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// <summary>
         /// 评论状态
         /// </summary>
-        public ArticleCommentState State { get; set; }
+        public virtual ArticleCommentState State { get; set; }
 
         /// <summary>
         /// 创建者编号

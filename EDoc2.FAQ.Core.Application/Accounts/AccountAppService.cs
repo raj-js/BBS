@@ -1,14 +1,15 @@
-﻿using EDoc2.FAQ.Core.Application.Mails;
+﻿using EDoc2.FAQ.Core.Application.Accounts.Dtos;
+using EDoc2.FAQ.Core.Application.Mails;
 using EDoc2.FAQ.Core.Application.ServiceBase;
 using EDoc2.FAQ.Core.Domain.Applications;
 using EDoc2.FAQ.Core.Infrastructure.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Application.Accounts.Dtos;
-using Microsoft.EntityFrameworkCore;
 
 namespace EDoc2.FAQ.Core.Application.Accounts
 {
@@ -16,17 +17,19 @@ namespace EDoc2.FAQ.Core.Application.Accounts
     {
         private readonly SignInManager<User> _singInManager;
         private readonly UserManager<User> _userManager;
+        private readonly IHttpContextAccessor _contextAccessor;
         private readonly IAccountRepository _accountRepository;
         private readonly ILogger<AccountAppService> _logger;
 
-        public AccountAppService(SignInManager<User> singInManager,
-            UserManager<User> userManager,
-            IAccountRepository accountRepository,
-            ILogger<AccountAppService> logger,
-            IMailService mailService)
+        public AccountAppService(SignInManager<User> singInManager, 
+            UserManager<User> userManager, 
+            IHttpContextAccessor contextAccessor, 
+            IAccountRepository accountRepository, 
+            ILogger<AccountAppService> logger)
         {
             _singInManager = singInManager ?? throw new ArgumentNullException(nameof(singInManager));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            _contextAccessor = contextAccessor ?? throw new ArgumentNullException(nameof(contextAccessor));
             _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
@@ -65,24 +68,29 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             return await _singInManager.PasswordSignInAsync(dto.Email, dto.Password, dto.RememberMe, true);
         }
 
-        public async Task<PagingDto<AccountDtos.ListItem>> Search(AccountDtos.Search dto)
+        public async Task<PagingDto<AccountDtos.ListItem>> Search(AccountDtos.SearchReq dto, bool skipAdmin = true)
         {
-            var query = _accountRepository.GetUsers();
+            var query = _accountRepository.GetUsers(skipAdmin);
 
             query = query
-                .WhereIfNot(string.IsNullOrEmpty(dto.Nickname),
-                    s => s.Nickname.Contains(dto.Nickname, StringComparison.OrdinalIgnoreCase))
-                .WhereIfNot(string.IsNullOrEmpty(dto.Email),
-                    s => s.Email.Contains(dto.Email, StringComparison.OrdinalIgnoreCase));
+                .WhereFalse(dto.Nickname.IsNullOrEmpty(), s => s.Nickname.Contains(dto.Nickname, StringComparison.OrdinalIgnoreCase))
+                .WhereFalse(dto.Email.IsNullOrEmpty(), s => s.Email.Contains(dto.Email, StringComparison.OrdinalIgnoreCase))
+                .WhereNotNull(dto.IsMuted, s => s.IsMuted == dto.IsMuted.Value)
+                .WhereNotNull(dto.IsModerator, s => s.UserRoles.Any(r => r.RoleId.Equals(Role.Moderator.Id, StringComparison.OrdinalIgnoreCase)));
 
-            var dtos = await query
-                .OrderBy(dto.OrderBy, dto.IsAsc)
+            var dtos = query
+                .OrderBy(dto.OrderBy, dto.IsAscending)
                 .Skip(dto.Skip)
                 .Take(dto.Take)
-                .ToListAsync();
+                .Select(AccountDtos.ListItem.From)
+                .ToList();
 
             var totalCount = await query.CountAsync();
-            return new PagingDto<AccountDtos.ListItem>(totalCount, dtos.Select(AccountDtos.ListItem.From).ToList());
+            return new PagingDto<AccountDtos.ListItem>
+            {
+                TotalCount = await query.CountAsync(),
+                Dtos = dtos
+            };
         }
 
         public void MuteUser(string userId)
@@ -90,14 +98,25 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             throw new NotImplementedException();
         }
 
-        public void GrantModerator(string userId, Guid moduleId)
+        public async Task GrantModerator(AccountDtos.GrantModeratorReq dto)
         {
-            throw new NotImplementedException();
+            var @operator = await _userManager.GetUserAsync(_contextAccessor.HttpContext.User);
+
+            if (!@operator.IsRole(Role.Administrator))
+                throw new UnauthorizedAccessException();
+
+
+
+            var identityResult = await _accountRepository.GrantModerator(@operator, dto.UserId, dto.ModuleId);
+            if (identityResult.Succeeded)
+            {
+
+            }
         }
 
         public async Task<AccountDtos.Details> GetUserDetails(string userId)
         {
-            if(string.IsNullOrEmpty(userId)) throw new ArgumentNullException(nameof(userId));
+            if (string.IsNullOrEmpty(userId)) throw new ArgumentNullException(nameof(userId));
 
             var user = await _accountRepository.FindAsync(userId);
 
