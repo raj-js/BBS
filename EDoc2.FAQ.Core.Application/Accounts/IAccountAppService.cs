@@ -19,7 +19,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         /// 用户注册
         /// </summary>
         /// <param name="dto"></param>
-        Task<IdentityResult> Register(AccountDtos.Register dto);
+        Task<IdentityResult> Register(AccountDtos.RegisterReq dto);
 
         /// <summary>
         /// 生成重置密码的Token
@@ -32,7 +32,14 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         /// 用户登录
         /// </summary>
         /// <param name="dto"></param>
-        Task<SignInResult> Login(AccountDtos.Login dto);
+        Task<SignInResult> Login(AccountDtos.LoginReq dto);
+
+        /// <summary>
+        /// 找回密码
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task RetrievePassword(AccountDtos.RetrievePasswordReq req);
 
         /// <summary>
         /// 分页搜索

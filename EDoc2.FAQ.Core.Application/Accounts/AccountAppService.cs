@@ -29,7 +29,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             return await _accountService.GetUsers().AnyAsync(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
-        public async Task<IdentityResult> Register(AccountDtos.Register dto)
+        public async Task<IdentityResult> Register(AccountDtos.RegisterReq dto)
         {
             var user = new User
             {
@@ -52,7 +52,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             return await UserManager.GeneratePasswordResetTokenAsync(user);
         }
 
-        public async Task<SignInResult> Login(AccountDtos.Login dto)
+        public async Task<SignInResult> Login(AccountDtos.LoginReq dto)
         {
             return await SignInManager.PasswordSignInAsync(dto.Email, dto.Password, dto.RememberMe, true);
         }

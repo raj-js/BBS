@@ -42,7 +42,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public Guid ModuleId { get; set; }
         }
 
-        public class Register
+        public class RegisterReq
         {
             [Required]
             [MaxLength(128)]
@@ -57,7 +57,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public string Password { get; set; }
         }
 
-        public class Login
+        public class LoginReq
         {
             [Required]
             [MaxLength(128)]
@@ -68,6 +68,13 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public string Password { get; set; }
 
             public bool RememberMe { get; set; }
+        }
+
+        public class RetrievePasswordReq
+        {
+            [Required]
+            [MaxLength(128)]
+            public string Email { get; set; }
         }
 
         public class Edit: EntityDto<string>
