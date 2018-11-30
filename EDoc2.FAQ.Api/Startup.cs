@@ -4,8 +4,10 @@ using EDoc2.FAQ.Api.Infrastructure;
 using EDoc2.FAQ.Api.Infrastructure.Modules;
 using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Infrastructure;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,10 +18,6 @@ using NLog.Extensions.Logging;
 using NLog.Web;
 using System;
 using System.Reflection;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using NJsonSchema;
 
 namespace EDoc2.FAQ.Api
 {

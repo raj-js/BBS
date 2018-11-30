@@ -54,13 +54,13 @@ namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations
                 .IsRequired();
 
             b.HasMany(e => e.UserFollows)
-                .WithOne(e => e.Follow)
-                .HasForeignKey(e => e.FollowId)
+                .WithOne(e => e.Fan)
+                .HasForeignKey(e => e.FanId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             b.HasMany(e => e.UserFans)
-                .WithOne(e => e.Fan)
-                .HasForeignKey(e => e.FanId)
+                .WithOne(e => e.Follow)
+                .HasForeignKey(e => e.FollowId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

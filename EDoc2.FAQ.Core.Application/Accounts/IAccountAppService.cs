@@ -19,7 +19,14 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         /// 用户注册
         /// </summary>
         /// <param name="req"></param>
-        Task<IdentityResult> Register(AccountDtos.RegisterReq req);
+        Task<AccountDtos.RegisterResp> Register(AccountDtos.RegisterReq req);
+
+        /// <summary>
+        /// 邮箱确认
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<IdentityResult> EmailConfirm(AccountDtos.EmailConfirmReq req);
 
         /// <summary>
         /// 生成重置密码的Token
@@ -66,9 +73,9 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         /// <summary>
         /// 更新个人资料
         /// </summary>
-        /// <param name="editDto"></param>
+        /// <param name="editProfileReqDto"></param>
         /// <returns></returns>
-        Task<AccountDtos.Details> EditProfile(AccountDtos.Edit editDto);
+        Task<AccountDtos.Details> EditProfile(AccountDtos.EditProfileReq editProfileReqDto);
 
         /// <summary>
         /// 关注用户

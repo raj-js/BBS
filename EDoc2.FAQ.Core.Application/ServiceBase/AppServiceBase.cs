@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Domain.Accounts;
+﻿using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.Uow;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +18,8 @@ namespace EDoc2.FAQ.Core.Application.ServiceBase
 
         public ILogger<IAppService> Logger { get; set; }
 
-        public User CurrentUser => UserManager.GetUserAsync(HttpContextAccessor.HttpContext.User).GetAwaiter().GetResult();
+        private User _currtUser;
+        public User CurrentUser => _currtUser ?? (_currtUser = UserManager.GetUserAsync(HttpContextAccessor.HttpContext.User)
+                                       .GetAwaiter().GetResult());
     }
 }

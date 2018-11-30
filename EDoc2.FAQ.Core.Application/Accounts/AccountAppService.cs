@@ -29,7 +29,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             return await _accountService.GetUsers().AnyAsync(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
-        public async Task<IdentityResult> Register(AccountDtos.RegisterReq req)
+        public async Task<AccountDtos.RegisterResp> Register(AccountDtos.RegisterReq req)
         {
             var user = new User
             {
@@ -39,7 +39,24 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             };
             var result = await _accountService.Create(user, req.Password);
             await UnitOfWork.SaveChangesWithDispatchDomainEvents();
-            return result;
+
+            if (result.Succeeded)
+            {
+                var token = await UserManager.GenerateEmailConfirmationTokenAsync(user);
+                return AccountDtos.RegisterResp.Success(user.Id, token);
+            }
+            else
+                return AccountDtos.RegisterResp.Failed(result.Errors.ToArray());
+        }
+
+        public async Task<IdentityResult> EmailConfirm(AccountDtos.EmailConfirmReq req)
+        {
+            var user = await _accountService.FindUserByIdAsync(req.UserId);
+
+            if (user == null)
+                throw new AccountNotFoundException(req.UserId);
+
+            return await UserManager.ConfirmEmailAsync(user, req.Code);
         }
 
         public async Task<AccountDtos.RetrievePasswordResp> GenerateResetPasswordToken(AccountDtos.RetrievePasswordReq req)
@@ -121,7 +138,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             return AccountDtos.Details.From(targetUser);
         }
 
-        public async Task<AccountDtos.Details> EditProfile(AccountDtos.Edit editDto)
+        public async Task<AccountDtos.Details> EditProfile(AccountDtos.EditProfileReq editProfileReqDto)
         {
             //edit profile
 
@@ -131,6 +148,9 @@ namespace EDoc2.FAQ.Core.Application.Accounts
 
         public async Task Follow(string userId)
         {
+            if (CurrentUser.Id.Equals(userId, StringComparison.OrdinalIgnoreCase))
+                throw new InvalidOperationException();
+
             var targetUser = await _accountService.FindUserByIdAsync(userId);
             if(targetUser.IsNull())
                 throw new AccountNotFoundException(userId);
@@ -144,6 +164,9 @@ namespace EDoc2.FAQ.Core.Application.Accounts
 
         public async Task UnFollow(string userId)
         {
+            if (CurrentUser.Id.Equals(userId, StringComparison.OrdinalIgnoreCase))
+                throw new InvalidOperationException();
+
             var targetUser = await _accountService.FindUserByIdAsync(userId);
             if (targetUser.IsNull())
                 throw new AccountNotFoundException(userId);

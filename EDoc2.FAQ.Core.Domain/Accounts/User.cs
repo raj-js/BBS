@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using EDoc2.FAQ.Core.Domain.Accounts.Events;
+﻿using EDoc2.FAQ.Core.Domain.Accounts.Events;
 using EDoc2.FAQ.Core.Domain.SeedWork;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EDoc2.FAQ.Core.Domain.Accounts
 {
@@ -118,7 +118,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
 
         #region 用户属性存取
 
-        private UserProperty GetOrCreateProperty(string name, string @default = null)
+        internal UserProperty GetOrSetProperty(string name, string @default = null)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
@@ -136,14 +136,19 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
                 };
                 UserProperties.Add(property);
             }
+            else
+            {
+                if (@default != null)
+                    property.Value = @default;
+            }
             return property;
         }
 
-        private void SetProperty(string name, string value) => GetOrCreateProperty(name, value);
+        private void SetProperty(string name, string value) => GetOrSetProperty(name, value);
 
         public T GetProperty<T>(string name, string @default = null, Func<string, T> converter = null)
         {
-            var property = GetOrCreateProperty(name, @default);
+            var property = GetOrSetProperty(name, @default);
 
             return converter == null ? (T)(property.Value as object) : converter(property.Value);
         }
@@ -166,7 +171,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         /// <summary>
         /// 关注数
         /// </summary>
-        public int Follows => GetProperty(UserProperty.Fans, converter: int.Parse);
+        public int Follows => GetProperty(UserProperty.Follows, converter: int.Parse);
 
         /// <summary>
         /// 设置连续签到天数
@@ -256,57 +261,9 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
             if (UserFollows == null) return false;
 
             subscriber = UserFollows.SingleOrDefault(s =>
-                s.FanId.Equals(Id, StringComparison.OrdinalIgnoreCase) &&
                 s.FollowId.Equals(followId, StringComparison.OrdinalIgnoreCase));
 
             return !subscriber?.IsCancel ?? false;
-        }
-
-        /// <summary>
-        /// 添加关注
-        /// </summary>
-        /// <param name="followId"></param>
-        internal void Follow(string followId)
-        {
-            if (string.IsNullOrEmpty(followId))
-                throw new ArgumentNullException(nameof(followId));
-
-            if (IsFanOf(followId, out var follow)) return;
-
-            if (follow == null)
-            {
-                follow = new UserSubscriber
-                {
-                    FollowId = followId,
-                    OperationTime = DateTime.Now,
-                    IsCancel = false
-                };
-                UserFollows.Add(follow);
-            }
-            else
-            {
-                follow.IsCancel = false;
-                follow.OperationTime = DateTime.Now;
-            }
-
-            SetFollows(Follows + 1);
-            AddDomainEvent(new FollowUserDomainEvent(this, followId, follow.OperationTime));
-        }
-
-        /// <summary>
-        /// 取消关注
-        /// </summary>
-        /// <param name="followId"></param>
-        internal void UnFollow(string followId)
-        {
-            if (string.IsNullOrEmpty(followId))
-                throw new ArgumentNullException(nameof(followId));
-
-            if (!IsFanOf(followId, out var follow)) return;
-
-            SetFollows(Follows - 1);
-            follow.IsCancel = true;
-            follow.OperationTime = DateTime.Now;
         }
 
         /// <summary>
@@ -315,7 +272,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         /// <param name="follows"></param>
         private void SetFollows(int follows)
         {
-            if(follows < 0)
+            if (follows < 0)
                 throw new ArgumentOutOfRangeException(nameof(follows));
 
             SetProperty(UserProperty.Follows, follows.ToString());

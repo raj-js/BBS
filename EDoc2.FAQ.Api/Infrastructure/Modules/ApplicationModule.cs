@@ -23,8 +23,8 @@ namespace EDoc2.FAQ.Api.Infrastructure.Modules
 
             #region 仓储
 
-            b.RegisterType<AccountRepository>().As<IAccountRepository>().InstancePerLifetimeScope();
-            b.RegisterType<ArticleRepository>().As<IArticleRepository>().InstancePerLifetimeScope();
+            b.RegisterType<AccountRepository>().PropertiesAutowired().As<IAccountRepository>().InstancePerLifetimeScope();
+            b.RegisterType<ArticleRepository>().PropertiesAutowired().As<IArticleRepository>().InstancePerLifetimeScope();
 
             #endregion
 

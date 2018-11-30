@@ -38,12 +38,28 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("register")]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IdentityResult))]
-        public async Task<IActionResult> Register([FromForm]AccountDtos.RegisterReq req)
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(AccountDtos.RegisterResp))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Register([FromBody]AccountDtos.RegisterReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var identityResult = await _accountAppService.Register(req);
+            return Ok(await _accountAppService.Register(req));
+        }
+
+        /// <summary>
+        /// 邮箱确认
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPost("emailConfirm")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IdentityResult))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> EmailConfrim([FromBody]AccountDtos.EmailConfirmReq req)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            var identityResult = await _accountAppService.EmailConfirm(req);
             return Ok(identityResult);
         }
 
@@ -55,7 +71,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [HttpPost("login")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(SignInResult))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Login([FromForm]AccountDtos.LoginReq req)
+        public async Task<IActionResult> Login([FromBody]AccountDtos.LoginReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -82,7 +98,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [HttpPost("retrievePassword")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(AccountDtos.RetrievePasswordResp))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> RetrievePassword([FromForm]AccountDtos.RetrievePasswordReq req)
+        public async Task<IActionResult> RetrievePassword([FromBody]AccountDtos.RetrievePasswordReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -98,11 +114,43 @@ namespace EDoc2.FAQ.Api.Controllers
         [HttpPost("resetPassword")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> ResetPassword([FromForm]AccountDtos.ResetPasswordReq req)
+        public async Task<IActionResult> ResetPassword([FromBody]AccountDtos.ResetPasswordReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
             await _accountAppService.ResetPassword(req);
+            return Ok();
+        }
+
+        /// <summary>
+        /// 关注用户
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPost("follow")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Follow([FromBody]AccountDtos.FollowUserReq req)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            await _accountAppService.Follow(req.TargetUserId);
+            return Ok();
+        }
+
+        /// <summary>
+        /// 取消关注用户
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPost("unfollow")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> UnFollow([FromBody]AccountDtos.UnFollowUserReq req)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            await _accountAppService.UnFollow(req.TargetUserId);
             return Ok();
         }
     }

@@ -1,36 +1,29 @@
 ﻿using EDoc2.FAQ.Core.Domain.Accounts;
-using EDoc2.FAQ.Core.Domain.Uow;
-using System;
+using EDoc2.FAQ.Core.Domain.Repositories;
+using EDoc2.FAQ.Core.Domain.SeedWork;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace EDoc2.FAQ.Core.Infrastructure.Repositories
 {
-    public class AccountRepository : IAccountRepository
+    public class AccountRepository : RepositoryBase, IAccountRepository
     {
-        private readonly CommunityContext _context;
-
-        public IUnitOfWork UnitOfWork => _context;
-
-        public AccountRepository(CommunityContext context)
-        {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-        }
+        private CommunityContext Context => UnitOfWork as CommunityContext;
 
         public void AddUser(User user)
         {
-            _context.Set<User>().Add(user);
+            Context.Set<User>().Add(user);
         }
 
         public async Task AddUserAsync(User user)
         {
-            await _context.Set<User>().AddAsync(user);
+            await Context.Set<User>().AddAsync(user);
         }
 
         public void UpdateUser(User user)
         {
-            _context.Entry(user).State = EntityState.Modified;
+            Context.Set<User>().Update(user);
         }
 
         public async Task UpdateUserAsync(User user)
@@ -41,17 +34,39 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
 
         public IQueryable<User> GetUsers()
         {
-            return _context.Users.AsQueryable();
+            return Context.Users.AsQueryable();
         }
 
         public User FindUserById(string id)
         {
-            return _context.Set<User>().Find(id);
+            return Context.Set<User>().Find(id);
         }
 
         public async Task<User> FindUserByIdAsync(string id)
         {
-            return await _context.Set<User>().FindAsync(id);
+            return await Context.FindAsync<User>(id);
+        }
+
+        public async Task<UserSubscriber> AddSubscriber(UserSubscriber subscriber)
+        {
+            return (await Context.AddAsync(subscriber)).Entity;
+        }
+
+        public async Task<UserSubscriber> UpdateSubscriber(UserSubscriber subscriber)
+        {
+            await Task.CompletedTask;
+            return Context.Update(subscriber).Entity;
+        }
+
+        public async Task<UserProperty> AddProperty(UserProperty property)
+        {
+            return (await Context.AddAsync(property)).Entity;
+        }
+
+        public async Task<UserProperty> UpdateProperty(UserProperty property)
+        {
+            await Task.CompletedTask;
+            return Context.Update(property).Entity;
         }
     }
 }

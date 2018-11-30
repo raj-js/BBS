@@ -1,36 +1,28 @@
 ﻿using EDoc2.FAQ.Core.Domain.Articles;
-using EDoc2.FAQ.Core.Domain.SeedWork;
+using EDoc2.FAQ.Core.Domain.Repositories;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Domain.Uow;
 
 namespace EDoc2.FAQ.Core.Infrastructure.Repositories
 {
-    public class ArticleRepository : IArticleRepository
+    public class ArticleRepository : RepositoryBase, IArticleRepository
     {
-        private readonly CommunityContext _context;
-
-        public IUnitOfWork UnitOfWork => _context;
-
-        public ArticleRepository(CommunityContext context)
-        {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-        }
+        private CommunityContext Context => UnitOfWork as CommunityContext;
 
         public Article Update(Article entity)
         {
-            return _context.Articles.Update(entity).Entity;
+            return Context.Articles.Update(entity).Entity;
         }
 
         public Article Find(Guid id)
         {
-            return _context.Articles.Find(id);
+            return Context.Articles.Find(id);
         }
 
         public async Task<Article> FindAsync(Guid key)
         {
-            return await _context.Articles.FindAsync(key);
+            return await Context.Articles.FindAsync(key);
         }
 
         public Article Release(string operatorId, bool auditing, Article article)
@@ -43,9 +35,9 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
                 article.SetPublished(operatorId);
 
             if (article.IsTransient())
-                return _context.Articles.Add(article).Entity;
-            else
-                return Update(article);
+                return Context.Articles.Add(article).Entity;
+
+            return Update(article);
         }
 
         public Article ViewArticle(Article article, DateTime viewTime, string clientIp, string operatorId = null)
@@ -75,7 +67,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
         /// <param name="operationType"></param>
         private void UpdateArticleOperation(string operatorId, string sourceId, ArticleOperationSourceType sourceType, ArticleOperationType operationType)
         {
-            var op = _context.ArticleOperations
+            var op = Context.ArticleOperations
                .SingleOrDefault(o => o.OperatorId == operatorId &&
                o.SourceId == sourceId &&
                o.SourceType.Id == sourceType.Id &&
@@ -92,13 +84,13 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
                     Type = operationType,
                     OperationTime = DateTime.Now
                 };
-                _context.ArticleOperations.Add(op);
+                Context.ArticleOperations.Add(op);
             }
             else
             {
                 op.IsCancel = false;
                 op.OperationTime = DateTime.Now;
-                _context.ArticleOperations.Update(op);
+                Context.ArticleOperations.Update(op);
             }
         }
 

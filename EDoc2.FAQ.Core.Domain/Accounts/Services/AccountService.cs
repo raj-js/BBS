@@ -52,25 +52,42 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
         public async Task<IdentityResult> Create(User user, string password, bool isSetAdmin = false, bool allowMultipleAdmin = false)
         {
             var result = await _userManager.CreateAsync(user, password);
-            if (!result.Succeeded) return result;
+            if (!result.Succeeded)
+                return result;
 
             user.Initialize();
             await _accountRepo.UpdateUserAsync(user);
 
-            if (!isSetAdmin) return result;
-            if (allowMultipleAdmin) return await _userManager.AddToRoleAsync(user, Role.Administrator.NormalizedName);
-
-            var existsAdministrator = _accountRepo.GetUsers().Any(s => s.UserRoles.All(r => r.RoleId != Role.Administrator.Id));
-            if (!existsAdministrator) return result;
-
-            await UnitOfWork.SaveChangesWithDispatchDomainEvents();
-
-            await _userManager.DeleteAsync(user);
-            return IdentityResult.Failed(new IdentityError
+            if (isSetAdmin)
             {
-                Code = "NotAllowMultipluAdmin",
-                Description = "不允许多个管理员"
-            });
+                if (!allowMultipleAdmin)
+                {
+                    var exists = _accountRepo
+                        .GetUsers()
+                        .Any(s => s.UserRoles.All(r => r.RoleId != Role.Administrator.Id));
+
+                    result = exists ?
+                        IdentityResult.Failed(new IdentityError
+                        {
+                            Code = "NotAllowMultipluAdmin",
+                            Description = "不允许多个管理员"
+                        }):
+                        await _userManager.AddToRoleAsync(user, Role.Administrator.NormalizedName);
+                }
+                else
+                {
+                    result = await _userManager.AddToRoleAsync(user, Role.Administrator.NormalizedName);
+                }
+            }
+            else
+            {
+                result = await _userManager.AddToRoleAsync(user, Role.Member.NormalizedName);
+            }
+
+            if (!result.Succeeded)
+                await _userManager.DeleteAsync(user);
+
+            return result;
         }
 
         public async Task MuteUser(User @operator, User targetUser)
@@ -84,14 +101,38 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
 
         public async Task FollowUser(User @operator, User targetUser)
         {
-            @operator.Follow(targetUser.Id);
-            await Task.CompletedTask;
+            if (@operator.IsFanOf(targetUser.Id, out var subscriber)) return;
+
+            if(subscriber == null)
+                await _accountRepo.AddSubscriber(new UserSubscriber(@operator.Id, targetUser.Id));
+            else
+            {
+                subscriber.IsCancel = false;
+                await _accountRepo.UpdateSubscriber(subscriber);
+            }
+
+            var followsProperty = @operator.GetOrSetProperty(UserProperty.Follows, (@operator.Follows + 1).ToString());
+            await _accountRepo.UpdateProperty(followsProperty);
+
+            var fansProperty = targetUser.GetOrSetProperty(UserProperty.Fans, (targetUser.Fans + 1).ToString());
+            await _accountRepo.UpdateProperty(fansProperty);
         }
 
         public async Task UnFollowUser(User @operator, User targetUser)
         {
-            @operator.UnFollow(targetUser.Id);
-            await Task.CompletedTask;
+            if (!@operator.IsFanOf(targetUser.Id, out var subscriber)) return;
+
+            if (subscriber != null)
+            {
+                subscriber.IsCancel = true;
+                await _accountRepo.UpdateSubscriber(subscriber);
+            }
+
+            var followsProperty = @operator.GetOrSetProperty(UserProperty.Follows, (@operator.Follows - 1).ToString());
+            await _accountRepo.UpdateProperty(followsProperty);
+
+            var fansProperty = targetUser.GetOrSetProperty(UserProperty.Fans, (targetUser.Fans - 1).ToString());
+            await _accountRepo.UpdateProperty(fansProperty);
         }
 
         public async Task AddFavorite(User @operator, Article article)

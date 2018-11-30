@@ -37,5 +37,13 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         /// 被关注者
         /// </summary>
         public virtual User Follow { get; set; }
+
+        public UserSubscriber(string fanId, string followId)
+        {
+            FanId = fanId;
+            FollowId = followId;
+            IsCancel = false;
+            OperationTime = DateTime.Now;
+        }
     }
 }

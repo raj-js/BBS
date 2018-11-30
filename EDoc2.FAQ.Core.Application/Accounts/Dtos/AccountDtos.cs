@@ -3,6 +3,7 @@ using EDoc2.FAQ.Core.Domain.Accounts;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
 {
@@ -44,7 +45,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
         public class RegisterReq
         {
             [Required]
-            [MaxLength(128)]
+            [EmailAddress]
             public string Email { get; set; }
 
             [Required]
@@ -59,7 +60,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
         public class LoginReq
         {
             [Required]
-            [MaxLength(128)]
+            [EmailAddress]
             public string Email { get; set; }
 
             [Required]
@@ -72,7 +73,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
         public class RetrievePasswordReq
         {
             [Required]
-            [MaxLength(128)]
+            [EmailAddress]
             public string Email { get; set; }
         }
 
@@ -90,9 +91,51 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public string Password { get; set; }
         }
 
-        public class Edit: EntityDto<string>
+        public class EditProfileReq: EntityDto<string>
         {
             
+        }
+
+        /// <summary>
+        /// 关注用户请求
+        /// </summary>
+        public class FollowUserReq
+        {
+            /// <summary>
+            /// 被关注的用户编号
+            /// </summary>
+            [Required]
+            [MaxLength(50)]
+            public string TargetUserId { get; set; }
+        }
+
+        /// <summary>
+        /// 取消关注用户请求
+        /// </summary>
+        public class UnFollowUserReq
+        {
+            /// <summary>
+            /// 被取消关注的用户编号
+            /// </summary>
+            [Required]
+            [MaxLength(50)]
+            public string TargetUserId { get; set; }
+        }
+
+        public class EmailConfirmReq
+        {
+            /// <summary>
+            /// 用户编号
+            /// </summary>
+            [Required]
+            [MaxLength(50)]
+            public string UserId { get; set; }
+
+            /// <summary>
+            /// 邮件确认校验 Token
+            /// </summary>
+            [Required]
+            public string Code { get; set; }
         }
 
         #endregion
@@ -156,11 +199,65 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             }
         }
 
+        /// <summary>
+        /// 找回密码
+        /// </summary>
         public class RetrievePasswordResp
         {
+            /// <summary>
+            /// 用户编号
+            /// </summary>
             public string UserId { get; set; }
 
+            /// <summary>
+            /// 用户修改密码 Token
+            /// </summary>
             public string Code { get; set; }
+        }
+
+        /// <summary>
+        /// 用户注册
+        /// </summary>
+        public class RegisterResp
+        {
+            /// <summary>
+            /// 是否注册成功
+            /// </summary>
+            public bool Succeeded { get; private set; }
+
+            /// <summary>
+            /// 用户编号
+            /// </summary>
+            public string UserId { get; private set; }
+
+            /// <summary>
+            /// 邮件确认 Token
+            /// </summary>
+            public string Code { get; private set; }
+
+            /// <summary>
+            /// 注册失败的错误信息
+            /// </summary>
+            public IdentityError[] Errors { get; private set; }
+
+            public static RegisterResp Success(string userId, string code)
+            {
+                return new RegisterResp
+                {
+                    Succeeded = true,
+                    UserId = userId,
+                    Code = code
+                };
+            }
+
+            public static RegisterResp Failed(params IdentityError[] errors)
+            {
+                return new RegisterResp
+                {
+                    Succeeded = false,
+                    Errors = errors
+                };
+            }
         }
 
         #endregion
