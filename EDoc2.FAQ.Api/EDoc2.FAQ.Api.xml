@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EDoc2.FAQ.Api</name>
+    </assembly>
+    <members>
+        <member name="T:EDoc2.FAQ.Api.Controllers.AccountController">
+            <summary>
+            会员操作接口
+            </summary>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.#ctor(EDoc2.FAQ.Core.Application.Accounts.IAccountAppService,Microsoft.Extensions.Logging.ILogger{EDoc2.FAQ.Api.Controllers.AccountController})">
+            <summary>
+            构造器
+            </summary>
+            <param name="accountAppService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.Register(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.RegisterReq)">
+            <summary>
+            注册用户
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.Login(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.LoginReq)">
+            <summary>
+            用户登录
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.GetProfile">
+            <summary>
+            用户信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.RetrievePassword(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.RetrievePasswordReq)">
+            <summary>
+            找回密码
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.ResetPassword(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.ResetPasswordReq)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="P:EDoc2.FAQ.Api.Models.Admins.VmGetAccountsReq.Nickname">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:EDoc2.FAQ.Api.Models.Admins.VmGetAccountsReq.Email">
+            <summary>
+            邮箱 允许模糊查询
+            </summary>
+        </member>
+        <member name="P:EDoc2.FAQ.Api.Models.Admins.VmGetAccountsReq.IsMuted">
+            <summary>
+            是否被屏蔽
+            </summary>
+        </member>
+        <member name="P:EDoc2.FAQ.Api.Models.Admins.VmGetAccountsReq.IsModerator">
+            <summary>
+            是否为版主
+            </summary>
+        </member>
+        <member name="P:EDoc2.FAQ.Api.Models.IPagingReq.OrderBy">
+            <summary>
+            排序字段
+            </summary>
+        </member>
+        <member name="P:EDoc2.FAQ.Api.Models.IPagingReq.IsAscending">
+            <summary>
+            是否升序
+            </summary>
+        </member>
+        <member name="P:EDoc2.FAQ.Api.Models.IPagingReq.PageIndex">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:EDoc2.FAQ.Api.Models.IPagingReq.PageSize">
+            <summary>
+            每页条目数
+            </summary>
+        </member>
+    </members>
+</doc>

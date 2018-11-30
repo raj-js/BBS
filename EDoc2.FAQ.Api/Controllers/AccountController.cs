@@ -1,5 +1,4 @@
-﻿using EDoc2.FAQ.Api.Models.Accounts;
-using EDoc2.FAQ.Core.Application.Accounts;
+﻿using EDoc2.FAQ.Core.Application.Accounts;
 using EDoc2.FAQ.Core.Application.Accounts.Dtos;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +10,9 @@ using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace EDoc2.FAQ.Api.Controllers
 {
+    /// <summary>
+    /// 会员操作接口
+    /// </summary>
     [Route("api/v1/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
@@ -18,6 +20,11 @@ namespace EDoc2.FAQ.Api.Controllers
         private readonly IAccountAppService _accountAppService;
         private readonly ILogger<AccountController> _logger;
 
+        /// <summary>
+        /// 构造器
+        /// </summary>
+        /// <param name="accountAppService"></param>
+        /// <param name="logger"></param>
         public AccountController(IAccountAppService accountAppService,
             ILogger<AccountController> logger)
         {
@@ -25,6 +32,11 @@ namespace EDoc2.FAQ.Api.Controllers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        /// <summary>
+        /// 注册用户
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         [HttpPost("register")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IdentityResult))]
         public async Task<IActionResult> Register([FromForm]AccountDtos.RegisterReq req)
@@ -35,6 +47,11 @@ namespace EDoc2.FAQ.Api.Controllers
             return Ok(identityResult);
         }
 
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         [HttpPost("login")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(SignInResult))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -46,19 +63,47 @@ namespace EDoc2.FAQ.Api.Controllers
             return Ok(signInResult);
         }
 
+        /// <summary>
+        /// 用户信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("profile")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(AccountDtos.Profile))]
+        public async Task<IActionResult> GetProfile()
+        {
+            return Ok(await _accountAppService.GetUserProfile());
+        }
+
+        /// <summary>
+        /// 找回密码
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         [HttpPost("retrievePassword")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(AccountDtos.RetrievePasswordResp))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> RetrievePassword([FromForm]AccountDtos.RetrievePasswordReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
+            var resetToken = await _accountAppService.GenerateResetPasswordToken(req);
+            return Ok(resetToken);
+        }
 
-            //_accountAppService.GenerateResetPasswordToken(req)
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPost("resetPassword")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> ResetPassword([FromForm]AccountDtos.ResetPasswordReq req)
+        {
+            if (!ModelState.IsValid) return BadRequest();
 
-            await Task.CompletedTask;
-            return null;
+            await _accountAppService.ResetPassword(req);
+            return Ok();
         }
     }
 }

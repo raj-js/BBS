@@ -18,28 +18,28 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         /// <summary>
         /// 用户注册
         /// </summary>
-        /// <param name="dto"></param>
-        Task<IdentityResult> Register(AccountDtos.RegisterReq dto);
+        /// <param name="req"></param>
+        Task<IdentityResult> Register(AccountDtos.RegisterReq req);
 
         /// <summary>
         /// 生成重置密码的Token
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="req"></param>
         /// <returns></returns>
-        Task<string> GenerateResetPasswordToken(string email);
+        Task<AccountDtos.RetrievePasswordResp> GenerateResetPasswordToken(AccountDtos.RetrievePasswordReq req);
+
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task ResetPassword(AccountDtos.ResetPasswordReq req);
 
         /// <summary>
         /// 用户登录
         /// </summary>
         /// <param name="dto"></param>
         Task<SignInResult> Login(AccountDtos.LoginReq dto);
-
-        /// <summary>
-        /// 找回密码
-        /// </summary>
-        /// <param name="req"></param>
-        /// <returns></returns>
-        Task RetrievePassword(AccountDtos.RetrievePasswordReq req);
 
         /// <summary>
         /// 分页搜索

@@ -1,9 +1,8 @@
-﻿using System;
+﻿using EDoc2.FAQ.Core.Application.ServiceBase;
+using EDoc2.FAQ.Core.Domain.Accounts;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using EDoc2.FAQ.Core.Application.ServiceBase;
-using EDoc2.FAQ.Core.Domain.Accounts;
-using EDoc2.FAQ.Core.Domain.Applications;
 
 namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
 {
@@ -77,6 +76,20 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public string Email { get; set; }
         }
 
+        public class ResetPasswordReq
+        {
+            [Required]
+            [MaxLength(50)]
+            public string UserId { get; set; }
+
+            [Required]
+            public string Code { get; set; }
+
+            [Required]
+            [MaxLength(50)]
+            public string Password { get; set; }
+        }
+
         public class Edit: EntityDto<string>
         {
             
@@ -133,6 +146,21 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             {
                 return new Details();
             }
+        }
+
+        public class Profile: EntityDto<string>
+        {
+            public static Profile From(User user)
+            {
+                return new Profile();
+            }
+        }
+
+        public class RetrievePasswordResp
+        {
+            public string UserId { get; set; }
+
+            public string Code { get; set; }
         }
 
         #endregion

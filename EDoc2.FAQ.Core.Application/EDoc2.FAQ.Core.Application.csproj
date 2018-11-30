@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspectCore.Core" Version="1.1.0" />
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="MessagePack" Version="1.7.3.4" />
   </ItemGroup>

@@ -29,27 +29,41 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             return await _accountService.GetUsers().AnyAsync(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
-        public async Task<IdentityResult> Register(AccountDtos.RegisterReq dto)
+        public async Task<IdentityResult> Register(AccountDtos.RegisterReq req)
         {
             var user = new User
             {
-                UserName = dto.Email,
-                Email = dto.Email,
-                Nickname = dto.Nickname,
+                UserName = req.Email,
+                Email = req.Email,
+                Nickname = req.Nickname,
             };
-            var result = await _accountService.Create(user, dto.Password);
+            var result = await _accountService.Create(user, req.Password);
             await UnitOfWork.SaveChangesWithDispatchDomainEvents();
             return result;
         }
 
-        public async Task<string> GenerateResetPasswordToken(string email)
+        public async Task<AccountDtos.RetrievePasswordResp> GenerateResetPasswordToken(AccountDtos.RetrievePasswordReq req)
         {
-            var user = await UserManager.FindByEmailAsync(email);
+            var user = await UserManager.FindByEmailAsync(req.Email);
 
             if (user == null)
-                throw new InvalidOperationException($"{email} not register");
+                throw new EmailNotFoundException(req.Email);
 
-            return await UserManager.GeneratePasswordResetTokenAsync(user);
+            return new AccountDtos.RetrievePasswordResp
+            {
+                UserId = user.Id,
+                Code = await UserManager.GeneratePasswordResetTokenAsync(user)
+            };
+        }
+
+        public async Task ResetPassword(AccountDtos.ResetPasswordReq req)
+        {
+            var user = await _accountService.FindUserByIdAsync(req.UserId);
+
+            if (user == null)
+                throw new AccountNotFoundException(req.UserId);
+
+            await UserManager.ResetPasswordAsync(user, req.Code, req.Password);
         }
 
         public async Task<SignInResult> Login(AccountDtos.LoginReq dto)

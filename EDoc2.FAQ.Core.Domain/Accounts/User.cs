@@ -432,6 +432,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         /// 是否是指定角色
         /// </summary>
         /// <param name="role"></param>
+        /// <param name="userRole"></param>
         /// <returns></returns>
         public bool InRole(Role role, out UserRole userRole)
         {
@@ -444,6 +445,15 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
 
             userRole = UserRoles.SingleOrDefault(s => s.RoleId.Equals(role.Id, StringComparison.OrdinalIgnoreCase));
             return userRole != null;
+        }
+
+        public bool InRoles(params Role[] roles)
+        {
+            if (roles == null) return false;
+
+            var roleIds = roles.Select(r => r.Id);
+
+            return UserRoles?.Any(s => roleIds.Contains(s.RoleId)) ?? false;
         }
 
         ///// <summary>

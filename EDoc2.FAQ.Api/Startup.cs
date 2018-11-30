@@ -16,6 +16,10 @@ using NLog.Extensions.Logging;
 using NLog.Web;
 using System;
 using System.Reflection;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using NJsonSchema;
 
 namespace EDoc2.FAQ.Api
 {
@@ -30,6 +34,12 @@ namespace EDoc2.FAQ.Api
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => false;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             //swagger ui
             services.AddSwaggerDocument(setting =>
             {
@@ -76,6 +86,16 @@ namespace EDoc2.FAQ.Api
                 options.User.RequireUniqueEmail = true;
             });
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = "EDoc2.FAQ.Community";
+                options.Cookie.HttpOnly = true;
+
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.SlidingExpiration = true;
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+            });
+
             services.AddEventBus(Configuration);
             services.UseMailSender(Configuration);
 
@@ -111,6 +131,8 @@ namespace EDoc2.FAQ.Api
 
             app.UseSwagger()
                .UseSwaggerUi3();
+
+            app.UseAuthentication();
 
             app.UseMvc();
 
