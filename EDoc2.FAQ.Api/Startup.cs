@@ -2,14 +2,13 @@
 using Autofac.Extensions.DependencyInjection;
 using EDoc2.FAQ.Api.Infrastructure;
 using EDoc2.FAQ.Api.Infrastructure.Modules;
-using EDoc2.FAQ.Core.Domain.Applications;
+using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -29,9 +28,9 @@ namespace EDoc2.FAQ.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            //swagger ui
             services.AddSwaggerDocument(setting =>
             {
                 setting.Title = "EDoc2问答社区Api文档";
@@ -39,6 +38,7 @@ namespace EDoc2.FAQ.Api
                 setting.Description = "EDoc2问答社区Api文档";
             });
 
+            //db context
             services.AddDbContext<CommunityContext>(options =>
             {
                 options.UseSqlServer(
@@ -90,7 +90,6 @@ namespace EDoc2.FAQ.Api
             return new AutofacServiceProvider(container.Build());
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseStaticFiles();

@@ -1,37 +1,24 @@
 ﻿using EDoc2.FAQ.Core.Application.Accounts.Dtos;
-using EDoc2.FAQ.Core.Application.Mails;
 using EDoc2.FAQ.Core.Application.ServiceBase;
-using EDoc2.FAQ.Core.Domain.Applications;
+using EDoc2.FAQ.Core.Domain.Accounts;
+using EDoc2.FAQ.Core.Domain.Accounts.Services;
 using EDoc2.FAQ.Core.Infrastructure.Extensions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Domain.Exceptions;
 
 namespace EDoc2.FAQ.Core.Application.Accounts
 {
     public class AccountAppService : AppServiceBase, IAccountAppService
     {
-        private readonly SignInManager<User> _singInManager;
-        private readonly UserManager<User> _userManager;
-        private readonly IHttpContextAccessor _contextAccessor;
-        private readonly IAccountRepository _accountRepository;
-        private readonly ILogger<AccountAppService> _logger;
+        private readonly IAccountService _accountService;
 
-        public AccountAppService(SignInManager<User> singInManager, 
-            UserManager<User> userManager, 
-            IHttpContextAccessor contextAccessor, 
-            IAccountRepository accountRepository, 
-            ILogger<AccountAppService> logger)
+        public AccountAppService(IAccountService accountService)
         {
-            _singInManager = singInManager ?? throw new ArgumentNullException(nameof(singInManager));
-            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-            _contextAccessor = contextAccessor ?? throw new ArgumentNullException(nameof(contextAccessor));
-            _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
         }
 
         public async Task<bool> IsEmailRegistered(string email)
@@ -39,7 +26,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             if (string.IsNullOrEmpty(email))
                 throw new ArgumentNullException(nameof(email));
 
-            return await _userManager.Users.AnyAsync(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+            return await _accountService.GetUsers().AnyAsync(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
         public async Task<IdentityResult> Register(AccountDtos.Register dto)
@@ -50,27 +37,29 @@ namespace EDoc2.FAQ.Core.Application.Accounts
                 Email = dto.Email,
                 Nickname = dto.Nickname,
             };
-            return await _accountRepository.RegisterAsync(user, dto.Password);
+            var result = await _accountService.Create(user, dto.Password);
+            await UnitOfWork.SaveChangesWithDispatchDomainEvents();
+            return result;
         }
 
         public async Task<string> GenerateResetPasswordToken(string email)
         {
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await UserManager.FindByEmailAsync(email);
 
             if (user == null)
                 throw new InvalidOperationException($"{email} not register");
 
-            return await _userManager.GeneratePasswordResetTokenAsync(user);
+            return await UserManager.GeneratePasswordResetTokenAsync(user);
         }
 
         public async Task<SignInResult> Login(AccountDtos.Login dto)
         {
-            return await _singInManager.PasswordSignInAsync(dto.Email, dto.Password, dto.RememberMe, true);
+            return await SignInManager.PasswordSignInAsync(dto.Email, dto.Password, dto.RememberMe, true);
         }
 
         public async Task<PagingDto<AccountDtos.ListItem>> Search(AccountDtos.SearchReq dto, bool skipAdmin = true)
         {
-            var query = _accountRepository.GetUsers(skipAdmin);
+            var query = _accountService.GetUsers(skipAdmin);
 
             query = query
                 .WhereFalse(dto.Nickname.IsNullOrEmpty(), s => s.Nickname.Contains(dto.Nickname, StringComparison.OrdinalIgnoreCase))
@@ -82,10 +71,10 @@ namespace EDoc2.FAQ.Core.Application.Accounts
                 .OrderBy(dto.OrderBy, dto.IsAscending)
                 .Skip(dto.Skip)
                 .Take(dto.Take)
+                .AsEnumerable()
                 .Select(AccountDtos.ListItem.From)
                 .ToList();
 
-            var totalCount = await query.CountAsync();
             return new PagingDto<AccountDtos.ListItem>
             {
                 TotalCount = await query.CountAsync(),
@@ -93,49 +82,63 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             };
         }
 
-        public void MuteUser(string userId)
+        public async Task MuteUser(string userId)
         {
-            throw new NotImplementedException();
+            if(userId.IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(userId));
+
+            var user = await _accountService.FindUserByIdAsync(userId);
+            if(user.IsNull())
+                throw new AccountNotFoundException(userId);
+
+            await _accountService.MuteUser(CurrentUser, user);
+            await UnitOfWork.SaveChangesWithDispatchDomainEvents();
         }
 
-        public async Task GrantModerator(AccountDtos.GrantModeratorReq dto)
+        public async Task<AccountDtos.Details> GetUserProfile(string userId = null)
         {
-            var @operator = await _userManager.GetUserAsync(_contextAccessor.HttpContext.User);
+            var targetUser = userId.IsNullOrEmpty() ? 
+                CurrentUser :
+                await _accountService.FindUserByIdAsync(userId);
 
-            if (!@operator.IsRole(Role.Administrator))
-                throw new UnauthorizedAccessException();
+            if(targetUser.IsNull())
+                throw new AccountNotFoundException(userId);
 
-
-
-            var identityResult = await _accountRepository.GrantModerator(@operator, dto.UserId, dto.ModuleId);
-            if (identityResult.Succeeded)
-            {
-
-            }
+            return AccountDtos.Details.From(targetUser);
         }
 
-        public async Task<AccountDtos.Details> GetUserDetails(string userId)
+        public async Task<AccountDtos.Details> EditProfile(AccountDtos.Edit editDto)
         {
-            if (string.IsNullOrEmpty(userId)) throw new ArgumentNullException(nameof(userId));
+            //edit profile
 
-            var user = await _accountRepository.FindAsync(userId);
-
-            return null;
+            await UnitOfWork.SaveChangesWithDispatchDomainEvents();
+            return AccountDtos.Details.From(CurrentUser);
         }
 
-        public AccountDtos.Details EditProfile(AccountDtos.Edit editDto)
+        public async Task Follow(string userId)
         {
-            throw new NotImplementedException();
+            var targetUser = await _accountService.FindUserByIdAsync(userId);
+            if(targetUser.IsNull())
+                throw new AccountNotFoundException(userId);
+
+            if(targetUser.IsAdministrator)
+                throw new InvalidOperationException();
+
+            await _accountService.FollowUser(CurrentUser, targetUser);
+            await UnitOfWork.SaveChangesWithDispatchDomainEvents();
         }
 
-        public void Follow(string userId)
+        public async Task UnFollow(string userId)
         {
-            throw new NotImplementedException();
-        }
+            var targetUser = await _accountService.FindUserByIdAsync(userId);
+            if (targetUser.IsNull())
+                throw new AccountNotFoundException(userId);
 
-        public void UnFollow(string userId)
-        {
-            throw new NotImplementedException();
+            if (targetUser.IsAdministrator)
+                throw new InvalidOperationException();
+
+            await _accountService.UnFollowUser(CurrentUser, targetUser);
+            await UnitOfWork.SaveChangesWithDispatchDomainEvents();
         }
     }
 }

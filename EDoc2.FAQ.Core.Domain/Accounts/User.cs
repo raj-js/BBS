@@ -1,20 +1,19 @@
-﻿using EDoc2.FAQ.Core.Domain.Applications.Events;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using EDoc2.FAQ.Core.Domain.Accounts.Events;
 using EDoc2.FAQ.Core.Domain.SeedWork;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
-namespace EDoc2.FAQ.Core.Domain.Applications
+namespace EDoc2.FAQ.Core.Domain.Accounts
 {
     public class User : IdentityUser, IEntity, IAggregateRoot
     {
         /// <summary>
         /// 是否被屏蔽
         /// </summary>
-        public bool IsMuted { get; set; }
+        public bool IsMuted { get; internal set; }
 
         /// <summary>
         /// 昵称
@@ -231,7 +230,7 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         /// </summary>
         /// <param name="score"></param>
         /// <param name="reasonId"></param>
-        public void MinusScore(int score, int reasonId)
+        internal void MinusScore(int score, int reasonId)
         {
             if (score < 0)
                 throw new ArgumentOutOfRangeException(nameof(score));
@@ -250,7 +249,7 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         /// <param name="followId"></param>
         /// <param name="subscriber"></param>
         /// <returns></returns>
-        public bool IsFanOf(string followId, out UserSubscriber subscriber)
+        internal bool IsFanOf(string followId, out UserSubscriber subscriber)
         {
             subscriber = null;
 
@@ -267,7 +266,7 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         /// 添加关注
         /// </summary>
         /// <param name="followId"></param>
-        public void Follow(string followId)
+        internal void Follow(string followId)
         {
             if (string.IsNullOrEmpty(followId))
                 throw new ArgumentNullException(nameof(followId));
@@ -298,7 +297,7 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         /// 取消关注
         /// </summary>
         /// <param name="followId"></param>
-        public void UnFollow(string followId)
+        internal void UnFollow(string followId)
         {
             if (string.IsNullOrEmpty(followId))
                 throw new ArgumentNullException(nameof(followId));

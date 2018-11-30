@@ -3,6 +3,7 @@ using EDoc2.FAQ.Core.Domain.Notifications;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Domain.Accounts;
 
 namespace EDoc2.FAQ.Core.Domain.Notifications.Services
 {

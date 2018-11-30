@@ -1,11 +1,11 @@
 ﻿using EDoc2.FAQ.Core.Application.Articles.Dtos;
+using EDoc2.FAQ.Core.Application.ServiceBase;
 using System;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Application.ServiceBase;
 
 namespace EDoc2.FAQ.Core.Application.Articles
 {
-    public interface IArticleAppService
+    public interface IArticleAppService : IAppService
     {
         /// <summary>
         /// 搜索文章

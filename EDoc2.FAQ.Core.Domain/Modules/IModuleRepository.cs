@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Domain.Repositories;
 using EDoc2.FAQ.Core.Domain.SeedWork;
 
 namespace EDoc2.FAQ.Core.Domain.Modules

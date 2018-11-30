@@ -34,15 +34,18 @@ namespace EDoc2.FAQ.Api.Controllers
             return Ok(await _accountAppService.Search(req));
         }
 
-        [HttpPut]
+        [HttpPut("grantModerator")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> GrantModertor([FromForm]GrantModeratorReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            await _accountAppService.GrantModerator(req);
+            await Task.CompletedTask;
+
             return Ok();
         }
+
+
     }
 }

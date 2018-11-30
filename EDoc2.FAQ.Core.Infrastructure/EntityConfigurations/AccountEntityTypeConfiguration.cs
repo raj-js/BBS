@@ -1,4 +1,5 @@
-﻿using EDoc2.FAQ.Core.Domain.Applications;
+﻿using EDoc2.FAQ.Core.Domain.Accounts;
+using EDoc2.FAQ.Core.Domain.Applications;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

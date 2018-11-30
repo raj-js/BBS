@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EDoc2.FAQ.Core.Application.Accounts
 {
-    public interface IAccountAppService
+    public interface IAccountAppService: IAppService
     {
         /// <summary>
         /// 邮件地址是否已经注册
@@ -46,38 +46,33 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         /// 禁用用户
         /// </summary>
         /// <param name="userId"></param>
-        void MuteUser(string userId);
-
-        /// <summary>
-        /// 将用户设置为板块版主
-        /// </summary>
-        /// <param name="dto"></param>
-        Task GrantModerator(AccountDtos.GrantModeratorReq dto);
+        /// <returns></returns>
+        Task MuteUser(string userId);
 
         /// <summary>
         /// 获取用户详细信息
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<AccountDtos.Details> GetUserDetails(string userId);
+        Task<AccountDtos.Details> GetUserProfile(string userId = null);
 
         /// <summary>
         /// 更新个人资料
         /// </summary>
         /// <param name="editDto"></param>
         /// <returns></returns>
-        AccountDtos.Details EditProfile(AccountDtos.Edit editDto);
+        Task<AccountDtos.Details> EditProfile(AccountDtos.Edit editDto);
 
         /// <summary>
         /// 关注用户
         /// </summary>
         /// <param name="userId"></param>
-        void Follow(string userId);
+        Task Follow(string userId);
 
         /// <summary>
         /// 取消关注用户
         /// </summary>
         /// <param name="userId"></param>
-        void UnFollow(string userId);
+        Task UnFollow(string userId);
     }
 }

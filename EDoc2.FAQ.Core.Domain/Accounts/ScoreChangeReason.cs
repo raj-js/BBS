@@ -1,9 +1,9 @@
-﻿using EDoc2.FAQ.Core.Domain.SeedWork;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EDoc2.FAQ.Core.Domain.SeedWork;
 
-namespace EDoc2.FAQ.Core.Domain.Applications
+namespace EDoc2.FAQ.Core.Domain.Accounts
 {
     public class ScoreChangeReason : Enumeration
     {

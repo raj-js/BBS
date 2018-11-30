@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using EDoc2.FAQ.Core.Application.ServiceBase;
+using EDoc2.FAQ.Core.Domain.Accounts;
 
 namespace EDoc2.FAQ.Core.Application.Articles
 {
@@ -85,7 +86,7 @@ namespace EDoc2.FAQ.Core.Application.Articles
         //    if (dtoCache != null)
         //        return LZ4MessagePackSerializer.Deserialize<ArticleDetailDto>(dtoCache);
 
-        //    var article = await _articleRepository.FindAsync(id);
+        //    var article = await _articleRepository.FindUserByIdAsync(id);
         //    var articleDto = ArticleDetailDto.FromEntity(article);
 
         //    dtoCache = LZ4MessagePackSerializer.Serialize(articleDto);

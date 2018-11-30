@@ -1,6 +1,7 @@
 ﻿using EDoc2.FAQ.Core.Domain.Applications;
 using EDoc2.FAQ.Core.Domain.SeedWork;
 using System;
+using EDoc2.FAQ.Core.Domain.Accounts;
 
 namespace EDoc2.FAQ.Core.Domain.Notifications
 {

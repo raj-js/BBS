@@ -1,7 +1,7 @@
-﻿using MediatR;
-using System;
+﻿using System;
+using MediatR;
 
-namespace EDoc2.FAQ.Core.Domain.Applications.Events
+namespace EDoc2.FAQ.Core.Domain.Accounts.Events
 {
     /// <summary>
     /// 积分变动事件

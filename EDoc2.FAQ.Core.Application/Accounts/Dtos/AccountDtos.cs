@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using EDoc2.FAQ.Core.Application.ServiceBase;
+using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.Applications;
 
 namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
@@ -119,9 +120,12 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             }
         }
 
-        public class Details: EntityDto<Guid>
+        public class Details: EntityDto<string>
         {
-            
+            public static Details From(User user)
+            {
+                return new Details();
+            }
         }
 
         #endregion

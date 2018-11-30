@@ -1,6 +1,6 @@
 ﻿using EDoc2.FAQ.Core.Domain.SeedWork;
 
-namespace EDoc2.FAQ.Core.Domain.Applications
+namespace EDoc2.FAQ.Core.Domain.Accounts
 {
     public class UserProperty : Entity
     {

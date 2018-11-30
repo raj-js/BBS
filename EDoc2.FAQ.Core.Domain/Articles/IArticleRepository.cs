@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Domain.Repositories;
 
 namespace EDoc2.FAQ.Core.Domain.Articles
 {

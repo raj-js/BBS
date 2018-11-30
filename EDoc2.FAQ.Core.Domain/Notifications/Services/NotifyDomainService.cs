@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.Applications;
 using EDoc2.FAQ.Core.Domain.SeedWork;
+using EDoc2.FAQ.Core.Domain.Uow;
 
 namespace EDoc2.FAQ.Core.Domain.Notifications.Services
 {
@@ -23,7 +25,7 @@ namespace EDoc2.FAQ.Core.Domain.Notifications.Services
                 throw new ArgumentNullException(nameof(notify));
 
             await _notifyRepo.AddNotify(notify);
-            await UnitOfWork.SaveEntitiesAsync();
+            await UnitOfWork.SaveChangesWithDispatchDomainEvents();
 
             return notify;
         }
@@ -44,7 +46,7 @@ namespace EDoc2.FAQ.Core.Domain.Notifications.Services
             else
                 await _notifyRepo.DeleteNotify(notify);
 
-            await UnitOfWork.SaveEntitiesAsync();
+            await UnitOfWork.SaveChangesWithDispatchDomainEvents();
         }
 
         public IQueryable<Notify> GetNotifiesAsync()

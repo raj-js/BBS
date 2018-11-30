@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
-namespace EDoc2.FAQ.Core.Domain.Applications
+namespace EDoc2.FAQ.Core.Domain.Accounts
 {
     public class Role: IdentityRole
     {

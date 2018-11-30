@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations
+namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Articles
 {
     class ArticleTypeEntityTypeConfiguration : IEntityTypeConfiguration<ArticleType>
     {

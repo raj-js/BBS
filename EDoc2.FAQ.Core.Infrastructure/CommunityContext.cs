@@ -1,7 +1,8 @@
-﻿using EDoc2.FAQ.Core.Domain.Applications;
+﻿using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.Articles;
-using EDoc2.FAQ.Core.Domain.SeedWork;
+using EDoc2.FAQ.Core.Domain.Uow;
 using EDoc2.FAQ.Core.Infrastructure.EntityConfigurations;
+using EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Articles;
 using EDoc2.FAQ.Core.Infrastructure.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -15,8 +16,9 @@ namespace EDoc2.FAQ.Core.Infrastructure
 {
     public class CommunityContext : IdentityDbContext<User, Role, string, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>, IUnitOfWork
     {
-        #region 文章相关
+        public Guid UniqueId { get; set; } = Guid.NewGuid();
 
+        #region 文章相关
 
         public DbSet<Article> Articles { get; set; }
         public DbSet<ArticleCommentState> ArticleCommentStates { get; set; }
@@ -72,7 +74,7 @@ namespace EDoc2.FAQ.Core.Infrastructure
             #endregion
         }
 
-        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<bool> SaveChangesWithDispatchDomainEvents(CancellationToken cancellationToken = default(CancellationToken))
         {
             await _mediator.DispatchDomainEventsAsync(this);
             await SaveChangesAsync(cancellationToken);

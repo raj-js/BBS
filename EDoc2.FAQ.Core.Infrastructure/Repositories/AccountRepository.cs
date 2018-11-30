@@ -1,205 +1,57 @@
-﻿using EDoc2.FAQ.Core.Domain.Applications;
-using EDoc2.FAQ.Core.Domain.Articles;
-using EDoc2.FAQ.Core.Domain.SeedWork;
-using EDoc2.FAQ.Core.Infrastructure.Extensions;
-using Microsoft.AspNetCore.Identity;
+﻿using EDoc2.FAQ.Core.Domain.Accounts;
+using EDoc2.FAQ.Core.Domain.Uow;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace EDoc2.FAQ.Core.Infrastructure.Repositories
 {
     public class AccountRepository : IAccountRepository
     {
         private readonly CommunityContext _context;
-        private readonly UserManager<User> _userManager;
-        private readonly IArticleRepository _articleRepository;
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public AccountRepository(CommunityContext context,
-            UserManager<User> userManager,
-            IArticleRepository articleRepository)
+        public AccountRepository(CommunityContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-            _articleRepository = articleRepository ?? throw new ArgumentNullException(nameof(articleRepository));
         }
 
-        public async Task<IdentityResult> CreateAdmin(User user, string password, bool allowMultipleAdmin = false)
+        public void AddUser(User user)
         {
-            if (user.IsNull())
-                throw new ArgumentNullException(nameof(user));
-
-            if (password.IsNullOrEmpty())
-                throw new ArgumentException(nameof(password));
-
-            if (!allowMultipleAdmin)
-            {
-                if (_context.UserRoles.Any(s => s.RoleId == Role.Administrator.Id))
-                {
-                    return IdentityResult.Failed(new IdentityError
-                    {
-                        Code = "NotAllowMultipleAdmin",
-                        Description = "不允许多个管理员账号"
-                    });
-                }
-            }
-            var identityResult = await _userManager.CreateAsync(user, password);
-            if (identityResult.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(user, Role.Administrator.NormalizedName);
-                await UnitOfWork.SaveEntitiesAsync();
-            }
-            return identityResult;
+            _context.Set<User>().Add(user);
         }
 
-        public async Task<IdentityResult> RegisterAsync(User user, string password)
+        public async Task AddUserAsync(User user)
         {
-            if (user.IsNull())
-                throw new ArgumentNullException(nameof(user));
-
-            if (password.IsNullOrEmpty())
-                throw new ArgumentException(nameof(password));
-
-            var identityResult = await _userManager.CreateAsync(user, password);
-            if (identityResult.Succeeded)
-            {
-                user.Initialize();
-                
-                identityResult = await _userManager.AddToRoleAsync(user, Role.Member.NormalizedName);
-                if (identityResult.Succeeded)
-                    await UnitOfWork.SaveEntitiesAsync();
-            }
-            return identityResult;
+            await _context.Set<User>().AddAsync(user);
         }
 
-        public IQueryable<User> GetUsers(bool skipAdmin = true)
+        public void UpdateUser(User user)
         {
-            return _userManager.Users
-                .WhereTure(skipAdmin, s => !s.UserRoles.Any(r => r.RoleId.Equals(Role.Administrator.Id, StringComparison.OrdinalIgnoreCase)));
+            _context.Entry(user).State = EntityState.Modified;
         }
 
-        public async Task<User> FindAsync(string id)
+        public async Task UpdateUserAsync(User user)
         {
-            if (id.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(id));
-
-            return await _userManager.FindByIdAsync(id);
+            UpdateUser(user);
+            await Task.CompletedTask;
         }
 
-        public User Find(string id)
+        public IQueryable<User> GetUsers()
         {
-            if (id.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(id));
-
-            return _context.Users.Find(id);
+            return _context.Users.AsQueryable();
         }
 
-        public async Task Follow(User user, string userId)
+        public User FindUserById(string id)
         {
-            if (user.IsNull())
-                throw new ArgumentNullException(nameof(user));
-
-            if (userId.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(userId));
-
-            if (user.IsTransient())
-                throw new InvalidOperationException("user is transient");
-
-            user.Follow(userId);
-            await UnitOfWork.SaveEntitiesAsync();
+            return _context.Set<User>().Find(id);
         }
 
-        public async Task UnFollow(User user, string userId)
+        public async Task<User> FindUserByIdAsync(string id)
         {
-            if (user.IsNull())
-                throw new ArgumentNullException(nameof(user));
-
-            if (userId.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(userId));
-
-            if (user.IsTransient())
-                throw new InvalidOperationException("user is transient");
-
-            user.UnFollow(userId);
-            await UnitOfWork.SaveEntitiesAsync();
-        }
-
-        public async Task AddFavorite(User user, Guid articleId)
-        {
-            if (user.IsNull())
-                throw new ArgumentNullException(nameof(user));
-
-            if (user.IsTransient())
-                throw new InvalidOperationException("user is transient");
-
-            if (!await _articleRepository.CanFavoriteArticle(articleId))
-                throw new InvalidOperationException("article cann't be favorite in this state");
-
-            user.AddFavorite(articleId);
-            await UnitOfWork.SaveEntitiesAsync();
-        }
-
-        public async Task RemoveFavorite(User user, Guid articleId)
-        {
-            if (user.IsNull())
-                throw new ArgumentNullException(nameof(user));
-
-            if (user.IsTransient())
-                throw new InvalidOperationException("user is transient");
-
-            user.RemoveFavorite(articleId);
-            await UnitOfWork.SaveEntitiesAsync();
-        }
-
-        public IQueryable<User> GetFollows(User user)
-        {
-            if (user.IsNull())
-                throw new ArgumentNullException(nameof(user));
-
-            if (user.IsTransient())
-                throw new InvalidOperationException("user is transient");
-
-            return user.UserFollows.AsQueryable().Where(s => !s.IsCancel).Select(s => s.Follow);
-        }
-
-        public IQueryable<User> GetFans(User user)
-        {
-            if (user.IsNull())
-                throw new ArgumentNullException(nameof(user));
-
-            if (user.IsTransient())
-                throw new InvalidOperationException("user is transient");
-
-            return user.UserFans.AsQueryable().Where(s => !s.IsCancel).Select(s => s.Fan);
-        }
-
-        public IQueryable<UserFavorite> GetFavorites(User user)
-        {
-            return user.UserFavorites.AsQueryable();
-        }
-
-        public async Task<IdentityResult> GrantModerator(User @operator, string userId, Guid moduleId)
-        {
-            if (!@operator.IsRole(Role.Administrator))
-                throw new UnauthorizedAccessException();
-
-            var targetUser = await _context.Users.FindAsync(userId);
-            if (targetUser == null)
-                throw new InvalidOperationException();
-
-            return await _userManager.AddToRoleAsync(targetUser, Role.Moderator.NormalizedName);
-        }
-
-        public Task<IdentityResult> RecycleModerator(User @operator, string userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task ChangeModerator(User @operator, string grantUserId, string recycleUserId, string moduleId)
-        {
-            throw new NotImplementedException();
+            return await _context.Set<User>().FindAsync(id);
         }
     }
 }

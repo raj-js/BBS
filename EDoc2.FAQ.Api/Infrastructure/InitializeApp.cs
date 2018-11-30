@@ -1,8 +1,6 @@
-﻿using EDoc2.FAQ.Core.Domain.Applications;
+﻿using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Infrastructure;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 

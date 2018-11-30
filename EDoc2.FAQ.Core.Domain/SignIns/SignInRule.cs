@@ -1,7 +1,7 @@
 ﻿using System;
 using EDoc2.FAQ.Core.Domain.SeedWork;
 
-namespace EDoc2.FAQ.Core.Domain.Applications
+namespace EDoc2.FAQ.Core.Domain.SignIns
 {
     /// <summary>
     /// 签到积分规则

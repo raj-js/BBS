@@ -3,6 +3,7 @@ using EDoc2.FAQ.Core.Domain.SeedWork;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Domain.Uow;
 
 namespace EDoc2.FAQ.Core.Infrastructure.Repositories
 {
