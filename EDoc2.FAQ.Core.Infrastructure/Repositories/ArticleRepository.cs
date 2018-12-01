@@ -3,6 +3,7 @@ using EDoc2.FAQ.Core.Domain.Repositories;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Infrastructure.Extensions;
 
 namespace EDoc2.FAQ.Core.Infrastructure.Repositories
 {
@@ -10,143 +11,71 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
     {
         private CommunityContext Context => UnitOfWork as CommunityContext;
 
-        public Article Update(Article entity)
+        public IQueryable<Article> GetArticles()
         {
-            return Context.Articles.Update(entity).Entity;
+            return Context.Articles.AsQueryable();
         }
 
-        public Article Find(Guid id)
+        public async Task Add(Article article)
         {
-            return Context.Articles.Find(id);
+            await Context.AddAsync(article);
         }
 
-        public async Task<Article> FindAsync(Guid key)
+        public async Task Update(Article article, params string[] properties)
         {
-            return await Context.Articles.FindAsync(key);
+            Context.AttachIfNot(article);
+            Context.UpdatePartly(article, properties);
+            await Task.CompletedTask;
         }
 
-        public Article Release(string operatorId, bool auditing, Article article)
+        public async Task Delete(Article article)
         {
-            if (article == null) throw new ArgumentNullException(nameof(article));
-
-            if (auditing)
-                article.SetAuditing(operatorId);
-            else
-                article.SetPublished(operatorId);
-
-            if (article.IsTransient())
-                return Context.Articles.Add(article).Entity;
-
-            return Update(article);
+            Context.AttachIfNot(article);
+            Context.Remove(article);
+            await Task.CompletedTask;
         }
 
-        public Article ViewArticle(Article article, DateTime viewTime, string clientIp, string operatorId = null)
+        public async Task AddArticleProperty(ArticleProperty property)
         {
-            throw new NotImplementedException();
+            await Context.AddAsync(property);
         }
 
-        public void ReplyArticle(Guid articleId, ArticleComment comment, bool auditing)
+        public async Task UpdateArticleProperty(ArticleProperty property, params string[] properties)
         {
-            throw new NotImplementedException();
+            Context.AttachIfNot(property);
+            Context.UpdatePartly(property, properties);
+            await Task.CompletedTask;
         }
 
-        public void ReplyArticleComment(long parentCommentId, ArticleComment comment, bool auditing)
+        public async Task AddComment(ArticleComment comment)
         {
-            if (parentCommentId < 0) throw new ArgumentOutOfRangeException(nameof(parentCommentId));
-            if (comment == null) throw new ArgumentNullException(nameof(comment));
-
-
+            await Context.AddAsync(comment);
         }
 
-        /// <summary>
-        /// 更新文章/评论 操作
-        /// </summary>
-        /// <param name="operatorId"></param>
-        /// <param name="sourceId"></param>
-        /// <param name="sourceType"></param>
-        /// <param name="operationType"></param>
-        private void UpdateArticleOperation(string operatorId, string sourceId, ArticleOperationSourceType sourceType, ArticleOperationType operationType)
+        public async Task UpdateComment(ArticleComment comment, params string[] properties)
         {
-            var op = Context.ArticleOperations
-               .SingleOrDefault(o => o.OperatorId == operatorId &&
-               o.SourceId == sourceId &&
-               o.SourceType.Id == sourceType.Id &&
-               o.Type.Id == operationType.Id);
-
-            if (op == null)
-            {
-                op = new ArticleOperation
-                {
-                    OperatorId = operatorId,
-                    SourceId = sourceId,
-                    IsCancel = false,
-                    SourceType = sourceType,
-                    Type = operationType,
-                    OperationTime = DateTime.Now
-                };
-                Context.ArticleOperations.Add(op);
-            }
-            else
-            {
-                op.IsCancel = false;
-                op.OperationTime = DateTime.Now;
-                Context.ArticleOperations.Update(op);
-            }
+            Context.AttachIfNot(comment);
+            Context.UpdatePartly(comment, properties);
+            await Task.CompletedTask;
         }
 
-        public void LikeArticle(string operatorId, Guid articleId)
+        public async Task DeleteComment(ArticleComment comment)
         {
-            UpdateArticleOperation(operatorId, articleId.ToString(), ArticleOperationSourceType.Article, ArticleOperationType.Like);
+            Context.AttachIfNot(comment);
+            Context.Remove(comment);
+            await Task.CompletedTask;
         }
 
-        public void DislikeArticle(string operatorId, Guid articleId)
+        public async Task AddArticleOperation(ArticleOperation operation)
         {
-            UpdateArticleOperation(operatorId, articleId.ToString(), ArticleOperationSourceType.Article, ArticleOperationType.Dislike);
+            await Context.AddAsync(operation);
         }
 
-        public void LikeArticleComment(string operatorId, long commentId)
+        public async Task UpdateArticleOperation(ArticleOperation operation, params string[] properties)
         {
-            UpdateArticleOperation(operatorId, commentId.ToString(), ArticleOperationSourceType.Comment, ArticleOperationType.Like);
-        }
-
-        public void DislikeArticleComment(string operatorId, long commentId)
-        {
-            UpdateArticleOperation(operatorId, commentId.ToString(), ArticleOperationSourceType.Comment, ArticleOperationType.Dislike);
-        }
-
-        public Article Add(Article article)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ReportArticle(string operatorId, Article article)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ReportArticleComment(string operatorId, ArticleComment comment)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AdoptArticleComment(Article article, ArticleComment comment)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> CanFavoriteArticle(Guid articleId)
-        {
-            var article = await FindAsync(articleId);
-
-            if (article == null) return false;
-
-            return new int[]
-            {
-                ArticleState.Published.Id,
-                ArticleState.Solved.Id,
-                ArticleState.UnSolved.Id,
-                ArticleState.Unsatisfactory.Id
-            }.Contains(article.State.Id);
+            Context.AttachIfNot(operation);
+            Context.UpdatePartly(operation, properties);
+            await Task.CompletedTask;
         }
     }
 }

@@ -26,10 +26,10 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
             Context.Set<User>().Update(user);
         }
 
-        public void UpdatePartly(User user, params string[] expressions)
+        public void UpdatePartly(User user, params string[] properties)
         {
             Context.AttachIfNot(user);
-            Context.UpdatePartly(user, expressions);
+            Context.UpdatePartly(user, properties);
         }
 
         public async Task UpdateUserAsync(User user)
