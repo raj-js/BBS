@@ -2,6 +2,7 @@
 using EDoc2.FAQ.Core.Application.ServiceBase;
 using System;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Application.DtoBase;
 
 namespace EDoc2.FAQ.Core.Application.Articles
 {

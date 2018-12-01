@@ -1,14 +1,13 @@
-﻿using EDoc2.FAQ.Core.Application.Accounts.Dtos;
+﻿using EDoc2.FAQ.Core.Application.DtoBase;
 using EDoc2.FAQ.Core.Application.ServiceBase;
 using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.Accounts.Services;
 using EDoc2.FAQ.Core.Infrastructure.Extensions;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Domain.Exceptions;
+using static EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos;
 
 namespace EDoc2.FAQ.Core.Application.Accounts
 {
@@ -23,13 +22,10 @@ namespace EDoc2.FAQ.Core.Application.Accounts
 
         public async Task<bool> IsEmailRegistered(string email)
         {
-            if (string.IsNullOrEmpty(email))
-                throw new ArgumentNullException(nameof(email));
-
             return await _accountService.GetUsers().AnyAsync(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
-        public async Task<AccountDtos.RegisterResp> Register(AccountDtos.RegisterReq req)
+        public async Task<Response> Register(RegisterReq req)
         {
             var user = new User
             {
@@ -43,52 +39,80 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             if (result.Succeeded)
             {
                 var token = await UserManager.GenerateEmailConfirmationTokenAsync(user);
-                return AccountDtos.RegisterResp.Success(user.Id, token);
+                return Response<Register>.Successed(new Register
+                {
+                    UserId = user.Id,
+                    Code = token
+                });
             }
-            else
-                return AccountDtos.RegisterResp.Failed(result.Errors.ToArray());
+            return Response.Failed(result.Errors.ToRespErrors());
         }
 
-        public async Task<IdentityResult> EmailConfirm(AccountDtos.EmailConfirmReq req)
+        public async Task<Response> EmailConfirm(EmailConfirmReq req)
         {
             var user = await _accountService.FindUserByIdAsync(req.UserId);
-
             if (user == null)
-                throw new AccountNotFoundException(req.UserId);
+                return Response.Failed(Errors.AccountNotFound);
 
-            return await UserManager.ConfirmEmailAsync(user, req.Code);
+            if (user.IsMuted)
+                return Response.Failed(Errors.AccountMuted);
+
+            var result = await UserManager.ConfirmEmailAsync(user, req.Code);
+            return result.ToResponse();
         }
 
-        public async Task<AccountDtos.RetrievePasswordResp> GenerateResetPasswordToken(AccountDtos.RetrievePasswordReq req)
+        public async Task<Response> GenerateResetPasswordToken(RetrievePasswordReq req)
         {
             var user = await UserManager.FindByEmailAsync(req.Email);
-
             if (user == null)
-                throw new EmailNotFoundException(req.Email);
+                return Response.Failed(Errors.EmailNotFound);
 
-            return new AccountDtos.RetrievePasswordResp
+            if (user.IsMuted)
+                return Response.Failed(Errors.AccountMuted);
+
+            return Response<RetrievePassword>.Successed(new RetrievePassword
             {
                 UserId = user.Id,
                 Code = await UserManager.GeneratePasswordResetTokenAsync(user)
-            };
+            });
         }
 
-        public async Task ResetPassword(AccountDtos.ResetPasswordReq req)
+        public async Task<Response> ResetPassword(ResetPasswordReq req)
         {
             var user = await _accountService.FindUserByIdAsync(req.UserId);
-
             if (user == null)
-                throw new AccountNotFoundException(req.UserId);
+                return Response.Failed(Errors.AccountNotFound);
 
-            await UserManager.ResetPasswordAsync(user, req.Code, req.Password);
+            if (user.IsMuted)
+                return Response.Failed(Errors.AccountMuted);
+
+            var result = await UserManager.ResetPasswordAsync(user, req.Code, req.Password);
+            return result.ToResponse();
         }
 
-        public async Task<SignInResult> Login(AccountDtos.LoginReq dto)
+        public async Task<Response> Login(LoginReq req)
         {
-            return await SignInManager.PasswordSignInAsync(dto.Email, dto.Password, dto.RememberMe, true);
+            var user = await UserManager.FindByEmailAsync(req.Email);
+            if (user == null)
+                return Response.Failed(Errors.EmailNotFound);
+
+            if (user.IsMuted)
+                return Response.Failed(Errors.AccountMuted);
+
+            var result = await SignInManager.PasswordSignInAsync(req.Email, req.Password, req.RememberMe, true);
+            return result.ToResponse();
         }
 
-        public async Task<PagingDto<AccountDtos.ListItem>> Search(AccountDtos.SearchReq dto, bool skipAdmin = true)
+        public async Task<Response> Logout()
+        {
+            if(CurrentUser.IsNull())
+                return Response.Failed(Errors.InvalidOperation);
+
+            await SignInManager.SignOutAsync();
+            return Response.Successed();
+        }
+
+        public async Task<Response> Search(SearchReq dto, bool skipAdmin = true)
         {
             var query = _accountService.GetUsers(skipAdmin);
 
@@ -103,79 +127,90 @@ namespace EDoc2.FAQ.Core.Application.Accounts
                 .Skip(dto.Skip)
                 .Take(dto.Take)
                 .AsEnumerable()
-                .Select(AccountDtos.ListItem.From)
+                .Select(ListItem.From)
                 .ToList();
-
-            return new PagingDto<AccountDtos.ListItem>
+            
+            return Response<PagingDto<ListItem>>.Successed(new PagingDto<ListItem>
             {
                 TotalCount = await query.CountAsync(),
                 Dtos = dtos
-            };
+            });
         }
 
-        public async Task MuteUser(string userId)
+        public async Task<Response> MuteUser(string userId)
         {
-            if(userId.IsNullOrEmpty())
-                throw new ArgumentNullException(nameof(userId));
-
             var user = await _accountService.FindUserByIdAsync(userId);
-            if(user.IsNull())
-                throw new AccountNotFoundException(userId);
+            if (user.IsNull())
+                return Response.Failed(Errors.AccountNotFound);
 
             await _accountService.MuteUser(CurrentUser, user);
             await UnitOfWork.SaveChangesWithDispatchDomainEvents();
+            return Response.Successed();
         }
 
-        public async Task<AccountDtos.Details> GetUserProfile(string userId = null)
+        public async Task<Response> UnMuteUser(string userId)
         {
-            var targetUser = userId.IsNullOrEmpty() ? 
+            var user = await _accountService.FindUserByIdAsync(userId);
+            if (user.IsNull())
+                return Response.Failed(Errors.AccountNotFound);
+
+            await _accountService.MuteUser(CurrentUser, user);
+            await UnitOfWork.SaveChangesWithDispatchDomainEvents();
+            return Response.Successed();
+        }
+
+        public async Task<Response> GetProfile(string userId = null)
+        {
+            var targetUser = userId.IsNullOrEmpty() ?
                 CurrentUser :
                 await _accountService.FindUserByIdAsync(userId);
 
-            if(targetUser.IsNull())
-                throw new AccountNotFoundException(userId);
+            if (targetUser.IsNull())
+                return Response.Failed(Errors.AccountNotFound);
 
-            return AccountDtos.Details.From(targetUser);
+            return Response<Profile>.Successed(Profile.From(targetUser)); 
         }
 
-        public async Task<AccountDtos.Details> EditProfile(AccountDtos.EditProfileReq editProfileReqDto)
+        public async Task<Response> EditProfile(EditProfileReq editProfileReqDto)
         {
             //edit profile
-
+            
             await UnitOfWork.SaveChangesWithDispatchDomainEvents();
-            return AccountDtos.Details.From(CurrentUser);
+            return Response.Failed();
         }
 
-        public async Task Follow(string userId)
+        public async Task<Response> Follow(string userId)
         {
             if (CurrentUser.Id.Equals(userId, StringComparison.OrdinalIgnoreCase))
-                throw new InvalidOperationException();
-
-            var targetUser = await _accountService.FindUserByIdAsync(userId);
-            if(targetUser.IsNull())
-                throw new AccountNotFoundException(userId);
-
-            if(targetUser.IsAdministrator)
-                throw new InvalidOperationException();
-
-            await _accountService.FollowUser(CurrentUser, targetUser);
-            await UnitOfWork.SaveChangesWithDispatchDomainEvents();
-        }
-
-        public async Task UnFollow(string userId)
-        {
-            if (CurrentUser.Id.Equals(userId, StringComparison.OrdinalIgnoreCase))
-                throw new InvalidOperationException();
+                return Response.Failed(Errors.InvalidOperation);
 
             var targetUser = await _accountService.FindUserByIdAsync(userId);
             if (targetUser.IsNull())
-                throw new AccountNotFoundException(userId);
+                return Response.Failed(Errors.AccountNotFound);
 
             if (targetUser.IsAdministrator)
-                throw new InvalidOperationException();
+                return Response.Failed(Errors.InvalidOperation);
+
+            await _accountService.FollowUser(CurrentUser, targetUser);
+            await UnitOfWork.SaveChangesWithDispatchDomainEvents();
+            return Response.Successed();
+        }
+
+        public async Task<Response> UnFollow(string userId)
+        {
+            if (CurrentUser.Id.Equals(userId, StringComparison.OrdinalIgnoreCase))
+                return Response.Failed(Errors.InvalidOperation);
+
+            var targetUser = await _accountService.FindUserByIdAsync(userId);
+            if (targetUser.IsNull())
+                return Response.Failed(Errors.AccountNotFound);
+
+            if (targetUser.IsAdministrator)
+                return Response.Failed(Errors.InvalidOperation);
 
             await _accountService.UnFollowUser(CurrentUser, targetUser);
             await UnitOfWork.SaveChangesWithDispatchDomainEvents();
+            return Response.Successed();
         }
     }
 }

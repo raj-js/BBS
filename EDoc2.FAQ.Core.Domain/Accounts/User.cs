@@ -118,7 +118,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
 
         #region 用户属性存取
 
-        internal UserProperty GetOrSetProperty(string name, string @default = null)
+        internal UserProperty GetOrSetProperty<T>(string name, T @default = default(T))
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
@@ -132,21 +132,21 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
                 property = new UserProperty
                 {
                     Name = name,
-                    Value = @default
+                    Value = @default.ToString()
                 };
                 UserProperties.Add(property);
             }
             else
             {
                 if (@default != null)
-                    property.Value = @default;
+                    property.Value = @default.ToString();
             }
             return property;
         }
 
         private void SetProperty(string name, string value) => GetOrSetProperty(name, value);
 
-        public T GetProperty<T>(string name, string @default = null, Func<string, T> converter = null)
+        public T GetProperty<T>(string name, T @default = default(T), Func<string, T> converter = null)
         {
             var property = GetOrSetProperty(name, @default);
 
@@ -156,22 +156,22 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         /// <summary>
         /// 坚持签到天数
         /// </summary>
-        public int PersistDays => GetProperty(UserProperty.PersistDays, converter: int.Parse);
+        public int PersistDays => GetProperty(UserProperty.PersistDays, 0, int.Parse);
 
         /// <summary>
         /// 积分
         /// </summary>
-        public int Score => GetProperty(UserProperty.Score, converter: int.Parse);
+        public int Score => GetProperty(UserProperty.Score, 0, int.Parse);
 
         /// <summary>
         /// 粉丝数
         /// </summary>
-        public int Fans => GetProperty(UserProperty.Fans, converter: int.Parse);
+        public int Fans => GetProperty(UserProperty.Fans, 0, int.Parse);
 
         /// <summary>
         /// 关注数
         /// </summary>
-        public int Follows => GetProperty(UserProperty.Follows, converter: int.Parse);
+        public int Follows => GetProperty(UserProperty.Follows, 0, int.Parse);
 
         /// <summary>
         /// 设置连续签到天数

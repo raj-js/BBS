@@ -16,6 +16,12 @@
             <param name="accountAppService"></param>
             <param name="logger"></param>
         </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.IsAuthenticated">
+            <summary>
+            当前是否登录
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.Register(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.RegisterReq)">
             <summary>
             注册用户
@@ -37,7 +43,7 @@
             <param name="req"></param>
             <returns></returns>
         </member>
-        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.GetProfile">
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.GetProfile(System.String)">
             <summary>
             用户信息
             </summary>
@@ -70,6 +76,81 @@
             </summary>
             <param name="req"></param>
             <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.Logout">
+            <summary>
+            注销当前用户
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:EDoc2.FAQ.Api.Controllers.AdminController">
+            <summary>
+            管理员操作
+            </summary>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AdminController.#ctor(EDoc2.FAQ.Core.Application.Accounts.IAccountAppService,Microsoft.Extensions.Logging.ILogger{EDoc2.FAQ.Api.Controllers.AdminController})">
+            <summary>
+            构造器
+            </summary>
+            <param name="accountAppService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AdminController.SearchUsers(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.SearchReq)">
+            <summary>
+            搜索用户
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AdminController.MuteUser(System.String)">
+            <summary>
+            屏蔽用户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AdminController.UnMuteUser(System.String)">
+            <summary>
+            撤销屏蔽用户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AdminController.GrantModertor(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.GrantModeratorReq)">
+            <summary>
+            授权为版主
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EDoc2.FAQ.Api.Infrastructure.Middlewares.ExceptionsHandlerMiddleware">
+            <summary>
+            异常处理中间件
+            </summary>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Infrastructure.Middlewares.ExceptionsHandlerMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            构造器
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Infrastructure.Middlewares.ExceptionsHandlerMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            执行处理
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EDoc2.FAQ.Api.Infrastructure.Middlewares.ExceptionHandlerMiddlewareExtensions">
+            <summary>
+            异常处理拓展程序
+            </summary>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Infrastructure.Middlewares.ExceptionHandlerMiddlewareExtensions.UseExceptionsHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            使用异常处理中间件
+            </summary>
+            <param name="builder"></param>
         </member>
         <member name="P:EDoc2.FAQ.Api.Models.Admins.VmGetAccountsReq.Nickname">
             <summary>

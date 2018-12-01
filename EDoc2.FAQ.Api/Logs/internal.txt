@@ -495,3 +495,171 @@
    at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
    --- End of inner exception stack trace ---
 2018-11-30 20:45:51.2901 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 09:16:41.7207 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 09:16:41.7207 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 09:19:35.7323 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 09:19:35.7323 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 09:20:31.9231 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 09:20:31.9231 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 09:35:16.2339 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 09:35:16.2339 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 09:36:17.1429 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 09:36:17.1429 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 09:38:41.8208 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 09:38:41.8349 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 09:46:33.1416 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 09:46:33.1416 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 09:49:52.3865 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 09:49:52.3865 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 09:52:17.3414 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 09:52:17.3414 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 10:09:59.1589 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 10:09:59.1589 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 10:11:59.6572 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 10:11:59.6572 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 10:16:02.2884 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 10:16:02.2914 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 10:16:59.9899 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 10:16:59.9930 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 10:17:53.1491 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 10:17:53.1491 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 10:21:39.1024 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 10:21:39.1024 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 10:27:32.4477 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 10:27:32.4477 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 10:29:24.7120 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 10:29:24.7120 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 10:32:32.2342 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 10:32:32.2342 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 10:34:10.9448 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 10:34:10.9448 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 10:35:23.8810 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 10:35:23.8839 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 10:36:33.3951 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 10:36:33.3951 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 10:38:06.6956 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 10:38:06.6956 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 11:46:27.7703 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 11:46:27.7740 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-01 11:49:00.0794 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-01 11:49:00.0794 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?

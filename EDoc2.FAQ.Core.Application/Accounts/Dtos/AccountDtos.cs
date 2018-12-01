@@ -3,6 +3,7 @@ using EDoc2.FAQ.Core.Domain.Accounts;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using EDoc2.FAQ.Core.Application.DtoBase;
 using Microsoft.AspNetCore.Identity;
 
 namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
@@ -183,26 +184,42 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             }
         }
 
-        public class Details: EntityDto<string>
-        {
-            public static Details From(User user)
-            {
-                return new Details();
-            }
-        }
-
         public class Profile: EntityDto<string>
         {
+            public string Nickname { get; set; }
+            public string Signature { get; set; }
+            public Gender Gender { get; set; }
+            public string Email { get; set; }
+            public string City { get; set; }
+            public DateTime JoinDate { get; set; }
+            public int Follows { get; set; }
+            public int Fans { get; set; }
+            public int Score { get; set; }
+            public bool IsMuted { get; set; }
+
             public static Profile From(User user)
             {
-                return new Profile();
+                return new Profile
+                {
+                    Id = user.Id,
+                    Nickname = user.Nickname,
+                    Signature = user.Signature,
+                    Gender = user.Gender,
+                    Email = user.Email,
+                    City = user.City,
+                    JoinDate = user.JoinDate,
+                    Follows = user.Follows,
+                    Fans = user.Fans,
+                    Score = user.Score,
+                    IsMuted = user.IsMuted
+                };
             }
         }
 
         /// <summary>
         /// 找回密码
         /// </summary>
-        public class RetrievePasswordResp
+        public class RetrievePassword
         {
             /// <summary>
             /// 用户编号
@@ -215,50 +232,30 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public string Code { get; set; }
         }
 
+
         /// <summary>
         /// 用户注册
         /// </summary>
-        public class RegisterResp
+        public class Register
         {
-            /// <summary>
-            /// 是否注册成功
-            /// </summary>
-            public bool Succeeded { get; private set; }
-
             /// <summary>
             /// 用户编号
             /// </summary>
-            public string UserId { get; private set; }
+            public string UserId { get; set; }
 
             /// <summary>
             /// 邮件确认 Token
             /// </summary>
-            public string Code { get; private set; }
-
-            /// <summary>
-            /// 注册失败的错误信息
-            /// </summary>
-            public IdentityError[] Errors { get; private set; }
-
-            public static RegisterResp Success(string userId, string code)
-            {
-                return new RegisterResp
-                {
-                    Succeeded = true,
-                    UserId = userId,
-                    Code = code
-                };
-            }
-
-            public static RegisterResp Failed(params IdentityError[] errors)
-            {
-                return new RegisterResp
-                {
-                    Succeeded = false,
-                    Errors = errors
-                };
-            }
+            public string Code { get; set; }
         }
+
+        public class LoginResp
+        {
+            public bool Success { get; private set; }
+        }
+
+
+
 
         #endregion
     }

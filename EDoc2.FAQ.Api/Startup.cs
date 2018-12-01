@@ -18,6 +18,7 @@ using NLog.Extensions.Logging;
 using NLog.Web;
 using System;
 using System.Reflection;
+using EDoc2.FAQ.Api.Infrastructure.Middlewares;
 
 namespace EDoc2.FAQ.Api
 {
@@ -131,6 +132,8 @@ namespace EDoc2.FAQ.Api
                .UseSwaggerUi3();
 
             app.UseAuthentication();
+
+            app.UseExceptionsHandler();
 
             app.UseMvc();
 

@@ -92,10 +92,19 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
 
         public async Task MuteUser(User @operator, User targetUser)
         {
-            if (!@operator.IsAdministrator || !@operator.IsModerator)
+            if (!@operator.IsAdministrator && !@operator.IsModerator)
                 throw new UnauthorizedAccessException();
 
             targetUser.IsMuted = true;
+            await _accountRepo.UpdateUserAsync(targetUser);
+        }
+
+        public async Task UnMuteUser(User @operator, User targetUser)
+        {
+            if (!@operator.IsAdministrator && !@operator.IsModerator)
+                throw new UnauthorizedAccessException();
+
+            targetUser.IsMuted = false;
             await _accountRepo.UpdateUserAsync(targetUser);
         }
 
@@ -111,10 +120,10 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
                 await _accountRepo.UpdateSubscriber(subscriber);
             }
 
-            var followsProperty = @operator.GetOrSetProperty(UserProperty.Follows, (@operator.Follows + 1).ToString());
+            var followsProperty = @operator.GetOrSetProperty(UserProperty.Follows, @operator.Follows + 1);
             await _accountRepo.UpdateProperty(followsProperty);
 
-            var fansProperty = targetUser.GetOrSetProperty(UserProperty.Fans, (targetUser.Fans + 1).ToString());
+            var fansProperty = targetUser.GetOrSetProperty(UserProperty.Fans, targetUser.Fans + 1);
             await _accountRepo.UpdateProperty(fansProperty);
         }
 
@@ -128,10 +137,10 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
                 await _accountRepo.UpdateSubscriber(subscriber);
             }
 
-            var followsProperty = @operator.GetOrSetProperty(UserProperty.Follows, (@operator.Follows - 1).ToString());
+            var followsProperty = @operator.GetOrSetProperty(UserProperty.Follows, @operator.Follows - 1);
             await _accountRepo.UpdateProperty(followsProperty);
 
-            var fansProperty = targetUser.GetOrSetProperty(UserProperty.Fans, (targetUser.Fans - 1).ToString());
+            var fansProperty = targetUser.GetOrSetProperty(UserProperty.Fans, targetUser.Fans - 1);
             await _accountRepo.UpdateProperty(fansProperty);
         }
 

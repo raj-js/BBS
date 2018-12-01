@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EDoc2.FAQ.Core.Application.ServiceBase
+namespace EDoc2.FAQ.Core.Application.DtoBase
 {
     public class PagingDto<T>
     {

@@ -75,6 +75,14 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
         Task MuteUser(User @operator, User targetUser);
 
         /// <summary>
+        /// 撤销屏蔽用户
+        /// </summary>
+        /// <param name="operator"></param>
+        /// <param name="targetUser"></param>
+        /// <returns></returns>
+        Task UnMuteUser(User @operator, User targetUser);
+
+        /// <summary>
         /// 关注用户
         /// </summary>
         /// <param name="operator">操作人</param>

@@ -1,12 +1,10 @@
 ﻿using EDoc2.FAQ.Core.Application.Accounts;
 using EDoc2.FAQ.Core.Application.Accounts.Dtos;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace EDoc2.FAQ.Api.Controllers
 {
@@ -33,18 +31,27 @@ namespace EDoc2.FAQ.Api.Controllers
         }
 
         /// <summary>
+        /// 当前是否登录
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("isAuthenticated")]
+        public IActionResult IsAuthenticated()
+        {
+            return Ok(User.Identity.IsAuthenticated);
+        }
+
+        /// <summary>
         /// 注册用户
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("register")]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(AccountDtos.RegisterResp))]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Register([FromBody]AccountDtos.RegisterReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            return Ok(await _accountAppService.Register(req));
+            var response = await _accountAppService.Register(req);
+            return Ok(response);
         }
 
         /// <summary>
@@ -53,14 +60,12 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("emailConfirm")]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IdentityResult))]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> EmailConfrim([FromBody]AccountDtos.EmailConfirmReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var identityResult = await _accountAppService.EmailConfirm(req);
-            return Ok(identityResult);
+            var response = await _accountAppService.EmailConfirm(req);
+            return Ok(response);
         }
 
         /// <summary>
@@ -69,14 +74,12 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("login")]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(SignInResult))]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Login([FromBody]AccountDtos.LoginReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var signInResult = await _accountAppService.Login(req);
-            return Ok(signInResult);
+            var response = await _accountAppService.Login(req);
+            return Ok(response);
         }
 
         /// <summary>
@@ -84,10 +87,10 @@ namespace EDoc2.FAQ.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("profile")]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(AccountDtos.Profile))]
-        public async Task<IActionResult> GetProfile()
+        public async Task<IActionResult> GetProfile(string id = null)
         {
-            return Ok(await _accountAppService.GetUserProfile());
+            var response = await _accountAppService.GetProfile(id);
+            return Ok(response);
         }
 
         /// <summary>
@@ -96,14 +99,12 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("retrievePassword")]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(AccountDtos.RetrievePasswordResp))]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> RetrievePassword([FromBody]AccountDtos.RetrievePasswordReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var resetToken = await _accountAppService.GenerateResetPasswordToken(req);
-            return Ok(resetToken);
+            var response = await _accountAppService.GenerateResetPasswordToken(req);
+            return Ok(response);
         }
 
         /// <summary>
@@ -112,14 +113,12 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("resetPassword")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> ResetPassword([FromBody]AccountDtos.ResetPasswordReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            await _accountAppService.ResetPassword(req);
-            return Ok();
+            var response = await _accountAppService.ResetPassword(req);
+            return Ok(response);
         }
 
         /// <summary>
@@ -128,14 +127,12 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("follow")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Follow([FromBody]AccountDtos.FollowUserReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            await _accountAppService.Follow(req.TargetUserId);
-            return Ok();
+            var response = await _accountAppService.Follow(req.TargetUserId);
+            return Ok(response);
         }
 
         /// <summary>
@@ -144,14 +141,24 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("unfollow")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> UnFollow([FromBody]AccountDtos.UnFollowUserReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            await _accountAppService.UnFollow(req.TargetUserId);
-            return Ok();
+            var response = await _accountAppService.UnFollow(req.TargetUserId);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// 注销当前用户
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("logout")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Logout()
+        {
+            var response = await _accountAppService.Logout();
+            return Ok(response);
         }
     }
 }

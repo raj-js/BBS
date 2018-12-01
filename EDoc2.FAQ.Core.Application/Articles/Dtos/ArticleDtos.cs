@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EDoc2.FAQ.Core.Domain.Articles;
 using System;
+using EDoc2.FAQ.Core.Application.DtoBase;
 using EDoc2.FAQ.Core.Application.ServiceBase;
 
 namespace EDoc2.FAQ.Core.Application.Articles.Dtos

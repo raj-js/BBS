@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace EDoc2.FAQ.Core.Application.ServiceBase
+namespace EDoc2.FAQ.Core.Application.DtoBase
 {
     public interface IMapper
     {

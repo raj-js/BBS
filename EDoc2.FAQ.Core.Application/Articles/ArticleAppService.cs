@@ -6,6 +6,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Application.DtoBase;
 using EDoc2.FAQ.Core.Application.ServiceBase;
 using EDoc2.FAQ.Core.Domain.Accounts;
 
