@@ -1,8 +1,8 @@
-﻿using EDoc2.FAQ.Core.Application.Articles.Dtos;
+﻿using EDoc2.FAQ.Core.Application.DtoBase;
 using EDoc2.FAQ.Core.Application.ServiceBase;
 using System;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Application.DtoBase;
+using static EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos;
 
 namespace EDoc2.FAQ.Core.Application.Articles
 {
@@ -11,71 +11,97 @@ namespace EDoc2.FAQ.Core.Application.Articles
         /// <summary>
         /// 搜索文章
         /// </summary>
-        /// <param name="searchDto"></param>
+        /// <param name="req"></param>
         /// <returns></returns>
-        Task<PagingDto<ArticleDtos.ListItem>> SearchAsync(ArticleDtos.Search searchDto);
+        Task<Response> Search(SearchReq req);
 
         /// <summary>
-        /// 使用搜索引擎搜索文章
+        /// 访问文章
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
-        Task<PagingDto<ArticleDtos.ListItem>> SearchByEngineAsync(ArticleDtos.SearchByES searchByESDto);
+        Task<Response> View(Guid id);
 
         /// <summary>
-        /// 根据编号获取文章
+        /// 添加问题
         /// </summary>
-        /// <param name="articleId"></param>
-        /// <returns></returns>
-        Task<ArticleDtos.Details> FindAsync(Guid articleId);
+        /// <param name="req"></param>
+        Task<Response> AddQuestion(AddQuestionReq req);
 
         /// <summary>
         /// 添加文章
         /// </summary>
-        /// <param name="addDto"></param>
-        ArticleDtos.Details AddArticle(ArticleDtos.Add addDto);
+        /// <param name="req"></param>
+        Task<Response> AddArticle(AddArticleReq req);
+
+        /// <summary>
+        /// 编辑问题
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<Response> EditQuestion(EditQuestionReq req);
 
         /// <summary>
         /// 编辑文章
         /// </summary>
-        /// <param name="editDto"></param>
+        /// <param name="req"></param>
         /// <returns></returns>
-        ArticleDtos.Details EditArticle(ArticleDtos.Edit editDto);
-
-        /// <summary>
-        /// 访问文章，增加访问量
-        /// </summary>
-        /// <param name="articleId">文章编号</param>
-        /// <param name="clentIp">客户端Ip</param>
-        /// <param name="operatorId">
-        /// 访问人编号
-        /// NULL 表示游客
-        /// </param>
-        /// <returns></returns>
-        Task ViewArticle(Guid articleId, string clentIp, string operatorId = null);
+        Task<Response> EditArticle(EditArticleReq req);
 
         /// <summary>
         /// 赞文章
         /// </summary>
-        /// <param name="operatorId"></param>
-        /// <param name="articleId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        Task LikeArticle(string operatorId, Guid articleId);
+        Task<Response> LikeArticle(Guid id);
 
         /// <summary>
         /// 踩文章
         /// </summary>
-        /// <param name="operatorId"></param>
-        /// <param name="articleId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        Task DislikeArticle(string operatorId, Guid articleId);
+        Task<Response> DislikeArticle(Guid id);
+
+        /// <summary>
+        /// 赞评论
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<Response> LikeComment(long id);
+
+        /// <summary>
+        /// 踩评论
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<Response> DislikeComment(long id);
 
         /// <summary>
         /// 举报文章
         /// </summary>
-        /// <param name="operatorId">举报人编号</param>
-        /// <param name="articleId">文章编号</param>
-        /// <param name="reason">举报原因</param>
+        /// <param name="req"></param>
         /// <returns></returns>
-        Task ReportArticle(string operatorId, Guid articleId, string reason);
+        Task<Response> ReportArticle(ReportArticleReq req);
+
+        /// <summary>
+        /// 举报评论
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<Response> ReportComment(ReportCommentReq req);
+
+        /// <summary>
+        /// 回复文章
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<Response> ReplyArticle(ReplyArticleReq req);
+
+        /// <summary>
+        /// 回复评论
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<Response> ReplyComment(ReplyCommentReq req);
     }
 }

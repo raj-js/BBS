@@ -1,10 +1,10 @@
 ﻿using EDoc2.FAQ.Core.Application.Accounts;
-using EDoc2.FAQ.Core.Application.Accounts.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using static EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos;
 
 namespace EDoc2.FAQ.Api.Controllers
 {
@@ -46,7 +46,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody]AccountDtos.RegisterReq req)
+        public async Task<IActionResult> Register([FromBody]RegisterReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -60,7 +60,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("emailConfirm")]
-        public async Task<IActionResult> EmailConfrim([FromBody]AccountDtos.EmailConfirmReq req)
+        public async Task<IActionResult> EmailConfrim([FromBody]EmailConfirmReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -74,7 +74,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody]AccountDtos.LoginReq req)
+        public async Task<IActionResult> Login([FromBody]LoginReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -94,12 +94,26 @@ namespace EDoc2.FAQ.Api.Controllers
         }
 
         /// <summary>
+        /// 更新个人信息
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPut("profile")]
+        public async Task<IActionResult> GetProfile(EditProfileReq req)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            var response = await _accountAppService.EditProfile(req);
+            return Ok(response);
+        }
+
+        /// <summary>
         /// 找回密码
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("retrievePassword")]
-        public async Task<IActionResult> RetrievePassword([FromBody]AccountDtos.RetrievePasswordReq req)
+        public async Task<IActionResult> RetrievePassword([FromBody]RetrievePasswordReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -113,7 +127,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("resetPassword")]
-        public async Task<IActionResult> ResetPassword([FromBody]AccountDtos.ResetPasswordReq req)
+        public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -127,7 +141,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("follow")]
-        public async Task<IActionResult> Follow([FromBody]AccountDtos.FollowUserReq req)
+        public async Task<IActionResult> Follow([FromBody]FollowUserReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -141,7 +155,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("unfollow")]
-        public async Task<IActionResult> UnFollow([FromBody]AccountDtos.UnFollowUserReq req)
+        public async Task<IActionResult> UnFollow([FromBody]UnFollowUserReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 

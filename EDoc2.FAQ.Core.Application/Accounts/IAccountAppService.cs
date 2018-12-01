@@ -56,10 +56,10 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         /// <summary>
         /// 分页搜索
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="req"></param>
         /// <param name="skipAdmin">不检索管理员信息</param>
         /// <returns></returns>
-        Task<Response> Search(SearchReq dto, bool skipAdmin = true);
+        Task<Response> Search(SearchReq req, bool skipAdmin = true);
 
         /// <summary>
         /// 禁用用户
@@ -85,9 +85,9 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         /// <summary>
         /// 更新个人资料
         /// </summary>
-        /// <param name="editProfileReqDto"></param>
+        /// <param name="req"></param>
         /// <returns></returns>
-        Task<Response> EditProfile(EditProfileReq editProfileReqDto);
+        Task<Response> EditProfile(EditProfileReq req);
 
         /// <summary>
         /// 关注用户

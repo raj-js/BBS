@@ -1,9 +1,8 @@
-﻿using EDoc2.FAQ.Core.Domain.Services;
+﻿using EDoc2.FAQ.Core.Domain.Articles;
+using EDoc2.FAQ.Core.Domain.Services;
 using Microsoft.AspNetCore.Identity;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Domain.Articles;
 
 namespace EDoc2.FAQ.Core.Domain.Accounts.Services
 {
@@ -65,6 +64,13 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
         /// <param name="allowMultipleAdmin">是否允许多个管理员</param>
         /// <returns></returns>
         Task<IdentityResult> Create(User user, string password, bool isSetAdmin = false, bool allowMultipleAdmin = false);
+
+        /// <summary>
+        /// 修改个人基本信息
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        Task<User> EditProfile(User user);
 
         /// <summary>
         /// 屏蔽用户

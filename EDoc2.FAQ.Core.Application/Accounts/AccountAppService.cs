@@ -112,20 +112,20 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             return Response.Successed();
         }
 
-        public async Task<Response> Search(SearchReq dto, bool skipAdmin = true)
+        public async Task<Response> Search(SearchReq req, bool skipAdmin = true)
         {
             var query = _accountService.GetUsers(skipAdmin);
 
             query = query
-                .WhereFalse(dto.Nickname.IsNullOrEmpty(), s => s.Nickname.Contains(dto.Nickname, StringComparison.OrdinalIgnoreCase))
-                .WhereFalse(dto.Email.IsNullOrEmpty(), s => s.Email.Contains(dto.Email, StringComparison.OrdinalIgnoreCase))
-                .WhereNotNull(dto.IsMuted, s => s.IsMuted == dto.IsMuted.Value)
-                .WhereNotNull(dto.IsModerator, s => s.UserRoles.Any(r => r.RoleId.Equals(Role.Moderator.Id, StringComparison.OrdinalIgnoreCase)));
+                .WhereFalse(req.Nickname.IsNullOrEmpty(), s => s.Nickname.Contains(req.Nickname, StringComparison.OrdinalIgnoreCase))
+                .WhereFalse(req.Email.IsNullOrEmpty(), s => s.Email.Contains(req.Email, StringComparison.OrdinalIgnoreCase))
+                .WhereNotNull(req.IsMuted, s => s.IsMuted == req.IsMuted.Value)
+                .WhereNotNull(req.IsModerator, s => s.UserRoles.Any(r => r.RoleId.Equals(Role.Moderator.Id, StringComparison.OrdinalIgnoreCase)));
 
             var dtos = query
-                .OrderBy(dto.OrderBy, dto.IsAscending)
-                .Skip(dto.Skip)
-                .Take(dto.Take)
+                .OrderBy(req.OrderBy, req.IsAscending)
+                .Skip(req.Skip)
+                .Take(req.Take)
                 .AsEnumerable()
                 .Select(ListItem.From)
                 .ToList();
@@ -154,7 +154,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             if (user.IsNull())
                 return Response.Failed(Errors.AccountNotFound);
 
-            await _accountService.MuteUser(CurrentUser, user);
+            await _accountService.UnMuteUser(CurrentUser, user);
             await UnitOfWork.SaveChangesWithDispatchDomainEvents();
             return Response.Successed();
         }
@@ -171,12 +171,23 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             return Response<Profile>.Successed(Profile.From(targetUser)); 
         }
 
-        public async Task<Response> EditProfile(EditProfileReq editProfileReqDto)
+        public async Task<Response> EditProfile(EditProfileReq req)
         {
-            //edit profile
-            
+            if (CurrentUser == null || CurrentUser.Id.Equals(req.Id))
+                return Response.Failed(Errors.InvalidOperation);
+
+            var user = await _accountService.FindUserByIdAsync(req.Id);
+            if (user.IsNull())
+                return Response.Failed(Errors.AccountNotFound);
+
+            user.Nickname = req.Nickname;
+            user.Signature = req.Signature;
+            user.Gender = req.Gender;
+            user.City = req.City;
+
+            await _accountService.EditProfile(user);
             await UnitOfWork.SaveChangesWithDispatchDomainEvents();
-            return Response.Failed();
+            return Response<Profile>.Successed(Profile.From(user));
         }
 
         public async Task<Response> Follow(string userId)

@@ -9,6 +9,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         void AddUser(User user);
         Task AddUserAsync(User user);
         void UpdateUser(User user);
+        void UpdatePartly(User user, params string[] expressions);
         Task UpdateUserAsync(User user);
         IQueryable<User> GetUsers();
         User FindUserById(string id);

@@ -12,7 +12,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
         private readonly UserManager<User> _userManager;
         private readonly IAccountRepository _accountRepo;
 
-        public AccountService(UserManager<User> userManager, 
+        public AccountService(UserManager<User> userManager,
             IAccountRepository accountRepo)
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
@@ -71,7 +71,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
                         {
                             Code = "NotAllowMultipluAdmin",
                             Description = "不允许多个管理员"
-                        }):
+                        }) :
                         await _userManager.AddToRoleAsync(user, Role.Administrator.NormalizedName);
                 }
                 else
@@ -90,13 +90,26 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
             return result;
         }
 
+        public async Task<User> EditProfile(User user)
+        {
+            _accountRepo.UpdatePartly(user, 
+                nameof(User.Nickname),
+                nameof(User.Signature),
+                nameof(User.Gender),
+                nameof(User.City));
+
+            await Task.CompletedTask;
+            return user;
+        }
+
         public async Task MuteUser(User @operator, User targetUser)
         {
             if (!@operator.IsAdministrator && !@operator.IsModerator)
                 throw new UnauthorizedAccessException();
 
             targetUser.IsMuted = true;
-            await _accountRepo.UpdateUserAsync(targetUser);
+            _accountRepo.UpdatePartly(targetUser, nameof(User.IsMuted));
+            await Task.CompletedTask;
         }
 
         public async Task UnMuteUser(User @operator, User targetUser)
@@ -105,14 +118,15 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
                 throw new UnauthorizedAccessException();
 
             targetUser.IsMuted = false;
-            await _accountRepo.UpdateUserAsync(targetUser);
+            _accountRepo.UpdatePartly(targetUser, nameof(User.IsMuted));
+            await Task.CompletedTask;
         }
 
         public async Task FollowUser(User @operator, User targetUser)
         {
             if (@operator.IsFanOf(targetUser.Id, out var subscriber)) return;
 
-            if(subscriber == null)
+            if (subscriber == null)
                 await _accountRepo.AddSubscriber(new UserSubscriber(@operator.Id, targetUser.Id));
             else
             {

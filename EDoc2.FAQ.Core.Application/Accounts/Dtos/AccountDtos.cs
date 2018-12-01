@@ -1,10 +1,8 @@
-﻿using EDoc2.FAQ.Core.Application.ServiceBase;
+﻿using EDoc2.FAQ.Core.Application.DtoBase;
 using EDoc2.FAQ.Core.Domain.Accounts;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using EDoc2.FAQ.Core.Application.DtoBase;
-using Microsoft.AspNetCore.Identity;
 
 namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
 {
@@ -12,6 +10,9 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
     {
         #region Request
 
+        /// <summary>
+        /// 搜索用户
+        /// </summary>
         public class SearchReq : IPagingRequest
         {
             [MaxLength(50)]
@@ -34,6 +35,9 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public bool IsAscending { get; set; }
         }
 
+        /// <summary>
+        /// 版主授权
+        /// </summary>
         public class GrantModeratorReq
         {
             [Required]
@@ -43,6 +47,9 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public Guid ModuleId { get; set; }
         }
 
+        /// <summary>
+        /// 注册
+        /// </summary>
         public class RegisterReq
         {
             [Required]
@@ -58,6 +65,9 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public string Password { get; set; }
         }
 
+        /// <summary>
+        /// 登录
+        /// </summary>
         public class LoginReq
         {
             [Required]
@@ -71,6 +81,9 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public bool RememberMe { get; set; }
         }
 
+        /// <summary>
+        /// 找回密码
+        /// </summary>
         public class RetrievePasswordReq
         {
             [Required]
@@ -78,6 +91,9 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public string Email { get; set; }
         }
 
+        /// <summary>
+        /// 重置密码
+        /// </summary>
         public class ResetPasswordReq
         {
             [Required]
@@ -92,9 +108,23 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public string Password { get; set; }
         }
 
-        public class EditProfileReq: EntityDto<string>
+        /// <summary>
+        /// 修改个人
+        /// </summary>
+        public class EditProfileReq : EntityDto<string>
         {
-            
+            [Required]
+            [MaxLength(50)]
+            public string Nickname { get; set; }
+
+            [MaxLength(128)]
+            public string Signature { get; set; }
+
+            [Required]
+            public Gender Gender { get; set; }
+
+            [MaxLength(128)]
+            public string City { get; set; }
         }
 
         /// <summary>
@@ -123,6 +153,9 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public string TargetUserId { get; set; }
         }
 
+        /// <summary>
+        /// 确认邮件
+        /// </summary>
         public class EmailConfirmReq
         {
             /// <summary>
@@ -143,6 +176,9 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
 
         #region Response
 
+        /// <summary>
+        /// 用户列表项
+        /// </summary>
         public class ListItem : EntityDto<string>
         {
             /// <summary>
@@ -170,6 +206,11 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             /// </summary>
             public DateTime JoinDate { get; set; }
 
+            /// <summary>
+            /// 是否被屏蔽
+            /// </summary>
+            public bool IsMuted { get; set; }
+
             public static ListItem From(User user)
             {
                 return new ListItem
@@ -179,12 +220,16 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
                     RoleName = string.Join(',', user.UserRoles.Select(s => s.Role?.Name).ToArray()),
                     Email = user.Email,
                     EmailConfirmed = user.EmailConfirmed,
-                    JoinDate = user.JoinDate
+                    JoinDate = user.JoinDate,
+                    IsMuted = user.IsMuted
                 };
             }
         }
 
-        public class Profile: EntityDto<string>
+        /// <summary>
+        /// 用户信息
+        /// </summary>
+        public class Profile : EntityDto<string>
         {
             public string Nickname { get; set; }
             public string Signature { get; set; }
@@ -232,7 +277,6 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public string Code { get; set; }
         }
 
-
         /// <summary>
         /// 用户注册
         /// </summary>
@@ -248,14 +292,6 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             /// </summary>
             public string Code { get; set; }
         }
-
-        public class LoginResp
-        {
-            public bool Success { get; private set; }
-        }
-
-
-
 
         #endregion
     }

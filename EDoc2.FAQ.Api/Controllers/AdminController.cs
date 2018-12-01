@@ -16,7 +16,6 @@ namespace EDoc2.FAQ.Api.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IAccountAppService _accountAppService;
-        private readonly ILogger<AdminController> _logger;
 
         /// <summary>
         /// 构造器
@@ -27,7 +26,6 @@ namespace EDoc2.FAQ.Api.Controllers
             ILogger<AdminController> logger)
         {
             _accountAppService = accountAppService ?? throw new ArgumentNullException(nameof(accountAppService));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>

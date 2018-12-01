@@ -108,7 +108,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
             if (State.Id != ArticleState.Auditing.Id) return;
 
             //如果文章为问题或者交流，则设置为未结帖状态，否则设置为发布状态
-            if (Type.Id == ArticleType.Question.Id || Type.Id == ArticleType.Communication.Id)
+            if (Type.Id == ArticleType.Question.Id || Type.Id == ArticleType.Article.Id)
                 State = ArticleState.UnSolved;
             else
                 State = ArticleState.Published;

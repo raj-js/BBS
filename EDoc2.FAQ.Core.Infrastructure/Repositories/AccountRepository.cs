@@ -1,7 +1,6 @@
 ﻿using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.Repositories;
-using EDoc2.FAQ.Core.Domain.SeedWork;
-using Microsoft.EntityFrameworkCore;
+using EDoc2.FAQ.Core.Infrastructure.Extensions;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,7 +22,14 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
 
         public void UpdateUser(User user)
         {
+            Context.AttachIfNot(user);
             Context.Set<User>().Update(user);
+        }
+
+        public void UpdatePartly(User user, params string[] expressions)
+        {
+            Context.AttachIfNot(user);
+            Context.UpdatePartly(user, expressions);
         }
 
         public async Task UpdateUserAsync(User user)

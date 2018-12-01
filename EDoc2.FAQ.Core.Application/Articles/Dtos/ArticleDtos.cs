@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using EDoc2.FAQ.Core.Application.DtoBase;
 using EDoc2.FAQ.Core.Domain.Articles;
 using System;
-using EDoc2.FAQ.Core.Application.DtoBase;
-using EDoc2.FAQ.Core.Application.ServiceBase;
+using System.ComponentModel.DataAnnotations;
 
 namespace EDoc2.FAQ.Core.Application.Articles.Dtos
 {
@@ -10,7 +10,10 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
     {
         #region Request
 
-        public class Search
+        /// <summary>
+        /// 搜索请求
+        /// </summary>
+        public class SearchReq : IPagingRequest
         {
             /// <summary>
             /// 标题
@@ -32,83 +35,201 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             /// </summary>
             public int? TypeId { get; set; }
 
-            /// <summary>
-            /// 排序
-            /// </summary>
-            public string OrderBy { get; set; }
+            public string OrderBy { get; set; } = "Id";
 
-            /// <summary>
-            /// 跳过个数
-            /// </summary>
+            public bool IsAscending { get; set; }
+
             public int Skip { get; set; }
 
-            /// <summary>
-            /// 获取个数 
-            /// NULL 表示获取全部
-            /// </summary>
-            public int? Take { get; set; }
+            public int Take { get; set; }
         }
 
-        public class SearchByES
-        {
-            /// <summary>
-            /// 关键字高亮
-            /// </summary>
-            public bool Highlight { get; set; }
-
-            /// <summary>
-            /// 关键词
-            /// </summary>
-            public string Keywords { get; set; }
-
-            /// <summary>
-            /// 状态编号
-            /// </summary>
-            public int StateId { get; set; }
-
-            /// <summary>
-            /// 类别编号
-            /// </summary>
-            public int TypeId { get; set; }
-
-            /// <summary>
-            /// 排序
-            /// </summary>
-            public string OrderBy { get; set; }
-
-            /// <summary>
-            /// 跳过个数
-            /// </summary>
-            public int Skip { get; set; }
-
-            /// <summary>
-            /// 获取个数 
-            /// NULL 表示获取全部
-            /// </summary>
-            public int? Take { get; set; }
-        }
-
-        public class Add : EntityDto<Guid>
+        /// <summary>
+        /// 添加问题请求
+        /// </summary>
+        public class AddQuestionReq
         {
             /// <summary>
             /// 标题
             /// </summary>
+            [Required]
+            [MaxLength(50)]
             public string Title { get; set; }
 
             /// <summary>
-            /// 摘要
+            /// 关键词
             /// </summary>
+            [Required]
+            [MaxLength(50)]
+            public string Keywords { get; set; }
+
+            /// <summary>
+            /// 内容
+            /// </summary>
+            [Required]
+            [MinLength(15)]
+            public string Content { get; set; }
+
+            /// <summary>
+            /// 悬赏分
+            /// </summary>
+            [Required]
+            [Range(0, 500)]
+            public int RewardScore { get; set; }
+        }
+
+        /// <summary>
+        /// 新增文章请求
+        /// </summary>
+        public class AddArticleReq
+        {
+            /// <summary>
+            /// 标题
+            /// </summary>
+            [Required]
+            [MaxLength(50)]
+            public string Title { get; set; }
+
+            [Required]
+            [MaxLength(128)]
             public string Summary { get; set; }
 
             /// <summary>
             /// 关键词
             /// </summary>
+            [Required]
+            [MaxLength(50)]
             public string Keywords { get; set; }
+
+            /// <summary>
+            /// 内容
+            /// </summary>
+            [Required]
+            [MinLength(50)]
+            public string Content { get; set; }
+
+            /// <summary>
+            /// 是否可以评论
+            /// </summary>
+            [Required]
+            public bool CanComment { get; set; }
         }
 
-        public class Edit : EntityDto<Guid>
+        /// <summary>
+        /// 修改问题请求
+        /// </summary>
+        public class EditQuestionReq : EntityDto<Guid>
         {
+            /// <summary>
+            /// 关键词
+            /// </summary>
+            [Required]
+            [MaxLength(50)]
+            public string Keywords { get; set; }
 
+            /// <summary>
+            /// 内容
+            /// </summary>
+            [Required]
+            [MinLength(15)]
+            public string Content { get; set; }
+        }
+
+        /// <summary>
+        /// 更新文章请求
+        /// </summary>
+        public class EditArticleReq : EntityDto<Guid>
+        {
+            /// <summary>
+            /// 摘要
+            /// </summary>
+            [Required]
+            [MaxLength(128)]
+            public string Summary { get; set; }
+
+            /// <summary>
+            /// 关键词
+            /// </summary>
+            [Required]
+            [MaxLength(50)]
+            public string Keywords { get; set; }
+
+            /// <summary>
+            /// 内容
+            /// </summary>
+            [Required]
+            [MinLength(50)]
+            public string Content { get; set; }
+
+            /// <summary>
+            /// 是否可以评论
+            /// </summary>
+            [Required]
+            public bool CanComment { get; set; }
+        }
+
+        /// <summary>
+        /// 举报文章请求
+        /// </summary>
+        public class ReportArticleReq : EntityDto<Guid>
+        {
+            [Required]
+            [StringLength(128, MinimumLength = 5)]
+            public string Reason { get; set; }
+        }
+
+        /// <summary>
+        /// 举报文章请求
+        /// </summary>
+        public class ReportCommentReq : EntityDto<long>
+        {
+            [Required]
+            [StringLength(128, MinimumLength = 5)]
+            public string Reason { get; set; }
+        }
+
+        /// <summary>
+        /// 回复文章
+        /// </summary>
+        public class ReplyArticleReq
+        {
+            /// <summary>
+            /// 文章编号
+            /// </summary>
+            [Required]
+            public Guid ArticleId { get; set; }
+
+            /// <summary>
+            /// 回复内容
+            /// </summary>
+            [Required]
+            [MaxLength(256)]
+            public string Content { get; set; }
+        }
+
+        /// <summary>
+        /// 回复评论
+        /// </summary>
+        public class ReplyCommentReq
+        {
+            /// <summary>
+            /// 文章编号
+            /// </summary>
+            [Required]
+            public Guid ArticleId { get; set; }
+
+            /// <summary>
+            /// 被回复评论编号
+            /// </summary>
+            [Required]
+            public long CommentId { get; set; }
+
+            /// <summary>
+            /// 回复内容
+            /// </summary>
+            [Required]
+            [MaxLength(256)]
+            public string Content { get; set; }
         }
 
         #endregion

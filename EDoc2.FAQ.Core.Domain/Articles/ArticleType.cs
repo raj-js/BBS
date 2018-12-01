@@ -8,16 +8,13 @@ namespace EDoc2.FAQ.Core.Domain.Articles
     public class ArticleType : Enumeration
     {
         public static ArticleType Question = new ArticleType(1, "提问");
-        public static ArticleType Communication = new ArticleType(2, "交流");
-        public static ArticleType Suggestion = new ArticleType(3, "建议");
-        public static ArticleType Share = new ArticleType(4, "分享");
-        public static ArticleType Notice = new ArticleType(5, "公告");
+        public static ArticleType Article = new ArticleType(2, "文章");
 
         public ArticleType() { }
 
         public ArticleType(int id, string name) : base(id, name) { }
 
-        public static IEnumerable<ArticleType> List() => new[] { Question, Communication, Suggestion, Share, Notice };
+        public static IEnumerable<ArticleType> List() => new[] { Question, Article };
 
         public static ArticleType FromName(string name)
         {
