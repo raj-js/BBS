@@ -400,7 +400,7 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
                 dto.TypeName = article.Type.Name;
                 dto.Likes = article.GetLikes();
                 dto.Dislikes = article.GetDislikes();
-                dto.PV = article.GetPV();
+                dto.PV = article.GetPv();
                 dto.RewardScore = article.GetRewardScore();
                 dto.AdoptCommentId = article.GetAdoptCommentId();
                 return dto;

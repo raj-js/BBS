@@ -225,7 +225,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// 获取访问量
         /// </summary>
         /// <returns></returns>
-        public int GetPV()
+        public int GetPv()
         {
             return GetProperty<int>(ArticleProperty.PvNumber, int.Parse);
         }
@@ -234,7 +234,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// 设置访问量
         /// </summary>
         /// <param name="pageViews"></param>
-        public void SetPV(int pageViews)
+        public void SetPv(int pageViews)
         {
             SetProperty(ArticleProperty.PvNumber, pageViews.ToString());
         }

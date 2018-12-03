@@ -98,6 +98,8 @@ namespace EDoc2.FAQ.Api
             services.AddEventBus(Configuration);
             services.UseMailSender(Configuration);
 
+            services.AddCors();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var container = new ContainerBuilder();
@@ -134,6 +136,8 @@ namespace EDoc2.FAQ.Api
             app.UseAuthentication();
 
             app.UseExceptionsHandler();
+
+            app.UseCors();
 
             app.UseMvc();
 

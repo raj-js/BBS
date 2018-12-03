@@ -26,21 +26,21 @@
             <summary>
             注册用户
             </summary>
-            <param name="questionReq"></param>
+            <param name="req"></param>
             <returns></returns>
         </member>
         <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.EmailConfrim(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.EmailConfirmReq)">
             <summary>
             邮箱确认
             </summary>
-            <param name="questionReq"></param>
+            <param name="req"></param>
             <returns></returns>
         </member>
         <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.Login(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.LoginReq)">
             <summary>
             用户登录
             </summary>
-            <param name="questionReq"></param>
+            <param name="req"></param>
             <returns></returns>
         </member>
         <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.GetProfile(System.String)">
@@ -53,35 +53,35 @@
             <summary>
             更新个人信息
             </summary>
-            <param name="questionReq"></param>
+            <param name="req"></param>
             <returns></returns>
         </member>
         <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.RetrievePassword(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.RetrievePasswordReq)">
             <summary>
             找回密码
             </summary>
-            <param name="questionReq"></param>
+            <param name="req"></param>
             <returns></returns>
         </member>
         <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.ResetPassword(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.ResetPasswordReq)">
             <summary>
             重置密码
             </summary>
-            <param name="questionReq"></param>
+            <param name="req"></param>
             <returns></returns>
         </member>
         <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.Follow(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.FollowUserReq)">
             <summary>
             关注用户
             </summary>
-            <param name="questionReq"></param>
+            <param name="req"></param>
             <returns></returns>
         </member>
         <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.UnFollow(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.UnFollowUserReq)">
             <summary>
             取消关注用户
             </summary>
-            <param name="questionReq"></param>
+            <param name="req"></param>
             <returns></returns>
         </member>
         <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.Logout">
@@ -106,7 +106,7 @@
             <summary>
             搜索用户
             </summary>
-            <param name="questionReq"></param>
+            <param name="req"></param>
             <returns></returns>
         </member>
         <member name="M:EDoc2.FAQ.Api.Controllers.AdminController.MuteUser(System.String)">
@@ -127,7 +127,7 @@
             <summary>
             授权为版主
             </summary>
-            <param name="questionReq"></param>
+            <param name="req"></param>
             <returns></returns>
         </member>
         <member name="T:EDoc2.FAQ.Api.Controllers.ArticleController">

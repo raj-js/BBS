@@ -1,13 +1,14 @@
-﻿using System;
+﻿using EDoc2.FAQ.Core.Domain.Repositories;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Domain.Repositories;
 
 namespace EDoc2.FAQ.Core.Domain.Articles
 {
     public interface IArticleRepository : IRepository<Article>
     {
         IQueryable<Article> GetArticles();
+        Task<Article> FindById(Guid id);
         Task Add(Article article);
         Task Update(Article article, params string[] properties);
         Task Delete(Article article);

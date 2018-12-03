@@ -1,4 +1,5 @@
 ﻿using EDoc2.FAQ.Core.Application.Accounts;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,6 +14,7 @@ namespace EDoc2.FAQ.Api.Controllers
     /// </summary>
     [Route("api/v1/[controller]")]
     [ApiController]
+    [EnableCors]
     public class AccountController : ControllerBase
     {
         private readonly IAccountAppService _accountAppService;

@@ -16,6 +16,11 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
             return Context.Articles.AsQueryable();
         }
 
+        public async Task<Article> FindById(Guid id)
+        {
+            return await Context.FindAsync<Article>(id);
+        }
+
         public async Task Add(Article article)
         {
             await Context.AddAsync(article);

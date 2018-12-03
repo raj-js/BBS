@@ -1,4 +1,5 @@
-﻿using EDoc2.FAQ.Core.Domain.Accounts;
+﻿using System;
+using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.Services;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,11 +19,11 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
         /// <summary>
         /// 查看文章
         /// </summary>
-        /// <param name="article">文章</param>
+        /// <param name="articleId">文章编号</param>
         /// <param name="user">当前用户</param>
         /// <param name="clientIp">客户端ip</param>
         /// <returns></returns>
-        Task<Article> View(Article article, User user = null, string clientIp = null);
+        Task<Article> View(Guid articleId, User user = null, string clientIp = null);
 
         /// <summary>
         /// 获取文章的评论

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace EDoc2.FAQ.Core.Domain.Articles.Services
 {
@@ -17,12 +18,19 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
 
         public IQueryable<Article> GetArticles()
         {
-            throw new System.NotImplementedException();
+            return _articleRepo.GetArticles();
         }
 
-        public async Task<Article> View(Article article, User user = null, string clientIp = null)
+        public async Task<Article> View(Guid articleId, User user = null, string clientIp = null)
         {
-            throw new System.NotImplementedException();
+            var article = await _articleRepo.FindById(articleId);
+
+            if (article != null)
+            {
+                //增加访问数
+            }
+
+            return article;
         }
 
         public IQueryable<ArticleComment> GetComments(Article article)
