@@ -3,14 +3,14 @@
     public interface IPagingRequest
     {
         /// <summary>
-        /// 过滤前 ‘Skip’ 条数据
+        /// 过滤前 ‘PageIndex’ 条数据
         /// </summary>
-        int Skip { get; }
+        int PageIndex { get; }
 
         /// <summary>
-        /// 获取 'Take' 条数据
+        /// 获取 'PageSize' 条数据
         /// </summary>
-        int Take { get; }
+        int PageSize { get; }
 
         /// <summary>
         /// 排序字段

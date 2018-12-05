@@ -39,9 +39,9 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
 
             public bool IsAscending { get; set; }
 
-            public int Skip { get; set; }
+            public int PageIndex { get; set; }
 
-            public int Take { get; set; }
+            public int PageSize { get; set; }
         }
 
         /// <summary>

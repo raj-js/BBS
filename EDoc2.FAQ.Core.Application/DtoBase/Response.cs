@@ -37,7 +37,18 @@ namespace EDoc2.FAQ.Core.Application.DtoBase
             return new Response<TBody>
             {
                 Success = true,
-                Body = body
+                Body = body,
+                Errors = null
+            };
+        }
+
+        public static Response<TBody> Failed<TBody>(params Error[] errors) where TBody: class 
+        {
+            return new Response<TBody>
+            {
+                Success = false,
+                Errors = errors,
+                Body = null
             };
         }
     }

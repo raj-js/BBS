@@ -137,7 +137,7 @@ namespace EDoc2.FAQ.Api
 
             app.UseExceptionsHandler();
 
-            app.UseCors();
+            app.UseCors(b => b.AllowAnyOrigin());
 
             app.UseMvc();
 

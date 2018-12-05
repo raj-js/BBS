@@ -25,9 +25,9 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
 
             public bool? IsModerator { get; set; }
 
-            public int Skip { get; set; }
+            public int PageIndex { get; set; }
 
-            public int Take { get; set; }
+            public int PageSize { get; set; }
 
             [MaxLength(50)]
             public string OrderBy { get; set; } = "Id";

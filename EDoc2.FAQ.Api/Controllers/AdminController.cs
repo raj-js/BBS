@@ -3,7 +3,9 @@ using EDoc2.FAQ.Core.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Net;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Application.DtoBase;
 using static EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos;
 
 namespace EDoc2.FAQ.Api.Controllers
@@ -34,6 +36,8 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpGet("searchUsers")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Response<PagingDto<ListItem>>))]
         public async Task<IActionResult> SearchUsers([FromQuery]SearchReq req)
         {
             if (!ModelState.IsValid) return NotFound();

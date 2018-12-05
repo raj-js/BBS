@@ -59,7 +59,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         /// <param name="req"></param>
         /// <param name="skipAdmin">不检索管理员信息</param>
         /// <returns></returns>
-        Task<Response> Search(SearchReq req, bool skipAdmin = true);
+        Task<Response<PagingDto<ListItem>>> Search(SearchReq req, bool skipAdmin = true);
 
         /// <summary>
         /// 禁用用户

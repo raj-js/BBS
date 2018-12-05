@@ -112,7 +112,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             return Response.Successed();
         }
 
-        public async Task<Response> Search(SearchReq req, bool skipAdmin = true)
+        public async Task<Response<PagingDto<ListItem>>> Search(SearchReq req, bool skipAdmin = true)
         {
             var query = _accountService.GetUsers(skipAdmin);
 
@@ -124,8 +124,8 @@ namespace EDoc2.FAQ.Core.Application.Accounts
 
             var dtos = query
                 .OrderBy(req.OrderBy, req.IsAscending)
-                .Skip(req.Skip)
-                .Take(req.Take)
+                .Skip((req.PageIndex - 1) * req.PageSize)
+                .Take(req.PageSize)
                 .AsEnumerable()
                 .Select(ListItem.From)
                 .ToList();
