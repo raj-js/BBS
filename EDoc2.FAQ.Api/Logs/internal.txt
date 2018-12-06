@@ -880,3 +880,307 @@
    at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
    --- End of inner exception stack trace ---
 2018-12-05 18:46:44.2956 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 09:07:42.8950 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 09:07:42.9250 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 09:07:42.9515 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 09:07:42.9515 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 09:07:42.9515 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 09:07:42.9515 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 09:13:57.8781 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 09:13:57.8941 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 09:13:57.9128 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 09:13:57.9128 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 09:13:57.9209 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 09:13:57.9209 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 10:19:59.5382 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:19:59.5585 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:19:59.5766 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:19:59.5766 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:19:59.5979 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 10:19:59.5979 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 10:21:53.9976 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:21:54.0209 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:21:54.0363 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:21:54.0363 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:21:54.0476 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 10:21:54.0476 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 10:23:19.3846 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:23:19.4108 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:23:19.4481 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:23:19.4481 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:23:19.4609 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 10:23:19.4609 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 10:31:13.7383 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:31:13.7383 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:31:13.7642 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:31:13.7642 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:31:13.7642 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 10:31:13.7642 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 10:31:57.3240 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:31:57.3554 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:31:57.3760 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:31:57.3760 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:31:57.3760 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 10:31:57.3760 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 10:33:41.4141 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:33:41.4280 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:33:41.4614 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:33:41.4614 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:33:41.4709 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 10:33:41.4709 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 10:39:34.0232 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:39:34.0375 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:39:34.0551 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:39:34.0551 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:39:34.0667 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 10:39:34.0667 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 10:40:54.6736 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:40:54.7004 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:40:54.7211 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:40:54.7211 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:40:54.7211 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 10:40:54.7211 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 10:41:50.5388 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:41:50.5651 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:41:50.5823 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:41:50.5823 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 10:41:50.5823 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 10:41:50.5929 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 14:29:06.2162 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:29:06.2389 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:29:06.2635 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:29:06.2654 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:29:06.2654 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 14:29:06.2654 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 14:31:10.8151 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:31:10.8634 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:31:10.9093 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:31:10.9093 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:31:10.9297 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 14:31:10.9297 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 14:32:27.5073 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:32:27.5305 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:32:27.5494 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:32:27.5494 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:32:27.5661 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 14:32:27.5661 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 14:39:49.8142 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:39:49.8321 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:39:49.8507 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:39:49.8507 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 14:39:49.8605 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 14:39:49.8605 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-06 15:01:08.9428 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 15:01:08.9567 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 15:01:08.9800 Error Error parsing layout aspnet-questionRequest-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 15:01:08.9823 Error Error parsing layout aspnet-questionRequest-method will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-questionRequest-method'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-12-06 15:01:08.9823 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> NLog.NLogConfigurationException: Target blackhole not found.
+   at NLog.Config.XmlLoggingConfiguration.ParseLoggerElement(NLogXmlElement loggerElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseRulesElement(NLogXmlElement rulesElement, IList`1 rulesCollection)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-06 15:01:08.9996 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?

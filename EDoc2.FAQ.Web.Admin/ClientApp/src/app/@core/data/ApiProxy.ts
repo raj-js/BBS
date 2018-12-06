@@ -184,7 +184,7 @@ export class AccountService {
     /**
      * 用户登录
      */
-    login(req: LoginReq): Observable<ApiResponse<FileResponse | null>> {
+    login(req: LoginReq): Observable<ApiResponse<Response | null>> {
         let url_ = this.baseUrl + "/api/v1/Account/login";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -207,31 +207,37 @@ export class AccountService {
                 try {
                     return this.processLogin(<any>response_);
                 } catch (e) {
-                    return <Observable<ApiResponse<FileResponse | null>>><any>_observableThrow(e);
+                    return <Observable<ApiResponse<Response | null>>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<ApiResponse<FileResponse | null>>><any>_observableThrow(response_);
+                return <Observable<ApiResponse<Response | null>>><any>_observableThrow(response_);
         }));
     }
 
-    protected processLogin(response: HttpResponseBase): Observable<ApiResponse<FileResponse | null>> {
+    protected processLogin(response: HttpResponseBase): Observable<ApiResponse<Response | null>> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            return _observableOf(new ApiResponse(status, _headers, { fileName: fileName, data: <any>responseBlob, status: status, headers: _headers }));
+        if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("A server error occurred.", status, _responseText, _headers);
+            }));
+        } else if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? Response.fromJS(resultData200) : <any>null;
+            return _observableOf(new ApiResponse(status, _headers, result200));
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ApiResponse<FileResponse | null>>(new ApiResponse(status, _headers, <any>null));
+        return _observableOf<ApiResponse<Response | null>>(new ApiResponse(status, _headers, <any>null));
     }
 
     /**
@@ -701,7 +707,7 @@ export class AdminService {
      * 屏蔽用户
      * @param id (optional) 
      */
-    muteUser(id?: string | null | undefined): Observable<ApiResponse<FileResponse | null>> {
+    muteUser(id?: string | null | undefined): Observable<ApiResponse<Response | null>> {
         let url_ = this.baseUrl + "/api/v1/Admin/muteUser?";
         if (id !== undefined)
             url_ += "id=" + encodeURIComponent("" + id) + "&"; 
@@ -722,31 +728,37 @@ export class AdminService {
                 try {
                     return this.processMuteUser(<any>response_);
                 } catch (e) {
-                    return <Observable<ApiResponse<FileResponse | null>>><any>_observableThrow(e);
+                    return <Observable<ApiResponse<Response | null>>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<ApiResponse<FileResponse | null>>><any>_observableThrow(response_);
+                return <Observable<ApiResponse<Response | null>>><any>_observableThrow(response_);
         }));
     }
 
-    protected processMuteUser(response: HttpResponseBase): Observable<ApiResponse<FileResponse | null>> {
+    protected processMuteUser(response: HttpResponseBase): Observable<ApiResponse<Response | null>> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            return _observableOf(new ApiResponse(status, _headers, { fileName: fileName, data: <any>responseBlob, status: status, headers: _headers }));
+        if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("A server error occurred.", status, _responseText, _headers);
+            }));
+        } else if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? Response.fromJS(resultData200) : <any>null;
+            return _observableOf(new ApiResponse(status, _headers, result200));
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ApiResponse<FileResponse | null>>(new ApiResponse(status, _headers, <any>null));
+        return _observableOf<ApiResponse<Response | null>>(new ApiResponse(status, _headers, <any>null));
     }
 
     /**
@@ -1011,6 +1023,115 @@ export class EmailConfirmReq implements IEmailConfirmReq {
 export interface IEmailConfirmReq {
     userId: string;
     code: string;
+}
+
+export class Response implements IResponse {
+    success!: boolean;
+    errors?: ErrorDto[] | undefined;
+
+    constructor(data?: IResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+            if (data.errors) {
+                this.errors = [];
+                for (let i = 0; i < data.errors.length; i++) {
+                    let item = data.errors[i];
+                    this.errors[i] = item && !(<any>item).toJSON ? new ErrorDto(item) : <ErrorDto>item;
+                }
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.success = data["success"];
+            if (data["errors"] && data["errors"].constructor === Array) {
+                this.errors = [];
+                for (let item of data["errors"])
+                    this.errors.push(ErrorDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): Response {
+        data = typeof data === 'object' ? data : {};
+        let result = new Response();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["success"] = this.success;
+        if (this.errors && this.errors.constructor === Array) {
+            data["errors"] = [];
+            for (let item of this.errors)
+                data["errors"].push(item.toJSON());
+        }
+        return data; 
+    }
+
+    clone(): Response {
+        const json = this.toJSON();
+        let result = new Response();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IResponse {
+    success: boolean;
+    errors?: IErrorDto[] | undefined;
+}
+
+export class ErrorDto implements IErrorDto {
+    code?: string | undefined;
+    description?: string | undefined;
+
+    constructor(data?: IErrorDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.code = data["code"];
+            this.description = data["description"];
+        }
+    }
+
+    static fromJS(data: any): ErrorDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ErrorDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["code"] = this.code;
+        data["description"] = this.description;
+        return data; 
+    }
+
+    clone(): ErrorDto {
+        const json = this.toJSON();
+        let result = new ErrorDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IErrorDto {
+    code?: string | undefined;
+    description?: string | undefined;
 }
 
 export class LoginReq implements ILoginReq {
@@ -1345,68 +1466,6 @@ export interface IUnFollowUserReq {
     targetUserId: string;
 }
 
-export class Response implements IResponse {
-    success!: boolean;
-    errors?: ErrorDto[] | undefined;
-
-    constructor(data?: IResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-            if (data.errors) {
-                this.errors = [];
-                for (let i = 0; i < data.errors.length; i++) {
-                    let item = data.errors[i];
-                    this.errors[i] = item && !(<any>item).toJSON ? new ErrorDto(item) : <ErrorDto>item;
-                }
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.success = data["success"];
-            if (data["errors"] && data["errors"].constructor === Array) {
-                this.errors = [];
-                for (let item of data["errors"])
-                    this.errors.push(ErrorDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): Response {
-        data = typeof data === 'object' ? data : {};
-        let result = new Response();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["success"] = this.success;
-        if (this.errors && this.errors.constructor === Array) {
-            data["errors"] = [];
-            for (let item of this.errors)
-                data["errors"].push(item.toJSON());
-        }
-        return data; 
-    }
-
-    clone(): Response {
-        const json = this.toJSON();
-        let result = new Response();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IResponse {
-    success: boolean;
-    errors?: IErrorDto[] | undefined;
-}
-
 export class ResponseOfPagingDtoOfListItem extends Response implements IResponseOfPagingDtoOfListItem {
     body?: PagingDtoOfListItem | undefined;
 
@@ -1560,53 +1619,6 @@ export interface IListItem extends IEntityDtoOfString {
     emailConfirmed: boolean;
     joinDate: Date;
     isMuted: boolean;
-}
-
-export class ErrorDto implements IErrorDto {
-    code?: string | undefined;
-    description?: string | undefined;
-
-    constructor(data?: IErrorDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.code = data["code"];
-            this.description = data["description"];
-        }
-    }
-
-    static fromJS(data: any): ErrorDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new ErrorDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["code"] = this.code;
-        data["description"] = this.description;
-        return data; 
-    }
-
-    clone(): ErrorDto {
-        const json = this.toJSON();
-        let result = new ErrorDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IErrorDto {
-    code?: string | undefined;
-    description?: string | undefined;
 }
 
 export class GrantModeratorReq implements IGrantModeratorReq {

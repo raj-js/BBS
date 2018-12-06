@@ -52,6 +52,8 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPut("muteUser")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Response))]
         public async Task<IActionResult> MuteUser([FromQuery]string id)
         {
             if (id.IsNullOrEmpty()) return NotFound();

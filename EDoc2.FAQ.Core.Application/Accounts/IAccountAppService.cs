@@ -45,7 +45,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         /// 用户登录
         /// </summary>
         /// <param name="req"></param>
-        Task<Response> Login(LoginReq req);
+        Task<Response> Authorize(LoginReq req);
 
         /// <summary>
         /// 注销当前用户

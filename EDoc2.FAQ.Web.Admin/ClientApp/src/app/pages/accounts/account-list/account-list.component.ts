@@ -5,6 +5,7 @@ import { DateRenderComponent } from '../../../@theme/components/renders/date-ren
 import { ServerSourceConf } from 'ng2-smart-table/lib/data-source/server/server-source.conf';
 import { HttpClient } from '@angular/common/http';
 import { Apis } from '../../../@core/data/Config';
+import { AdminService } from '../../../@core/data/ApiProxy';
 
 @Component({
   selector: 'ngx-account-list',
@@ -26,11 +27,14 @@ export class AccountListComponent {
       edit: false,
       delete: false,
       position: "left",
-      class: "action-column",
       custom: [
         {
           name: 'mute',
-          title: '<i class="nb-edit" title="屏蔽"></i>'
+          title: '<i class="nb-volume-mute" title="屏蔽"></i>'
+        },
+        {
+          name: 'unmute',
+          title: '<i class="nb-volume-high" title="取消屏蔽"></i>'
         }
       ]
     },
@@ -77,7 +81,7 @@ export class AccountListComponent {
   conf: ServerSourceConf = new ServerSourceConf();
   source: ServerDataSource;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private adminService: AdminService) {
     this.conf.endPoint = Apis.SearchUsers;
     this.conf.sortFieldKey = "OrderBy";
     this.conf.pagerPageKey = "PageIndex";
@@ -90,6 +94,24 @@ export class AccountListComponent {
   }
 
   onCustom(event) {
-    alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`)
+    switch(event.action){
+      case "mute":{
+        this.adminService.muteUser("1")
+        .subscribe((resp)=>{
+          if(resp.status == 200){
+            if(resp.result.success){
+              alert("操作成功");
+            }else{
+              alert(resp.result.errors.toString());
+            }
+          }
+        });
+        break;
+      }
+      case "unmute":{
+        alert("取消屏蔽");
+        break;
+      }
+    }
   }
 }

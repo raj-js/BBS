@@ -1,11 +1,17 @@
 ﻿using EDoc2.FAQ.Core.Application.DtoBase;
 using EDoc2.FAQ.Core.Application.ServiceBase;
+using EDoc2.FAQ.Core.Application.Settings;
 using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.Accounts.Services;
 using EDoc2.FAQ.Core.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using static EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos;
 
@@ -14,10 +20,13 @@ namespace EDoc2.FAQ.Core.Application.Accounts
     public class AccountAppService : AppServiceBase, IAccountAppService
     {
         private readonly IAccountService _accountService;
+        private readonly JwtSetting _jwtSetting;
 
-        public AccountAppService(IAccountService accountService)
+        public AccountAppService(IAccountService accountService,
+            IOptions<JwtSetting> jwtOptions)
         {
             _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
+            _jwtSetting = jwtOptions.Value;
         }
 
         public async Task<bool> IsEmailRegistered(string email)
@@ -90,7 +99,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             return result.ToResponse();
         }
 
-        public async Task<Response> Login(LoginReq req)
+        public async Task<Response> Authorize(LoginReq req)
         {
             var user = await UserManager.FindByEmailAsync(req.Email);
             if (user == null)
@@ -100,12 +109,36 @@ namespace EDoc2.FAQ.Core.Application.Accounts
                 return Response.Failed(Errors.AccountMuted);
 
             var result = await SignInManager.PasswordSignInAsync(req.Email, req.Password, req.RememberMe, true);
+
+            if (result.Succeeded)
+            {
+                var claims = new []
+                {
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.Role, string.Join(',',user.UserRoles.Select(s=>s.Role.NormalizedName).ToArray())),
+                    new Claim(nameof(User.Nickname), user.Nickname),
+                    new Claim(nameof(User.Id), user.Id), 
+                };
+
+                var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSetting.Secret));
+                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+                var securityToken = new JwtSecurityToken(_jwtSetting.Issuer, 
+                    _jwtSetting.Audience, 
+                    claims, 
+                    DateTime.Now, 
+                    DateTime.Now.AddMinutes(30), 
+                    credentials);
+
+                var handler = new JwtSecurityTokenHandler();
+                return Response<string>.Successed(handler.WriteToken(securityToken));
+            }
+
             return result.ToResponse();
         }
 
         public async Task<Response> Logout()
         {
-            if(CurrentUser.IsNull())
+            if (CurrentUser.IsNull())
                 return Response.Failed(Errors.InvalidOperation);
 
             await SignInManager.SignOutAsync();
@@ -129,7 +162,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
                 .AsEnumerable()
                 .Select(ListItem.From)
                 .ToList();
-            
+
             return Response<PagingDto<ListItem>>.Successed(new PagingDto<ListItem>
             {
                 TotalCount = await query.CountAsync(),
@@ -168,7 +201,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             if (targetUser.IsNull())
                 return Response.Failed(Errors.AccountNotFound);
 
-            return Response<Profile>.Successed(Profile.From(targetUser)); 
+            return Response<Profile>.Successed(Profile.From(targetUser));
         }
 
         public async Task<Response> EditProfile(EditProfileReq req)

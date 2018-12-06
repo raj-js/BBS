@@ -1,10 +1,12 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EDoc2.FAQ.Api.Infrastructure;
+using EDoc2.FAQ.Api.Infrastructure.Middlewares;
 using EDoc2.FAQ.Api.Infrastructure.Modules;
 using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,11 +16,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using System;
 using System.Reflection;
-using EDoc2.FAQ.Api.Infrastructure.Middlewares;
+using System.Text;
+using EDoc2.FAQ.Core.Application.Settings;
 
 namespace EDoc2.FAQ.Api
 {
@@ -57,15 +61,29 @@ namespace EDoc2.FAQ.Api
                             sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
                             sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                         }).UseLazyLoadingProxies();
-
-                //options.ConfigureWarnings(warning => 
-                //{
-                //    warning.Ignore(CoreEventId.DetachedLazyLoadingWarning);
-                //});
             })
-                .AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<CommunityContext>()
-                .AddDefaultTokenProviders();
+            .AddIdentity<User, Role>()
+            .AddEntityFrameworkStores<CommunityContext>()
+            .AddDefaultTokenProviders();
+
+            services.Configure<JwtSetting>(Configuration.GetSection(nameof(JwtSetting)));
+            var jwt = new JwtSetting();
+            Configuration.Bind(nameof(JwtSetting), jwt);
+
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = jwt.Issuer,
+                        ValidAudience = jwt.Audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwt.Secret))
+                    };
+                });
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -83,6 +101,8 @@ namespace EDoc2.FAQ.Api
                 options.SignIn.RequireConfirmedPhoneNumber = false;
 
                 options.User.RequireUniqueEmail = true;
+
+                options.Tokens.AuthenticatorTokenProvider = "";
             });
 
             services.ConfigureApplicationCookie(options =>
@@ -137,7 +157,13 @@ namespace EDoc2.FAQ.Api
 
             app.UseExceptionsHandler();
 
-            app.UseCors(b => b.AllowAnyOrigin());
+            app.UseCors(b =>
+            {
+                b.WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            });
 
             app.UseMvc();
 

@@ -135,6 +135,25 @@
             文章管理
             </summary>
         </member>
+        <member name="T:EDoc2.FAQ.Api.Controllers.TokenController">
+            <summary>
+            Token 
+            </summary>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.TokenController.#ctor(Microsoft.Extensions.Options.IOptions{EDoc2.FAQ.Core.Application.Settings.JwtSetting},EDoc2.FAQ.Core.Application.Accounts.IAccountAppService)">
+            <summary>
+            构造器
+            </summary>
+            <param name="jwtOptions"></param>
+            <param name="accountAppService"></param>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.TokenController.Token(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.LoginReq)">
+            <summary>
+            身份校验获取Token
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
         <member name="T:EDoc2.FAQ.Api.Infrastructure.Middlewares.ExceptionsHandlerMiddleware">
             <summary>
             异常处理中间件

@@ -4,7 +4,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: '会员管理',
     icon: 'nb-person',
-    link: '/pages/accounts/list'
+    link: '/pages/accounts/list',
   },
   {
     title: 'E-commerce',

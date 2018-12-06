@@ -1,10 +1,12 @@
 ﻿using EDoc2.FAQ.Core.Application.Accounts;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Application.DtoBase;
+using EDoc2.FAQ.Core.Infrastructure.Extensions;
+using Microsoft.AspNetCore.Hosting;
 using static EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos;
 
 namespace EDoc2.FAQ.Api.Controllers
@@ -14,7 +16,6 @@ namespace EDoc2.FAQ.Api.Controllers
     /// </summary>
     [Route("api/v1/[controller]")]
     [ApiController]
-    [EnableCors]
     public class AccountController : ControllerBase
     {
         private readonly IAccountAppService _accountAppService;
@@ -76,11 +77,13 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost("login")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Response))]
         public async Task<IActionResult> Login([FromBody]LoginReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var response = await _accountAppService.Login(req);
+            var response = await _accountAppService.Authorize(req);
             return Ok(response);
         }
 
