@@ -4,23 +4,23 @@ using System.Linq;
 
 namespace EDoc2.FAQ.Core.Application.DtoBase
 {
-    public class Response
+    public class RespWapper
     {
         public bool Success { get; protected set; }
 
         public Error[] Errors { get; protected set; }
 
-        public static Response Successed()
+        public static RespWapper Successed()
         {
-            return new Response
+            return new RespWapper
             {
                 Success = true
             };
         }
 
-        public static Response Failed(params Error[] errors)
+        public static RespWapper Failed(params Error[] errors)
         {
-            return new Response
+            return new RespWapper
             {
                 Success = false,
                 Errors = errors
@@ -28,13 +28,13 @@ namespace EDoc2.FAQ.Core.Application.DtoBase
         }
     }
 
-    public class Response<T> : Response
+    public class RespWapper<T> : RespWapper
     {
         public T Body { get; private set; }
 
-        public static Response<TBody> Successed<TBody>(TBody body = default(TBody))
+        public static RespWapper<TBody> Successed<TBody>(TBody body = default(TBody))
         {
-            return new Response<TBody>
+            return new RespWapper<TBody>
             {
                 Success = true,
                 Body = body,
@@ -42,9 +42,9 @@ namespace EDoc2.FAQ.Core.Application.DtoBase
             };
         }
 
-        public static Response<TBody> Failed<TBody>(params Error[] errors) where TBody: class 
+        public static RespWapper<TBody> Failed<TBody>(params Error[] errors) where TBody: class 
         {
-            return new Response<TBody>
+            return new RespWapper<TBody>
             {
                 Success = false,
                 Errors = errors,
@@ -76,15 +76,15 @@ namespace EDoc2.FAQ.Core.Application.DtoBase
             return errors.Select(e => e.ToRespError()).ToArray();
         }
 
-        public static Response ToResponse(this IdentityResult result)
+        public static RespWapper ToResponse(this IdentityResult result)
         {
-            return result.Succeeded ? Response.Successed() : Response.Failed(result.Errors.ToRespErrors());
+            return result.Succeeded ? RespWapper.Successed() : RespWapper.Failed(result.Errors.ToRespErrors());
         }
 
-        public static Response ToResponse(this SignInResult result)
+        public static RespWapper ToResponse(this SignInResult result)
         {
             if (result.Succeeded)
-                return Response.Successed();
+                return RespWapper.Successed();
 
             var errors = new List<Error>();
 
@@ -97,7 +97,7 @@ namespace EDoc2.FAQ.Core.Application.DtoBase
             if (result.RequiresTwoFactor)
                 errors.Add(new Error { Code = "RequiresTwoFactor", Description = "需要 TwoFactor 登录" });
 
-            return Response.Failed(errors.ToArray());
+            return RespWapper.Failed(errors.ToArray());
         }
     }
 }

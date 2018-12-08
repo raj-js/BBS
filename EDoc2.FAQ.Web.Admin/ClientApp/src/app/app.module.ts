@@ -49,13 +49,56 @@ import { RoleProvider } from './@core/auth/role.provider';
             endpoint: Apis.Logout,
             method: "post"
           },
-          register: {
-            endpoint: Apis.Register,
+          requestPass: {
+            endpoint: Apis.ForgetPass,
+            method: "post"
+          },
+          resetPass: {
+            endpoint: Apis.ResetPass,
             method: "post"
           }
         })
       ],
-      forms: {}
+      forms: {
+        login: {
+          redirectDelay: 100,
+          strategy: 'email',
+          showMessages: {     
+            success: true,
+            error: true,
+          },
+        },
+        logout: {
+          redirectDelay: 100,
+          strategy: 'email',
+        },
+        requestPass:{
+          redirectDelay: 100,
+          strategy: 'email',
+          showMessages: {     
+            success: true,
+            error: true,
+          },
+        },
+        resetPass:{
+          redirectDelay: 100,
+          strategy: 'email',
+          showMessages: {     
+            success: true,
+            error: true,
+          },
+        },
+        validation: {
+          password: {
+            required: true,
+            minLength: 6,
+            maxLength: 50,
+          },
+          email: {
+            required: true,
+          }
+        },
+      }
     }),
 
     NbSecurityModule.forRoot({
@@ -64,7 +107,7 @@ import { RoleProvider } from './@core/auth/role.provider';
           view: ["user"]
         },
         'ADMINISTRATOR': {
-          parent: "MODERATOR" 
+          parent: "MODERATOR"
         },
       }
     })
@@ -73,7 +116,7 @@ import { RoleProvider } from './@core/auth/role.provider';
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
     AuthGuard,
-    { provide: NbRoleProvider, useClass: RoleProvider }
+    { provide: NbRoleProvider, useClass: RoleProvider },
   ]
 })
 export class AppModule {

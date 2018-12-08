@@ -1,12 +1,12 @@
 ﻿using EDoc2.FAQ.Core.Application.Accounts;
+using EDoc2.FAQ.Core.Application.DtoBase;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Application.DtoBase;
-using EDoc2.FAQ.Core.Infrastructure.Extensions;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using static EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos;
 
 namespace EDoc2.FAQ.Api.Controllers
@@ -37,8 +37,9 @@ namespace EDoc2.FAQ.Api.Controllers
         /// 当前是否登录
         /// </summary>
         /// <returns></returns>
-        [HttpGet("isAuthenticated")]
-        public IActionResult IsAuthenticated()
+        [HttpGet("isSignIn")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public IActionResult IsSignIn()
         {
             return Ok(User.Identity.IsAuthenticated);
         }
@@ -78,7 +79,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <returns></returns>
         [HttpPost("login")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Response))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper))]
         public async Task<IActionResult> Login([FromBody]LoginReq req)
         {
             if (!ModelState.IsValid) return BadRequest();

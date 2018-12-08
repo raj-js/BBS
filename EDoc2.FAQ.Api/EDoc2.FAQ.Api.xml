@@ -16,7 +16,7 @@
             <param name="accountAppService"></param>
             <param name="logger"></param>
         </member>
-        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.IsAuthenticated">
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.IsSignIn">
             <summary>
             当前是否登录
             </summary>

@@ -6,6 +6,8 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using EDoc2.FAQ.Core.Application.DtoBase;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using static EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos;
 
 namespace EDoc2.FAQ.Api.Controllers
@@ -15,6 +17,7 @@ namespace EDoc2.FAQ.Api.Controllers
     /// </summary>
     [Route("api/v1/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class AdminController : ControllerBase
     {
         private readonly IAccountAppService _accountAppService;
@@ -37,7 +40,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <returns></returns>
         [HttpGet("searchUsers")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Response<PagingDto<ListItem>>))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<PagingDto<ListItem>>))]
         public async Task<IActionResult> SearchUsers([FromQuery]SearchReq req)
         {
             if (!ModelState.IsValid) return NotFound();
@@ -51,9 +54,9 @@ namespace EDoc2.FAQ.Api.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPut("muteUser")]
+        [HttpPost("muteUser")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Response))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper))]
         public async Task<IActionResult> MuteUser([FromQuery]string id)
         {
             if (id.IsNullOrEmpty()) return NotFound();

@@ -13,95 +13,95 @@ namespace EDoc2.FAQ.Core.Application.Articles
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        Task<Response> Search(SearchReq req);
+        Task<RespWapper> Search(SearchReq req);
 
         /// <summary>
         /// 访问文章
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Response> View(Guid id);
+        Task<RespWapper> View(Guid id);
 
         /// <summary>
         /// 添加问题
         /// </summary>
         /// <param name="req"></param>
-        Task<Response> AddQuestion(AddQuestionReq req);
+        Task<RespWapper> AddQuestion(AddQuestionReq req);
 
         /// <summary>
         /// 添加文章
         /// </summary>
         /// <param name="req"></param>
-        Task<Response> AddArticle(AddArticleReq req);
+        Task<RespWapper> AddArticle(AddArticleReq req);
 
         /// <summary>
         /// 编辑问题
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        Task<Response> EditQuestion(EditQuestionReq req);
+        Task<RespWapper> EditQuestion(EditQuestionReq req);
 
         /// <summary>
         /// 编辑文章
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        Task<Response> EditArticle(EditArticleReq req);
+        Task<RespWapper> EditArticle(EditArticleReq req);
 
         /// <summary>
         /// 赞文章
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Response> LikeArticle(Guid id);
+        Task<RespWapper> LikeArticle(Guid id);
 
         /// <summary>
         /// 踩文章
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Response> DislikeArticle(Guid id);
+        Task<RespWapper> DislikeArticle(Guid id);
 
         /// <summary>
         /// 赞评论
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Response> LikeComment(long id);
+        Task<RespWapper> LikeComment(long id);
 
         /// <summary>
         /// 踩评论
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Response> DislikeComment(long id);
+        Task<RespWapper> DislikeComment(long id);
 
         /// <summary>
         /// 举报文章
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        Task<Response> ReportArticle(ReportArticleReq req);
+        Task<RespWapper> ReportArticle(ReportArticleReq req);
 
         /// <summary>
         /// 举报评论
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        Task<Response> ReportComment(ReportCommentReq req);
+        Task<RespWapper> ReportComment(ReportCommentReq req);
 
         /// <summary>
         /// 回复文章
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        Task<Response> ReplyArticle(ReplyArticleReq req);
+        Task<RespWapper> ReplyArticle(ReplyArticleReq req);
 
         /// <summary>
         /// 回复评论
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        Task<Response> ReplyComment(ReplyCommentReq req);
+        Task<RespWapper> ReplyComment(ReplyCommentReq req);
     }
 }

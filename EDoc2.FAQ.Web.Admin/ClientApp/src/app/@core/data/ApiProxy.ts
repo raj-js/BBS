@@ -7,21 +7,23 @@
 // ReSharper disable InconsistentNaming
 
 import { mergeMap as _observableMergeMap, catchError as _observableCatch } from 'rxjs/operators';
-import { Observable, throwError as _observableThrow, of as _observableOf } from 'rxjs';
+import { Observable, from as _observableFrom, throwError as _observableThrow, of as _observableOf } from 'rxjs';
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
+import { BaseClient } from './BaseClient';
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 @Injectable({
     providedIn: 'root'
 })
-export class AccountService {
+export class AccountService extends BaseClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        super();
         this.http = http;
         this.baseUrl = baseUrl ? baseUrl : "http://localhost:5000";
     }
@@ -29,8 +31,8 @@ export class AccountService {
     /**
      * 当前是否登录
      */
-    isAuthenticated(): Observable<ApiResponse<FileResponse | null>> {
-        let url_ = this.baseUrl + "/api/v1/Account/isAuthenticated";
+    isSignIn(): Observable<ApiResponse<FileResponse | null>> {
+        let url_ = this.baseUrl + "/api/v1/Account/isSignIn";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -41,12 +43,14 @@ export class AccountService {
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processIsAuthenticated(response_);
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("get", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
+            return this.processIsSignIn(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processIsAuthenticated(<any>response_);
+                    return this.processIsSignIn(<any>response_);
                 } catch (e) {
                     return <Observable<ApiResponse<FileResponse | null>>><any>_observableThrow(e);
                 }
@@ -55,7 +59,7 @@ export class AccountService {
         }));
     }
 
-    protected processIsAuthenticated(response: HttpResponseBase): Observable<ApiResponse<FileResponse | null>> {
+    protected processIsSignIn(response: HttpResponseBase): Observable<ApiResponse<FileResponse | null>> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -94,7 +98,9 @@ export class AccountService {
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("post", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processRegister(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -147,7 +153,9 @@ export class AccountService {
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("post", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processEmailConfirm(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -184,7 +192,7 @@ export class AccountService {
     /**
      * 用户登录
      */
-    login(req: LoginReq): Observable<ApiResponse<Response | null>> {
+    login(req: LoginReq): Observable<ApiResponse<RespWapper | null>> {
         let url_ = this.baseUrl + "/api/v1/Account/login";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -200,21 +208,23 @@ export class AccountService {
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("post", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processLogin(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
                     return this.processLogin(<any>response_);
                 } catch (e) {
-                    return <Observable<ApiResponse<Response | null>>><any>_observableThrow(e);
+                    return <Observable<ApiResponse<RespWapper | null>>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<ApiResponse<Response | null>>><any>_observableThrow(response_);
+                return <Observable<ApiResponse<RespWapper | null>>><any>_observableThrow(response_);
         }));
     }
 
-    protected processLogin(response: HttpResponseBase): Observable<ApiResponse<Response | null>> {
+    protected processLogin(response: HttpResponseBase): Observable<ApiResponse<RespWapper | null>> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -229,7 +239,7 @@ export class AccountService {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? Response.fromJS(resultData200) : <any>null;
+            result200 = resultData200 ? RespWapper.fromJS(resultData200) : <any>null;
             return _observableOf(new ApiResponse(status, _headers, result200));
             }));
         } else if (status !== 200 && status !== 204) {
@@ -237,7 +247,7 @@ export class AccountService {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ApiResponse<Response | null>>(new ApiResponse(status, _headers, <any>null));
+        return _observableOf<ApiResponse<RespWapper | null>>(new ApiResponse(status, _headers, <any>null));
     }
 
     /**
@@ -258,7 +268,9 @@ export class AccountService {
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("get", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processProfileGet(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -311,7 +323,9 @@ export class AccountService {
             })
         };
 
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("put", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processProfilePut(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -364,7 +378,9 @@ export class AccountService {
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("post", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processRetrievePassword(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -417,7 +433,9 @@ export class AccountService {
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("post", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processResetPassword(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -470,7 +488,9 @@ export class AccountService {
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("post", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processFollow(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -523,7 +543,9 @@ export class AccountService {
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("post", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processUnfollow(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -571,7 +593,9 @@ export class AccountService {
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("post", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processLogout(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -608,12 +632,13 @@ export class AccountService {
 @Injectable({
     providedIn: 'root'
 })
-export class AdminService {
+export class AdminService extends BaseClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        super();
         this.http = http;
         this.baseUrl = baseUrl ? baseUrl : "http://localhost:5000";
     }
@@ -629,7 +654,7 @@ export class AdminService {
      * @param orderBy (optional) 
      * @param isAscending (optional) 
      */
-    searchUsers(nickname?: string | null | undefined, email?: string | null | undefined, isMuted?: boolean | null | undefined, isModerator?: boolean | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined, orderBy?: string | null | undefined, isAscending?: boolean | undefined): Observable<ApiResponse<ResponseOfPagingDtoOfListItem | null>> {
+    searchUsers(nickname?: string | null | undefined, email?: string | null | undefined, isMuted?: boolean | null | undefined, isModerator?: boolean | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined, orderBy?: string | null | undefined, isAscending?: boolean | undefined): Observable<ApiResponse<RespWapperOfPagingDtoOfListItem | null>> {
         let url_ = this.baseUrl + "/api/v1/Admin/searchUsers?";
         if (nickname !== undefined)
             url_ += "Nickname=" + encodeURIComponent("" + nickname) + "&"; 
@@ -663,21 +688,23 @@ export class AdminService {
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("get", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processSearchUsers(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
                     return this.processSearchUsers(<any>response_);
                 } catch (e) {
-                    return <Observable<ApiResponse<ResponseOfPagingDtoOfListItem | null>>><any>_observableThrow(e);
+                    return <Observable<ApiResponse<RespWapperOfPagingDtoOfListItem | null>>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<ApiResponse<ResponseOfPagingDtoOfListItem | null>>><any>_observableThrow(response_);
+                return <Observable<ApiResponse<RespWapperOfPagingDtoOfListItem | null>>><any>_observableThrow(response_);
         }));
     }
 
-    protected processSearchUsers(response: HttpResponseBase): Observable<ApiResponse<ResponseOfPagingDtoOfListItem | null>> {
+    protected processSearchUsers(response: HttpResponseBase): Observable<ApiResponse<RespWapperOfPagingDtoOfListItem | null>> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -692,7 +719,7 @@ export class AdminService {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? ResponseOfPagingDtoOfListItem.fromJS(resultData200) : <any>null;
+            result200 = resultData200 ? RespWapperOfPagingDtoOfListItem.fromJS(resultData200) : <any>null;
             return _observableOf(new ApiResponse(status, _headers, result200));
             }));
         } else if (status !== 200 && status !== 204) {
@@ -700,14 +727,14 @@ export class AdminService {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ApiResponse<ResponseOfPagingDtoOfListItem | null>>(new ApiResponse(status, _headers, <any>null));
+        return _observableOf<ApiResponse<RespWapperOfPagingDtoOfListItem | null>>(new ApiResponse(status, _headers, <any>null));
     }
 
     /**
      * 屏蔽用户
      * @param id (optional) 
      */
-    muteUser(id?: string | null | undefined): Observable<ApiResponse<Response | null>> {
+    muteUser(id?: string | null | undefined): Observable<ApiResponse<RespWapper | null>> {
         let url_ = this.baseUrl + "/api/v1/Admin/muteUser?";
         if (id !== undefined)
             url_ += "id=" + encodeURIComponent("" + id) + "&"; 
@@ -721,21 +748,23 @@ export class AdminService {
             })
         };
 
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("post", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processMuteUser(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
                     return this.processMuteUser(<any>response_);
                 } catch (e) {
-                    return <Observable<ApiResponse<Response | null>>><any>_observableThrow(e);
+                    return <Observable<ApiResponse<RespWapper | null>>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<ApiResponse<Response | null>>><any>_observableThrow(response_);
+                return <Observable<ApiResponse<RespWapper | null>>><any>_observableThrow(response_);
         }));
     }
 
-    protected processMuteUser(response: HttpResponseBase): Observable<ApiResponse<Response | null>> {
+    protected processMuteUser(response: HttpResponseBase): Observable<ApiResponse<RespWapper | null>> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -750,7 +779,7 @@ export class AdminService {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? Response.fromJS(resultData200) : <any>null;
+            result200 = resultData200 ? RespWapper.fromJS(resultData200) : <any>null;
             return _observableOf(new ApiResponse(status, _headers, result200));
             }));
         } else if (status !== 200 && status !== 204) {
@@ -758,7 +787,7 @@ export class AdminService {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ApiResponse<Response | null>>(new ApiResponse(status, _headers, <any>null));
+        return _observableOf<ApiResponse<RespWapper | null>>(new ApiResponse(status, _headers, <any>null));
     }
 
     /**
@@ -779,7 +808,9 @@ export class AdminService {
             })
         };
 
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("put", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processUnmuteUser(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -832,7 +863,9 @@ export class AdminService {
             })
         };
 
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("put", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processGrantModerator(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -870,12 +903,13 @@ export class AdminService {
 @Injectable({
     providedIn: 'root'
 })
-export class ArticleService {
+export class ArticleService extends BaseClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        super();
         this.http = http;
         this.baseUrl = baseUrl ? baseUrl : "http://localhost:5000";
     }
@@ -892,7 +926,9 @@ export class ArticleService {
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("get", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
             return this.processSearch(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -924,6 +960,82 @@ export class ArticleService {
             }));
         }
         return _observableOf<ApiResponse<FileResponse | null>>(new ApiResponse(status, _headers, <any>null));
+    }
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class V1Service extends BaseClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        super();
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "http://localhost:5000";
+    }
+
+    /**
+     * 身份校验获取Token
+     */
+    token(req: LoginReq): Observable<ApiResponse<RespWapperOfString | null>> {
+        let url_ = this.baseUrl + "/api/v1/Token";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(req);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("post", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
+            return this.processToken(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processToken(<any>response_);
+                } catch (e) {
+                    return <Observable<ApiResponse<RespWapperOfString | null>>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ApiResponse<RespWapperOfString | null>>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processToken(response: HttpResponseBase): Observable<ApiResponse<RespWapperOfString | null>> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("A server error occurred.", status, _responseText, _headers);
+            }));
+        } else if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? RespWapperOfString.fromJS(resultData200) : <any>null;
+            return _observableOf(new ApiResponse(status, _headers, result200));
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ApiResponse<RespWapperOfString | null>>(new ApiResponse(status, _headers, <any>null));
     }
 }
 
@@ -1025,11 +1137,11 @@ export interface IEmailConfirmReq {
     code: string;
 }
 
-export class Response implements IResponse {
+export class RespWapper implements IRespWapper {
     success!: boolean;
     errors?: ErrorDto[] | undefined;
 
-    constructor(data?: IResponse) {
+    constructor(data?: IRespWapper) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1056,9 +1168,9 @@ export class Response implements IResponse {
         }
     }
 
-    static fromJS(data: any): Response {
+    static fromJS(data: any): RespWapper {
         data = typeof data === 'object' ? data : {};
-        let result = new Response();
+        let result = new RespWapper();
         result.init(data);
         return result;
     }
@@ -1074,15 +1186,15 @@ export class Response implements IResponse {
         return data; 
     }
 
-    clone(): Response {
+    clone(): RespWapper {
         const json = this.toJSON();
-        let result = new Response();
+        let result = new RespWapper();
         result.init(json);
         return result;
     }
 }
 
-export interface IResponse {
+export interface IRespWapper {
     success: boolean;
     errors?: IErrorDto[] | undefined;
 }
@@ -1466,10 +1578,10 @@ export interface IUnFollowUserReq {
     targetUserId: string;
 }
 
-export class ResponseOfPagingDtoOfListItem extends Response implements IResponseOfPagingDtoOfListItem {
+export class RespWapperOfPagingDtoOfListItem extends RespWapper implements IRespWapperOfPagingDtoOfListItem {
     body?: PagingDtoOfListItem | undefined;
 
-    constructor(data?: IResponseOfPagingDtoOfListItem) {
+    constructor(data?: IRespWapperOfPagingDtoOfListItem) {
         super(data);
     }
 
@@ -1480,9 +1592,9 @@ export class ResponseOfPagingDtoOfListItem extends Response implements IResponse
         }
     }
 
-    static fromJS(data: any): ResponseOfPagingDtoOfListItem {
+    static fromJS(data: any): RespWapperOfPagingDtoOfListItem {
         data = typeof data === 'object' ? data : {};
-        let result = new ResponseOfPagingDtoOfListItem();
+        let result = new RespWapperOfPagingDtoOfListItem();
         result.init(data);
         return result;
     }
@@ -1494,15 +1606,15 @@ export class ResponseOfPagingDtoOfListItem extends Response implements IResponse
         return data; 
     }
 
-    clone(): ResponseOfPagingDtoOfListItem {
+    clone(): RespWapperOfPagingDtoOfListItem {
         const json = this.toJSON();
-        let result = new ResponseOfPagingDtoOfListItem();
+        let result = new RespWapperOfPagingDtoOfListItem();
         result.init(json);
         return result;
     }
 }
 
-export interface IResponseOfPagingDtoOfListItem extends IResponse {
+export interface IRespWapperOfPagingDtoOfListItem extends IRespWapper {
     body?: IPagingDtoOfListItem | undefined;
 }
 
@@ -1666,6 +1778,46 @@ export class GrantModeratorReq implements IGrantModeratorReq {
 export interface IGrantModeratorReq {
     userId: string;
     moduleId: string;
+}
+
+export class RespWapperOfString extends RespWapper implements IRespWapperOfString {
+    body?: string | undefined;
+
+    constructor(data?: IRespWapperOfString) {
+        super(data);
+    }
+
+    init(data?: any) {
+        super.init(data);
+        if (data) {
+            this.body = data["body"];
+        }
+    }
+
+    static fromJS(data: any): RespWapperOfString {
+        data = typeof data === 'object' ? data : {};
+        let result = new RespWapperOfString();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["body"] = this.body;
+        super.toJSON(data);
+        return data; 
+    }
+
+    clone(): RespWapperOfString {
+        const json = this.toJSON();
+        let result = new RespWapperOfString();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IRespWapperOfString extends IRespWapper {
+    body?: string | undefined;
 }
 
 export class ApiResponse<TResult> {

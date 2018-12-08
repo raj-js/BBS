@@ -29,7 +29,6 @@ export class HeaderComponent implements OnInit {
                 .subscribe((token: NbAuthJWTToken)=>{
                   if(token.isValid()){
                     this.user = token.getPayload();
-                    console.log(this.user);
                   }
                 });
   }

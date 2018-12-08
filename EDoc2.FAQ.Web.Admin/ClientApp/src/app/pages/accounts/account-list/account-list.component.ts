@@ -81,30 +81,26 @@ export class AccountListComponent {
   conf: ServerSourceConf = new ServerSourceConf();
   source: ServerDataSource;
 
-  constructor(private httpClient: HttpClient, private adminService: AdminService) {
-    this.conf.endPoint = Apis.SearchUsers;
-    this.conf.sortFieldKey = "OrderBy";
-    this.conf.pagerPageKey = "PageIndex";
-    this.conf.pagerLimitKey = "PageSize";
-    this.conf.filterFieldKey = "#field#";
-    this.conf.totalKey = "body.totalCount";
-    this.conf.dataKey = "body.dtos";
+  constructor(private http: HttpClient, 
+    private adminService: AdminService) {
+    
+      this.conf.endPoint = `${Apis.SearchUsers}?${Apis.AccessTokenName}=${Apis.AccessToken}`;
+      this.conf.sortFieldKey = "OrderBy";
+      this.conf.pagerPageKey = "PageIndex";
+      this.conf.pagerLimitKey = "PageSize";
+      this.conf.filterFieldKey = "#field#";
+      this.conf.totalKey = "body.totalCount";
+      this.conf.dataKey = "body.dtos";
 
-    this.source = new ServerDataSource(this.httpClient, this.conf);
+      this.source = new ServerDataSource(this.http, this.conf);
   }
 
   onCustom(event) {
     switch(event.action){
       case "mute":{
-        this.adminService.muteUser("1")
-        .subscribe((resp)=>{
-          if(resp.status == 200){
-            if(resp.result.success){
-              alert("操作成功");
-            }else{
-              alert(resp.result.errors.toString());
-            }
-          }
+        this.adminService.muteUser(event.data.id)
+        .subscribe(resp=>{
+          console.log(resp);
         });
         break;
       }

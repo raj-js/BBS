@@ -5,6 +5,10 @@ export const Apis = {
     Authorize: "/Token",
     Register: "/Account/register",
     Logout: "/Account/logout",
+    ForgetPass: "/Account/forget",
+    ResetPass: "/Account/reset",
+    AccessToken: "",
+    AccessTokenName: "access_token",
     SearchUsers: API_BASE_URL.toString() + "/Admin/searchUsers"
 };
 

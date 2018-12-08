@@ -8,72 +8,72 @@ namespace EDoc2.FAQ.Core.Application.Articles
 {
     public class ArticleAppService : AppServiceBase, IArticleAppService
     {
-        public Task<Response> Search(ArticleDtos.SearchReq req)
+        public Task<RespWapper> Search(ArticleDtos.SearchReq req)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> View(Guid id)
+        public Task<RespWapper> View(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> AddQuestion(ArticleDtos.AddQuestionReq req)
+        public Task<RespWapper> AddQuestion(ArticleDtos.AddQuestionReq req)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> AddArticle(ArticleDtos.AddArticleReq req)
+        public Task<RespWapper> AddArticle(ArticleDtos.AddArticleReq req)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> EditQuestion(ArticleDtos.EditQuestionReq req)
+        public Task<RespWapper> EditQuestion(ArticleDtos.EditQuestionReq req)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> EditArticle(ArticleDtos.EditArticleReq req)
+        public Task<RespWapper> EditArticle(ArticleDtos.EditArticleReq req)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> LikeArticle(Guid id)
+        public Task<RespWapper> LikeArticle(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> DislikeArticle(Guid id)
+        public Task<RespWapper> DislikeArticle(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> LikeComment(long id)
+        public Task<RespWapper> LikeComment(long id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> DislikeComment(long id)
+        public Task<RespWapper> DislikeComment(long id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> ReportArticle(ArticleDtos.ReportArticleReq req)
+        public Task<RespWapper> ReportArticle(ArticleDtos.ReportArticleReq req)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> ReportComment(ArticleDtos.ReportCommentReq req)
+        public Task<RespWapper> ReportComment(ArticleDtos.ReportCommentReq req)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> ReplyArticle(ArticleDtos.ReplyArticleReq req)
+        public Task<RespWapper> ReplyArticle(ArticleDtos.ReplyArticleReq req)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> ReplyComment(ArticleDtos.ReplyCommentReq req)
+        public Task<RespWapper> ReplyComment(ArticleDtos.ReplyCommentReq req)
         {
             throw new NotImplementedException();
         }

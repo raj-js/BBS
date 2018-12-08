@@ -36,7 +36,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Response<string>))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<string>))]
         public async Task<IActionResult> Token([FromBody]LoginReq req)
         {
             if (!ModelState.IsValid) return BadRequest();

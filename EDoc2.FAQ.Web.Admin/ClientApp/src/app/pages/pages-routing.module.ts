@@ -14,6 +14,9 @@ const routes: Routes = [{
       path: 'accounts',
       loadChildren: './accounts/accounts.module#AccountsModule',
     },{
+      path: "articles",
+      loadChildren: './articles/articles.module#ArticlesModule',
+    },{
       path: 'dashboard',
       component: ECommerceComponent,
     }, {

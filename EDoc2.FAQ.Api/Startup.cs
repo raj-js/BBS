@@ -20,9 +20,13 @@ using Microsoft.IdentityModel.Tokens;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using EDoc2.FAQ.Core.Application.Settings;
+using NSwag;
+using NSwag.SwaggerGeneration.Processors.Security;
 
 namespace EDoc2.FAQ.Api
 {
@@ -49,7 +53,16 @@ namespace EDoc2.FAQ.Api
                 setting.Title = "EDoc2问答社区Api文档";
                 setting.DocumentName = "v1";
                 setting.Description = "EDoc2问答社区Api文档";
-            });
+
+                setting.OperationProcessors.Add(new OperationSecurityScopeProcessor("JWT token"));
+                setting.DocumentProcessors.Add(new SecurityDefinitionAppender("JWT token", new SwaggerSecurityScheme
+                {
+                    Type = SwaggerSecuritySchemeType.ApiKey,
+                    Name = "Authorization",
+                    In = SwaggerSecurityApiKeyLocation.Header,
+                    Description = "Copy 'Bearer' + valid JWT token into field"
+                }));
+            }).AddOpenApiDocument(doc => { doc.DocumentName = "openApi"; });
 
             //db context
             services.AddDbContext<CommunityContext>(options =>
@@ -70,18 +83,33 @@ namespace EDoc2.FAQ.Api
             var jwt = new JwtSetting();
             Configuration.Bind(nameof(JwtSetting), jwt);
 
-            services.AddAuthentication(options =>
-                {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
+                    options.Events = new JwtBearerEvents()
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            if (context.Request.Query.ContainsKey("access_token"))
+                                context.Token = context.Request.Query["access_token"];
+
+                            return Task.CompletedTask;
+                        }
+                    };
+
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwt.Secret)),
+
+                        ValidateIssuer = true,
                         ValidIssuer = jwt.Issuer,
+
+                        ValidateAudience = true,
                         ValidAudience = jwt.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwt.Secret))
+
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.FromMinutes(30)
                     };
                 });
 
@@ -105,15 +133,15 @@ namespace EDoc2.FAQ.Api
                 options.Tokens.AuthenticatorTokenProvider = "";
             });
 
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.Cookie.Name = "EDoc2.FAQ.Community";
-                options.Cookie.HttpOnly = true;
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.Cookie.Name = "EDoc2.FAQ.Community";
+            //    options.Cookie.HttpOnly = true;
 
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                options.SlidingExpiration = true;
-                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
-            });
+            //    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+            //    options.SlidingExpiration = true;
+            //    options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+            //});
 
             services.AddEventBus(Configuration);
             services.UseMailSender(Configuration);

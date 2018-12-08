@@ -34,7 +34,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             return await _accountService.GetUsers().AnyAsync(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
         }
 
-        public async Task<Response> Register(RegisterReq req)
+        public async Task<RespWapper> Register(RegisterReq req)
         {
             var user = new User
             {
@@ -48,65 +48,65 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             if (result.Succeeded)
             {
                 var token = await UserManager.GenerateEmailConfirmationTokenAsync(user);
-                return Response<Register>.Successed(new Register
+                return RespWapper<Register>.Successed(new Register
                 {
                     UserId = user.Id,
                     Code = token
                 });
             }
-            return Response.Failed(result.Errors.ToRespErrors());
+            return RespWapper.Failed(result.Errors.ToRespErrors());
         }
 
-        public async Task<Response> EmailConfirm(EmailConfirmReq req)
+        public async Task<RespWapper> EmailConfirm(EmailConfirmReq req)
         {
             var user = await _accountService.FindUserByIdAsync(req.UserId);
             if (user == null)
-                return Response.Failed(Errors.AccountNotFound);
+                return RespWapper.Failed(Errors.AccountNotFound);
 
             if (user.IsMuted)
-                return Response.Failed(Errors.AccountMuted);
+                return RespWapper.Failed(Errors.AccountMuted);
 
             var result = await UserManager.ConfirmEmailAsync(user, req.Code);
             return result.ToResponse();
         }
 
-        public async Task<Response> GenerateResetPasswordToken(RetrievePasswordReq req)
+        public async Task<RespWapper> GenerateResetPasswordToken(RetrievePasswordReq req)
         {
             var user = await UserManager.FindByEmailAsync(req.Email);
             if (user == null)
-                return Response.Failed(Errors.EmailNotFound);
+                return RespWapper.Failed(Errors.EmailNotFound);
 
             if (user.IsMuted)
-                return Response.Failed(Errors.AccountMuted);
+                return RespWapper.Failed(Errors.AccountMuted);
 
-            return Response<RetrievePassword>.Successed(new RetrievePassword
+            return RespWapper<RetrievePassword>.Successed(new RetrievePassword
             {
                 UserId = user.Id,
                 Code = await UserManager.GeneratePasswordResetTokenAsync(user)
             });
         }
 
-        public async Task<Response> ResetPassword(ResetPasswordReq req)
+        public async Task<RespWapper> ResetPassword(ResetPasswordReq req)
         {
             var user = await _accountService.FindUserByIdAsync(req.UserId);
             if (user == null)
-                return Response.Failed(Errors.AccountNotFound);
+                return RespWapper.Failed(Errors.AccountNotFound);
 
             if (user.IsMuted)
-                return Response.Failed(Errors.AccountMuted);
+                return RespWapper.Failed(Errors.AccountMuted);
 
             var result = await UserManager.ResetPasswordAsync(user, req.Code, req.Password);
             return result.ToResponse();
         }
 
-        public async Task<Response> Authorize(LoginReq req)
+        public async Task<RespWapper> Authorize(LoginReq req)
         {
             var user = await UserManager.FindByEmailAsync(req.Email);
-            if (user == null)
-                return Response.Failed(Errors.EmailNotFound);
+            if (user.IsNull())
+                return RespWapper.Failed(Errors.EmailNotFound);
 
             if (user.IsMuted)
-                return Response.Failed(Errors.AccountMuted);
+                return RespWapper.Failed(Errors.AccountMuted);
 
             var result = await SignInManager.PasswordSignInAsync(req.Email, req.Password, req.RememberMe, true);
 
@@ -116,8 +116,8 @@ namespace EDoc2.FAQ.Core.Application.Accounts
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(ClaimTypes.Role, string.Join(',',user.UserRoles.Select(s=>s.Role.NormalizedName).ToArray())),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id),
                     new Claim(nameof(User.Nickname), user.Nickname),
-                    new Claim(nameof(User.Id), user.Id), 
                 };
 
                 var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSetting.Secret));
@@ -130,22 +130,22 @@ namespace EDoc2.FAQ.Core.Application.Accounts
                     credentials);
 
                 var handler = new JwtSecurityTokenHandler();
-                return Response<string>.Successed(handler.WriteToken(securityToken));
+                return RespWapper<string>.Successed(handler.WriteToken(securityToken));
             }
 
             return result.ToResponse();
         }
 
-        public async Task<Response> Logout()
+        public async Task<RespWapper> Logout()
         {
             if (CurrentUser.IsNull())
-                return Response.Failed(Errors.InvalidOperation);
+                return RespWapper.Failed(Errors.InvalidOperation);
 
             await SignInManager.SignOutAsync();
-            return Response.Successed();
+            return RespWapper.Successed();
         }
 
-        public async Task<Response<PagingDto<ListItem>>> Search(SearchReq req, bool skipAdmin = true)
+        public async Task<RespWapper<PagingDto<ListItem>>> Search(SearchReq req, bool skipAdmin = true)
         {
             var query = _accountService.GetUsers(skipAdmin);
 
@@ -163,55 +163,55 @@ namespace EDoc2.FAQ.Core.Application.Accounts
                 .Select(ListItem.From)
                 .ToList();
 
-            return Response<PagingDto<ListItem>>.Successed(new PagingDto<ListItem>
+            return RespWapper<PagingDto<ListItem>>.Successed(new PagingDto<ListItem>
             {
                 TotalCount = await query.CountAsync(),
                 Dtos = dtos
             });
         }
 
-        public async Task<Response> MuteUser(string userId)
+        public async Task<RespWapper> MuteUser(string userId)
         {
             var user = await _accountService.FindUserByIdAsync(userId);
             if (user.IsNull())
-                return Response.Failed(Errors.AccountNotFound);
+                return RespWapper.Failed(Errors.AccountNotFound);
 
             await _accountService.MuteUser(CurrentUser, user);
             await UnitOfWork.SaveChangesWithDispatchDomainEvents();
-            return Response.Successed();
+            return RespWapper.Successed();
         }
 
-        public async Task<Response> UnMuteUser(string userId)
+        public async Task<RespWapper> UnMuteUser(string userId)
         {
             var user = await _accountService.FindUserByIdAsync(userId);
             if (user.IsNull())
-                return Response.Failed(Errors.AccountNotFound);
+                return RespWapper.Failed(Errors.AccountNotFound);
 
             await _accountService.UnMuteUser(CurrentUser, user);
             await UnitOfWork.SaveChangesWithDispatchDomainEvents();
-            return Response.Successed();
+            return RespWapper.Successed();
         }
 
-        public async Task<Response> GetProfile(string userId = null)
+        public async Task<RespWapper> GetProfile(string userId = null)
         {
             var targetUser = userId.IsNullOrEmpty() ?
                 CurrentUser :
                 await _accountService.FindUserByIdAsync(userId);
 
             if (targetUser.IsNull())
-                return Response.Failed(Errors.AccountNotFound);
+                return RespWapper.Failed(Errors.AccountNotFound);
 
-            return Response<Profile>.Successed(Profile.From(targetUser));
+            return RespWapper<Profile>.Successed(Profile.From(targetUser));
         }
 
-        public async Task<Response> EditProfile(EditProfileReq req)
+        public async Task<RespWapper> EditProfile(EditProfileReq req)
         {
             if (CurrentUser == null || CurrentUser.Id.Equals(req.Id))
-                return Response.Failed(Errors.InvalidOperation);
+                return RespWapper.Failed(Errors.InvalidOperation);
 
             var user = await _accountService.FindUserByIdAsync(req.Id);
             if (user.IsNull())
-                return Response.Failed(Errors.AccountNotFound);
+                return RespWapper.Failed(Errors.AccountNotFound);
 
             user.Nickname = req.Nickname;
             user.Signature = req.Signature;
@@ -220,41 +220,41 @@ namespace EDoc2.FAQ.Core.Application.Accounts
 
             await _accountService.EditProfile(user);
             await UnitOfWork.SaveChangesWithDispatchDomainEvents();
-            return Response<Profile>.Successed(Profile.From(user));
+            return RespWapper<Profile>.Successed(Profile.From(user));
         }
 
-        public async Task<Response> Follow(string userId)
+        public async Task<RespWapper> Follow(string userId)
         {
             if (CurrentUser.Id.Equals(userId, StringComparison.OrdinalIgnoreCase))
-                return Response.Failed(Errors.InvalidOperation);
+                return RespWapper.Failed(Errors.InvalidOperation);
 
             var targetUser = await _accountService.FindUserByIdAsync(userId);
             if (targetUser.IsNull())
-                return Response.Failed(Errors.AccountNotFound);
+                return RespWapper.Failed(Errors.AccountNotFound);
 
             if (targetUser.IsAdministrator)
-                return Response.Failed(Errors.InvalidOperation);
+                return RespWapper.Failed(Errors.InvalidOperation);
 
             await _accountService.FollowUser(CurrentUser, targetUser);
             await UnitOfWork.SaveChangesWithDispatchDomainEvents();
-            return Response.Successed();
+            return RespWapper.Successed();
         }
 
-        public async Task<Response> UnFollow(string userId)
+        public async Task<RespWapper> UnFollow(string userId)
         {
             if (CurrentUser.Id.Equals(userId, StringComparison.OrdinalIgnoreCase))
-                return Response.Failed(Errors.InvalidOperation);
+                return RespWapper.Failed(Errors.InvalidOperation);
 
             var targetUser = await _accountService.FindUserByIdAsync(userId);
             if (targetUser.IsNull())
-                return Response.Failed(Errors.AccountNotFound);
+                return RespWapper.Failed(Errors.AccountNotFound);
 
             if (targetUser.IsAdministrator)
-                return Response.Failed(Errors.InvalidOperation);
+                return RespWapper.Failed(Errors.InvalidOperation);
 
             await _accountService.UnFollowUser(CurrentUser, targetUser);
             await UnitOfWork.SaveChangesWithDispatchDomainEvents();
-            return Response.Successed();
+            return RespWapper.Successed();
         }
     }
 }
