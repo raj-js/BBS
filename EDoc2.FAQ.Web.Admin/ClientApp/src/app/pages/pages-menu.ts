@@ -27,12 +27,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: "/pages/articles/list"
       },
       {
-        title: "文章审核",
+        title: "待审核文章",
         icon: "nb-edit",
         link: "/"
       },
       {
-        title: "评论审核",
+        title: "待审核评论",
         icon: "nb-edit",
         link: "/"
       }
@@ -48,7 +48,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: "/"
   },
   {
-    title: "消息管理",
+    title: "公告管理",
     icon: "nb-notifications",
     link: "/"
   },

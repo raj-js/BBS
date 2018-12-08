@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, ChangeDetectionStrategy } from '@angular/core';
 import { ServerDataSource } from 'ng2-smart-table';
 import { BoolRenderComponent } from '../../../@theme/components/renders/bool-render/bool-render.component';
 import { DateRenderComponent } from '../../../@theme/components/renders/date-render/date-render.component';
@@ -7,17 +7,21 @@ import { HttpClient } from '@angular/common/http';
 import { Apis } from '../../../@core/data/Config';
 import { AdminService } from '../../../@core/data/ApiProxy';
 import { NbToastrService } from '@nebular/theme';
+import { Filter } from '../../../@theme/components/filter/filter.component';
 
 @Component({
   selector: 'ngx-account-list',
   templateUrl: './account-list.component.html',
-  styleUrls: ['./account-list.component.scss']
+  styleUrls: ['./account-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 @Injectable({
   providedIn: 'root'
 })
 export class AccountListComponent {
   title: string = "会员管理";
+
+  revealed: boolean = false;
 
   settings = {
     selectMode: 'single',
@@ -43,12 +47,12 @@ export class AccountListComponent {
       nickname: {
         title: '昵称',
         type: 'string',
-        filter: true,
+        filter: false,
       },
       email: {
         title: '邮箱',
         type: 'string',
-        filter: true,
+        filter: false,
       },
       roleName: {
         title: '角色',
@@ -134,5 +138,60 @@ export class AccountListComponent {
         break;
       }
     }
+  }
+
+  toggle() {
+    this.revealed = !this.revealed;
+  }
+
+  filters: Filter[] = [
+    {
+      filed: "nickname",
+      title: "昵称",
+      type: "string",
+      enbale: false,
+      value: "",
+    },
+    {
+      filed: "email",
+      title: "邮箱",
+      type: "string",
+      enbale: false,
+      value: ""
+    },
+    {
+      filed: "emailConfirmed",
+      title: "邮箱是否确认",
+      type: "boolean",
+      enbale: false,
+      value: false
+    },
+    {
+      filed: "isMuted",
+      title: "是否屏蔽",
+      type: "boolean",
+      enbale: false,
+      value: false
+    }
+  ];
+
+  search() {
+    let mapFilters = this.filters
+    .filter((filter)=>{
+      return filter.enbale;
+    })
+    .map((filter)=>{
+      return {
+        field: filter.filed,
+        search: filter.value
+      };
+    });
+    this.source.setFilter(mapFilters);
+
+    this.toggle();
+  }
+
+  cancel() {
+    this.toggle();
   }
 }

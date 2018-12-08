@@ -9,6 +9,18 @@ namespace EDoc2.FAQ.Core.Application.Articles
     public interface IArticleAppService : IAppService
     {
         /// <summary>
+        /// 获取所有类型
+        /// </summary>
+        /// <returns></returns>
+        Task<RespWapper> GetArticleTypes();
+
+        /// <summary>
+        /// 获取所有状态
+        /// </summary>
+        /// <returns></returns>
+        Task<RespWapper> GetArticleStates();
+
+        /// <summary>
         /// 搜索文章
         /// </summary>
         /// <param name="req"></param>

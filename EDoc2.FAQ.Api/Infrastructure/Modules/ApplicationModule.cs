@@ -5,12 +5,16 @@ using EDoc2.FAQ.Core.Application.Mails;
 using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.Accounts.Services;
 using EDoc2.FAQ.Core.Domain.Articles;
+using EDoc2.FAQ.Core.Domain.Articles.Services;
 using EDoc2.FAQ.Core.Domain.Uow;
 using EDoc2.FAQ.Core.Infrastructure;
 using EDoc2.FAQ.Core.Infrastructure.Repositories;
 
 namespace EDoc2.FAQ.Api.Infrastructure.Modules
 {
+    /// <summary>
+    /// 应用程序
+    /// </summary>
     public class ApplicationModule : Module
     {
         protected override void Load(ContainerBuilder b)
@@ -32,6 +36,7 @@ namespace EDoc2.FAQ.Api.Infrastructure.Modules
             #region 领域服务
 
             b.RegisterType<AccountService>().PropertiesAutowired().As<IAccountService>().InstancePerLifetimeScope();
+            b.RegisterType<ArticleService>().PropertiesAutowired().As<IArticleService>().InstancePerLifetimeScope();
 
             #endregion
 

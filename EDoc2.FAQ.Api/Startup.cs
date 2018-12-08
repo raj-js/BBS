@@ -135,7 +135,7 @@ namespace EDoc2.FAQ.Api
 
             //services.ConfigureApplicationCookie(options =>
             //{
-            //    options.Cookie.Name = "EDoc2.FAQ.Community";
+            //    options.Cookie.Title = "EDoc2.FAQ.Community";
             //    options.Cookie.HttpOnly = true;
 
             //    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);

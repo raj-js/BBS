@@ -128,6 +128,31 @@
             文章管理
             </summary>
         </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.#ctor(EDoc2.FAQ.Core.Application.Articles.IArticleAppService)">
+            <summary>
+            构造器
+            </summary>
+            <param name="articleAppService"></param>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.GetTypes">
+            <summary>
+            获取所有文章类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.GetStates">
+            <summary>
+            获取所有文章状态
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.Search(EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos.SearchReq)">
+            <summary>
+            搜索文章
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
         <member name="T:EDoc2.FAQ.Api.Controllers.AuthorizeController">
             <summary>
             Token 
@@ -175,6 +200,11 @@
             使用异常处理中间件
             </summary>
             <param name="builder"></param>
+        </member>
+        <member name="T:EDoc2.FAQ.Api.Infrastructure.Modules.ApplicationModule">
+            <summary>
+            应用程序
+            </summary>
         </member>
     </members>
 </doc>

@@ -9,7 +9,8 @@ export const Apis = {
     ResetPass: "/Account/reset",
     AccessToken: "",
     AccessTokenName: "access_token",
-    SearchUsers: API_BASE_URL.toString() + "/Admin/searchUsers"
+    SearchUsers: API_BASE_URL.toString() + "/Admin/searchUsers",
+    SearchArticles: API_BASE_URL.toString() + "/Article/search",
 };
 
 export const Roles = {

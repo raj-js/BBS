@@ -28,14 +28,14 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             /// <summary>
             /// 状态编号
             /// </summary>
-            public int? StateId { get; set; }
+            public int? State { get; set; }
 
             /// <summary>
             /// 类别编号
             /// </summary>
-            public int? TypeId { get; set; }
+            public int? Type { get; set; }
 
-            public string OrderBy { get; set; } = "Id";
+            public string OrderBy { get; set; } = "CreationTime";
 
             public bool IsAscending { get; set; }
 
@@ -236,6 +236,13 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
 
         #region Response
 
+        public class ValueTitlePair<TKey>
+        {
+            public TKey Value { get; set; }
+
+            public string Title { get; set; }
+        }
+
         public class ListItem : EntityDto<Guid>
         {
             /// <summary>
@@ -244,39 +251,19 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             public string Title { get; set; }
 
             /// <summary>
-            /// 摘要
-            /// </summary>
-            public string Summary { get; set; }
-
-            /// <summary>
             /// 关键词
             /// </summary>
             public string Keywords { get; set; }
 
             /// <summary>
-            /// 状态编号
+            /// 状态
             /// </summary>
-            public int StateId { get; set; }
+            public string State { get; set; }
 
             /// <summary>
-            /// 状态描述
+            /// 类别
             /// </summary>
-            public string StateName { get; set; }
-
-            /// <summary>
-            /// 类别编号
-            /// </summary>
-            public int TypeId { get; set; }
-
-            /// <summary>
-            /// 类别描述
-            /// </summary>
-            public string TypeName { get; set; }
-
-            /// <summary>
-            /// 是否能评论
-            /// </summary>
-            public bool CanComment { get; set; }
+            public string Type { get; set; }
 
             /// <summary>
             /// 赞
@@ -291,22 +278,28 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             /// <summary>
             /// 访问量
             /// </summary>
-            public int PV { get; set; }
-
-            /// <summary>
-            /// 悬赏分
-            /// </summary>
-            public int RewardScore { get; set; }
-
-            /// <summary>
-            /// 创建人编号
-            /// </summary>
-            public string CreatorId { get; set; }
+            public int Pv { get; set; }
 
             /// <summary>
             /// 创建时间
             /// </summary>
             public DateTime CreationTime { get; set; }
+
+            public static ListItem From(Article article)
+            {
+                return new ListItem
+                {
+                    Id = article.Id,
+                    Title = article.Title,
+                    Keywords = article.Keywords,
+                    State = article.State.Name,
+                    Type = article.Type.Name,
+                    Likes = article.GetLikes(),
+                    Dislikes = article.GetDislikes(),
+                    Pv = article.GetPv(),
+                    CreationTime = article.CreationTime
+                };
+            }
         }
 
         public class Details : EntityDto<Guid>

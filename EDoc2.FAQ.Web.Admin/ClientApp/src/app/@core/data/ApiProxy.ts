@@ -749,7 +749,7 @@ export class AdminService extends BaseClient {
         };
 
         return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
-            return this.http.request("post", url_, transformedOptions_);
+            return this.http.request("put", url_, transformedOptions_);
         })).pipe(_observableMergeMap((response_: any) => {
             return this.processMuteUser(response_);
         })).pipe(_observableCatch((response_: any) => {
@@ -865,8 +865,147 @@ export class ArticleService extends BaseClient {
         this.baseUrl = baseUrl ? baseUrl : "http://localhost:5000";
     }
 
-    search(): Observable<ApiResponse<FileResponse | null>> {
-        let url_ = this.baseUrl + "/api/v1/Article/search";
+    /**
+     * 获取所有文章类型
+     */
+    types(): Observable<ApiResponse<RespWapperOfListOfValueTitlePairOfInt32 | null>> {
+        let url_ = this.baseUrl + "/api/v1/Article/types";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("get", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
+            return this.processTypes(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processTypes(<any>response_);
+                } catch (e) {
+                    return <Observable<ApiResponse<RespWapperOfListOfValueTitlePairOfInt32 | null>>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ApiResponse<RespWapperOfListOfValueTitlePairOfInt32 | null>>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processTypes(response: HttpResponseBase): Observable<ApiResponse<RespWapperOfListOfValueTitlePairOfInt32 | null>> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? RespWapperOfListOfValueTitlePairOfInt32.fromJS(resultData200) : <any>null;
+            return _observableOf(new ApiResponse(status, _headers, result200));
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ApiResponse<RespWapperOfListOfValueTitlePairOfInt32 | null>>(new ApiResponse(status, _headers, <any>null));
+    }
+
+    /**
+     * 获取所有文章状态
+     */
+    states(): Observable<ApiResponse<RespWapperOfListOfValueTitlePairOfInt32 | null>> {
+        let url_ = this.baseUrl + "/api/v1/Article/states";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return _observableFrom(this.transformOptions(options_)).pipe(_observableMergeMap(transformedOptions_ => {
+            return this.http.request("get", url_, transformedOptions_);
+        })).pipe(_observableMergeMap((response_: any) => {
+            return this.processStates(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processStates(<any>response_);
+                } catch (e) {
+                    return <Observable<ApiResponse<RespWapperOfListOfValueTitlePairOfInt32 | null>>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ApiResponse<RespWapperOfListOfValueTitlePairOfInt32 | null>>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processStates(response: HttpResponseBase): Observable<ApiResponse<RespWapperOfListOfValueTitlePairOfInt32 | null>> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? RespWapperOfListOfValueTitlePairOfInt32.fromJS(resultData200) : <any>null;
+            return _observableOf(new ApiResponse(status, _headers, result200));
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ApiResponse<RespWapperOfListOfValueTitlePairOfInt32 | null>>(new ApiResponse(status, _headers, <any>null));
+    }
+
+    /**
+     * 搜索文章
+     * @param title (optional) 
+     * @param keywords (optional) 
+     * @param state (optional) 
+     * @param type (optional) 
+     * @param orderBy (optional) 
+     * @param isAscending (optional) 
+     * @param pageIndex (optional) 
+     * @param pageSize (optional) 
+     */
+    search(title?: string | null | undefined, keywords?: string | null | undefined, state?: number | null | undefined, type?: number | null | undefined, orderBy?: string | null | undefined, isAscending?: boolean | undefined, pageIndex?: number | undefined, pageSize?: number | undefined): Observable<ApiResponse<RespWapperOfPagingDtoOfListItem2 | null>> {
+        let url_ = this.baseUrl + "/api/v1/Article/search?";
+        if (title !== undefined)
+            url_ += "Title=" + encodeURIComponent("" + title) + "&"; 
+        if (keywords !== undefined)
+            url_ += "Keywords=" + encodeURIComponent("" + keywords) + "&"; 
+        if (state !== undefined)
+            url_ += "State=" + encodeURIComponent("" + state) + "&"; 
+        if (type !== undefined)
+            url_ += "Type=" + encodeURIComponent("" + type) + "&"; 
+        if (orderBy !== undefined)
+            url_ += "OrderBy=" + encodeURIComponent("" + orderBy) + "&"; 
+        if (isAscending === null)
+            throw new Error("The parameter 'isAscending' cannot be null.");
+        else if (isAscending !== undefined)
+            url_ += "IsAscending=" + encodeURIComponent("" + isAscending) + "&"; 
+        if (pageIndex === null)
+            throw new Error("The parameter 'pageIndex' cannot be null.");
+        else if (pageIndex !== undefined)
+            url_ += "PageIndex=" + encodeURIComponent("" + pageIndex) + "&"; 
+        if (pageSize === null)
+            throw new Error("The parameter 'pageSize' cannot be null.");
+        else if (pageSize !== undefined)
+            url_ += "PageSize=" + encodeURIComponent("" + pageSize) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -886,31 +1025,37 @@ export class ArticleService extends BaseClient {
                 try {
                     return this.processSearch(<any>response_);
                 } catch (e) {
-                    return <Observable<ApiResponse<FileResponse | null>>><any>_observableThrow(e);
+                    return <Observable<ApiResponse<RespWapperOfPagingDtoOfListItem2 | null>>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<ApiResponse<FileResponse | null>>><any>_observableThrow(response_);
+                return <Observable<ApiResponse<RespWapperOfPagingDtoOfListItem2 | null>>><any>_observableThrow(response_);
         }));
     }
 
-    protected processSearch(response: HttpResponseBase): Observable<ApiResponse<FileResponse | null>> {
+    protected processSearch(response: HttpResponseBase): Observable<ApiResponse<RespWapperOfPagingDtoOfListItem2 | null>> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            return _observableOf(new ApiResponse(status, _headers, { fileName: fileName, data: <any>responseBlob, status: status, headers: _headers }));
+        if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("A server error occurred.", status, _responseText, _headers);
+            }));
+        } else if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? RespWapperOfPagingDtoOfListItem2.fromJS(resultData200) : <any>null;
+            return _observableOf(new ApiResponse(status, _headers, result200));
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ApiResponse<FileResponse | null>>(new ApiResponse(status, _headers, <any>null));
+        return _observableOf<ApiResponse<RespWapperOfPagingDtoOfListItem2 | null>>(new ApiResponse(status, _headers, <any>null));
     }
 }
 
@@ -1682,6 +1827,307 @@ export interface IListItem extends IEntityDtoOfString {
     emailConfirmed: boolean;
     joinDate: Date;
     isMuted: boolean;
+}
+
+export class RespWapperOfListOfValueTitlePairOfInt32 extends RespWapper implements IRespWapperOfListOfValueTitlePairOfInt32 {
+    body?: ValueTitlePairOfInt32[] | undefined;
+
+    constructor(data?: IRespWapperOfListOfValueTitlePairOfInt32) {
+        super(data);
+    }
+
+    init(data?: any) {
+        super.init(data);
+        if (data) {
+            if (data["body"] && data["body"].constructor === Array) {
+                this.body = [];
+                for (let item of data["body"])
+                    this.body.push(ValueTitlePairOfInt32.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): RespWapperOfListOfValueTitlePairOfInt32 {
+        data = typeof data === 'object' ? data : {};
+        let result = new RespWapperOfListOfValueTitlePairOfInt32();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.body && this.body.constructor === Array) {
+            data["body"] = [];
+            for (let item of this.body)
+                data["body"].push(item.toJSON());
+        }
+        super.toJSON(data);
+        return data; 
+    }
+
+    clone(): RespWapperOfListOfValueTitlePairOfInt32 {
+        const json = this.toJSON();
+        let result = new RespWapperOfListOfValueTitlePairOfInt32();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IRespWapperOfListOfValueTitlePairOfInt32 extends IRespWapper {
+    body?: IValueTitlePairOfInt32[] | undefined;
+}
+
+export class ValueTitlePairOfInt32 implements IValueTitlePairOfInt32 {
+    value!: number;
+    title?: string | undefined;
+
+    constructor(data?: IValueTitlePairOfInt32) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.value = data["value"];
+            this.title = data["title"];
+        }
+    }
+
+    static fromJS(data: any): ValueTitlePairOfInt32 {
+        data = typeof data === 'object' ? data : {};
+        let result = new ValueTitlePairOfInt32();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["value"] = this.value;
+        data["title"] = this.title;
+        return data; 
+    }
+
+    clone(): ValueTitlePairOfInt32 {
+        const json = this.toJSON();
+        let result = new ValueTitlePairOfInt32();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IValueTitlePairOfInt32 {
+    value: number;
+    title?: string | undefined;
+}
+
+export class RespWapperOfPagingDtoOfListItem2 extends RespWapper implements IRespWapperOfPagingDtoOfListItem2 {
+    body?: PagingDtoOfListItem2 | undefined;
+
+    constructor(data?: IRespWapperOfPagingDtoOfListItem2) {
+        super(data);
+    }
+
+    init(data?: any) {
+        super.init(data);
+        if (data) {
+            this.body = data["body"] ? PagingDtoOfListItem2.fromJS(data["body"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): RespWapperOfPagingDtoOfListItem2 {
+        data = typeof data === 'object' ? data : {};
+        let result = new RespWapperOfPagingDtoOfListItem2();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["body"] = this.body ? this.body.toJSON() : <any>undefined;
+        super.toJSON(data);
+        return data; 
+    }
+
+    clone(): RespWapperOfPagingDtoOfListItem2 {
+        const json = this.toJSON();
+        let result = new RespWapperOfPagingDtoOfListItem2();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IRespWapperOfPagingDtoOfListItem2 extends IRespWapper {
+    body?: IPagingDtoOfListItem2 | undefined;
+}
+
+export class PagingDtoOfListItem2 implements IPagingDtoOfListItem2 {
+    totalCount!: number;
+    dtos?: ListItem2[] | undefined;
+
+    constructor(data?: IPagingDtoOfListItem2) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["dtos"] && data["dtos"].constructor === Array) {
+                this.dtos = [];
+                for (let item of data["dtos"])
+                    this.dtos.push(ListItem2.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagingDtoOfListItem2 {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagingDtoOfListItem2();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.dtos && this.dtos.constructor === Array) {
+            data["dtos"] = [];
+            for (let item of this.dtos)
+                data["dtos"].push(item.toJSON());
+        }
+        return data; 
+    }
+
+    clone(): PagingDtoOfListItem2 {
+        const json = this.toJSON();
+        let result = new PagingDtoOfListItem2();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IPagingDtoOfListItem2 {
+    totalCount: number;
+    dtos?: ListItem2[] | undefined;
+}
+
+export class EntityDtoOfGuid implements IEntityDtoOfGuid {
+    id!: string;
+
+    constructor(data?: IEntityDtoOfGuid) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): EntityDtoOfGuid {
+        data = typeof data === 'object' ? data : {};
+        let result = new EntityDtoOfGuid();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        return data; 
+    }
+
+    clone(): EntityDtoOfGuid {
+        const json = this.toJSON();
+        let result = new EntityDtoOfGuid();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IEntityDtoOfGuid {
+    id: string;
+}
+
+export class ListItem2 extends EntityDtoOfGuid implements IListItem2 {
+    title?: string | undefined;
+    keywords?: string | undefined;
+    state?: string | undefined;
+    type?: string | undefined;
+    likes!: number;
+    dislikes!: number;
+    pv!: number;
+    creationTime!: Date;
+
+    constructor(data?: IListItem2) {
+        super(data);
+    }
+
+    init(data?: any) {
+        super.init(data);
+        if (data) {
+            this.title = data["title"];
+            this.keywords = data["keywords"];
+            this.state = data["state"];
+            this.type = data["type"];
+            this.likes = data["likes"];
+            this.dislikes = data["dislikes"];
+            this.pv = data["pv"];
+            this.creationTime = data["creationTime"] ? new Date(data["creationTime"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ListItem2 {
+        data = typeof data === 'object' ? data : {};
+        let result = new ListItem2();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["title"] = this.title;
+        data["keywords"] = this.keywords;
+        data["state"] = this.state;
+        data["type"] = this.type;
+        data["likes"] = this.likes;
+        data["dislikes"] = this.dislikes;
+        data["pv"] = this.pv;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        super.toJSON(data);
+        return data; 
+    }
+
+    clone(): ListItem2 {
+        const json = this.toJSON();
+        let result = new ListItem2();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IListItem2 extends IEntityDtoOfGuid {
+    title?: string | undefined;
+    keywords?: string | undefined;
+    state?: string | undefined;
+    type?: string | undefined;
+    likes: number;
+    dislikes: number;
+    pv: number;
+    creationTime: Date;
 }
 
 export class RespWapperOfString extends RespWapper implements IRespWapperOfString {

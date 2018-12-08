@@ -54,7 +54,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost("muteUser")]
+        [HttpPut("muteUser")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper))]
         public async Task<IActionResult> MuteUser([FromQuery]string id)
