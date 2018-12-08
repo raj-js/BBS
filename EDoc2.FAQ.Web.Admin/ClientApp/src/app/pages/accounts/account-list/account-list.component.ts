@@ -6,6 +6,7 @@ import { ServerSourceConf } from 'ng2-smart-table/lib/data-source/server/server-
 import { HttpClient } from '@angular/common/http';
 import { Apis } from '../../../@core/data/Config';
 import { AdminService } from '../../../@core/data/ApiProxy';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-account-list',
@@ -82,7 +83,8 @@ export class AccountListComponent {
   source: ServerDataSource;
 
   constructor(private http: HttpClient, 
-    private adminService: AdminService) {
+    private adminService: AdminService,
+    private toastrService: NbToastrService) {
     
       this.conf.endPoint = `${Apis.SearchUsers}?${Apis.AccessTokenName}=${Apis.AccessToken}`;
       this.conf.sortFieldKey = "OrderBy";
@@ -100,12 +102,35 @@ export class AccountListComponent {
       case "mute":{
         this.adminService.muteUser(event.data.id)
         .subscribe(resp=>{
-          console.log(resp);
+          if(resp.status == 200){
+            if(resp.result.success){
+              this.toastrService.success("操作成功！", "屏蔽", { icon: "nb-volume-mute" });
+              this.source.refresh();
+            }else{
+              this.toastrService.danger(`${resp.result.errors}`, { icon: "nb-volume-mute" });
+            }
+          }else{
+            this.toastrService.danger("操作异常！", `${resp.status}`, { icon: "nb-volume-mute" });
+          }
         });
         break;
       }
       case "unmute":{
-        alert("取消屏蔽");
+        this.adminService.unmuteUser(event.data.id)
+        .subscribe(resp=>{
+          if(resp.status == 200){
+            if(resp.status == 200){
+              if(resp.result.success){
+                this.toastrService.success("操作成功！", "取消屏蔽", { icon: "nb-volume-high" });
+                this.source.refresh();
+              }else{
+                this.toastrService.danger(`${resp.result.errors}`, "取消屏蔽", { icon: "nb-volume-high" });
+              }
+            }else{
+              this.toastrService.danger("操作异常！", `${resp.status}`, { icon: "nb-volume-high" });
+            }
+          }
+        });
         break;
       }
     }

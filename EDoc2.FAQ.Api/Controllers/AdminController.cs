@@ -71,27 +71,14 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPut("unmuteUser")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper))]
         public async Task<IActionResult> UnMuteUser([FromQuery]string id)
         {
             if (id.IsNullOrEmpty()) return NotFound();
 
             var response = await _accountAppService.UnMuteUser(id);
             return Ok(response);
-        }
-
-        /// <summary>
-        /// 授权为版主
-        /// </summary>
-        /// <param name="req"></param>
-        /// <returns></returns>
-        [HttpPut("grantModerator")]
-        public async Task<IActionResult> GrantModertor([FromBody]GrantModeratorReq req)
-        {
-            if (!ModelState.IsValid) return BadRequest();
-
-            await Task.CompletedTask;
-
-            return Ok();
         }
     }
 }

@@ -123,31 +123,24 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:EDoc2.FAQ.Api.Controllers.AdminController.GrantModertor(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.GrantModeratorReq)">
-            <summary>
-            授权为版主
-            </summary>
-            <param name="req"></param>
-            <returns></returns>
-        </member>
         <member name="T:EDoc2.FAQ.Api.Controllers.ArticleController">
             <summary>
             文章管理
             </summary>
         </member>
-        <member name="T:EDoc2.FAQ.Api.Controllers.TokenController">
+        <member name="T:EDoc2.FAQ.Api.Controllers.AuthorizeController">
             <summary>
             Token 
             </summary>
         </member>
-        <member name="M:EDoc2.FAQ.Api.Controllers.TokenController.#ctor(Microsoft.Extensions.Options.IOptions{EDoc2.FAQ.Core.Application.Settings.JwtSetting},EDoc2.FAQ.Core.Application.Accounts.IAccountAppService)">
+        <member name="M:EDoc2.FAQ.Api.Controllers.AuthorizeController.#ctor(Microsoft.Extensions.Options.IOptions{EDoc2.FAQ.Core.Application.Settings.JwtSetting},EDoc2.FAQ.Core.Application.Accounts.IAccountAppService)">
             <summary>
             构造器
             </summary>
             <param name="jwtOptions"></param>
             <param name="accountAppService"></param>
         </member>
-        <member name="M:EDoc2.FAQ.Api.Controllers.TokenController.Token(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.LoginReq)">
+        <member name="M:EDoc2.FAQ.Api.Controllers.AuthorizeController.Token(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.LoginReq)">
             <summary>
             身份校验获取Token
             </summary>

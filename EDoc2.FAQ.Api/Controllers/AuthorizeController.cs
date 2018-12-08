@@ -14,7 +14,7 @@ namespace EDoc2.FAQ.Api.Controllers
     /// </summary>
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class TokenController : ControllerBase
+    public class AuthorizeController : ControllerBase
     {
         private readonly IAccountAppService _accountAppService;
 
@@ -23,7 +23,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// </summary>
         /// <param name="jwtOptions"></param>
         /// <param name="accountAppService"></param>
-        public TokenController(IOptions<JwtSetting> jwtOptions,
+        public AuthorizeController(IOptions<JwtSetting> jwtOptions,
             IAccountAppService accountAppService)
         {
             _accountAppService = accountAppService;
@@ -34,7 +34,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("token")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<string>))]
         public async Task<IActionResult> Token([FromBody]LoginReq req)

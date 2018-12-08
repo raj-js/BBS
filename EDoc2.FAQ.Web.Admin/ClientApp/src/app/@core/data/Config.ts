@@ -2,7 +2,7 @@ const API_BASE_URL = "http://localhost:5000/api/v1";
 
 export const Apis = {
     Endpoint: API_BASE_URL.toString(),
-    Authorize: "/Token",
+    Authorize: "/Authorize/token",
     Register: "/Account/register",
     Logout: "/Account/logout",
     ForgetPass: "/Account/forget",
