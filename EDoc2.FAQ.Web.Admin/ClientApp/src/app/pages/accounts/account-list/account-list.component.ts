@@ -81,60 +81,60 @@ export class AccountListComponent {
     pager: {
       perPage: 15
     }
-  }; 
+  };
 
   conf: ServerSourceConf = new ServerSourceConf();
   source: ServerDataSource;
 
-  constructor(private http: HttpClient, 
+  constructor(private http: HttpClient,
     private adminService: AdminService,
     private toastrService: NbToastrService) {
-    
-      this.conf.endPoint = `${Apis.SearchUsers}?${Apis.AccessTokenName}=${Apis.AccessToken}`;
-      this.conf.sortFieldKey = "OrderBy";
-      this.conf.pagerPageKey = "PageIndex";
-      this.conf.pagerLimitKey = "PageSize";
-      this.conf.filterFieldKey = "#field#";
-      this.conf.totalKey = "body.totalCount";
-      this.conf.dataKey = "body.dtos";
 
-      this.source = new ServerDataSource(this.http, this.conf);
+    this.conf.endPoint = `${Apis.SearchUsers}?${Apis.AccessTokenName}=${Apis.AccessToken}`;
+    this.conf.sortFieldKey = "OrderBy";
+    this.conf.pagerPageKey = "PageIndex";
+    this.conf.pagerLimitKey = "PageSize";
+    this.conf.filterFieldKey = "#field#";
+    this.conf.totalKey = "body.totalCount";
+    this.conf.dataKey = "body.dtos";
+
+    this.source = new ServerDataSource(this.http, this.conf);
   }
 
   onCustom(event) {
-    switch(event.action){
-      case "mute":{
+    switch (event.action) {
+      case "mute": {
         this.adminService.muteUser(event.data.id)
-        .subscribe(resp=>{
-          if(resp.status == 200){
-            if(resp.result.success){
-              this.toastrService.success("操作成功！", "屏蔽", { icon: "nb-volume-mute" });
-              this.source.refresh();
-            }else{
-              this.toastrService.danger(`${resp.result.errors}`, { icon: "nb-volume-mute" });
+          .subscribe(resp => {
+            if (resp.status == 200) {
+              if (resp.result.success) {
+                this.toastrService.success("操作成功！", "屏蔽", { icon: "nb-volume-mute" });
+                this.source.refresh();
+              } else {
+                this.toastrService.danger(`${resp.result.errors}`, { icon: "nb-volume-mute" });
+              }
+            } else {
+              this.toastrService.danger("操作异常！", `${resp.status}`, { icon: "nb-volume-mute" });
             }
-          }else{
-            this.toastrService.danger("操作异常！", `${resp.status}`, { icon: "nb-volume-mute" });
-          }
-        });
+          });
         break;
       }
-      case "unmute":{
+      case "unmute": {
         this.adminService.unmuteUser(event.data.id)
-        .subscribe(resp=>{
-          if(resp.status == 200){
-            if(resp.status == 200){
-              if(resp.result.success){
-                this.toastrService.success("操作成功！", "取消屏蔽", { icon: "nb-volume-high" });
-                this.source.refresh();
-              }else{
-                this.toastrService.danger(`${resp.result.errors}`, "取消屏蔽", { icon: "nb-volume-high" });
+          .subscribe(resp => {
+            if (resp.status == 200) {
+              if (resp.status == 200) {
+                if (resp.result.success) {
+                  this.toastrService.success("操作成功！", "取消屏蔽", { icon: "nb-volume-high" });
+                  this.source.refresh();
+                } else {
+                  this.toastrService.danger(`${resp.result.errors}`, "取消屏蔽", { icon: "nb-volume-high" });
+                }
+              } else {
+                this.toastrService.danger("操作异常！", `${resp.status}`, { icon: "nb-volume-high" });
               }
-            }else{
-              this.toastrService.danger("操作异常！", `${resp.status}`, { icon: "nb-volume-high" });
             }
-          }
-        });
+          });
         break;
       }
     }
@@ -145,47 +145,16 @@ export class AccountListComponent {
   }
 
   filters: Filter[] = [
-    {
-      filed: "nickname",
-      title: "昵称",
-      type: "string",
-      enbale: false,
-      value: "",
-    },
-    {
-      filed: "email",
-      title: "邮箱",
-      type: "string",
-      enbale: false,
-      value: ""
-    },
-    {
-      filed: "emailConfirmed",
-      title: "邮箱是否确认",
-      type: "boolean",
-      enbale: false,
-      value: false
-    },
-    {
-      filed: "isMuted",
-      title: "是否屏蔽",
-      type: "boolean",
-      enbale: false,
-      value: false
-    }
+    new Filter("nickname", "昵称", "string", false, "", undefined),
+    new Filter("email", "邮箱", "string", false, "", undefined),
+    new Filter("emailConfirmed", "邮箱是否确认", "string", false, "", undefined),
+    new Filter("isMuted", "是否屏蔽", "string", false, "", undefined),
   ];
 
   search() {
     let mapFilters = this.filters
-    .filter((filter)=>{
-      return filter.enbale;
-    })
-    .map((filter)=>{
-      return {
-        field: filter.filed,
-        search: filter.value
-      };
-    });
+      .filter(filter => filter.enbale)
+      .map(filter => filter.toTableFilter());
     this.source.setFilter(mapFilters);
 
     this.toggle();

@@ -1,14 +1,19 @@
 <div class="row">
   <div class="col-sm-6" *ngFor="let filter of filters">
     <div class="form-group">
-      <nb-checkbox [(ngModel)]="filter.enbale" status="success" class="col-sm-3">启用[{{filter.title}}]过滤</nb-checkbox>
+      <nb-checkbox [(ngModel)]="filter.enbale" status="success" class="col-sm-3">启用 【{{filter.title}}】 过滤</nb-checkbox>
       <span [ngSwitch]="filter.type">
         <p *ngSwitchCase="'string'">
-          <input type="text" class="form-control" nbInput [(ngModel)]="filter.value" [placeholder]="filter.title">
+          <input type="text" class="form-control" [(ngModel)]="filter.value" [placeholder]="filter.title">
         </p>
         <p *ngSwitchCase="'boolean'">
           <nb-checkbox [(ngModel)]="filter.value" status="success" class="form-control">
           </nb-checkbox>
+        </p>
+        <p *ngSwitchCase="'list'">
+            <nb-select outline placeholder="{{filter.title}}" [(ngModel)]="filter.value" status="success">
+              <nb-option *ngFor="let option of filter.list" [value]="option.value">{{option.title}}</nb-option>
+            </nb-select>
         </p>
         <p *ngSwitchDefault>
           无对应控件类型
