@@ -18,5 +18,8 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         Task<UserSubscriber> UpdateSubscriber(UserSubscriber subscriber);
         Task<UserProperty> AddProperty(UserProperty property);
         Task<UserProperty> UpdateProperty(UserProperty property);
+
+        Task AddScoreChange(ScoreChange change);
+        IQueryable<ScoreChange> GetScoreChanges();
     }
 }

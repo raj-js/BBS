@@ -10,12 +10,14 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         public static ArticleOperationType Like = new ArticleOperationType(1, "赞");
         public static ArticleOperationType Dislike = new ArticleOperationType(2, "踩");
         public static ArticleOperationType Report = new ArticleOperationType(3, "举报");
+        public static ArticleOperationType View = new ArticleOperationType(4, "查看");
+        public static ArticleOperationType Delete = new ArticleOperationType(5, "删除");
 
         public ArticleOperationType() { }
 
         public ArticleOperationType(int id, string name) : base(id, name) { }
 
-        public static IEnumerable<ArticleOperationType> List() => new[] { Like, Dislike, Report };
+        public static IEnumerable<ArticleOperationType> List() => new[] { Like, Dislike, Report, View, Delete };
 
         public static ArticleOperationType FromName(string name)
         {

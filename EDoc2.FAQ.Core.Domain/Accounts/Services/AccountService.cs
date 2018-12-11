@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Domain.Exceptions;
 
 namespace EDoc2.FAQ.Core.Domain.Accounts.Services
 {
@@ -56,15 +57,13 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
                 return result;
 
             user.Initialize();
-            await _accountRepo.UpdateUserAsync(user);
-
             if (isSetAdmin)
             {
                 if (!allowMultipleAdmin)
                 {
                     var exists = _accountRepo
                         .GetUsers()
-                        .Any(s => s.UserRoles.All(r => r.RoleId != Role.Administrator.Id));
+                        .Any(s => s.Id != user.Id && s.UserRoles.All(r => r.RoleId != Role.Administrator.Id));
 
                     result = exists ?
                         IdentityResult.Failed(new IdentityError
@@ -168,6 +167,41 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
         {
             @operator.RemoveFavorite(article.Id);
             await Task.CompletedTask;
+        }
+
+        public async Task PlusScore(User targetUser, int score, ScoreChangeReason reason)
+        {
+            var scoreChange = new ScoreChange
+            {
+                UserId = targetUser.Id,
+                Reason = reason,
+                OriginScore = targetUser.Score,
+                ChangeScore = score,
+                FinalScore = targetUser.Score + score
+            };
+            await _accountRepo.AddScoreChange(scoreChange);
+
+            var scoreProperty = targetUser.GetOrSetProperty(UserProperty.Score, scoreChange.FinalScore);
+            await _accountRepo.UpdateProperty(scoreProperty);
+        }
+
+        public async Task MinuScore(User targetUser, int score, ScoreChangeReason reason)
+        {
+            if(!targetUser.HasEnoughScore(score))
+                throw new ScoreNotEnoughException(targetUser.Id, targetUser.Score, score);
+
+            var scoreChange = new ScoreChange
+            {
+                UserId = targetUser.Id,
+                Reason = reason,
+                OriginScore = targetUser.Score,
+                ChangeScore = score * -1,
+                FinalScore = targetUser.Score - score
+            };
+            await _accountRepo.AddScoreChange(scoreChange);
+
+            var scoreProperty = targetUser.GetOrSetProperty(UserProperty.Score, scoreChange.FinalScore);
+            await _accountRepo.UpdateProperty(scoreProperty);
         }
     }
 }

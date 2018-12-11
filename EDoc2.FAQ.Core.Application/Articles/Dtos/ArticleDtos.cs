@@ -294,9 +294,9 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
                     Keywords = article.Keywords,
                     State = article.State.Name,
                     Type = article.Type.Name,
-                    Likes = article.GetLikes(),
-                    Dislikes = article.GetDislikes(),
-                    Pv = article.GetPv(),
+                    Likes = article.Likes,
+                    Dislikes = article.Dislikes,
+                    Pv = article.Pv,
                     CreationTime = article.CreationTime
                 };
             }
@@ -384,18 +384,18 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             /// </summary>
             public DateTime CreationTime { get; set; }
 
-            public static Details FromEntity(Article article)
+            public static Details From(Article article)
             {
                 var dto = Mapper.Map<Article, Details>(article);
                 dto.StateId = article.State.Id;
                 dto.StateName = article.State.Name;
                 dto.TypeId = article.Type.Id;
                 dto.TypeName = article.Type.Name;
-                dto.Likes = article.GetLikes();
-                dto.Dislikes = article.GetDislikes();
-                dto.PV = article.GetPv();
-                dto.RewardScore = article.GetRewardScore();
-                dto.AdoptCommentId = article.GetAdoptCommentId();
+                dto.Likes = article.Likes;
+                dto.Dislikes = article.Dislikes;
+                dto.PV = article.Pv;
+                dto.RewardScore = article.Score;
+                dto.AdoptCommentId = article.AdoptCommentId;
                 return dto;
             }
         }

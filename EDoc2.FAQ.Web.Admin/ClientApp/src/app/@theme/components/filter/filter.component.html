@@ -4,7 +4,7 @@
       <nb-checkbox [(ngModel)]="filter.enbale" status="success" class="col-sm-3">启用 【{{filter.title}}】 过滤</nb-checkbox>
       <span [ngSwitch]="filter.type">
         <p *ngSwitchCase="'string'">
-          <input type="text" class="form-control" [(ngModel)]="filter.value" [placeholder]="filter.title">
+          <input type="text" class="form-control" status="success" [(ngModel)]="filter.value" [placeholder]="filter.title">
         </p>
         <p *ngSwitchCase="'boolean'">
           <nb-checkbox [(ngModel)]="filter.value" status="success" class="form-control">
@@ -15,6 +15,10 @@
               <nb-option *ngFor="let option of filter.list" [value]="option.value">{{option.title}}</nb-option>
             </nb-select>
         </p>
+        <p *ngSwitchCase="'daterange'">
+            <nb-checkbox [(ngModel)]="filter.value" status="success" class="form-control">
+            </nb-checkbox>
+          </p>
         <p *ngSwitchDefault>
           无对应控件类型
         </p>

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Articles
 {
-    public class ArticleOperationSourceTypeEntityTypeConfiguration : IEntityTypeConfiguration<ArticleOperationSourceType>
+    public class ArticleOperationSourceTypeEntityTypeConfiguration : IEntityTypeConfiguration<ArticleOperationTargetType>
     {
-        public void Configure(EntityTypeBuilder<ArticleOperationSourceType> b)
+        public void Configure(EntityTypeBuilder<ArticleOperationTargetType> b)
         {
             b.HasKey(e => e.Id);
 

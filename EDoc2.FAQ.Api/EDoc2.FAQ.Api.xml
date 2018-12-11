@@ -123,6 +123,30 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:EDoc2.FAQ.Api.Controllers.ApplicationController">
+            <summary>
+            系统设置
+            </summary>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ApplicationController.#ctor(EDoc2.FAQ.Core.Application.Applications.IApplicationAppService)">
+            <summary>
+            构造器
+            </summary>
+            <param name="applicationAppService"></param>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ApplicationController.Get">
+            <summary>
+            获取系统配置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ApplicationController.Update(EDoc2.FAQ.Core.Application.Applications.Dtos.ApplicationDtos.UpdateSettingsReq)">
+            <summary>
+            更新系统设置
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
         <member name="T:EDoc2.FAQ.Api.Controllers.ArticleController">
             <summary>
             文章管理
@@ -171,6 +195,17 @@
             </summary>
             <param name="req"></param>
             <returns></returns>
+        </member>
+        <member name="T:EDoc2.FAQ.Api.Infrastructure.InitializeApp">
+            <summary>
+            程序数据初始化
+            </summary>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Infrastructure.InitializeApp.Setup(System.IServiceProvider)">
+            <summary>
+            
+            </summary>
+            <param name="provider"></param>
         </member>
         <member name="T:EDoc2.FAQ.Api.Infrastructure.Middlewares.ExceptionsHandlerMiddleware">
             <summary>

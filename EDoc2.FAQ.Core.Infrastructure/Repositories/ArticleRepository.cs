@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using EDoc2.FAQ.Core.Infrastructure.Extensions;
+using ArticleOperation = EDoc2.FAQ.Core.Domain.Articles.ArticleOperation;
 
 namespace EDoc2.FAQ.Core.Infrastructure.Repositories
 {
@@ -13,7 +14,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
 
         public IQueryable<Article> GetArticles()
         {
-            return Context.Articles.AsQueryable();
+            return Context.Set<Article>();
         }
 
         public async Task<Article> FindById(Guid id)
@@ -52,6 +53,11 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
             await Task.CompletedTask;
         }
 
+        public IQueryable<ArticleComment> GetArticleComments()
+        {
+            return Context.Set<ArticleComment>();
+        }
+
         public async Task AddComment(ArticleComment comment)
         {
             await Context.AddAsync(comment);
@@ -77,6 +83,40 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
         }
 
         public async Task UpdateArticleOperation(ArticleOperation operation, params string[] properties)
+        {
+            Context.AttachIfNot(operation);
+            Context.UpdatePartly(operation, properties);
+            await Task.CompletedTask;
+        }
+
+        public IQueryable<ArticleTop> GetArticleTops()
+        {
+            return Context.Set<ArticleTop>();
+        }
+
+        public async Task AddArticleTop(ArticleTop top)
+        {
+            await Context.Set<ArticleTop>().AddAsync(top);
+        }
+
+        public async Task UpdateArticleTop(ArticleTop top, params string[] properties)
+        {
+            Context.AttachIfNot(top);
+            Context.UpdatePartly(top, properties);
+            await Task.CompletedTask;
+        }
+
+        public IQueryable<ArticleOperation> GetOperations()
+        {
+            return Context.Set<ArticleOperation>();
+        }
+
+        public async Task AddOperation(ArticleOperation operation)
+        {
+            await Context.Set<ArticleOperation>().AddAsync(operation);
+        }
+
+        public async Task UpdateOperation(ArticleOperation operation, params string[] properties)
         {
             Context.AttachIfNot(operation);
             Context.UpdatePartly(operation, properties);

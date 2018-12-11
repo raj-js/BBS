@@ -14,14 +14,14 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Events
 
         public int ChangeScore { get; private set; }
 
-        public int ReasonId { get; private set; }
+        public ScoreChangeReason Reason { get; private set; }
 
-        public ScoreChangeDomainEvent(User user, int originScore, int changeScore, int reasonId)
+        public ScoreChangeDomainEvent(User user, int originScore, int changeScore, ScoreChangeReason reason)
         {
             User = user ?? throw new ArgumentNullException(nameof(user));
             OriginScore = originScore;
             ChangeScore = changeScore;
-            ReasonId = reasonId;
+            Reason = reason;
         }
     }
 }

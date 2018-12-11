@@ -117,6 +117,24 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
         /// <returns></returns>
         Task RemoveFavorite(User @operator, Article article);
 
+        /// <summary>
+        /// 增加积分
+        /// </summary>
+        /// <param name="targetUser"></param>
+        /// <param name="score"></param>
+        /// <param name="reason"></param>
+        /// <returns></returns>
+        Task PlusScore(User targetUser, int score, ScoreChangeReason reason);
+
+        /// <summary>
+        /// 减少积分
+        /// </summary>
+        /// <param name="targetUser"></param>
+        /// <param name="score"></param>
+        /// <param name="reason"></param>
+        /// <returns></returns>
+        Task MinuScore(User targetUser, int score, ScoreChangeReason reason);
+
         #endregion
     }
 }

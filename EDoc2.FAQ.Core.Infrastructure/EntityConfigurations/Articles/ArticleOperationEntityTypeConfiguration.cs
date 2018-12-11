@@ -10,15 +10,15 @@ namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Articles
         {
             b.HasKey(e => e.Id);
 
-            b.Property(e => e.OperatorId)
+            b.Property(e => e.Operator)
                 .HasMaxLength(50)
                 .IsRequired();
 
-            b.Property(e => e.SourceId)
+            b.Property(e => e.Target)
                 .HasMaxLength(50)
                 .IsRequired();
 
-            b.HasOne(e => e.SourceType)
+            b.HasOne(e => e.TargetType)
                 .WithMany()
                 .IsRequired()
                 .HasForeignKey("SourceTypeId");

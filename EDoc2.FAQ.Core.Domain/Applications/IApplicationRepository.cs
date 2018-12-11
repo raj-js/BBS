@@ -1,7 +1,6 @@
-﻿using EDoc2.FAQ.Core.Domain.SeedWork;
+﻿using EDoc2.FAQ.Core.Domain.Repositories;
 using System;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Domain.Repositories;
 
 namespace EDoc2.FAQ.Core.Domain.Applications
 {
@@ -12,27 +11,36 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Application GetDefault(Guid id);
+        Task<Application> FindById(Guid id);
 
         /// <summary>
-        /// 获取默认实例
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<Application> GetDefaultAsync(Guid id);
-
-        /// <summary>
-        /// 初始化
+        /// 创建
         /// </summary>
         /// <param name="application"></param>
         /// <returns></returns>
-        Application Initialize(Application application);
+        Task Create(Application application);
 
         /// <summary>
         /// 更新
         /// </summary>
         /// <param name="application"></param>
+        /// <param name="properties"></param>
         /// <returns></returns>
-        Task<Application> UpdateAsync(Application application);
+        Task Update(Application application, params string[] properties);
+
+        /// <summary>
+        /// 增加设置
+        /// </summary>
+        /// <param name="setting"></param>
+        /// <returns></returns>
+        Task AddSetting(ApplicationSetting setting);
+
+        /// <summary>
+        /// 更新设置
+        /// </summary>
+        /// <param name="setting"></param>
+        /// <param name="properties"></param>
+        /// <returns></returns>
+        Task UpdateSetting(ApplicationSetting setting, params string[] properties);
     }
 }

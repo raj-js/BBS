@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 {
     [DbContext(typeof(CommunityContext))]
-    [Migration("20181127063549_Initialize")]
-    partial class Initialize
+    [Migration("20181210124914_AddApplicationSetting")]
+    partial class AddApplicationSetting
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.Role", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.Role", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -37,7 +37,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.RoleClaim", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.RoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,45 +56,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("RoleClaims");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.ScoreChange", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ChangeScore");
-
-                    b.Property<DateTime>("CreationTime");
-
-                    b.Property<int>("FinalScore");
-
-                    b.Property<int>("OriginScore");
-
-                    b.Property<int?>("ReasonId");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReasonId");
-
-                    b.ToTable("ScoreChanges");
-                });
-
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.ScoreChangeReason", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ScoreChangeReason");
-                });
-
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.User", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -147,7 +109,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.UserClaim", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -167,7 +129,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("UserClaims");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.UserFavorite", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserFavorite", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -191,7 +153,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("UserFavorite");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.UserLogin", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserLogin", b =>
                 {
                     b.Property<string>("UserId");
 
@@ -206,7 +168,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("UserLogins");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.UserProperty", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserProperty", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -226,20 +188,20 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("UserProperty");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.UserRole", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserRole", b =>
                 {
                     b.Property<string>("UserId");
 
                     b.Property<string>("RoleId");
 
-                    b.HasKey("UserId");
+                    b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.UserSubscriber", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserSubscriber", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -264,7 +226,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("UserSubscriber");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.UserToken", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserToken", b =>
                 {
                     b.Property<string>("UserId");
 
@@ -277,6 +239,59 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("UserTokens");
+                });
+
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.Application", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<string>("IconBase64");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Version")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Application");
+                });
+
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.ApplicationSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("ApplicationId");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Value")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.ToTable("ApplicationSetting");
                 });
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.Article", b =>
@@ -296,6 +311,8 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.Property<string>("CreatorId")
                         .IsRequired()
                         .HasMaxLength(50);
+
+                    b.Property<DateTime?>("FinishTime");
 
                     b.Property<string>("Keywords")
                         .IsRequired()
@@ -318,7 +335,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("Articles");
+                    b.ToTable("Article");
                 });
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleComment", b =>
@@ -337,6 +354,10 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.Property<string>("CreatorId")
                         .IsRequired()
                         .HasMaxLength(50);
+
+                    b.Property<int>("Dislikes");
+
+                    b.Property<int>("Likes");
 
                     b.Property<long?>("ParentCommentId");
 
@@ -362,7 +383,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ArticleCommentStates");
+                    b.ToTable("ArticleCommentState");
                 });
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperation", b =>
@@ -375,30 +396,46 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
                     b.Property<DateTime>("OperationTime");
 
-                    b.Property<string>("OperatorId")
+                    b.Property<string>("Operator")
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<string>("SourceId")
+                    b.Property<int?>("OperatorTypeId");
+
+                    b.Property<int>("SourceTypeId");
+
+                    b.Property<string>("Target")
                         .IsRequired()
                         .HasMaxLength(50);
-
-                    b.Property<int?>("SourceTypeId")
-                        .IsRequired();
 
                     b.Property<int?>("TypeId")
                         .IsRequired();
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OperatorTypeId");
+
                     b.HasIndex("SourceTypeId");
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("ArticleOperations");
+                    b.ToTable("ArticleOperation");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationSourceType", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationOperatorType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ArticleOperationOperatorType");
+                });
+
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationTargetType", b =>
                 {
                     b.Property<int>("Id")
                         .HasDefaultValue(1);
@@ -409,7 +446,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ArticleOperationSourceTypes");
+                    b.ToTable("ArticleOperationTargetType");
                 });
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationType", b =>
@@ -423,7 +460,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ArticleOperationTypes");
+                    b.ToTable("ArticleOperationType");
                 });
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleProperty", b =>
@@ -444,7 +481,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
                     b.HasIndex("ArticleId");
 
-                    b.ToTable("ArticleProperties");
+                    b.ToTable("ArticleProperty");
                 });
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleState", b =>
@@ -458,7 +495,31 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ArticleStates");
+                    b.ToTable("ArticleState");
+                });
+
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleTop", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("ArticleId");
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<DateTime?>("ExpirationTime");
+
+                    b.Property<bool>("IsCancel");
+
+                    b.Property<bool>("IsForever");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId")
+                        .IsUnique();
+
+                    b.ToTable("ArticleTop");
                 });
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleType", b =>
@@ -472,90 +533,92 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ArticleTypes");
+                    b.ToTable("ArticleType");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.RoleClaim", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.RoleClaim", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Applications.Role", "Role")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.Role", "Role")
                         .WithMany("RoleClaims")
                         .HasForeignKey("RoleId");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.ScoreChange", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserClaim", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Applications.ScoreChangeReason", "Reason")
-                        .WithMany()
-                        .HasForeignKey("ReasonId");
-                });
-
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.UserClaim", b =>
-                {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Applications.User", "User")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.User", "User")
                         .WithMany("UserClaims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.UserFavorite", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserFavorite", b =>
                 {
                     b.HasOne("EDoc2.FAQ.Core.Domain.Articles.Article", "Article")
                         .WithMany()
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Applications.User", "User")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.User", "User")
                         .WithMany("UserFavorites")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.UserLogin", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserLogin", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Applications.User", "User")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.User", "User")
                         .WithMany("UserLogins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.UserProperty", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserProperty", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Applications.User", "User")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.User", "User")
                         .WithMany("UserProperties")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.UserRole", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserRole", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Applications.Role", "Role")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.Role", "Role")
                         .WithMany("UserRoles")
-                        .HasForeignKey("RoleId");
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Applications.User", "User")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.UserSubscriber", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserSubscriber", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Applications.User", "Fan")
-                        .WithMany("UserFans")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.User", "Fan")
+                        .WithMany("UserFollows")
                         .HasForeignKey("FanId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Applications.User", "Follow")
-                        .WithMany("UserFollows")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.User", "Follow")
+                        .WithMany("UserFans")
                         .HasForeignKey("FollowId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.UserToken", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserToken", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Applications.User", "User")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.User", "User")
                         .WithMany("UserTokens")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Applications.ApplicationSetting", b =>
+                {
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Applications.Application", "Application")
+                        .WithMany("Settings")
+                        .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -584,7 +647,11 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperation", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationSourceType", "SourceType")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationOperatorType", "OperatorType")
+                        .WithMany()
+                        .HasForeignKey("OperatorTypeId");
+
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationTargetType", "TargetType")
                         .WithMany()
                         .HasForeignKey("SourceTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -600,6 +667,14 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.HasOne("EDoc2.FAQ.Core.Domain.Articles.Article", "Article")
                         .WithMany("Properties")
                         .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleTop", b =>
+                {
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.Article", "Article")
+                        .WithOne("ArticleTop")
+                        .HasForeignKey("EDoc2.FAQ.Core.Domain.Articles.ArticleTop", "ArticleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

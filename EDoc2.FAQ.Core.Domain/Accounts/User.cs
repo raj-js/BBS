@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EDoc2.FAQ.Core.Domain.Exceptions;
 
 namespace EDoc2.FAQ.Core.Domain.Accounts
 {
@@ -146,7 +147,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
 
         private void SetProperty(string name, string value) => GetOrSetProperty(name, value);
 
-        public T GetProperty<T>(string name, T @default = default(T), Func<string, T> converter = null)
+        private T GetProperty<T>(string name, T @default = default(T), Func<string, T> converter = null)
         {
             var property = GetOrSetProperty(name, @default);
 
@@ -211,41 +212,6 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
                 throw new ArgumentOutOfRangeException(nameof(score));
 
             SetProperty(UserProperty.Score, score.ToString());
-        }
-
-        /// <summary>
-        /// 增加积分
-        /// </summary>
-        /// <param name="score"></param>
-        /// <param name="reasonId"></param>
-        public void PlusScore(int score, int reasonId)
-        {
-            if (score < 0)
-                throw new ArgumentOutOfRangeException(nameof(score));
-
-
-            var originScore = Score;
-            SetScore(originScore + score);
-
-            AddDomainEvent(new ScoreChangeDomainEvent(this, originScore, score, reasonId));
-        }
-
-        /// <summary>
-        /// 减少积分
-        /// </summary>
-        /// <param name="score"></param>
-        /// <param name="reasonId"></param>
-        internal void MinusScore(int score, int reasonId)
-        {
-            if (score < 0)
-                throw new ArgumentOutOfRangeException(nameof(score));
-
-            var originScore = Score;
-            if (originScore < score)
-                throw new InvalidOperationException($"score is not enough, have {Score}, minus {score}");
-
-            SetScore(originScore - score);
-            AddDomainEvent(new ScoreChangeDomainEvent(this, originScore, score, reasonId));
         }
 
         /// <summary>
@@ -413,33 +379,10 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
             return UserRoles?.Any(s => roleIds.Contains(s.RoleId)) ?? false;
         }
 
-        ///// <summary>
-        ///// 授予角色
-        ///// </summary>
-        ///// <param name="role"></param>
-        //public void GrantRole(Role role)
-        //{
-        //    if (role == null)
-        //        throw new ArgumentNullException(nameof(role));
-
-        //    if (InRole(role, out var userRole)) return;
-
-        //    UserRoles.Add(new UserRole
-        //    {
-        //        RoleId = role.Id
-        //    });
-        //}
-
-        ///// <summary>
-        ///// 回收角色
-        ///// </summary>
-        ///// <param name="role"></param>
-        //public void RecycleRole(Role role)
-        //{
-        //    if (!InRole(role, out var userRole)) return;
-
-        //    UserRoles.Remove(userRole);
-        //}
+        public bool HasEnoughScore(int score)
+        {
+            return Score >= score;
+        }
     }
 
     public enum Gender

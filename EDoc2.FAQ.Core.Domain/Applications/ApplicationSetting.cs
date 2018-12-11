@@ -1,11 +1,12 @@
-﻿using EDoc2.FAQ.Core.Domain.SeedWork;
+﻿using System;
+using EDoc2.FAQ.Core.Domain.SeedWork;
 
 namespace EDoc2.FAQ.Core.Domain.Applications
 {
     /// <summary>
     /// 应用程序设置
     /// </summary>
-    public class Setting : Entity
+    public class ApplicationSetting : Entity
     {
         #region 设置项
 
@@ -25,9 +26,14 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         public const string OperationInterval = "OperationInterval";
 
         /// <summary>
-        /// 缓存过期时间 （秒）
+        /// 缓存过期时间 （分钟）
         /// </summary>
         public const string CacheExpireInterval = "CacheExpireInterval";
+
+        /// <summary>
+        /// 单用户/单Ip 查看文章， 增长文章访问量的间隔时长 （分钟）
+        /// </summary>
+        public const string ViewInterval = "ViewInterval";
 
         #endregion
 
@@ -35,6 +41,11 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         /// 设置项
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 数据类型
+        /// </summary>
+        public string Type { get; set; }
 
         /// <summary>
         /// 值
@@ -45,5 +56,9 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         /// 描述
         /// </summary>
         public string Description { get; set; }
+
+        public Guid ApplicationId { get; set; }
+
+        public virtual Application Application { get; set; }
     }
 }

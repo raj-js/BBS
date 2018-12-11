@@ -74,5 +74,15 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
             await Task.CompletedTask;
             return Context.Update(property).Entity;
         }
+
+        public async Task AddScoreChange(ScoreChange change)
+        {
+            await Context.Set<ScoreChange>().AddAsync(change);
+        }
+
+        public IQueryable<ScoreChange> GetScoreChanges()
+        {
+            return Context.Set<ScoreChange>();
+        }
     }
 }

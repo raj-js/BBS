@@ -1,9 +1,8 @@
 ﻿using EDoc2.FAQ.Core.Domain.Accounts;
-using EDoc2.FAQ.Core.Domain.Applications;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations
+namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Accounts
 {
     class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
     {
@@ -102,6 +101,30 @@ namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations
             b.Property(e => e.OperationTime).IsRequired();
 
             b.Property(e => e.IsCancel).IsRequired();
+        }
+    }
+
+    class UserClaimEntityTypeConfiguration : IEntityTypeConfiguration<UserClaim>
+    {
+        public void Configure(EntityTypeBuilder<UserClaim> b)
+        {
+            b.HasKey(e => e.Id);
+        }
+    }
+    class UserPropertyEntityTypeConfiguration : IEntityTypeConfiguration<UserProperty>
+    {
+        public void Configure(EntityTypeBuilder<UserProperty> b)
+        {
+            b.HasKey(e => e.Id);
+
+            b.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            b.HasOne(e => e.User)
+                .WithMany(e => e.UserProperties)
+                .HasForeignKey(e => e.UserId)
+                .IsRequired();
         }
     }
 }

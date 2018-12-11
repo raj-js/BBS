@@ -5,18 +5,18 @@ using System.Linq;
 
 namespace EDoc2.FAQ.Core.Domain.Articles
 {
-    public class ArticleOperationSourceType: Enumeration
+    public class ArticleOperationOperatorType : Enumeration
     {
-        public static ArticleOperationSourceType Article = new ArticleOperationSourceType(1, "帖子");
-        public static ArticleOperationSourceType Comment = new ArticleOperationSourceType(2, "评论");
+        public static ArticleOperationOperatorType User = new ArticleOperationOperatorType(1, "会员编号");
+        public static ArticleOperationOperatorType Ip = new ArticleOperationOperatorType(2, "Ip地址");
 
-        public ArticleOperationSourceType() { }
+        public ArticleOperationOperatorType() { }
 
-        public ArticleOperationSourceType(int id, string name) : base(id, name) { }
+        public ArticleOperationOperatorType(int id, string name) : base(id, name) { }
 
-        public static IEnumerable<ArticleOperationSourceType> List() => new[] { Article, Comment };
+        public static IEnumerable<ArticleOperationOperatorType> List() => new[] { User, Ip };
 
-        public static ArticleOperationSourceType FromName(string name)
+        public static ArticleOperationOperatorType FromName(string name)
         {
             var state = List().SingleOrDefault(s => string.Equals(s.Name, name, StringComparison.CurrentCultureIgnoreCase));
             if (state == null)
@@ -25,7 +25,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
             return state;
         }
 
-        public static ArticleOperationSourceType From(int id)
+        public static ArticleOperationOperatorType From(int id)
         {
             var state = List().SingleOrDefault(s => s.Id == id);
             if (state == null)

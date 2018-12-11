@@ -1,7 +1,6 @@
 ﻿using EDoc2.FAQ.Core.Domain.Accounts;
-using EDoc2.FAQ.Core.Domain.Articles;
 using EDoc2.FAQ.Core.Domain.Uow;
-using EDoc2.FAQ.Core.Infrastructure.EntityConfigurations;
+using EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Accounts;
 using EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Articles;
 using EDoc2.FAQ.Core.Infrastructure.Extensions;
 using MediatR;
@@ -11,31 +10,13 @@ using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Applications;
 
 namespace EDoc2.FAQ.Core.Infrastructure
 {
     public class CommunityContext : IdentityDbContext<User, Role, string, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>, IUnitOfWork
     {
         public Guid UniqueId { get; set; } = Guid.NewGuid();
-
-        #region 文章相关
-
-        public DbSet<Article> Articles { get; set; }
-        public DbSet<ArticleCommentState> ArticleCommentStates { get; set; }
-        public DbSet<ArticleOperation> ArticleOperations { get; set; }
-        public DbSet<ArticleOperationSourceType> ArticleOperationSourceTypes { get; set; }
-        public DbSet<ArticleOperationType> ArticleOperationTypes { get; set; }
-        public DbSet<ArticleProperty> ArticleProperties { get; set; }
-        public DbSet<ArticleState> ArticleStates { get; set; }
-        public DbSet<ArticleType> ArticleTypes { get; set; }
-
-        #endregion
-
-        #region 会员相关
-
-        public DbSet<ScoreChange> ScoreChanges { get; set; }
-
-        #endregion
 
         private readonly IMediator _mediator;
 
@@ -59,6 +40,7 @@ namespace EDoc2.FAQ.Core.Infrastructure
             b.ApplyConfiguration(new ArticleOperationEntityTypeConfiguration());
             b.ApplyConfiguration(new ArticleOperationSourceTypeEntityTypeConfiguration());
             b.ApplyConfiguration(new ArticleOperationTypeEntityTypeConfiguration());
+            b.ApplyConfiguration(new ArticleTopEntityTypeConfiguration());
 
             #endregion
 
@@ -68,8 +50,16 @@ namespace EDoc2.FAQ.Core.Infrastructure
             b.ApplyConfiguration(new UserLoginEntityTypeConfiguration());
             b.ApplyConfiguration(new UserRoleEntityTypeConfiguration());
             b.ApplyConfiguration(new UserTokenEntityTypeConfiguration());
-
             b.ApplyConfiguration(new UserSubscriberEntityTypeConfiguration());
+            b.ApplyConfiguration(new UserClaimEntityTypeConfiguration());
+            b.ApplyConfiguration(new UserPropertyEntityTypeConfiguration());
+
+            #endregion
+
+            #region 系统相关
+
+            b.ApplyConfiguration(new ApplicationEntityTypeConfiguration());
+            b.ApplyConfiguration(new ApplicationSettingEntityTypeConfiguration());
 
             #endregion
         }

@@ -23,7 +23,7 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         /// <summary>
         /// 图标
         /// </summary>
-        public byte[] Icon { get; set; }
+        public string IconBase64 { get; set; }
 
         /// <summary>
         /// 描述
@@ -33,18 +33,18 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         /// <summary>
         /// 其他设置
         /// </summary>
-        public virtual ICollection<Setting> Settings { get; set; }
+        public virtual ICollection<ApplicationSetting> Settings { get; set; }
 
-        private Setting GetOrCreateSetting(string name, string @default = null, string description = null)
+        private ApplicationSetting GetOrCreateSetting(string name, string @default = null, string description = null)
         {
             if (Settings == null)
-                Settings = new List<Setting>();
+                Settings = new List<ApplicationSetting>();
 
             var setting = Settings.SingleOrDefault(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
 
             if (setting != null) return setting;
 
-            setting = new Setting
+            setting = new ApplicationSetting
             {
                 Name =  name,
                 Value = @default,
@@ -74,22 +74,26 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         /// <summary>
         /// 文章是否需要审核
         /// </summary>
-        public bool IsArticleAuditing => GetSettingValue(Setting.IsArticleAuditing, converter: bool.Parse);
+        public bool IsArticleAuditing => GetSettingValue(ApplicationSetting.IsArticleAuditing, converter: bool.Parse);
 
         /// <summary>
         /// 回复是否需要审核
         /// </summary>
-        public bool IsCommentAuditing => GetSettingValue(Setting.IsCommentAuditing, converter: bool.Parse);
+        public bool IsCommentAuditing => GetSettingValue(ApplicationSetting.IsCommentAuditing, converter: bool.Parse);
 
         /// <summary>
         /// 操作时间间隔（秒）
         /// </summary>
-        public int OperationInterval => GetSettingValue(Setting.OperationInterval, converter: int.Parse);
+        public int OperationInterval => GetSettingValue(ApplicationSetting.OperationInterval, converter: int.Parse);
 
         /// <summary>
         /// 缓存过期时间 （秒）
         /// </summary>
-        public int CacheExpireInterval => GetSettingValue(Setting.CacheExpireInterval, converter: int.Parse);
+        public int CacheExpireInterval => GetSettingValue(ApplicationSetting.CacheExpireInterval, converter: int.Parse);
 
+        /// <summary>
+        /// 单用户/单Ip 查看文章， 增长文章访问量的间隔时长 （分钟）
+        /// </summary>
+        public int ViewInterval => GetSettingValue(ApplicationSetting.ViewInterval, converter: int.Parse);
     }
 }

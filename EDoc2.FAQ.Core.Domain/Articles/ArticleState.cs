@@ -10,8 +10,17 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         public static ArticleState Draft = new ArticleState(1, "草稿");
         public static ArticleState Auditing = new ArticleState(2, "审核中");
         public static ArticleState Rejected = new ArticleState(3, "驳回");
+        
+        /// <summary>
+        /// 针对审核通过的文章
+        /// </summary>
         public static ArticleState Published = new ArticleState(4, "已发布");
+
+        /// <summary>
+        /// 针对审核通过的问题
+        /// </summary>
         public static ArticleState UnSolved = new ArticleState(5, "未结帖");
+
         public static ArticleState Solved = new ArticleState(6, "已结贴");
         public static ArticleState Unsatisfactory = new ArticleState(7, "无满意结贴");
         public static ArticleState Deleted = new ArticleState(8, "已删除");

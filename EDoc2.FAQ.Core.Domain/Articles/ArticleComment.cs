@@ -31,6 +31,16 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         public virtual ArticleCommentState State { get; set; }
 
         /// <summary>
+        /// 赞
+        /// </summary>
+        public int Likes { get; set; }
+
+        /// <summary>
+        /// 踩
+        /// </summary>
+        public int Dislikes { get; set; }
+
+        /// <summary>
         /// 创建者编号
         /// </summary>
         public string CreatorId { get; set; }
@@ -50,23 +60,39 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// <summary>
         /// 评论审批驳回
         /// </summary>
-        /// <param name="operatorId"></param>
-        public void SetRejected(string operatorId)
+        public void SetAuditing()
         {
-            if (State.Id != ArticleCommentState.Auditing.Id) return;
+            if (State.Equals(ArticleCommentState.Deleted)) return;
 
-            AddDomainEvent(new ArticleCommentStateChangedToRejectedDomainEvent(this, operatorId));
+            State = ArticleCommentState.Auditing;
         }
 
         /// <summary>
-        /// 评论审核通过
+        /// 评论审批驳回
         /// </summary>
         /// <param name="operatorId"></param>
-        public void SetValidated(string operatorId)
+        public void SetRejected(string operatorId)
         {
-            if (State.Id != ArticleCommentState.Auditing.Id) return;
+            if (!State.Equals(ArticleCommentState.Auditing)) return;
 
-            AddDomainEvent(new ArticleCommentStateChangedToValidatedDomainEvent(this, operatorId));
+            State = ArticleCommentState.Rejected;
+        }
+
+        /// <summary>
+        /// 评论生效
+        /// </summary>
+        public void SetValidated()
+        {
+            State = ArticleCommentState.Validated;
+        }
+
+        /// <summary>
+        /// 评论删除
+        /// </summary>
+        /// <param name="operatorId"></param>
+        public void SetDeleted(string operatorId)
+        {
+            State = ArticleCommentState.Deleted;
         }
 
         #endregion

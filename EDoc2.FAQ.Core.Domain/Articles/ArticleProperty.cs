@@ -14,7 +14,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// <summary>
         /// 访问量
         /// </summary>
-        public const string PvNumber = "PV";
+        public const string Pv = "PV";
 
         /// <summary>
         /// 赞数
@@ -29,7 +29,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// <summary>
         /// 悬赏分
         /// </summary>
-        public const string RewardScore = "Reward";
+        public const string Score = "Score";
 
         /// <summary>
         /// 采纳回复编号

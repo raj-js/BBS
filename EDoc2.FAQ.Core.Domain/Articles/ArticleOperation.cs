@@ -9,19 +9,24 @@ namespace EDoc2.FAQ.Core.Domain.Articles
     public class ArticleOperation : Entity
     {
         /// <summary>
-        /// 操作人编号
+        /// 操作源
         /// </summary>
-        public string OperatorId { get; set; }
+        public string Operator { get; set; }
 
         /// <summary>
-        /// 操作目标编号
+        /// 操作源类型
         /// </summary>
-        public string SourceId { get; set; }
+        public virtual ArticleOperationOperatorType OperatorType { get; set; }
+
+        /// <summary>
+        /// 操作目标
+        /// </summary>
+        public string Target { get; set; }
 
         /// <summary>
         /// 操作目标类型
         /// </summary>
-        public virtual ArticleOperationSourceType SourceType  { get; set; }
+        public virtual ArticleOperationTargetType TargetType  { get; set; }
 
         /// <summary>
         /// 操作类型
