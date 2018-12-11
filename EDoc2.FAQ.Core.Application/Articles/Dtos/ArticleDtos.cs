@@ -69,13 +69,6 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             [Required]
             [MinLength(15)]
             public string Content { get; set; }
-
-            /// <summary>
-            /// 悬赏分
-            /// </summary>
-            [Required]
-            [Range(0, 500)]
-            public int RewardScore { get; set; }
         }
 
         /// <summary>
@@ -108,6 +101,31 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             [MinLength(50)]
             public string Content { get; set; }
 
+            /// <summary>
+            /// 是否可以评论
+            /// </summary>
+            [Required]
+            public bool CanComment { get; set; }
+        }
+
+        /// <summary>
+        /// 发布问题请求
+        /// </summary>
+        public class ReleaseQuestionReq : EntityDto<Guid>
+        {
+            /// <summary>
+            /// 悬赏分
+            /// </summary>
+            [Required]
+            [Range(0, 500)]
+            public int RewardScore { get; set; }
+        }
+
+        /// <summary>
+        /// 发布文章请求
+        /// </summary>
+        public class ReleaseArticleReq: EntityDto<Guid>
+        {
             /// <summary>
             /// 是否可以评论
             /// </summary>

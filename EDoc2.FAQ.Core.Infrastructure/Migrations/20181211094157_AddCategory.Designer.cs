@@ -4,14 +4,16 @@ using EDoc2.FAQ.Core.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 {
     [DbContext(typeof(CommunityContext))]
-    partial class CommunityContextModelSnapshot : ModelSnapshot
+    [Migration("20181211094157_AddCategory")]
+    partial class AddCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

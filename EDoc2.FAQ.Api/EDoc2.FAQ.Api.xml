@@ -177,6 +177,20 @@
             <param name="req"></param>
             <returns></returns>
         </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.AddArticle(EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos.AddArticleReq)">
+            <summary>
+            创建文章
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.AddQuestion(EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos.AddQuestionReq)">
+            <summary>
+            创建问题
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
         <member name="T:EDoc2.FAQ.Api.Controllers.AuthorizeController">
             <summary>
             Token 
@@ -192,6 +206,38 @@
         <member name="M:EDoc2.FAQ.Api.Controllers.AuthorizeController.Token(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.LoginReq)">
             <summary>
             身份校验获取Token
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EDoc2.FAQ.Api.Controllers.CategoryController">
+            <summary>
+            类别
+            </summary>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.CategoryController.#ctor(EDoc2.FAQ.Core.Application.Categories.ICategoryAppService)">
+            <summary>
+            构造器
+            </summary>
+            <param name="categoryAppService"></param>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.CategoryController.GetCategories(System.Nullable{System.Guid})">
+            <summary>
+            获取分类
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.CategoryController.AddCategory(EDoc2.FAQ.Core.Application.Categories.Dtos.CategoryDtos.AddCategoryReq)">
+            <summary>
+            增加类别
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.CategoryController.Enable(EDoc2.FAQ.Core.Application.Categories.Dtos.CategoryDtos.EnableReq)">
+            <summary>
+            启用/禁用模块
             </summary>
             <param name="req"></param>
             <returns></returns>

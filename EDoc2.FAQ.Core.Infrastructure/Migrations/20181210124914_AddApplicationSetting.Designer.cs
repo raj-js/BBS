@@ -294,7 +294,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("ApplicationSetting");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.Article", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.Article", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -338,7 +338,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("Article");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleComment", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleComment", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -372,7 +372,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("ArticleComment");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleCommentState", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleCommentState", b =>
                 {
                     b.Property<int>("Id")
                         .HasDefaultValue(1);
@@ -386,7 +386,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("ArticleCommentState");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperation", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleOperation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -422,7 +422,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("ArticleOperation");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationOperatorType", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleOperationOperatorType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -435,7 +435,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("ArticleOperationOperatorType");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationTargetType", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleOperationTargetType", b =>
                 {
                     b.Property<int>("Id")
                         .HasDefaultValue(1);
@@ -449,7 +449,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("ArticleOperationTargetType");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationType", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleOperationType", b =>
                 {
                     b.Property<int>("Id")
                         .HasDefaultValue(1);
@@ -463,7 +463,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("ArticleOperationType");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleProperty", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleProperty", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -484,7 +484,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("ArticleProperty");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleState", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleState", b =>
                 {
                     b.Property<int>("Id")
                         .HasDefaultValue(1);
@@ -498,7 +498,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("ArticleState");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleTop", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleTop", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -522,7 +522,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("ArticleTop");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleType", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleType", b =>
                 {
                     b.Property<int>("Id")
                         .HasDefaultValue(1);
@@ -553,7 +553,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserFavorite", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.Article", "Article")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.SubCategoryArticles.Article", "Article")
                         .WithMany()
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -622,59 +622,59 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.Article", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.Article", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleState", "State")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleState", "State")
                         .WithMany()
                         .HasForeignKey("StateId");
 
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleType", "Type")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleType", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleComment", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleComment", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.Article", "Article")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.SubCategoryArticles.Article", "Article")
                         .WithMany("Comments")
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleCommentState", "State")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleCommentState", "State")
                         .WithMany()
                         .HasForeignKey("StateId");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperation", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleOperation", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationOperatorType", "OperatorType")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleOperationOperatorType", "OperatorType")
                         .WithMany()
                         .HasForeignKey("OperatorTypeId");
 
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationTargetType", "TargetType")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleOperationTargetType", "TargetType")
                         .WithMany()
                         .HasForeignKey("SourceTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationType", "Type")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleOperationType", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleProperty", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleProperty", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.Article", "Article")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.SubCategoryArticles.Article", "Article")
                         .WithMany("Properties")
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleTop", b =>
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleTop", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.Article", "Article")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.SubCategoryArticles.Article", "Article")
                         .WithOne("ArticleTop")
-                        .HasForeignKey("EDoc2.FAQ.Core.Domain.Articles.ArticleTop", "ArticleId")
+                        .HasForeignKey("EDoc2.FAQ.Core.Domain.SubCategoryArticles.ArticleTop", "ArticleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

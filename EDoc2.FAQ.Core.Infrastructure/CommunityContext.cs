@@ -11,6 +11,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Applications;
+using EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Categories;
 
 namespace EDoc2.FAQ.Core.Infrastructure
 {
@@ -53,6 +54,14 @@ namespace EDoc2.FAQ.Core.Infrastructure
             b.ApplyConfiguration(new UserSubscriberEntityTypeConfiguration());
             b.ApplyConfiguration(new UserClaimEntityTypeConfiguration());
             b.ApplyConfiguration(new UserPropertyEntityTypeConfiguration());
+
+            #endregion
+
+            #region 类别相关
+
+            b.ApplyConfiguration(new CategoryEntityTypeConfiguration());
+            b.ApplyConfiguration(new CategoryModeratorEntityTypeConfiguration());
+            b.ApplyConfiguration(new CategoryArticleEntityTypeConfiguration());
 
             #endregion
 

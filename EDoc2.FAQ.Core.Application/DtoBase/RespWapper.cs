@@ -18,6 +18,16 @@ namespace EDoc2.FAQ.Core.Application.DtoBase
             };
         }
 
+        public static RespWapper<TBody> Successed<TBody>(TBody body = default(TBody))
+        {
+            return new RespWapper<TBody>
+            {
+                Success = true,
+                Body = body,
+                Errors = null
+            };
+        }
+
         public static RespWapper Failed(params Error[] errors)
         {
             return new RespWapper
@@ -30,25 +40,15 @@ namespace EDoc2.FAQ.Core.Application.DtoBase
 
     public class RespWapper<T> : RespWapper
     {
-        public T Body { get; private set; }
+        public T Body { get; set; }
 
-        public static RespWapper<TBody> Successed<TBody>(TBody body = default(TBody))
+        public new static RespWapper<TBody> Successed<TBody>(TBody body = default(TBody))
         {
             return new RespWapper<TBody>
             {
                 Success = true,
                 Body = body,
                 Errors = null
-            };
-        }
-
-        public static RespWapper<TBody> Failed<TBody>(params Error[] errors) where TBody: class 
-        {
-            return new RespWapper<TBody>
-            {
-                Success = false,
-                Errors = errors,
-                Body = null
             };
         }
     }
