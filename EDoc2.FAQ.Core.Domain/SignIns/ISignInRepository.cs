@@ -1,8 +1,6 @@
-﻿using EDoc2.FAQ.Core.Domain.Applications;
-using EDoc2.FAQ.Core.Domain.SeedWork;
+﻿using EDoc2.FAQ.Core.Domain.Repositories;
 using System.Linq;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Domain.Repositories;
 
 namespace EDoc2.FAQ.Core.Domain.SignIns
 {

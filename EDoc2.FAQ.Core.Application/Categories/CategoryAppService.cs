@@ -24,7 +24,7 @@ namespace EDoc2.FAQ.Core.Application.Categories
                 .WhereFalse(CurrentUser != null && CurrentUser.IsAdministrator, s => s.Enabled);
 
             await Task.CompletedTask;
-            return RespWapper.Successed(categories.Select(s => CategoryResp.From(s)));
+            return RespWapper.Successed(categories.Select(s => CategoryResp.From(s)).ToList());
         }
 
         public async Task<RespWapper> GetSubCategories(Guid categoryId)
@@ -35,7 +35,7 @@ namespace EDoc2.FAQ.Core.Application.Categories
                 .WhereFalse(CurrentUser != null && (CurrentUser.IsAdministrator || CurrentUser.IsModerator), s => s.Enabled);
 
             await Task.CompletedTask;
-            return RespWapper.Successed(categories.Select(s=> CategoryResp.From(s)));
+            return RespWapper.Successed(categories.Select(s=> CategoryResp.From(s)).ToList());
         }
 
         public async Task<RespWapper> AddCategory(AddCategoryReq req)

@@ -1,12 +1,13 @@
 ﻿//using EDoc2.FAQ.Core.Domain.Articles;
 //using Microsoft.EntityFrameworkCore;
 //using Microsoft.EntityFrameworkCore.Metadata.Builders;
+//using System;
 
 //namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Articles
 //{
-//    public class ArticleOperationSourceTypeEntityTypeConfiguration : IEntityTypeConfiguration<ArticleOperationTargetType>
+//    class ArticleOperationOperatorTypeEntityTypeConfiguration : IEntityTypeConfiguration<ArticleOperationOperatorType>
 //    {
-//        public void Configure(EntityTypeBuilder<ArticleOperationTargetType> b)
+//        public void Configure(EntityTypeBuilder<ArticleOperationOperatorType> b)
 //        {
 //            b.HasKey(e => e.Id);
 

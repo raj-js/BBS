@@ -10,9 +10,9 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
     {
         private CommunityContext Context => UnitOfWork as CommunityContext;
 
-        public async Task<Application> FindById(Guid id)
+        public Application FindById(Guid id)
         {
-            return await Context.Set<Application>().FindAsync(id);
+            return Context.Set<Application>().Find(id);
         }
 
         public async Task Create(Application application)

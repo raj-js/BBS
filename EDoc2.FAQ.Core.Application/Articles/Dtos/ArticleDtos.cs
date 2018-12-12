@@ -3,6 +3,7 @@ using EDoc2.FAQ.Core.Application.DtoBase;
 using EDoc2.FAQ.Core.Domain.Articles;
 using System;
 using System.ComponentModel.DataAnnotations;
+using EDoc2.FAQ.Core.Infrastructure.Extensions;
 
 namespace EDoc2.FAQ.Core.Application.Articles.Dtos
 {
@@ -28,12 +29,12 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             /// <summary>
             /// 状态编号
             /// </summary>
-            public int? State { get; set; }
+            public ArticleState? State { get; set; }
 
             /// <summary>
             /// 类别编号
             /// </summary>
-            public int? Type { get; set; }
+            public ArticleType? Type { get; set; }
 
             public string OrderBy { get; set; } = "CreationTime";
 
@@ -42,6 +43,15 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             public int PageIndex { get; set; }
 
             public int PageSize { get; set; }
+        }
+
+        public class LoadCommentsReq : IPagingRequest
+        {
+            public Guid ArticleId { get; set; }
+            public int PageIndex { get; set; }
+            public int PageSize { get; set; }
+            public string OrderBy { get; set; } = "CreationTime";
+            public bool IsAscending { get; set; } = true;
         }
 
         /// <summary>
@@ -69,6 +79,30 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             [Required]
             [MinLength(15)]
             public string Content { get; set; }
+
+            /// <summary>
+            /// 类别
+            /// </summary>
+            [Required]
+            public Guid CategoryId { get; set; }
+
+            /// <summary>
+            /// 悬赏分
+            /// </summary>
+            [Required]
+            [Range(0, 500)]
+            public int Score { get; set; }
+
+            public Article To()
+            {
+                return new Article
+                {
+                    Title = Title,
+                    Keywords = Keywords,
+                    Content = Content,
+                    Type = ArticleType.Question
+                };
+            }
         }
 
         /// <summary>
@@ -102,35 +136,29 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             public string Content { get; set; }
 
             /// <summary>
-            /// 是否可以评论
+            /// 类别
             /// </summary>
             [Required]
-            public bool CanComment { get; set; }
-        }
+            public Guid CategoryId { get; set; }
 
-        /// <summary>
-        /// 发布问题请求
-        /// </summary>
-        public class ReleaseQuestionReq : EntityDto<Guid>
-        {
-            /// <summary>
-            /// 悬赏分
-            /// </summary>
-            [Required]
-            [Range(0, 500)]
-            public int RewardScore { get; set; }
-        }
-
-        /// <summary>
-        /// 发布文章请求
-        /// </summary>
-        public class ReleaseArticleReq: EntityDto<Guid>
-        {
             /// <summary>
             /// 是否可以评论
             /// </summary>
             [Required]
             public bool CanComment { get; set; }
+
+            public Article To()
+            {
+                return new Article
+                {
+                    Title = Title,
+                    Summary = Summary,
+                    Keywords = Keywords,
+                    Content = Content,
+                    Type = ArticleType.Article,
+                    CanComment = CanComment
+                };
+            }
         }
 
         /// <summary>
@@ -151,6 +179,16 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             [Required]
             [MinLength(15)]
             public string Content { get; set; }
+
+            public Article To()
+            {
+                return new Article
+                {
+                    Id = Id,
+                    Keywords = Keywords,
+                    Content = Content,
+                };
+            }
         }
 
         /// <summary>
@@ -184,6 +222,49 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             /// </summary>
             [Required]
             public bool CanComment { get; set; }
+
+            public Article To()
+            {
+                return new Article
+                {
+                    Id = Id,
+                    Summary = Summary,
+                    Keywords = Keywords,
+                    Content = Content,
+                    CanComment = CanComment
+                };
+            }
+        }
+
+        /// <summary>
+        /// 只修改文章是否可以评论
+        /// </summary>
+        public class EditCanCommentReq : EntityDto<Guid>
+        {
+            /// <summary>
+            /// 是否可以评论
+            /// </summary>
+            [Required]
+            public bool CanComment { get; set; }
+
+            public Article To()
+            {
+                return new Article
+                {
+                    Id = Id,
+                    CanComment = CanComment
+                };
+            }
+        }
+
+        /// <summary>
+        /// 置顶文章请求
+        /// </summary>
+        public class TopArticleReq : EntityDto<Guid>
+        {
+            public bool IsForever { get; set; }
+
+            public DateTime? ExpirationTime { get; set; }
         }
 
         /// <summary>
@@ -250,6 +331,23 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             public string Content { get; set; }
         }
 
+        /// <summary>
+        /// 结帖请求
+        /// </summary>
+        public class FinishReq: EntityDto<Guid>
+        {
+            /// <summary>
+            /// 是否为满意结帖
+            /// </summary>
+            [Required]
+            public bool Unsatisfactory { get; set; }
+
+            /// <summary>
+            /// 最佳回复编号
+            /// </summary>
+            public long? AdoptId { get; set; }
+        }
+
         #endregion
 
         #region Response
@@ -310,8 +408,8 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
                     Id = article.Id,
                     Title = article.Title,
                     Keywords = article.Keywords,
-                    State = article.State.Name,
-                    Type = article.Type.Name,
+                    State = article.State.Name(),
+                    Type = article.Type.Name(),
                     Likes = article.Likes,
                     Dislikes = article.Dislikes,
                     Pv = article.Pv,
@@ -320,7 +418,7 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             }
         }
 
-        public class Details : EntityDto<Guid>
+        public class ArticleResp : EntityDto<Guid>
         {
             /// <summary>
             /// 标题
@@ -343,27 +441,19 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             public string Keywords { get; set; }
 
             /// <summary>
-            /// 状态编号
+            /// 类型
             /// </summary>
-            public int StateId { get; set; }
+            public ArticleType Type { get; set; }
 
             /// <summary>
-            /// 状态描述
+            /// 状态
             /// </summary>
-            public string StateName { get; set; }
+            public ArticleState State { get; set; }
+
+            public string StateDisplay { get; set; }
 
             /// <summary>
-            /// 类别编号
-            /// </summary>
-            public int TypeId { get; set; }
-
-            /// <summary>
-            /// 类别描述
-            /// </summary>
-            public string TypeName { get; set; }
-
-            /// <summary>
-            /// 是否能评论
+            /// 能否回复
             /// </summary>
             public bool CanComment { get; set; }
 
@@ -380,17 +470,7 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             /// <summary>
             /// 访问量
             /// </summary>
-            public int PV { get; set; }
-
-            /// <summary>
-            /// 悬赏分
-            /// </summary>
-            public int RewardScore { get; set; }
-
-            /// <summary>
-            /// 最佳回复编号
-            /// </summary>
-            public string AdoptCommentId { get; set; }
+            public int Pv { get; set; }
 
             /// <summary>
             /// 创建人编号
@@ -398,23 +478,91 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             public string CreatorId { get; set; }
 
             /// <summary>
+            /// 创建人昵称
+            /// </summary>
+            public string CreatorNick { get; set; }
+
+            /// <summary>
             /// 创建时间
             /// </summary>
             public DateTime CreationTime { get; set; }
 
-            public static Details From(Article article)
+            /// <summary>
+            /// 悬赏分
+            /// </summary>
+            public int Score { get; set; }
+
+            /// <summary>
+            /// 最佳回复编号
+            /// </summary>
+            public string AdoptId { get; set; }
+
+            public static ArticleResp From(Article article)
             {
-                var dto = Mapper.Map<Article, Details>(article);
-                dto.StateId = article.State.Id;
-                dto.StateName = article.State.Name;
-                dto.TypeId = article.Type.Id;
-                dto.TypeName = article.Type.Name;
-                dto.Likes = article.Likes;
-                dto.Dislikes = article.Dislikes;
-                dto.PV = article.Pv;
-                dto.RewardScore = article.Score;
-                dto.AdoptCommentId = article.AdoptCommentId;
-                return dto;
+                return new ArticleResp
+                {
+                    //公共部分
+                    Id = article.Id,
+                    Title = article.Title,
+                    Keywords = article.Keywords,
+                    Content = article.Content,
+                    CanComment = article.CanComment,
+                    Likes = article.Likes,
+                    Dislikes = article.Dislikes,
+                    Pv = article.Pv,
+                    CreatorId = article.CreatorId,
+                    CreationTime = article.CreationTime,
+                    CreatorNick = article.Creator.Nickname,
+                    Type = article.Type,
+                    State = article.State,
+                    StateDisplay = article.State.Name(),
+
+                    //评论
+                    Score = article.Score,
+                    AdoptId = article.AdoptCommentId,
+
+                    //文章
+                    Summary = article.Summary
+                };
+            }
+        }
+
+        public class LikeOrNotResp
+        {
+            public int Likes { get; set; }
+
+            public int Dislikes { get; set; }
+
+            public static LikeOrNotResp Initlize(int likes, int dislikes)
+            {
+                return new LikeOrNotResp
+                {
+                    Likes = likes,
+                    Dislikes = dislikes
+                };
+            }
+        }
+
+        public class CommentItem : EntityDto<long>
+        {
+            public long? ParentId { get; set; }
+
+            public string Content { get; set; }
+
+            public string CreatorNick { get; set; }
+
+            public DateTime CreationTime { get; set; }
+
+            public static CommentItem From(ArticleComment comment)
+            {
+                return new CommentItem
+                {
+                    Id = comment.Id,
+                    ParentId = comment.ParentCommentId,
+                    Content = comment.Content,
+                    CreatorNick = comment.Creator.Nickname,
+                    CreationTime = comment.CreationTime
+                };
             }
         }
 

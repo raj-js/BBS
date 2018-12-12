@@ -1,6 +1,6 @@
-﻿using System;
-using EDoc2.FAQ.Core.Domain.Accounts;
+﻿using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.Services;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,14 +14,15 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
         /// 获取文章
         /// </summary>
         /// <returns></returns>
-        IQueryable<Article> GetArticles();
+        IQueryable<Article> GetArticles(User @operator);
 
         /// <summary>
         /// 根据编号获取文章
         /// </summary>
+        /// <param name="operator"></param>
         /// <param name="articleId"></param>
         /// <returns></returns>
-        Task<Article> FindById(Guid articleId);
+        Task<Article> FindById(User @operator, Guid articleId);
 
         /// <summary>
         /// 查看文章
@@ -44,9 +45,18 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
         /// <summary>
         /// 获取文章的评论
         /// </summary>
+        /// <param name="operator"></param>
         /// <param name="article"></param>
         /// <returns></returns>
-        IQueryable<ArticleComment> GetComments(Article article);
+        IQueryable<ArticleComment> GetComments(User @operator, Article article);
+
+        /// <summary>
+        /// 根据编号查找回复
+        /// </summary>
+        /// <param name="operator"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<ArticleComment> FindCommentById(User @operator, long id);
 
         #endregion
 
@@ -62,11 +72,13 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
         Task Create(User author, Article article);
 
         /// <summary>
-        /// 编辑文章
+        /// 编辑文章内容
         /// </summary>
+        /// <param name="operator"></param>
         /// <param name="article"></param>
+        /// <param name="approve"></param>
         /// <returns></returns>
-        Task Edit(Article article);
+        Task Edit(User @operator, Article article, bool approve);
 
         /// <summary>
         /// 发布文章
@@ -176,6 +188,25 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
         /// <param name="article"></param>
         /// <returns></returns>
         Task CancelTop(User @operator, Article article);
+
+        /// <summary>
+        /// 修改文章摘要
+        /// 问题：keywords
+        /// 文章：keywords sumarry
+        /// </summary>
+        /// <param name="operator"></param>
+        /// <param name="article"></param>
+        /// <returns></returns>
+        Task Edit(User @operator, Article article);
+
+        /// <summary>
+        /// 设置是否可以回复
+        /// </summary>
+        /// <param name="operator"></param>
+        /// <param name="article"></param>
+        /// <param name="canComment"></param>
+        /// <returns></returns>
+        Task CanComment(User @operator, Article article, bool canComment);
 
         #endregion
     }

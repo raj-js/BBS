@@ -4,16 +4,16 @@ using EDoc2.FAQ.Core.Domain.SeedWork;
 namespace EDoc2.FAQ.Core.Domain.Accounts
 {
     /// <summary>
-    /// 积分变化日志
+    /// 积分变化历史
     /// </summary>
-    public class ScoreChange : Entity
+    public class UserScoreHistory : Entity
     {
         public string UserId { get; set; }
 
         /// <summary>
         /// 分数变化原因
         /// </summary>
-        public virtual ScoreChangeReason Reason { get; set; }
+        public virtual UserScoreChangeReason Reason { get; set; }
 
         /// <summary>
         /// 初始分数
@@ -34,5 +34,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         /// 创建时间
         /// </summary>
         public DateTime CreationTime { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

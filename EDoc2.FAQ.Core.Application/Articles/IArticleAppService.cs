@@ -35,6 +35,13 @@ namespace EDoc2.FAQ.Core.Application.Articles
         Task<RespWapper> View(Guid id);
 
         /// <summary>
+        /// 加载评论
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<RespWapper> GetComments(LoadCommentsReq req);
+
+        /// <summary>
         /// 添加问题
         /// </summary>
         /// <param name="req"></param>
@@ -45,6 +52,13 @@ namespace EDoc2.FAQ.Core.Application.Articles
         /// </summary>
         /// <param name="req"></param>
         Task<RespWapper> AddArticle(AddArticleReq req);
+
+        /// <summary>
+        /// 新建文章为草稿
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<RespWapper> AddDraft(AddArticleReq req);
 
         /// <summary>
         /// 编辑问题
@@ -59,6 +73,41 @@ namespace EDoc2.FAQ.Core.Application.Articles
         /// <param name="req"></param>
         /// <returns></returns>
         Task<RespWapper> EditArticle(EditArticleReq req);
+
+        /// <summary>
+        /// 修改文章是否可评论
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<RespWapper> EditCanComment(EditCanCommentReq req);
+
+        /// <summary>
+        /// 删除文章
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<RespWapper> Delete(Guid id);
+
+        /// <summary>
+        /// 强制删除文章
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<RespWapper> DeleteForced(Guid id);
+
+        /// <summary>
+        /// 置顶文章
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<RespWapper> TopArticle(TopArticleReq req);
+
+        /// <summary>
+        /// 取消置顶文章
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<RespWapper> CancelTopArticle(Guid id);
 
         /// <summary>
         /// 赞文章
@@ -89,20 +138,6 @@ namespace EDoc2.FAQ.Core.Application.Articles
         Task<RespWapper> DislikeComment(long id);
 
         /// <summary>
-        /// 举报文章
-        /// </summary>
-        /// <param name="req"></param>
-        /// <returns></returns>
-        Task<RespWapper> ReportArticle(ReportArticleReq req);
-
-        /// <summary>
-        /// 举报评论
-        /// </summary>
-        /// <param name="req"></param>
-        /// <returns></returns>
-        Task<RespWapper> ReportComment(ReportCommentReq req);
-
-        /// <summary>
         /// 回复文章
         /// </summary>
         /// <param name="req"></param>
@@ -115,5 +150,12 @@ namespace EDoc2.FAQ.Core.Application.Articles
         /// <param name="req"></param>
         /// <returns></returns>
         Task<RespWapper> ReplyComment(ReplyCommentReq req);
+
+        /// <summary>
+        /// 结帖
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<RespWapper> Finish(FinishReq req);
     }
 }

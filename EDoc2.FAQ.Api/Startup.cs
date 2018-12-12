@@ -3,9 +3,9 @@ using Autofac.Extensions.DependencyInjection;
 using EDoc2.FAQ.Api.Infrastructure;
 using EDoc2.FAQ.Api.Infrastructure.Middlewares;
 using EDoc2.FAQ.Api.Infrastructure.Modules;
+using EDoc2.FAQ.Core.Application.Settings;
 using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Infrastructure;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,14 +19,12 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using NLog.Extensions.Logging;
 using NLog.Web;
+using NSwag;
+using NSwag.SwaggerGeneration.Processors.Security;
 using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Application.Settings;
-using NSwag;
-using NSwag.SwaggerGeneration.Processors.Security;
 
 namespace EDoc2.FAQ.Api
 {
@@ -60,7 +58,7 @@ namespace EDoc2.FAQ.Api
                     Type = SwaggerSecuritySchemeType.ApiKey,
                     Name = "Authorization",
                     In = SwaggerSecurityApiKeyLocation.Header,
-                    Description = "Copy 'Bearer' + valid JWT token into field"
+                    Description = "拷贝 'Bearer ' + 有效的 'JWT'"
                 }));
             }).AddOpenApiDocument(doc => { doc.DocumentName = "openApi"; });
 

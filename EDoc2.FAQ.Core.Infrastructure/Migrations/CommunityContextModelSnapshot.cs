@@ -168,9 +168,8 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserProperty", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -199,6 +198,47 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles");
+                });
+
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserScoreChangeReason", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasDefaultValue(1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserScoreChangeReason");
+                });
+
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserScoreHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ChangeScore");
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<int>("FinalScore");
+
+                    b.Property<int>("OriginScore");
+
+                    b.Property<int?>("ReasonId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReasonId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserScoreHistory");
                 });
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserSubscriber", b =>
@@ -308,9 +348,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
                     b.Property<DateTime>("CreationTime");
 
-                    b.Property<string>("CreatorId")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("CreatorId");
 
                     b.Property<DateTime?>("FinishTime");
 
@@ -318,7 +356,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int?>("StateId");
+                    b.Property<int>("State");
 
                     b.Property<string>("Summary")
                         .HasMaxLength(256);
@@ -327,13 +365,11 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(128);
 
-                    b.Property<int?>("TypeId");
+                    b.Property<int>("Type");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StateId");
-
-                    b.HasIndex("TypeId");
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("Article");
                 });
@@ -351,9 +387,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
                     b.Property<DateTime>("CreationTime");
 
-                    b.Property<string>("CreatorId")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("CreatorId");
 
                     b.Property<int>("Dislikes");
 
@@ -361,29 +395,15 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
                     b.Property<long?>("ParentCommentId");
 
-                    b.Property<int?>("StateId");
+                    b.Property<int>("State");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ArticleId");
 
-                    b.HasIndex("StateId");
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("ArticleComment");
-                });
-
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleCommentState", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasDefaultValue(1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ArticleCommentState");
                 });
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperation", b =>
@@ -400,74 +420,25 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int?>("OperatorTypeId");
-
-                    b.Property<int>("SourceTypeId");
+                    b.Property<int>("OperatorType");
 
                     b.Property<string>("Target")
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int?>("TypeId")
-                        .IsRequired();
+                    b.Property<int>("TargetType");
+
+                    b.Property<int>("Type");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OperatorTypeId");
-
-                    b.HasIndex("SourceTypeId");
-
-                    b.HasIndex("TypeId");
 
                     b.ToTable("ArticleOperation");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationOperatorType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ArticleOperationOperatorType");
-                });
-
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationTargetType", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasDefaultValue(1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ArticleOperationTargetType");
-                });
-
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationType", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasDefaultValue(1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ArticleOperationType");
-                });
-
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleProperty", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<Guid>("ArticleId");
 
@@ -482,20 +453,6 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.HasIndex("ArticleId");
 
                     b.ToTable("ArticleProperty");
-                });
-
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleState", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasDefaultValue(1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ArticleState");
                 });
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleTop", b =>
@@ -522,20 +479,6 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("ArticleTop");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleType", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasDefaultValue(1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ArticleType");
-                });
-
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Categories.Category", b =>
                 {
                     b.Property<Guid>("Id")
@@ -543,7 +486,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
                     b.Property<int>("ArticleCount");
 
-                    b.Property<DateTime>("CreateDate");
+                    b.Property<DateTime>("CteationTime");
 
                     b.Property<string>("Description")
                         .HasMaxLength(256);
@@ -589,8 +532,6 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<Guid>("CategoryId");
-
-                    b.Property<bool>("IsCancel");
 
                     b.Property<DateTime>("LastModifyTime");
 
@@ -663,6 +604,18 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserScoreHistory", b =>
+                {
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.UserScoreChangeReason", "Reason")
+                        .WithMany()
+                        .HasForeignKey("ReasonId");
+
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserSubscriber", b =>
                 {
                     b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.User", "Fan")
@@ -694,13 +647,10 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.Article", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleState", "State")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.User", "Creator")
                         .WithMany()
-                        .HasForeignKey("StateId");
-
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleType", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeId");
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleComment", b =>
@@ -710,26 +660,10 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleCommentState", "State")
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.User", "Creator")
                         .WithMany()
-                        .HasForeignKey("StateId");
-                });
-
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleOperation", b =>
-                {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationOperatorType", "OperatorType")
-                        .WithMany()
-                        .HasForeignKey("OperatorTypeId");
-
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationTargetType", "TargetType")
-                        .WithMany()
-                        .HasForeignKey("SourceTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.ArticleOperationType", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.ArticleProperty", b =>

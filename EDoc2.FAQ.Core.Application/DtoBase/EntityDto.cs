@@ -1,4 +1,6 @@
-﻿namespace EDoc2.FAQ.Core.Application.DtoBase
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EDoc2.FAQ.Core.Application.DtoBase
 {
     public interface IEntityDto<out TPrimaryKey>
     {
@@ -17,6 +19,7 @@
             Id = id;
         }
 
+        [Required]
         public TPrimaryKey Id { get; set; }
     }
 }

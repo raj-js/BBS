@@ -28,9 +28,9 @@ namespace EDoc2.FAQ.Core.Domain.Applications.Services
                 nameof(Application.Description));
         }
 
-        public async Task<Application> GetApplication(Guid applicationId)
+        public Application GetApplication(Guid applicationId)
         {
-            return await _applicationRepo.FindById(applicationId);
+            return _applicationRepo.FindById(applicationId);
         }
 
         public async Task UpdateSettings(Application application, params ApplicationSetting[] settings)

@@ -40,7 +40,7 @@ namespace EDoc2.FAQ.Core.Domain.Auditings
 
         public Auditing(AuditingTargetType targetType, string targetId)
         {
-            TargetType = targetType ?? throw new ArgumentNullException(nameof(targetType));
+            TargetType = targetType;
             TargetId = targetId ?? throw new ArgumentNullException(nameof(targetId));
         }
 

@@ -20,19 +20,15 @@ namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Articles
 
             b.Property(e => e.Keywords).HasMaxLength(50).IsRequired();
 
-            b.HasOne(e => e.State)
-                .WithMany()
-                .HasForeignKey("StateId");
-
-            b.HasOne(e=>e.Type)
-                .WithMany()
-                .HasForeignKey("TypeId");
-
             b.Property(e => e.CanComment).HasDefaultValue(true);
 
-            b.Property(e => e.CreatorId).HasMaxLength(50).IsRequired();
-
             b.Property(e => e.CreationTime).IsRequired();
+
+            b.HasOne(e => e.Creator)
+                .WithMany()
+                .HasForeignKey(e => e.CreatorId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

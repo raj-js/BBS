@@ -19,7 +19,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         Task<UserProperty> AddProperty(UserProperty property);
         Task<UserProperty> UpdateProperty(UserProperty property);
 
-        Task AddScoreChange(ScoreChange change);
-        IQueryable<ScoreChange> GetScoreChanges();
+        Task AddScoreChange(UserScoreHistory history);
+        IQueryable<UserScoreHistory> GetScoreChanges();
     }
 }

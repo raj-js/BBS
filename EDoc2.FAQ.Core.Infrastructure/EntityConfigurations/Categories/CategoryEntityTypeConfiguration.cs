@@ -22,6 +22,9 @@ namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Categories
                 .WithMany(e => e.Children)
                 .HasForeignKey(e => e.ParentId)
                 .IsRequired(false);
+
+            b.Property(e => e.CteationTime)
+                .IsRequired();
         }
     }
 }

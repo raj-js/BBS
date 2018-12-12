@@ -191,6 +191,125 @@
             <param name="req"></param>
             <returns></returns>
         </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.View(System.Guid)">
+            <summary>
+            查看文章
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.GetComments(EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos.LoadCommentsReq)">
+            <summary>
+            加载评论
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.AddDraft(EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos.AddArticleReq)">
+            <summary>
+            存为草稿
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.EditQuestion(EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos.EditQuestionReq)">
+            <summary>
+            编辑问题
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.EditArticle(EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos.EditArticleReq)">
+            <summary>
+            编辑文章
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.EditCanComment(EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos.EditCanCommentReq)">
+            <summary>
+            修改文章是否可以回复评论
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.Delete(System.Guid)">
+            <summary>
+            删除文章
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.DeleteForced(System.Guid)">
+            <summary>
+            强制删除文章
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.TopArticle(EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos.TopArticleReq)">
+            <summary>
+            置顶文章
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.CancelTopArticle(System.Guid)">
+            <summary>
+            取消置顶文章
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.Like(System.Guid)">
+            <summary>
+            赞文章
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.Dislike(System.Guid)">
+            <summary>
+            赞文章
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.LikeComment(System.Int64)">
+            <summary>
+            赞评论
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.DisLikeComment(System.Int64)">
+            <summary>
+            赞评论
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.Reply(EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos.ReplyArticleReq)">
+            <summary>
+            回复文章
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.ReplyComment(EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos.ReplyCommentReq)">
+            <summary>
+            回复评论
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.Finish(EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos.FinishReq)">
+            <summary>
+            结帖
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
         <member name="T:EDoc2.FAQ.Api.Controllers.AuthorizeController">
             <summary>
             Token 
@@ -252,6 +371,16 @@
             
             </summary>
             <param name="provider"></param>
+        </member>
+        <member name="T:EDoc2.FAQ.Api.Infrastructure.JwtAuthorizeAttribute">
+            <summary>
+            Jwt Bearer AuthenticationScheme
+            </summary>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Infrastructure.JwtAuthorizeAttribute.#ctor">
+            <summary>
+            构造器
+            </summary>
         </member>
         <member name="T:EDoc2.FAQ.Api.Infrastructure.Middlewares.ExceptionsHandlerMiddleware">
             <summary>

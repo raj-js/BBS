@@ -20,14 +20,71 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
             _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
         }
 
-        public IQueryable<Article> GetArticles()
+        public IQueryable<Article> GetArticles(User @operator)
         {
-            return _articleRepo.GetArticles();
+            var query = _articleRepo.GetArticles();
+
+            //游客
+            if (@operator == null)
+                return query.Where(s => s.State.Equals(ArticleState.Published) ||
+                                        s.State.Equals(ArticleState.Solved) ||
+                                        s.State.Equals(ArticleState.UnSolved) ||
+                                        s.State.Equals(ArticleState.Unsatisfactory));
+
+            //版主
+            if (@operator.IsModerator)
+                return query.Where(s => !s.State.Equals(ArticleState.Deleted));
+
+            //管理员
+            if (@operator.IsAdministrator)
+                return query;
+
+            //普通会员
+            return query.Where(s => s.State.Equals(ArticleState.Published) ||
+                                    s.State.Equals(ArticleState.Solved) ||
+                                    s.State.Equals(ArticleState.UnSolved) ||
+                                    s.State.Equals(ArticleState.Unsatisfactory) ||
+                                    (!s.State.Equals(ArticleState.Deleted) && s.CreatorId.Equals(@operator.Id)));
         }
 
-        public async Task<Article> FindById(Guid articleId)
+        public async Task<Article> FindById(User @operator, Guid articleId)
         {
-            return await _articleRepo.FindById(articleId);
+            var article = await _articleRepo.FindById(articleId);
+
+            if (article == null) return null;
+
+            //游客
+            if (@operator == null &&
+                !article.State.Equals(ArticleState.Published) &&
+                !article.State.Equals(ArticleState.UnSolved) &&
+                !article.State.Equals(ArticleState.Unsatisfactory) &&
+                !article.State.Equals(ArticleState.Solved))
+            {
+                return null;
+            }
+
+            //普通会员
+            if (@operator != null && !@operator.IsAdministrator && !@operator.IsModerator &&
+                !article.State.Equals(ArticleState.Published) &&
+                !article.State.Equals(ArticleState.UnSolved) &&
+                !article.State.Equals(ArticleState.Unsatisfactory) &&
+                !article.State.Equals(ArticleState.Solved) && 
+                (!@operator.Id.Equals(article.CreatorId) || article.State.Equals(ArticleState.Deleted)))
+            {
+                return null;
+            }
+
+            //版主
+            if (@operator != null && !@operator.IsAdministrator && @operator.IsModerator &&
+                article.State.Equals(ArticleState.Deleted))
+            {
+                return null;
+            }
+
+            //管理员
+            //...
+
+            return article;
         }
 
         public async Task View(Article article, User user, int viewInterval)
@@ -58,8 +115,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
             await _articleRepo.AddOperation(operation);
 
             //增加文章访问量
-            var pvProperty = article.GetOrSetProperty(ArticleProperty.Pv, article.Pv + 1);
-            await _articleRepo.UpdateArticleProperty(pvProperty);
+            article.GetOrSetProperty(ArticleProperty.Pv, article.Pv + 1);
         }
 
         public async Task View(Article article, string clientIp, int viewInterval)
@@ -90,14 +146,60 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
             await _articleRepo.AddOperation(operation);
 
             //增加文章访问量
-            var pvProperty = article.GetOrSetProperty(ArticleProperty.Pv, article.Pv + 1);
-            await _articleRepo.UpdateArticleProperty(pvProperty);
+            article.GetOrSetProperty(ArticleProperty.Pv, article.Pv + 1);
         }
 
-        public IQueryable<ArticleComment> GetComments(Article article)
+        public IQueryable<ArticleComment> GetComments(User @operator, Article article)
         {
-            return _articleRepo.GetArticleComments()
+            var query = _articleRepo.GetArticleComments()
+                .Include(s => s.Creator)
                 .Where(s => s.ArticleId == article.Id);
+
+            if (@operator == null)
+                return query.Where(s => s.State.Equals(ArticleCommentState.Validated));
+
+            if (@operator.IsAdministrator)
+                return query;
+
+            if (@operator.IsModerator)
+                return query.Where(s => !s.State.Equals(ArticleCommentState.Deleted));
+
+            return query.Where(s => s.State.Equals(ArticleCommentState.Validated) ||
+                                   (s.CreatorId.Equals(@operator.Id) && !s.State.Equals(ArticleCommentState.Deleted)));
+        }
+
+        public async Task<ArticleComment> FindCommentById(User @operator, long id)
+        {
+            var comment = await _articleRepo.GetArticleComments().SingleOrDefaultAsync(s => s.Id == id);
+
+            if (comment == null) return null;
+
+            //游客
+            if (@operator == null &&
+                !comment.State.Equals(ArticleCommentState.Validated))
+            {
+                return null;
+            }
+
+            //普通会员
+            if (@operator != null &&
+                !comment.State.Equals(ArticleCommentState.Validated) && 
+                (!comment.CreatorId.Equals(@operator.Id) || comment.State.Equals(ArticleCommentState.Deleted)))
+            {
+                return null;
+            }
+
+            //版主
+            if (@operator != null && !@operator.IsAdministrator && @operator.IsModerator && 
+                comment.State.Equals(ArticleCommentState.Deleted))
+            {
+                return null;
+            }
+
+            //管理员
+            //...
+
+            return comment;
         }
 
         public async Task Create(User author, Article article)
@@ -112,9 +214,11 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
             await _articleRepo.Add(article);
         }
 
-        public async Task Edit(Article article)
+        public async Task Edit(User @operator, Article article, bool approve)
         {
             if (article.IsTransient()) return;
+            if (!@operator.Id.Equals(article.CreatorId)) return;
+            if (@operator.IsMuted) return;
 
             //文章处于草稿， 审核驳回， 审核通过（发布）， 未结帖状态时， 才能被编辑
             if (article.State.Equals(ArticleState.Draft) ||
@@ -122,9 +226,13 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
                 article.State.Equals(ArticleState.Published) ||
                 article.State.Equals(ArticleState.UnSolved))
             {
+                if (approve)
+                    article.SetDraft();
+                else
+                    article.SetAuditing();
+
                 if (article.Type.Equals(ArticleType.Question))
                 {
-                    article.SetDraft();
                     await _articleRepo.Update(article,
                         nameof(Article.Content),
                         nameof(Article.Keywords),
@@ -132,7 +240,6 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
                 }
                 else if (article.Type.Equals(ArticleType.Article))
                 {
-                    article.SetDraft();
                     await _articleRepo.Update(article,
                         nameof(Article.Title),
                         nameof(Article.Summary),
@@ -162,20 +269,15 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
             if (!author.Id.Equals(article.CreatorId)) return;
             if (!article.State.Equals(ArticleState.Draft)) return;
 
-            await _accountService.MinuScore(author, score, ScoreChangeReason.AskQuestion);
+            await _accountService.MinuScore(author, score, UserScoreChangeReason.AskQuestion);
 
-            var hasSpentScore = article.GetOrSetProperty(ArticleProperty.HasSpentSocre, true);
-            await _articleRepo.UpdateArticleProperty(hasSpentScore);
+            article.GetOrSetProperty(ArticleProperty.HasSpentSocre, true);
+            article.GetOrSetProperty(ArticleProperty.Score, score);
 
             if (approve)
                 article.SetAuditing();
             else
                 article.SetPublished();
-
-            var scoreProperty = article.GetOrSetProperty(ArticleProperty.Score, score);
-            await _articleRepo.UpdateArticleProperty(scoreProperty);
-
-            await _articleRepo.Update(article, nameof(Article.State));
         }
 
         public async Task Delete(User @operator, Article article, bool isSoftDelete = true)
@@ -224,7 +326,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
                 if (replyer == null)
                     throw new AccountNotFoundException(adoptComment.CreatorId);
 
-                await _accountService.PlusScore(replyer, article.Score, ScoreChangeReason.BestReply);
+                await _accountService.PlusScore(replyer, article.Score, UserScoreChangeReason.BestReply);
             }
         }
 
@@ -481,9 +583,6 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
             replyComment.CreatorId = @operator.Id;
             replyComment.ParentCommentId = null;
 
-            replyComment.Likes = 0;
-            replyComment.Dislikes = 0;
-
             if (approve)
                 replyComment.SetAuditing();
             else
@@ -519,7 +618,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
                 throw new UnauthorizedAccessException();
 
             var articleTop = await _articleRepo.GetArticleTops()
-                .SingleOrDefaultAsync(s=>s.ArticleId == article.Id);
+                .SingleOrDefaultAsync(s => s.ArticleId == article.Id);
 
             if (articleTop == null)
             {
@@ -533,13 +632,13 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
                 };
                 await _articleRepo.AddArticleTop(articleTop);
             }
-            else if(articleTop.IsCancel)
+            else if (articleTop.IsCancel)
             {
                 articleTop.IsCancel = true;
                 articleTop.IsForever = isForever;
                 articleTop.ExpirationTime = expirationTime;
 
-                await _articleRepo.UpdateArticleTop(articleTop, 
+                await _articleRepo.UpdateArticleTop(articleTop,
                     nameof(ArticleTop.IsCancel),
                     nameof(ArticleTop.IsForever),
                     nameof(ArticleTop.ExpirationTime));
@@ -560,6 +659,45 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
 
                 await _articleRepo.UpdateArticleTop(articleTop, nameof(ArticleTop.IsCancel));
             }
+        }
+
+        public async Task Edit(User @operator, Article article)
+        {
+            if (article.IsTransient()) return;
+
+            if (!@operator.Id.Equals(article.CreatorId))
+                throw new InvalidOperationException();
+
+            if (article.State.Equals(ArticleState.Deleted))
+                throw new InvalidOperationException();
+
+            if (article.Type.Equals(ArticleType.Question))
+            {
+                await _articleRepo.Update(article, nameof(Article.Keywords));
+            }
+            else if (article.Type.Equals(ArticleType.Article))
+            {
+                await _articleRepo.Update(article,
+                    nameof(Article.Summary),
+                    nameof(Article.Keywords));
+            }
+        }
+
+        public async Task CanComment(User @operator, Article article, bool canComment)
+        {
+            if (article.IsTransient()) return;
+
+            if (!@operator.Id.Equals(article.CreatorId))
+                throw new InvalidOperationException();
+
+            if (article.State.Equals(ArticleState.Deleted))
+                throw new InvalidOperationException();
+
+            if (article.Type.Equals(ArticleType.Question))
+                throw new InvalidOperationException();
+
+            article.CanComment = canComment;
+            await _articleRepo.Update(article, nameof(Article.CanComment));
         }
     }
 }

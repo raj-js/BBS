@@ -34,13 +34,8 @@ namespace EDoc2.FAQ.Core.Infrastructure
 
             b.ApplyConfiguration(new ArticleEntityTypeConfiguration());
             b.ApplyConfiguration(new ArticleCommentEntityTypeConfiguration());
-            b.ApplyConfiguration(new ArticleCommentStateEntityTypeConfiguration());
             b.ApplyConfiguration(new ArticlePropertyEntityTypeConfiguration());
-            b.ApplyConfiguration(new ArticleStateEntityTypeConfiguration());
-            b.ApplyConfiguration(new ArticleTypeEntityTypeConfiguration());
             b.ApplyConfiguration(new ArticleOperationEntityTypeConfiguration());
-            b.ApplyConfiguration(new ArticleOperationSourceTypeEntityTypeConfiguration());
-            b.ApplyConfiguration(new ArticleOperationTypeEntityTypeConfiguration());
             b.ApplyConfiguration(new ArticleTopEntityTypeConfiguration());
 
             #endregion
@@ -54,6 +49,8 @@ namespace EDoc2.FAQ.Core.Infrastructure
             b.ApplyConfiguration(new UserSubscriberEntityTypeConfiguration());
             b.ApplyConfiguration(new UserClaimEntityTypeConfiguration());
             b.ApplyConfiguration(new UserPropertyEntityTypeConfiguration());
+            b.ApplyConfiguration(new UserScoreHistoryEntityTypeConfiguration());
+            b.ApplyConfiguration(new UserScoreChangeReasonEntityTypeConfiguration());
 
             #endregion
 

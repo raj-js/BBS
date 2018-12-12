@@ -9,76 +9,60 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ArticleCommentState",
+                name: "Application",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false, defaultValue: 1),
-                    Name = table.Column<string>(maxLength: 50, nullable: false)
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Version = table.Column<string>(maxLength: 50, nullable: false),
+                    IconBase64 = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(maxLength: 256, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArticleCommentState", x => x.Id);
+                    table.PrimaryKey("PK_Application", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ArticleOperationOperatorType",
+                name: "ArticleOperation",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Operator = table.Column<string>(maxLength: 50, nullable: false),
+                    OperatorType = table.Column<int>(nullable: false),
+                    Target = table.Column<string>(maxLength: 50, nullable: false),
+                    TargetType = table.Column<int>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    OperationTime = table.Column<DateTime>(nullable: false),
+                    IsCancel = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArticleOperationOperatorType", x => x.Id);
+                    table.PrimaryKey("PK_ArticleOperation", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ArticleOperationTargetType",
+                name: "Category",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false, defaultValue: 1),
-                    Name = table.Column<string>(maxLength: 50, nullable: false)
+                    Id = table.Column<Guid>(nullable: false),
+                    ParentId = table.Column<Guid>(nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Description = table.Column<string>(maxLength: 256, nullable: true),
+                    ArticleCount = table.Column<int>(nullable: false),
+                    CteationTime = table.Column<DateTime>(nullable: false),
+                    Enabled = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArticleOperationTargetType", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ArticleOperationType",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false, defaultValue: 1),
-                    Name = table.Column<string>(maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArticleOperationType", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ArticleState",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false, defaultValue: 1),
-                    Name = table.Column<string>(maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArticleState", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ArticleType",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false, defaultValue: 1),
-                    Name = table.Column<string>(maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArticleType", x => x.Id);
+                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Category_Category_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -127,73 +111,38 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ArticleOperation",
+                name: "UserScoreChangeReason",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false, defaultValue: 1),
+                    Name = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserScoreChangeReason", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicationSetting",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Operator = table.Column<string>(maxLength: 50, nullable: false),
-                    OperatorTypeId = table.Column<int>(nullable: true),
-                    Target = table.Column<string>(maxLength: 50, nullable: false),
-                    SourceTypeId = table.Column<int>(nullable: false),
-                    TypeId = table.Column<int>(nullable: false),
-                    OperationTime = table.Column<DateTime>(nullable: false),
-                    IsCancel = table.Column<bool>(nullable: false)
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Type = table.Column<string>(maxLength: 50, nullable: false),
+                    Value = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(maxLength: 256, nullable: true),
+                    ApplicationId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArticleOperation", x => x.Id);
+                    table.PrimaryKey("PK_ApplicationSetting", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ArticleOperation_ArticleOperationOperatorType_OperatorTypeId",
-                        column: x => x.OperatorTypeId,
-                        principalTable: "ArticleOperationOperatorType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ArticleOperation_ArticleOperationTargetType_SourceTypeId",
-                        column: x => x.SourceTypeId,
-                        principalTable: "ArticleOperationTargetType",
+                        name: "FK_ApplicationSetting_Application_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "Application",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ArticleOperation_ArticleOperationType_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "ArticleOperationType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Article",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Title = table.Column<string>(maxLength: 128, nullable: false),
-                    Summary = table.Column<string>(maxLength: 256, nullable: true),
-                    Content = table.Column<string>(nullable: false),
-                    Keywords = table.Column<string>(maxLength: 50, nullable: false),
-                    StateId = table.Column<int>(nullable: true),
-                    TypeId = table.Column<int>(nullable: true),
-                    CanComment = table.Column<bool>(nullable: false, defaultValue: true),
-                    CreatorId = table.Column<string>(maxLength: 50, nullable: false),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    FinishTime = table.Column<DateTime>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Article", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Article_ArticleState_StateId",
-                        column: x => x.StateId,
-                        principalTable: "ArticleState",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Article_ArticleType_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "ArticleType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -215,6 +164,60 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Article",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Title = table.Column<string>(maxLength: 128, nullable: false),
+                    Summary = table.Column<string>(maxLength: 256, nullable: true),
+                    Content = table.Column<string>(nullable: false),
+                    Keywords = table.Column<string>(maxLength: 50, nullable: false),
+                    State = table.Column<int>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    CanComment = table.Column<bool>(nullable: false, defaultValue: true),
+                    CreatorId = table.Column<string>(nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    FinishTime = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Article", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Article_Users_CreatorId",
+                        column: x => x.CreatorId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CategoryModerator",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CategoryId = table.Column<Guid>(nullable: false),
+                    ModeratorId = table.Column<string>(nullable: false),
+                    LastModifyTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoryModerator", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CategoryModerator_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CategoryModerator_Users_ModeratorId",
+                        column: x => x.ModeratorId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -262,10 +265,9 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                 name: "UserProperty",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
                     UserId = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -352,6 +354,36 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserScoreHistory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: true),
+                    ReasonId = table.Column<int>(nullable: true),
+                    OriginScore = table.Column<int>(nullable: false),
+                    ChangeScore = table.Column<int>(nullable: false),
+                    FinalScore = table.Column<int>(nullable: false),
+                    CreationTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserScoreHistory", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserScoreHistory_UserScoreChangeReason_ReasonId",
+                        column: x => x.ReasonId,
+                        principalTable: "UserScoreChangeReason",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserScoreHistory_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ArticleComment",
                 columns: table => new
                 {
@@ -360,10 +392,10 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     ParentCommentId = table.Column<long>(nullable: true),
                     ArticleId = table.Column<Guid>(nullable: false),
                     Content = table.Column<string>(nullable: false),
-                    StateId = table.Column<int>(nullable: true),
+                    State = table.Column<int>(nullable: false),
                     Likes = table.Column<int>(nullable: false),
                     Dislikes = table.Column<int>(nullable: false),
-                    CreatorId = table.Column<string>(maxLength: 50, nullable: false),
+                    CreatorId = table.Column<string>(nullable: true),
                     CreationTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -376,19 +408,18 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ArticleComment_ArticleCommentState_StateId",
-                        column: x => x.StateId,
-                        principalTable: "ArticleCommentState",
+                        name: "FK_ArticleComment_Users_CreatorId",
+                        column: x => x.CreatorId,
+                        principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ArticleProperty",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
                     ArticleId = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
                     Value = table.Column<string>(nullable: true)
@@ -428,6 +459,32 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CategoryArticle",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CategoryId = table.Column<Guid>(nullable: false),
+                    ArticleId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoryArticle", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CategoryArticle_Article_ArticleId",
+                        column: x => x.ArticleId,
+                        principalTable: "Article",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CategoryArticle_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserFavorite",
                 columns: table => new
                 {
@@ -456,14 +513,14 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Article_StateId",
-                table: "Article",
-                column: "StateId");
+                name: "IX_ApplicationSetting_ApplicationId",
+                table: "ApplicationSetting",
+                column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Article_TypeId",
+                name: "IX_Article_CreatorId",
                 table: "Article",
-                column: "TypeId");
+                column: "CreatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ArticleComment_ArticleId",
@@ -471,24 +528,9 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                 column: "ArticleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArticleComment_StateId",
+                name: "IX_ArticleComment_CreatorId",
                 table: "ArticleComment",
-                column: "StateId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ArticleOperation_OperatorTypeId",
-                table: "ArticleOperation",
-                column: "OperatorTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ArticleOperation_SourceTypeId",
-                table: "ArticleOperation",
-                column: "SourceTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ArticleOperation_TypeId",
-                table: "ArticleOperation",
-                column: "TypeId");
+                column: "CreatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ArticleProperty_ArticleId",
@@ -500,6 +542,31 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                 table: "ArticleTop",
                 column: "ArticleId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Category_ParentId",
+                table: "Category",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CategoryArticle_ArticleId",
+                table: "CategoryArticle",
+                column: "ArticleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CategoryArticle_CategoryId",
+                table: "CategoryArticle",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CategoryModerator_CategoryId",
+                table: "CategoryModerator",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CategoryModerator_ModeratorId",
+                table: "CategoryModerator",
+                column: "ModeratorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
@@ -532,6 +599,16 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserScoreHistory_ReasonId",
+                table: "UserScoreHistory",
+                column: "ReasonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserScoreHistory_UserId",
+                table: "UserScoreHistory",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserSubscriber_FanId",
                 table: "UserSubscriber",
                 column: "FanId");
@@ -545,6 +622,9 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ApplicationSetting");
+
+            migrationBuilder.DropTable(
                 name: "ArticleComment");
 
             migrationBuilder.DropTable(
@@ -555,6 +635,12 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "ArticleTop");
+
+            migrationBuilder.DropTable(
+                name: "CategoryArticle");
+
+            migrationBuilder.DropTable(
+                name: "CategoryModerator");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
@@ -575,22 +661,19 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                 name: "UserRoles");
 
             migrationBuilder.DropTable(
+                name: "UserScoreHistory");
+
+            migrationBuilder.DropTable(
                 name: "UserSubscriber");
 
             migrationBuilder.DropTable(
                 name: "UserTokens");
 
             migrationBuilder.DropTable(
-                name: "ArticleCommentState");
+                name: "Application");
 
             migrationBuilder.DropTable(
-                name: "ArticleOperationOperatorType");
-
-            migrationBuilder.DropTable(
-                name: "ArticleOperationTargetType");
-
-            migrationBuilder.DropTable(
-                name: "ArticleOperationType");
+                name: "Category");
 
             migrationBuilder.DropTable(
                 name: "Article");
@@ -599,13 +682,10 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                 name: "Roles");
 
             migrationBuilder.DropTable(
+                name: "UserScoreChangeReason");
+
+            migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "ArticleState");
-
-            migrationBuilder.DropTable(
-                name: "ArticleType");
         }
     }
 }

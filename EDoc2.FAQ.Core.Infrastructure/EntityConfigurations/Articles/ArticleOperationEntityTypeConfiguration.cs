@@ -18,16 +18,6 @@ namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Articles
                 .HasMaxLength(50)
                 .IsRequired();
 
-            b.HasOne(e => e.TargetType)
-                .WithMany()
-                .IsRequired()
-                .HasForeignKey("SourceTypeId");
-
-            b.HasOne(e => e.Type)
-                .WithMany()
-                .IsRequired()
-                .HasForeignKey("TypeId");
-
             b.Property(e => e.OperationTime)
                 .IsRequired();
 

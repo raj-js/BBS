@@ -11,7 +11,7 @@ namespace EDoc2.FAQ.Core.Domain.Applications
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Application> FindById(Guid id);
+        Application FindById(Guid id);
 
         /// <summary>
         /// 创建

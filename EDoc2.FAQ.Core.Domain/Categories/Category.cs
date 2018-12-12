@@ -33,7 +33,7 @@ namespace EDoc2.FAQ.Core.Domain.Categories
         /// <summary>
         /// 创建日期
         /// </summary>
-        public DateTime CreateDate { get; set; }
+        public DateTime CteationTime { get; set; }
 
         /// <summary>
         /// 启用

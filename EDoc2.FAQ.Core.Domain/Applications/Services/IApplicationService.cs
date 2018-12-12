@@ -10,7 +10,7 @@ namespace EDoc2.FAQ.Core.Domain.Applications.Services
 
         Task Update(Application application);
 
-        Task<Application> GetApplication(Guid applicationId);
+        Application GetApplication(Guid applicationId);
 
         Task UpdateSettings(Application application, params ApplicationSetting[] settings);
     }

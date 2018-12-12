@@ -1,8 +1,9 @@
-﻿using EDoc2.FAQ.Core.Domain.SeedWork;
+﻿using System;
+using EDoc2.FAQ.Core.Domain.SeedWork;
 
 namespace EDoc2.FAQ.Core.Domain.Accounts
 {
-    public class UserProperty : Entity
+    public class UserProperty : Entity<Guid>
     {
         /// <summary>
         /// 持续签到天数

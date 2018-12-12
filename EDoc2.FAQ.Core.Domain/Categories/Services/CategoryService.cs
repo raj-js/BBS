@@ -43,6 +43,7 @@ namespace EDoc2.FAQ.Core.Domain.Categories.Services
                 throw new DuplicateException(category.Name);
 
             category.Enabled = true;
+            category.CteationTime = DateTime.Now;
             await _categoryRepo.Add(category);
         }
 
@@ -59,6 +60,7 @@ namespace EDoc2.FAQ.Core.Domain.Categories.Services
 
             child.ParentId = parent.Id;
             child.Enabled = true;
+            child.CteationTime = DateTime.Now;
             await _categoryRepo.Add(child);
         }
 

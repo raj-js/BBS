@@ -75,14 +75,14 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
             return Context.Update(property).Entity;
         }
 
-        public async Task AddScoreChange(ScoreChange change)
+        public async Task AddScoreChange(UserScoreHistory history)
         {
-            await Context.Set<ScoreChange>().AddAsync(change);
+            await Context.Set<UserScoreHistory>().AddAsync(history);
         }
 
-        public IQueryable<ScoreChange> GetScoreChanges()
+        public IQueryable<UserScoreHistory> GetScoreChanges()
         {
-            return Context.Set<ScoreChange>();
+            return Context.Set<UserScoreHistory>();
         }
     }
 }

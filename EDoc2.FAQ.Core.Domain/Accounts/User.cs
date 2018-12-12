@@ -139,7 +139,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
             }
             else
             {
-                if (@default != null)
+                if (@default != null && !@default.Equals(default(T)))
                     property.Value = @default.ToString();
             }
             return property;

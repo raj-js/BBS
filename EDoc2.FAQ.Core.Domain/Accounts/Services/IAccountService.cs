@@ -124,7 +124,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
         /// <param name="score"></param>
         /// <param name="reason"></param>
         /// <returns></returns>
-        Task PlusScore(User targetUser, int score, ScoreChangeReason reason);
+        Task PlusScore(User targetUser, int score, UserScoreChangeReason reason);
 
         /// <summary>
         /// 减少积分
@@ -133,7 +133,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
         /// <param name="score"></param>
         /// <param name="reason"></param>
         /// <returns></returns>
-        Task MinuScore(User targetUser, int score, ScoreChangeReason reason);
+        Task MinuScore(User targetUser, int score, UserScoreChangeReason reason);
 
         #endregion
     }

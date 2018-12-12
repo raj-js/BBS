@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.Articles.Events;
 
 namespace EDoc2.FAQ.Core.Domain.Articles
@@ -68,7 +69,15 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// </summary>
         public virtual ICollection<ArticleComment> Comments { get; set; }
 
+        /// <summary>
+        /// 文章置顶
+        /// </summary>
         public virtual ArticleTop ArticleTop { get; set; }
+
+        /// <summary>
+        /// 创建者
+        /// </summary>
+        public virtual User Creator { get; set; }
 
         #region 状态事件
 
@@ -87,7 +96,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// <param name="auditorId">审核人编号</param>
         public void SetAuditing()
         {
-            if (State.Id != ArticleState.Draft.Id) return;
+            if (State != ArticleState.Draft) return;
 
             State = ArticleState.Auditing;
             AddDomainEvent(new ArticleStateChangedToAuditingDomainEvent(this));
@@ -99,7 +108,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// <param name="auditorId"></param>
         public void SetRejected(string auditorId)
         {
-            if (State.Id != ArticleState.Auditing.Id) return;
+            if (State != ArticleState.Auditing) return;
 
             State = ArticleState.Rejected;
             AddDomainEvent(new ArticleStateChangedToRejectedDomainEvent(this, auditorId));
@@ -110,10 +119,10 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// </summary>
         public void SetPublished()
         {
-            if (State.Id != ArticleState.Auditing.Id) return;
+            if (State != ArticleState.Auditing) return;
 
             //如果文章为问题或者交流，则设置为未结帖状态，否则设置为发布状态
-            if (Type.Id == ArticleType.Question.Id || Type.Equals(ArticleType.Article))
+            if (Type == ArticleType.Question || Type.Equals(ArticleType.Article))
                 State = ArticleState.UnSolved;
             else
                 State = ArticleState.Published;
@@ -126,7 +135,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// </summary>
         public void SetSolved(long adoptCommentId)
         {
-            if (State.Id != ArticleState.UnSolved.Id) return;
+            if (State != ArticleState.UnSolved) return;
 
             FinishTime = DateTime.Now;
             State = ArticleState.Solved;
@@ -138,7 +147,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// </summary>
         public void SetUnsatisfactory()
         {
-            if (State.Id != ArticleState.UnSolved.Id) return;
+            if (State != ArticleState.UnSolved) return;
 
             FinishTime = DateTime.Now;
             State = ArticleState.Unsatisfactory;
@@ -182,7 +191,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
             }
             else
             {
-                if (@default != null)
+                if (@default != null && !@default.Equals(default(T)))
                     property.Value = @default.ToString();
             }
             return property;

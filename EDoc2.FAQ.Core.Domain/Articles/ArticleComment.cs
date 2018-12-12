@@ -1,6 +1,6 @@
 ﻿using EDoc2.FAQ.Core.Domain.SeedWork;
 using System;
-using EDoc2.FAQ.Core.Domain.Articles.Events;
+using EDoc2.FAQ.Core.Domain.Accounts;
 
 namespace EDoc2.FAQ.Core.Domain.Articles
 {
@@ -28,7 +28,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// <summary>
         /// 评论状态
         /// </summary>
-        public virtual ArticleCommentState State { get; set; }
+        public ArticleCommentState State { get; set; }
 
         /// <summary>
         /// 赞
@@ -51,9 +51,25 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         public DateTime CreationTime { get; set; }
 
         /// <summary>
+        /// 创建者
+        /// </summary>
+        public virtual User Creator { get; set; }
+
+        /// <summary>
         /// 所属文章
         /// </summary>
         public virtual Article Article { get; set; }
+
+        public static ArticleComment New(string content)
+        {
+            return new ArticleComment
+            {
+                Content = content,
+                Likes = 0,
+                Dislikes = 0,
+                CreationTime = DateTime.Now
+            };
+        }
 
         #region 状态事件
 

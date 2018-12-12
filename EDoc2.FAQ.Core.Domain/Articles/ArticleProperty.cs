@@ -6,7 +6,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles
     /// <summary>
     /// 文章属性 ps:可存储更新较为频繁的字段
     /// </summary>
-    public class ArticleProperty : Entity
+    public class ArticleProperty : Entity<Guid>
     {
 
         #region Properties

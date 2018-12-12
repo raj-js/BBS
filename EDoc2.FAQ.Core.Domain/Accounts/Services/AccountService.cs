@@ -169,9 +169,9 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
             await Task.CompletedTask;
         }
 
-        public async Task PlusScore(User targetUser, int score, ScoreChangeReason reason)
+        public async Task PlusScore(User targetUser, int score, UserScoreChangeReason reason)
         {
-            var scoreChange = new ScoreChange
+            var scoreChange = new UserScoreHistory
             {
                 UserId = targetUser.Id,
                 Reason = reason,
@@ -185,12 +185,12 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
             await _accountRepo.UpdateProperty(scoreProperty);
         }
 
-        public async Task MinuScore(User targetUser, int score, ScoreChangeReason reason)
+        public async Task MinuScore(User targetUser, int score, UserScoreChangeReason reason)
         {
             if(!targetUser.HasEnoughScore(score))
                 throw new ScoreNotEnoughException(targetUser.Id, targetUser.Score, score);
 
-            var scoreChange = new ScoreChange
+            var scoreChange = new UserScoreHistory
             {
                 UserId = targetUser.Id,
                 Reason = reason,
@@ -200,8 +200,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
             };
             await _accountRepo.AddScoreChange(scoreChange);
 
-            var scoreProperty = targetUser.GetOrSetProperty(UserProperty.Score, scoreChange.FinalScore);
-            await _accountRepo.UpdateProperty(scoreProperty);
+            targetUser.GetOrSetProperty(UserProperty.Score, scoreChange.FinalScore);
         }
     }
 }

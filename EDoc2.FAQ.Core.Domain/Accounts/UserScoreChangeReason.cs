@@ -5,22 +5,22 @@ using EDoc2.FAQ.Core.Domain.SeedWork;
 
 namespace EDoc2.FAQ.Core.Domain.Accounts
 {
-    public class ScoreChangeReason : Enumeration
+    public class UserScoreChangeReason : Enumeration
     {
-        public static ScoreChangeReason SignIn = new ScoreChangeReason(1, "每日签到");
-        public static ScoreChangeReason BestReply = new ScoreChangeReason(2, "最佳回复");
-        public static ScoreChangeReason AskQuestion = new ScoreChangeReason(3, "发布问题");
+        public static UserScoreChangeReason SignIn = new UserScoreChangeReason(1, "每日签到");
+        public static UserScoreChangeReason BestReply = new UserScoreChangeReason(2, "最佳回复");
+        public static UserScoreChangeReason AskQuestion = new UserScoreChangeReason(3, "发布问题");
 
-        public ScoreChangeReason() { }
+        public UserScoreChangeReason() { }
 
-        public ScoreChangeReason(int id, string name)
+        public UserScoreChangeReason(int id, string name)
             : base(id, name)
         {
         }
 
-        public static IEnumerable<ScoreChangeReason> List() => new[] { SignIn, BestReply, AskQuestion };
+        public static IEnumerable<UserScoreChangeReason> List() => new[] { SignIn, BestReply, AskQuestion };
 
-        public static ScoreChangeReason FromName(string name)
+        public static UserScoreChangeReason FromName(string name)
         {
             var state = List().SingleOrDefault(s => string.Equals(s.Name, name, StringComparison.CurrentCultureIgnoreCase));
             if (state == null)
@@ -29,7 +29,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
             return state;
         }
 
-        public static ScoreChangeReason From(int id)
+        public static UserScoreChangeReason From(int id)
         {
             var state = List().SingleOrDefault(s => s.Id == id);
             if (state == null)
