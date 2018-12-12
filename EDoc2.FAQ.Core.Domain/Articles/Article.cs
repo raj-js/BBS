@@ -119,8 +119,6 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// </summary>
         public void SetPublished()
         {
-            if (State != ArticleState.Auditing) return;
-
             //如果文章为问题或者交流，则设置为未结帖状态，否则设置为发布状态
             if (Type == ArticleType.Question || Type.Equals(ArticleType.Article))
                 State = ArticleState.UnSolved;
