@@ -1,10 +1,12 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace EDoc2.FAQ.Core.Domain.Articles
 {
     /// <summary>
     /// 文章状态
     /// </summary>
+    [Flags]
     public enum ArticleState
     {
         [DisplayName("草稿")]

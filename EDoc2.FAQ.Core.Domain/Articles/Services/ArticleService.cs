@@ -25,11 +25,13 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
             var query = _articleRepo.GetArticles();
 
             //游客
+            const ArticleState allowState = ArticleState.Published | 
+                                            ArticleState.Solved | 
+                                            ArticleState.UnSolved |
+                                            ArticleState.Unsatisfactory;
+
             if (@operator == null)
-                return query.Where(s => s.State.Equals(ArticleState.Published) ||
-                                        s.State.Equals(ArticleState.Solved) ||
-                                        s.State.Equals(ArticleState.UnSolved) ||
-                                        s.State.Equals(ArticleState.Unsatisfactory));
+                return query.Where(s => (s.State & allowState) > 0);
 
             //版主
             if (@operator.IsModerator)
@@ -40,10 +42,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
                 return query;
 
             //普通会员
-            return query.Where(s => s.State.Equals(ArticleState.Published) ||
-                                    s.State.Equals(ArticleState.Solved) ||
-                                    s.State.Equals(ArticleState.UnSolved) ||
-                                    s.State.Equals(ArticleState.Unsatisfactory) ||
+            return query.Where(s => (s.State & allowState) > 0 || 
                                     (!s.State.Equals(ArticleState.Deleted) && s.CreatorId.Equals(@operator.Id)));
         }
 
@@ -54,21 +53,19 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
             if (article == null) return null;
 
             //游客
-            if (@operator == null &&
-                !article.State.Equals(ArticleState.Published) &&
-                !article.State.Equals(ArticleState.UnSolved) &&
-                !article.State.Equals(ArticleState.Unsatisfactory) &&
-                !article.State.Equals(ArticleState.Solved))
+            const ArticleState allowState = ArticleState.Published |
+                                            ArticleState.Solved |
+                                            ArticleState.UnSolved |
+                                            ArticleState.Unsatisfactory;
+
+            if (@operator == null && (article.State & allowState) == 0)
             {
                 return null;
             }
 
             //普通会员
             if (@operator != null && !@operator.IsAdministrator && !@operator.IsModerator &&
-                !article.State.Equals(ArticleState.Published) &&
-                !article.State.Equals(ArticleState.UnSolved) &&
-                !article.State.Equals(ArticleState.Unsatisfactory) &&
-                !article.State.Equals(ArticleState.Solved) && 
+                (article.State & allowState) == 0 && 
                 (!@operator.Id.Equals(article.CreatorId) || article.State.Equals(ArticleState.Deleted)))
             {
                 return null;
