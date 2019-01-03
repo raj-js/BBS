@@ -157,5 +157,18 @@ namespace EDoc2.FAQ.Core.Application.Articles
         /// <param name="req"></param>
         /// <returns></returns>
         Task<RespWapper> Finish(FinishReq req);
+
+        /// <summary>
+        /// 获取用户文章
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<RespWapper> GetUserArticles(UserArticlesReq req);
+
+        /// <summary>
+        /// 获取用户收藏
+        /// </summary>
+        /// <returns></returns>
+        Task<RespWapper> GetUserFavorites(UserFavoritesReq req);
     }
 }

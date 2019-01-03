@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using static EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos;
 
 namespace EDoc2.FAQ.Api.Controllers
@@ -15,6 +16,7 @@ namespace EDoc2.FAQ.Api.Controllers
     /// </summary>
     [Route("api/v1/[controller]")]
     [ApiController]
+    [JwtAuthorize]
     public class ArticleController : ControllerBase
     {
         private readonly IArticleAppService _articleAppService;
@@ -34,6 +36,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <returns></returns>
         [HttpGet("types")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<List<ValueTitlePair<int>>>))]
+        [AllowAnonymous]
         public async Task<IActionResult> GetTypes()
         {
             var response = await _articleAppService.GetArticleTypes();
@@ -46,6 +49,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <returns></returns>
         [HttpGet("states")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<List<ValueTitlePair<int>>>))]
+        [AllowAnonymous]
         public async Task<IActionResult> GetStates()
         {
             var response = await _articleAppService.GetArticleStates();
@@ -60,6 +64,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [HttpGet("search")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<PagingDto<ListItem>>))]
+        [AllowAnonymous]
         public async Task<IActionResult> Search([FromQuery]SearchReq req)
         {
             if (!ModelState.IsValid) return NotFound();
@@ -76,7 +81,6 @@ namespace EDoc2.FAQ.Api.Controllers
         [HttpPost("addArticle")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<Guid>))]
-        [JwtAuthorize]
         public async Task<IActionResult> AddArticle([FromBody]AddArticleReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
@@ -92,7 +96,6 @@ namespace EDoc2.FAQ.Api.Controllers
         [HttpPost("addQuestion")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<Guid>))]
-        [JwtAuthorize]
         public async Task<IActionResult> AddQuestion([FromBody]AddQuestionReq req)
         {
             if (!ModelState.IsValid) return BadRequest();
@@ -107,6 +110,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<ArticleResp>))]
+        [AllowAnonymous]
         public async Task<IActionResult> View([FromQuery]Guid id)
         {
             return Ok(await _articleAppService.View(id));
@@ -120,9 +124,10 @@ namespace EDoc2.FAQ.Api.Controllers
         [HttpGet("getComments")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<PagingDto<CommentItem>>))]
+        [AllowAnonymous]
         public async Task<IActionResult> GetComments([FromQuery]LoadCommentsReq req)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.GetComments(req));
         }
@@ -137,7 +142,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<Guid>))]
         public async Task<IActionResult> AddDraft([FromBody]AddArticleReq req)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.AddDraft(req));
         }
@@ -152,7 +157,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<Guid>))]
         public async Task<IActionResult> EditQuestion([FromBody]EditQuestionReq req)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.EditQuestion(req));
         }
@@ -167,7 +172,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<Guid>))]
         public async Task<IActionResult> EditArticle([FromBody]EditArticleReq req)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.EditArticle(req));
         }
@@ -182,7 +187,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<Guid>))]
         public async Task<IActionResult> EditCanComment([FromBody]EditCanCommentReq req)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.EditCanComment(req));
         }
@@ -197,7 +202,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper))]
         public async Task<IActionResult> Delete([FromQuery]Guid id)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.Delete(id));
         }
@@ -212,7 +217,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper))]
         public async Task<IActionResult> DeleteForced([FromQuery]Guid id)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.DeleteForced(id));
         }
@@ -227,7 +232,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper))]
         public async Task<IActionResult> TopArticle([FromBody]TopArticleReq req)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.TopArticle(req));
         }
@@ -242,7 +247,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper))]
         public async Task<IActionResult> CancelTopArticle([FromBody]Guid id)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.CancelTopArticle(id));
         }
@@ -257,13 +262,13 @@ namespace EDoc2.FAQ.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<LikeOrNotResp>))]
         public async Task<IActionResult> Like([FromBody]Guid id)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.LikeArticle(id));
         }
 
         /// <summary>
-        /// 赞文章
+        /// 踩文章
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -272,9 +277,9 @@ namespace EDoc2.FAQ.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<LikeOrNotResp>))]
         public async Task<IActionResult> Dislike([FromBody]Guid id)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
-            return Ok(await _articleAppService.LikeArticle(id));
+            return Ok(await _articleAppService.DislikeArticle(id));
         }
 
         /// <summary>
@@ -287,7 +292,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<LikeOrNotResp>))]
         public async Task<IActionResult> LikeComment([FromBody]long id)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.LikeComment(id));
         }
@@ -302,7 +307,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<LikeOrNotResp>))]
         public async Task<IActionResult> DisLikeComment([FromBody]long id)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.DislikeComment(id));
         }
@@ -317,7 +322,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<CommentItem>))]
         public async Task<IActionResult> Reply([FromBody]ReplyArticleReq req)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.ReplyArticle(req));
         }
@@ -332,7 +337,7 @@ namespace EDoc2.FAQ.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<CommentItem>))]
         public async Task<IActionResult> ReplyComment([FromBody]ReplyCommentReq req)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.ReplyComment(req));
         }
@@ -344,12 +349,44 @@ namespace EDoc2.FAQ.Api.Controllers
         /// <returns></returns>
         [HttpPut("finish")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<ArticleResp>))]
         public async Task<IActionResult> Finish([FromBody]FinishReq req)
         {
-            if (ModelState.IsValid) return NotFound();
+            if (!ModelState.IsValid) return NotFound();
 
             return Ok(await _articleAppService.Finish(req));
+        }
+
+        /// <summary>
+        /// 获取用户文章/问题
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpGet("getUserArticles")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<PagingDto<ListItem>>))]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetUserArticles([FromQuery]UserArticlesReq req)
+        {
+            if (!ModelState.IsValid) return NotFound();
+
+            return Ok(await _articleAppService.GetUserArticles(req));
+        }
+
+        /// <summary>
+        /// 获取用户收藏
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpGet("getUserFavorites")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<PagingDto<ListItem>>))]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetUserFavorites([FromQuery]UserFavoritesReq req)
+        {
+            if (!ModelState.IsValid) return NotFound();
+
+            return Ok(await _articleAppService.GetUserFavorites(req));
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using EDoc2.FAQ.Core.Domain.Articles;
+using EDoc2.FAQ.Core.Domain.Exceptions;
 using EDoc2.FAQ.Core.Domain.Services;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Domain.Exceptions;
 
 namespace EDoc2.FAQ.Core.Domain.Accounts.Services
 {
@@ -25,9 +25,9 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
             return skipAdmin ? _accountRepo.GetUsers().Where(u => u.UserRoles.All(r => r.RoleId != Role.Administrator.Id)) : _accountRepo.GetUsers();
         }
 
-        public async Task<User> FindUserByIdAsync(string id)
+        public async Task<User> FindUserByIdAsync(string id, bool tracking = true)
         {
-            return await _accountRepo.FindUserByIdAsync(id);
+            return await _accountRepo.FindUserByIdAsync(id, tracking);
         }
 
         public User FindUserById(string id)
@@ -37,17 +37,45 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
 
         public IQueryable<User> GetFollows(User user)
         {
-            return user.UserFollows.AsQueryable().Select(s => s.Follow);
+            return user.UserFollows.AsQueryable()
+                .Where(s => !s.IsCancel && !s.Follow.IsMuted)
+                .OrderBy(s => s.OperationTime)
+                .Select(s => s.Follow);
         }
 
         public IQueryable<User> GetFans(User user)
         {
-            return user.UserFans.AsQueryable().Select(s => s.Fan);
+            return user.UserFans.AsQueryable()
+                .Where(s => !s.IsCancel && !s.Fan.IsMuted)
+                .OrderBy(s => s.OperationTime)
+                .Select(s => s.Fan);
         }
 
-        public IQueryable<Article> GetFavoriteArticles(User user)
+        public IQueryable<Article> GetFavorites(User @operator)
         {
-            return user.UserFavorites.AsQueryable().Select(s => s.Article);
+            var query = @operator.UserFavorites
+                .AsQueryable()
+                .OrderBy(s => s.OperationTime)
+                .Select(s => s.Article);
+
+            const ArticleState allowState = ArticleState.Published |
+                                            ArticleState.Solved |
+                                            ArticleState.UnSolved |
+                                            ArticleState.Unsatisfactory;
+
+            return query.Where(s => (s.State & allowState) > 0);
+        }
+
+        public async Task<bool> IsFavorite(User @operator, Guid id)
+        {
+            await Task.CompletedTask;
+            return @operator.UserFavorites.Any(s => s.ArticleId == id && !s.IsCancel);
+        }
+
+        public async Task<bool> IsFollow(User @operator, string id)
+        {
+            await Task.CompletedTask;
+            return @operator.UserFollows.Any(s => s.FollowId == id && !s.IsCancel);
         }
 
         public async Task<IdentityResult> Create(User user, string password, bool isSetAdmin = false, bool allowMultipleAdmin = false)
@@ -91,10 +119,10 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
 
         public async Task<User> EditProfile(User user)
         {
-            _accountRepo.UpdatePartly(user, 
-                nameof(User.Nickname),
-                nameof(User.Signature),
+            _accountRepo.UpdatePartly(user,
                 nameof(User.Gender),
+                nameof(User.Company),
+                nameof(User.Signature),
                 nameof(User.City));
 
             await Task.CompletedTask;
@@ -187,7 +215,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
 
         public async Task MinuScore(User targetUser, int score, UserScoreChangeReason reason)
         {
-            if(!targetUser.HasEnoughScore(score))
+            if (!targetUser.HasEnoughScore(score))
                 throw new ScoreNotEnoughException(targetUser.Id, targetUser.Score, score);
 
             var scoreChange = new UserScoreHistory
@@ -201,6 +229,16 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
             await _accountRepo.AddScoreChange(scoreChange);
 
             targetUser.GetOrSetProperty(UserProperty.Score, scoreChange.FinalScore);
+        }
+
+        public async Task ModifyAvatar(User @operator, string base64Avatar)
+        {
+            if (@operator == null) 
+                throw new ArgumentNullException(nameof(@operator));
+
+            @operator.GetOrSetProperty(UserProperty.Avatar, base64Avatar);
+
+            await Task.CompletedTask;
         }
     }
 }

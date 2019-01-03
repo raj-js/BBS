@@ -25,6 +25,15 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         /// </summary>
         public const string Follows = "Follows";
 
+        /// <summary>
+        /// 头像
+        /// </summary>
+        public const string Avatar = "Avatar";
+
+        /// <summary>
+        /// 封面
+        /// </summary>
+        public const string Cover = "Cover";
 
         /// <summary>
         /// 所属用户编号

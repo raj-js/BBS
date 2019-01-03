@@ -1,17 +1,20 @@
 ﻿using System.ComponentModel;
 
-namespace EDoc2.FAQ.Core.Domain.Notifications
+namespace EDoc2.FAQ.Core.Domain.Notifies
 {
+    /// <summary>
+    /// 消息行为类型
+    /// </summary>
     public enum NotifyOperationType
     {
-        [DisplayName("系统公告")]
-        SystemNotice,
-
         [DisplayName("关注")]
         Follow,
 
-        [DisplayName("回复文章/帖子")]
+        [DisplayName("回复文章")]
         ReplyArticle,
+
+        [DisplayName("回复问题")]
+        ReplyQuestion,
 
         [DisplayName("回复评论")]
         ReplyComment,
@@ -19,20 +22,23 @@ namespace EDoc2.FAQ.Core.Domain.Notifications
         [DisplayName("引用评论")]
         ReferComment,
 
-        [DisplayName("文章/帖子审核通过")]
+        [DisplayName("文章审核通过")]
         ArticleApprovePassed,
 
-        [DisplayName("文章/帖子审核驳回")]
+        [DisplayName("问题审核通过")]
+        QuestionApprovePassed,
+
+        [DisplayName("文章审核驳回")]
         ArticleApproveRejected,
 
-        [DisplayName("注册成功")]
-        RegisterSuccess,
+        [DisplayName("帖子审核驳回")]
+        QuestionApproveRejected,
 
-        [DisplayName("非常用地点登录")]
-        SignInUnusualPlace,
-
-        [DisplayName("举报文章/帖子")]
+        [DisplayName("举报文章")]
         ReportArticle,
+
+        [DisplayName("举报问题")]
+        ReportQuestion,
 
         [DisplayName("举报评论")]
         ReportComment,

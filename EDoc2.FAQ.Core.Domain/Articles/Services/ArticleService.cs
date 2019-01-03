@@ -112,7 +112,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
             await _articleRepo.AddOperation(operation);
 
             //增加文章访问量
-            article.GetOrSetProperty(ArticleProperty.Pv, article.Pv + 1);
+            article.SetProperty(ArticleProperty.Pv, article.Pv + 1);
         }
 
         public async Task View(Article article, string clientIp, int viewInterval)
@@ -143,7 +143,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
             await _articleRepo.AddOperation(operation);
 
             //增加文章访问量
-            article.GetOrSetProperty(ArticleProperty.Pv, article.Pv + 1);
+            article.SetProperty(ArticleProperty.Pv, article.Pv + 1);
         }
 
         public IQueryable<ArticleComment> GetComments(User @operator, Article article)
@@ -258,7 +258,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
             else
                 article.SetPublished();
 
-            await _articleRepo.Update(article, nameof(Article.State));
+            await Task.CompletedTask;
         }
 
         public async Task Release(User author, Article article, int score, bool approve = false)
@@ -268,8 +268,8 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
 
             await _accountService.MinuScore(author, score, UserScoreChangeReason.AskQuestion);
 
-            article.GetOrSetProperty(ArticleProperty.HasSpentSocre, true);
-            article.GetOrSetProperty(ArticleProperty.Score, score);
+            article.SetProperty(ArticleProperty.HasSpentSocre, true);
+            article.SetProperty(ArticleProperty.Score, score);
 
             if (approve)
                 article.SetAuditing();
@@ -319,6 +319,8 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
 
                 article.SetSolved(adoptComment.Id);
 
+                article.SetProperty(ArticleProperty.AdoptCommentId, adoptComment.Id);
+
                 var replyer = await _accountService.FindUserByIdAsync(adoptComment.CreatorId);
                 if (replyer == null)
                     throw new AccountNotFoundException(adoptComment.CreatorId);
@@ -365,8 +367,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
                 likes++;
             }
 
-            var likesProperty = article.GetOrSetProperty(ArticleProperty.Likes, likes);
-            await _articleRepo.UpdateArticleProperty(likesProperty);
+            article.SetProperty(ArticleProperty.Likes, likes);
 
             //查看当前用户是否踩过此文章， 如果有， 则取消
             var dislikeOperation = await _articleRepo.GetOperations()
@@ -382,8 +383,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
                 dislikeOperation.IsCancel = true;
                 await _articleRepo.UpdateOperation(dislikeOperation, nameof(ArticleOperation.IsCancel));
 
-                var dislikesProperty = article.GetOrSetProperty(ArticleProperty.Dislikes, article.Dislikes - 1);
-                await _articleRepo.UpdateArticleProperty(dislikesProperty);
+                article.SetProperty(ArticleProperty.Dislikes, article.Dislikes - 1);
             }
         }
 
@@ -425,8 +425,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
                 dislikes++;
             }
 
-            var dislikesProperty = article.GetOrSetProperty(ArticleProperty.Dislikes, dislikes);
-            await _articleRepo.UpdateArticleProperty(dislikesProperty);
+            article.SetProperty(ArticleProperty.Dislikes, dislikes);
 
             //查看当前用户是否赞过此文章， 如果有， 则取消
             var likeOperation = await _articleRepo.GetOperations()
@@ -442,8 +441,7 @@ namespace EDoc2.FAQ.Core.Domain.Articles.Services
                 likeOperation.IsCancel = true;
                 await _articleRepo.UpdateOperation(likeOperation, nameof(ArticleOperation.IsCancel));
 
-                var likesProperty = article.GetOrSetProperty(ArticleProperty.Likes, article.Likes - 1);
-                await _articleRepo.UpdateArticleProperty(likesProperty);
+                article.SetProperty(ArticleProperty.Likes, article.Likes - 1);
             }
         }
 

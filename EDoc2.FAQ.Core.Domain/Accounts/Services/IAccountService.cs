@@ -1,6 +1,7 @@
 ﻿using EDoc2.FAQ.Core.Domain.Articles;
 using EDoc2.FAQ.Core.Domain.Services;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,8 +21,9 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
         /// 根据编号查找用户
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="tracking"></param>
         /// <returns></returns>
-        Task<User> FindUserByIdAsync(string id);
+        Task<User> FindUserByIdAsync(string id, bool tracking = true);
 
         /// <summary>
         /// 根据编号查找用户
@@ -49,7 +51,23 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
         /// 获取用户收藏文章
         /// </summary>
         /// <returns></returns>
-        IQueryable<Article> GetFavoriteArticles(User user);
+        IQueryable<Article> GetFavorites(User @operator);
+
+        /// <summary>
+        /// 是否收藏
+        /// </summary>
+        /// <param name="operator"></param>
+        /// <param name="id">文章编号</param>
+        /// <returns></returns>
+        Task<bool> IsFavorite(User @operator, Guid id);
+
+        /// <summary>
+        /// 是否关注
+        /// </summary>
+        /// <param name="operator"></param>
+        /// <param name="id">用户编号</param>
+        /// <returns></returns>
+        Task<bool> IsFollow(User @operator, string id);
 
         #endregion
 
@@ -134,6 +152,14 @@ namespace EDoc2.FAQ.Core.Domain.Accounts.Services
         /// <param name="reason"></param>
         /// <returns></returns>
         Task MinuScore(User targetUser, int score, UserScoreChangeReason reason);
+
+        /// <summary>
+        /// 修改头像
+        /// </summary>
+        /// <param name="operator"></param>
+        /// <param name="base64Avatar"></param>
+        /// <returns></returns>
+        Task ModifyAvatar(User @operator, string base64Avatar);
 
         #endregion
     }

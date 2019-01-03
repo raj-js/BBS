@@ -21,7 +21,7 @@ namespace EDoc2.FAQ.Core.Domain.SignIns
         /// <summary>
         /// 获得积分
         /// </summary>
-        public int GetScore { get; set; }
+        public int Score { get; set; }
 
         /// <summary>
         /// 签到时间

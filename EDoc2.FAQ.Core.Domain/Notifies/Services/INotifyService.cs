@@ -1,20 +1,19 @@
-﻿using EDoc2.FAQ.Core.Domain.Applications;
-using EDoc2.FAQ.Core.Domain.Notifications;
+﻿using EDoc2.FAQ.Core.Domain.Accounts;
+using EDoc2.FAQ.Core.Domain.Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Domain.Accounts;
 
-namespace EDoc2.FAQ.Core.Domain.Notifications.Services
+namespace EDoc2.FAQ.Core.Domain.Notifies.Services
 {
-    public interface INotifyDomainService
+    public interface INotifyService : IDomainService
     {
         /// <summary>
         /// 新增通知
         /// </summary>
         /// <param name="notify">通知</param>
         /// <returns></returns>
-        Task<Notify> AddNotify(Notify notify);
+        Task AddNotify(Notify notify);
 
         /// <summary>
         /// 通过编号获取通知
@@ -44,13 +43,22 @@ namespace EDoc2.FAQ.Core.Domain.Notifications.Services
         /// 获取通知
         /// </summary>
         /// <returns></returns>
-        IQueryable<Notify> GetNotifiesAsync();
+        IQueryable<Notify> GetNotifies();
 
         /// <summary>
         /// 获取用户所有的通知
         /// </summary>
-        /// <param name="reader">用户</param>
+        /// <param name="operator"></param>
+        /// <param name="@operator">用户</param>
         /// <returns></returns>
-        Task<IQueryable<Notify>> GetNotifiesAsync(User reader);
+        Task<IQueryable<Notify>> GetNotifies(User @operator);
+
+        /// <summary>
+        /// 删除个人通知
+        /// </summary>
+        /// <param name="operator"></param>
+        /// <param name="notify"></param>
+        /// <returns></returns>
+        Task DeleteMyNotify(User @operator, Notify notify);
     }
 }

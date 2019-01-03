@@ -48,5 +48,10 @@ namespace EDoc2.FAQ.Core.Infrastructure.Extensions
         {
             return @this.OrderBy($"{expression} {(isAsc ? "asc" : "desc")}");
         }
+
+        public static IQueryable<T> OrderByTrue<T>(this IQueryable<T> @this, bool condition, string expression, bool isAsc)
+        {
+            return condition ? @this.OrderBy($"{expression} {(isAsc ? "asc" : "desc")}") : @this;
+        }
     }
 }

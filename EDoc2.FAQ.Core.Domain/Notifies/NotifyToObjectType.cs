@@ -1,26 +1,23 @@
 ﻿using System.ComponentModel;
 
-namespace EDoc2.FAQ.Core.Domain.Notifications
+namespace EDoc2.FAQ.Core.Domain.Notifies
 {
+    /// <summary>
+    /// 消息通知对象类型
+    /// </summary>
     public enum NotifyToObjectType
     {
         [DisplayName("管理员")]
-        Administrator,
+        Administrator = 1,
 
-        [DisplayName("所有人")]
-        All,
+        [DisplayName("版主")]
+        Moderator = 1 << 1,
 
-        [DisplayName("除管理员外的所有人")]
-        AllButAdministrator,
+        [DisplayName("会员")]
+        Member = 1 << 2,
 
-        [DisplayName("所有版主")]
-        AllModerators,
-
-        [DisplayName("所有会员")]
-        AllAccounts,
-
-        [DisplayName("单人")]
-        Single
+        [DisplayName("指定用户")]
+        Single = 1 << 3
     }
 
     //public class NotifyToObjectType : Enumeration

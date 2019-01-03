@@ -1,6 +1,7 @@
 ﻿using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.Repositories;
 using EDoc2.FAQ.Core.Infrastructure.Extensions;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -48,9 +49,11 @@ namespace EDoc2.FAQ.Core.Infrastructure.Repositories
             return Context.Set<User>().Find(id);
         }
 
-        public async Task<User> FindUserByIdAsync(string id)
+        public async Task<User> FindUserByIdAsync(string id, bool tracking = true)
         {
-            return await Context.FindAsync<User>(id);
+            return tracking ? 
+                await Context.FindAsync<User>(id) :
+                Context.Set<User>().AsNoTracking().SingleOrDefault(s => s.Id == id);
         }
 
         public async Task<UserSubscriber> AddSubscriber(UserSubscriber subscriber)

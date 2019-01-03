@@ -3,7 +3,6 @@ using Autofac.Extensions.DependencyInjection;
 using EDoc2.FAQ.Api.Infrastructure;
 using EDoc2.FAQ.Api.Infrastructure.Middlewares;
 using EDoc2.FAQ.Api.Infrastructure.Modules;
-using EDoc2.FAQ.Core.Application.Settings;
 using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -25,6 +24,7 @@ using System;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Infrastructure.Settings;
 
 namespace EDoc2.FAQ.Api
 {
@@ -77,9 +77,18 @@ namespace EDoc2.FAQ.Api
             .AddEntityFrameworkStores<CommunityContext>()
             .AddDefaultTokenProviders();
 
+            services.Configure<AuthorizeSetting>(Configuration.GetSection(nameof(AuthorizeSetting)));
+            services.Configure<EventBusSetting>(Configuration.GetSection(nameof(EventBusSetting)));
             services.Configure<JwtSetting>(Configuration.GetSection(nameof(JwtSetting)));
-            var jwt = new JwtSetting();
-            Configuration.Bind(nameof(JwtSetting), jwt);
+            services.Configure<MailSetting>(Configuration.GetSection(nameof(MailSetting)));
+
+            var jwtSetting = new JwtSetting();
+            var eventBusSetting = new EventBusSetting();
+            var mailSetting = new MailSetting();
+
+            Configuration.Bind(nameof(EventBusSetting), eventBusSetting);
+            Configuration.Bind(nameof(JwtSetting), jwtSetting);
+            Configuration.Bind(nameof(MailSetting), mailSetting);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -98,13 +107,13 @@ namespace EDoc2.FAQ.Api
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwt.Secret)),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSetting.Secret)),
 
                         ValidateIssuer = true,
-                        ValidIssuer = jwt.Issuer,
+                        ValidIssuer = jwtSetting.Issuer,
 
                         ValidateAudience = true,
-                        ValidAudience = jwt.Audience,
+                        ValidAudience = jwtSetting.Audience,
 
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.FromMinutes(30)
@@ -141,8 +150,8 @@ namespace EDoc2.FAQ.Api
             //    options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
             //});
 
-            services.AddEventBus(Configuration);
-            services.UseMailSender(Configuration);
+            services.AddEventBus(eventBusSetting);
+            services.UseMailSender(mailSetting);
 
             services.AddCors();
 
@@ -185,7 +194,7 @@ namespace EDoc2.FAQ.Api
 
             app.UseCors(b =>
             {
-                b.WithOrigins("http://localhost:4200")
+                b.WithOrigins("http://192.168.252.113:4200")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();

@@ -1,7 +1,8 @@
 ﻿using EDoc2.FAQ.Core.Domain.SeedWork;
 using System;
+using System.Collections.Generic;
 
-namespace EDoc2.FAQ.Core.Domain.Notifications
+namespace EDoc2.FAQ.Core.Domain.Notifies
 {
     public class Notify : Entity<Guid>, IAggregateRoot
     {
@@ -60,6 +61,13 @@ namespace EDoc2.FAQ.Core.Domain.Notifications
         /// </summary>
         public DateTime? ExpirationTime { get; private set; }
 
+        /// <summary>
+        /// 描述
+        /// </summary>
+        public string Description { get; set; }
+
+        public virtual ICollection<NotifyBelong> Belongs { get; set; }
+
         public Notify(NotifyInitiatorType initiatorType, 
             string initiatorId, 
             NotifyOperationType operationType, 
@@ -95,6 +103,28 @@ namespace EDoc2.FAQ.Core.Domain.Notifications
             if (IsDeleted) return;
 
             ExpirationTime = expirationTime;
+        }
+
+        public void ReadBy(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+                throw new ArgumentNullException(nameof(userId));
+
+            Belongs = Belongs ?? new List<NotifyBelong>();
+
+            Belongs.Add(new NotifyBelong(Id, userId));
+        }
+
+        public void DeleteBy(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+                throw new ArgumentNullException(nameof(userId));
+
+            Belongs = Belongs ?? new List<NotifyBelong>();
+
+            var belongTo = new NotifyBelong(Id, userId, setReaded: false);
+            belongTo.SetDeleted();
+            Belongs.Add(belongTo);
         }
     }
 }

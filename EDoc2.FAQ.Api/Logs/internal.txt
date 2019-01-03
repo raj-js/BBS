@@ -2014,3 +2014,1074 @@
    at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
    --- End of inner exception stack trace ---
 2018-12-12 22:13:35.4360 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-14 14:48:44.9711 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-14 14:48:45.0309 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-14 14:49:37.0857 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-14 14:49:37.1078 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-14 14:49:58.3260 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-14 14:49:58.3488 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-14 17:48:09.1602 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-14 17:48:09.1972 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-14 17:51:13.6080 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-14 17:51:13.9321 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-15 11:23:31.8745 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-15 11:23:31.9004 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-17 20:26:02.2842 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-17 20:26:02.3262 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-17 20:31:49.0967 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-17 20:31:49.1129 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-17 20:32:49.5972 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-17 20:32:49.6200 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-17 20:43:15.5455 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-17 20:43:15.5591 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-17 20:43:52.2271 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-17 20:43:52.2477 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-18 19:10:11.3759 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-18 19:10:11.3977 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-18 19:36:20.4715 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-18 19:36:20.4989 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-18 19:38:25.1422 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-18 19:38:25.1652 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-19 18:33:32.2867 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-19 18:33:32.3200 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-19 18:37:03.6920 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-19 18:37:03.7176 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-19 20:48:10.0420 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-19 20:48:10.0720 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-19 20:49:12.7637 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-19 20:49:12.7890 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-20 09:21:57.4496 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-20 09:21:57.4781 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-20 09:24:03.7407 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-20 09:24:03.7641 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-20 09:25:11.6057 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-20 09:25:11.6474 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-20 09:37:17.6436 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-20 09:37:17.6630 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-20 09:47:08.0225 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-20 09:47:08.0483 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-20 11:22:14.3392 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-20 11:22:14.3732 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-20 14:14:16.9193 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-20 14:14:16.9473 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-20 18:36:36.3114 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-20 18:36:36.3570 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-20 18:41:27.4447 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-20 18:41:27.4715 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 09:26:02.4667 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 09:26:02.5023 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 09:31:33.3109 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 09:31:33.3335 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 09:58:07.3661 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 09:58:07.3986 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 10:54:33.9316 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 10:54:33.9634 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 10:55:07.6642 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 10:55:07.6916 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 11:04:08.1325 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 11:04:08.1611 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 11:51:35.8051 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 11:51:35.8200 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 12:37:54.1725 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 12:37:54.2130 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 12:40:17.4164 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 12:40:17.4164 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 12:44:38.9218 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 12:44:38.9373 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 12:46:05.1859 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 12:46:05.2149 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 12:51:52.4772 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 12:51:52.4772 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 12:53:36.3680 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 12:53:36.3873 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 12:54:25.9785 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 12:54:25.9974 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 12:57:42.4501 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 12:57:42.4986 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 13:21:33.6602 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 13:21:33.6602 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 13:43:35.7115 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 13:43:35.7562 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 15:34:44.4626 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 15:34:44.4812 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 15:51:58.9040 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 15:51:58.9219 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 15:57:04.8336 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 15:57:04.8475 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 16:02:28.0337 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 16:02:28.0432 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 16:18:53.1848 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 16:18:53.2117 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 16:41:54.1025 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 16:41:54.1191 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 16:44:09.5964 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 16:44:09.6157 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 16:45:58.9881 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 16:45:59.0051 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 17:03:55.2240 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 17:03:55.2240 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 17:21:50.1785 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 17:21:50.1920 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-21 17:24:16.6387 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-21 17:24:16.6688 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 09:50:50.7680 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 09:50:50.7839 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 12:11:04.6478 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 12:11:04.6653 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 12:38:37.3536 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 12:38:37.3647 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 12:40:58.5051 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 12:40:58.5256 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 14:17:16.0421 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 14:17:16.0630 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 15:48:48.5846 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 15:48:48.5846 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 15:53:40.5857 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 15:53:40.6012 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 15:55:00.3700 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 15:55:00.3700 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 16:10:03.6015 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 16:10:03.6220 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 16:12:45.5942 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 16:12:45.6103 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 16:25:17.2876 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 16:25:17.2876 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 16:40:23.7792 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 16:40:23.8195 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 16:42:02.4037 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 16:42:02.4223 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 16:57:26.7180 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 16:57:26.7325 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 16:58:09.7116 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 16:58:09.7116 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 17:33:22.1637 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 17:33:22.1786 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 17:34:55.6024 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 17:34:55.6024 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 17:40:28.5151 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 17:40:28.5151 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 17:41:57.3032 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 17:41:57.3243 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 17:43:08.8004 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 17:43:08.8328 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 17:46:54.8815 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 17:46:54.8920 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 20:24:19.4567 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 20:24:19.4567 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 20:25:52.7394 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 20:25:52.7544 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 21:07:48.7899 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 21:07:48.8085 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 21:14:43.7390 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 21:14:43.7639 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 21:33:23.1991 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 21:33:23.2190 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 21:44:41.4440 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 21:44:41.4661 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-22 22:08:59.4177 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-22 22:08:59.4569 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 09:02:53.3357 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 09:02:53.3560 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 10:09:41.6040 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 10:09:41.6327 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 10:19:33.2644 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 10:19:33.2868 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 10:34:30.3417 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 10:34:30.3417 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 19:14:06.7137 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 19:14:06.7615 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 19:20:56.2082 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 19:20:56.2366 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 20:08:25.6078 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 20:08:25.6432 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 20:10:16.3441 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 20:10:16.3674 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 20:11:48.2093 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 20:11:48.2239 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 20:12:46.2318 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 20:12:46.2703 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 20:13:45.7712 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 20:13:45.7863 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 20:19:27.5070 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 20:19:27.5222 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 20:39:46.0629 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 20:39:46.0761 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 20:50:44.8266 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 20:50:44.8482 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-24 20:52:14.6279 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-24 20:52:14.6579 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 09:00:12.7093 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 09:00:12.7272 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 09:13:08.8749 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 09:13:08.9068 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 09:13:54.3402 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 09:13:54.3595 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 09:27:14.4400 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 09:27:14.4600 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 09:38:15.2111 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 09:38:15.2367 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 09:39:17.5308 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 09:39:17.5530 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 09:41:52.7261 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 09:41:52.7524 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 11:24:44.2758 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 11:24:44.2943 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 11:25:15.9593 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 11:25:15.9845 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 12:53:22.1398 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 12:53:22.1618 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 13:52:45.8268 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 13:52:45.8437 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 13:57:44.9774 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 13:57:45.0000 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 14:03:02.7411 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 14:03:02.7602 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 14:34:50.8998 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 14:34:50.9283 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 14:36:16.3667 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 14:36:16.3865 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 15:10:03.0255 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 15:10:03.0562 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 16:29:22.2180 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 16:29:22.2498 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-25 16:48:31.6374 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-25 16:48:31.6547 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-28 19:25:23.2487 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-28 19:25:23.2952 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-28 19:26:08.3027 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-28 19:26:08.3454 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?
+2018-12-28 19:27:58.9203 Error Parsing configuration from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config failed. Exception: NLog.NLogConfigurationException: Exception when parsing G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config.  ---> System.NotSupportedException: Parameter fileTitle not supported on FileTarget
+   at NLog.Internal.PropertyHelper.SetPropertyFromString(Object obj, String propertyName, String value, ConfigurationItemFactory configurationItemFactory)
+   at NLog.Config.XmlLoggingConfiguration.ConfigureObjectFromAttributes(Object targetObject, NLogXmlElement element, Boolean ignoreType)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetElement(Target target, NLogXmlElement targetElement, Dictionary`2 typeNameToDefaultTargetParameters)
+   at NLog.Config.XmlLoggingConfiguration.ParseTargetsElement(NLogXmlElement targetsElement)
+   at NLog.Config.XmlLoggingConfiguration.ParseNLogElement(NLogXmlElement nlogElement, String filePath, Boolean autoReloadDefault)
+   at NLog.Config.XmlLoggingConfiguration.Initialize(XmlReader reader, String fileName, Boolean ignoreErrors)
+   --- End of inner exception stack trace ---
+2018-12-28 19:27:58.9435 Warn Failed loading config from G:\随笔\代码\FAQ\rc-2.0.0\EDoc2.FAQ\EDoc2.FAQ.Api\NLog.config. Invalid XML?

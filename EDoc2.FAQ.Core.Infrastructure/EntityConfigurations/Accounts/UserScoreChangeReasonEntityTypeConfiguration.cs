@@ -5,20 +5,20 @@ using System;
 
 namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Accounts
 {
-    class UserScoreChangeReasonEntityTypeConfiguration : IEntityTypeConfiguration<UserScoreChangeReason>
-    {
-        public void Configure(EntityTypeBuilder<UserScoreChangeReason> b)
-        {
-            b.HasKey(e => e.Id);
+    //class UserScoreChangeReasonEntityTypeConfiguration : IEntityTypeConfiguration<UserScoreChangeReason>
+    //{
+    //    public void Configure(EntityTypeBuilder<UserScoreChangeReason> b)
+    //    {
+    //        b.HasKey(e => e.Id);
 
-            b.Property(e => e.Id)
-                .HasDefaultValue(1)
-                .ValueGeneratedNever()
-                .IsRequired();
+    //        b.Property(e => e.Id)
+    //            .HasDefaultValue(1)
+    //            .ValueGeneratedNever()
+    //            .IsRequired();
 
-            b.Property(e => e.Name)
-                .HasMaxLength(50)
-                .IsRequired();
-        }
-    }
+    //        b.Property(e => e.Name)
+    //            .HasMaxLength(50)
+    //            .IsRequired();
+    //    }
+    //}
 }

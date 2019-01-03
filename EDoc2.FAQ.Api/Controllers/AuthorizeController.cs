@@ -1,10 +1,10 @@
 ﻿using EDoc2.FAQ.Core.Application.Accounts;
 using EDoc2.FAQ.Core.Application.DtoBase;
-using EDoc2.FAQ.Core.Application.Settings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Net;
 using System.Threading.Tasks;
+using EDoc2.FAQ.Core.Infrastructure.Settings;
 using static EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos;
 
 namespace EDoc2.FAQ.Api.Controllers
@@ -42,6 +42,9 @@ namespace EDoc2.FAQ.Api.Controllers
             if (!ModelState.IsValid) return BadRequest();
 
             var response = await _accountAppService.Authorize(req);
+            if (!response.Success)
+                return BadRequest(response.Errors);
+
             return Ok(response);
         }
     }

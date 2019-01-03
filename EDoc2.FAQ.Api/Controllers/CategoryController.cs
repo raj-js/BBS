@@ -28,6 +28,17 @@ namespace EDoc2.FAQ.Api.Controllers
         }
 
         /// <summary>
+        /// 获取所有类别， 具有树形结构
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("all")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<List<CategroyNode>>))]
+        public async Task<IActionResult> All()
+        {
+            return Ok(await _categoryAppService.AllCategories());
+        }
+
+        /// <summary>
         /// 获取分类
         /// </summary>
         /// <param name="id"></param>

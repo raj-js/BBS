@@ -12,5 +12,13 @@ namespace EDoc2.FAQ.Core.Application.Mails
                 "如果无法跳转，请复制以下链接到浏览器打开。<br />" +
                 HtmlEncoder.Default.Encode(link));
         }
+
+        public static void SendResetPassword(this IMailService mailService, string email, string link)
+        {
+            mailService.Send(email, "EDoc2问答社区-重置密码",
+                $"请通过下面的链接来重置密码： <a href='{HtmlEncoder.Default.Encode(link)}'>重置密码</a>.<br />" +
+                "如果无法跳转，请复制以下链接到浏览器打开。<br />" +
+                HtmlEncoder.Default.Encode(link));
+        }
     }
 }

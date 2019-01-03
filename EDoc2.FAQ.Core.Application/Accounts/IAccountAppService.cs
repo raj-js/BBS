@@ -1,4 +1,5 @@
-﻿using EDoc2.FAQ.Core.Application.DtoBase;
+﻿using System;
+using EDoc2.FAQ.Core.Application.DtoBase;
 using EDoc2.FAQ.Core.Application.ServiceBase;
 using System.Threading.Tasks;
 using static EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos;
@@ -32,7 +33,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        Task<RespWapper> GenerateResetPasswordToken(RetrievePasswordReq req);
+        Task<RespWapper> RetrievePassword(RetrievePasswordReq req);
 
         /// <summary>
         /// 重置密码
@@ -90,15 +91,65 @@ namespace EDoc2.FAQ.Core.Application.Accounts
         Task<RespWapper> EditProfile(EditProfileReq req);
 
         /// <summary>
-        /// 关注用户
+        /// 关注/取消关注用户
         /// </summary>
         /// <param name="userId"></param>
-        Task<RespWapper> Follow(string userId);
+        Task<RespWapper> FollowOrNot(string userId);
 
         /// <summary>
-        /// 取消关注用户
+        /// 获取用户的关注用户
         /// </summary>
-        /// <param name="userId"></param>
-        Task<RespWapper> UnFollow(string userId);
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<RespWapper> GetFollows(GetFollowOrFansReq req);
+
+        /// <summary>
+        /// 获取用户的粉丝
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<RespWapper> GetFans(GetFollowOrFansReq req);
+
+        /// <summary>
+        /// 收藏或者取消
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<RespWapper> FavoriteOrNot(Guid id);
+
+        /// <summary>
+        /// 是否收藏
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<RespWapper> IsFavorite(Guid id);
+
+        /// <summary>
+        /// 是否关注某用户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<RespWapper> IsFollow(string id);
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<RespWapper> ModifyPassword(ModifyPasswordReq req);
+
+        /// <summary>
+        /// 修改头像
+        /// </summary>
+        /// <param name="avatar"></param>
+        /// <returns></returns>
+        Task<RespWapper> ModifyAvatar(byte[] avatar);
+
+        /// <summary>
+        /// 获取头像
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<RespWapper> GetAvatar(string id);
     }
 }

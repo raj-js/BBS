@@ -20,7 +20,7 @@ namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Articles
 
             b.Property(e => e.Keywords).HasMaxLength(50).IsRequired();
 
-            b.Property(e => e.CanComment).HasDefaultValue(true);
+            b.Property(e => e.CanComment);
 
             b.Property(e => e.CreationTime).IsRequired();
 
@@ -29,6 +29,11 @@ namespace EDoc2.FAQ.Core.Infrastructure.EntityConfigurations.Articles
                 .HasForeignKey(e => e.CreatorId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            b.HasOne(e => e.Category)
+                .WithMany(e => e.Articles)
+                .HasForeignKey(e => e.CategoryId)
+                .IsRequired();
         }
     }
 }

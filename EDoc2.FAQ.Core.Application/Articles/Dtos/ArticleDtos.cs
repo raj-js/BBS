@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using EDoc2.FAQ.Core.Application.DtoBase;
+﻿using EDoc2.FAQ.Core.Application.DtoBase;
 using EDoc2.FAQ.Core.Domain.Articles;
+using EDoc2.FAQ.Core.Infrastructure.Extensions;
 using System;
 using System.ComponentModel.DataAnnotations;
-using EDoc2.FAQ.Core.Infrastructure.Extensions;
+using System.Text.Encodings.Web;
 
 namespace EDoc2.FAQ.Core.Application.Articles.Dtos
 {
@@ -25,6 +25,10 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             /// 关键词
             /// </summary>
             public string Keywords { get; set; }
+
+            public Guid? CategoryId { get; set; }
+
+            //public Guid[] CategoryIds { get; set; }
 
             /// <summary>
             /// 状态编号
@@ -132,7 +136,7 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             /// 内容
             /// </summary>
             [Required]
-            [MinLength(50)]
+            [MinLength(15)]
             public string Content { get; set; }
 
             /// <summary>
@@ -302,7 +306,6 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             /// 回复内容
             /// </summary>
             [Required]
-            [MaxLength(256)]
             public string Content { get; set; }
         }
 
@@ -334,7 +337,7 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
         /// <summary>
         /// 结帖请求
         /// </summary>
-        public class FinishReq: EntityDto<Guid>
+        public class FinishReq : EntityDto<Guid>
         {
             /// <summary>
             /// 是否为满意结帖
@@ -346,6 +349,34 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             /// 最佳回复编号
             /// </summary>
             public long? AdoptId { get; set; }
+        }
+
+        /// <summary>
+        /// 获取用户的问题或者文章
+        /// </summary>
+        public class UserArticlesReq : IPagingRequest
+        {
+            [Required]
+            public string UserId { get; set; }
+
+            [Required]
+            public ArticleType Type { get; set; }
+
+            public int PageIndex { get; set; }
+            public int PageSize { get; set; }
+            public string OrderBy { get; set; } = "CreationTime";
+            public bool IsAscending { get; set; } = true;
+        }
+
+        /// <summary>
+        /// 用户收藏
+        /// </summary>
+        public class UserFavoritesReq : IPagingRequest
+        {
+            public int PageIndex { get; set; }
+            public int PageSize { get; set; }
+            public string OrderBy { get; set; } = "CreationTime";
+            public bool IsAscending { get; set; } = true;
         }
 
         #endregion
@@ -372,9 +403,18 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             public string Keywords { get; set; }
 
             /// <summary>
+            /// 类别
+            /// </summary>
+            public string Category { get; set; }
+
+            public int StateId { get; set; }
+
+            /// <summary>
             /// 状态
             /// </summary>
             public string State { get; set; }
+
+            public int TypeId { get; set; }
 
             /// <summary>
             /// 类别
@@ -397,9 +437,29 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             public int Pv { get; set; }
 
             /// <summary>
+            /// 创建人编号
+            /// </summary>
+            public string CreatorId { get; set; }
+
+            /// <summary>
+            /// 创建人昵称
+            /// </summary>
+            public string CreatorNick { get; set; }
+
+            /// <summary>
             /// 创建时间
             /// </summary>
             public DateTime CreationTime { get; set; }
+
+            /// <summary>
+            /// 评论数
+            /// </summary>
+            public int Replies { get; set; }
+
+            /// <summary>
+            /// 摘要
+            /// </summary>
+            public string Summary { get; set; }
 
             public static ListItem From(Article article)
             {
@@ -408,12 +468,19 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
                     Id = article.Id,
                     Title = article.Title,
                     Keywords = article.Keywords,
+                    Category = article.Category.Name,
+                    StateId = article.State.Id(),
                     State = article.State.Name(),
+                    TypeId = article.Type.Id(),
                     Type = article.Type.Name(),
                     Likes = article.Likes,
                     Dislikes = article.Dislikes,
                     Pv = article.Pv,
-                    CreationTime = article.CreationTime
+                    CreatorId = article.CreatorId,
+                    CreatorNick = article.Creator.Nickname,
+                    CreationTime = article.CreationTime,
+                    Replies = article.Comments.Count,
+                    Summary = article.Summary
                 };
             }
         }
@@ -443,14 +510,17 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             /// <summary>
             /// 类型
             /// </summary>
-            public ArticleType Type { get; set; }
+            public ArticleType TypeId { get; set; }
 
             /// <summary>
             /// 状态
             /// </summary>
-            public ArticleState State { get; set; }
+            public ArticleState StateId { get; set; }
 
-            public string StateDisplay { get; set; }
+            /// <summary>
+            /// 
+            /// </summary>
+            public string State { get; set; }
 
             /// <summary>
             /// 能否回复
@@ -497,6 +567,16 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
             /// </summary>
             public string AdoptId { get; set; }
 
+            /// <summary>
+            /// 评论数量
+            /// </summary>
+            public int Replies { get; set; }
+
+            /// <summary>
+            /// 类别
+            /// </summary>
+            public string Category { get; set; }
+
             public static ArticleResp From(Article article)
             {
                 return new ArticleResp
@@ -513,9 +593,11 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
                     CreatorId = article.CreatorId,
                     CreationTime = article.CreationTime,
                     CreatorNick = article.Creator.Nickname,
-                    Type = article.Type,
-                    State = article.State,
-                    StateDisplay = article.State.Name(),
+                    TypeId = article.Type,
+                    StateId = article.State,
+                    State = article.State.Name(),
+                    Replies = article.Comments.Count,
+                    Category = article.Category.Name,
 
                     //评论
                     Score = article.Score,
@@ -549,9 +631,15 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
 
             public string Content { get; set; }
 
+            public int Likes { get; set; }
+
+            public int Dislikes { get; set; }
+
             public string CreatorNick { get; set; }
 
             public DateTime CreationTime { get; set; }
+
+            public string CreatorId { get; set; }
 
             public static CommentItem From(ArticleComment comment)
             {
@@ -561,7 +649,10 @@ namespace EDoc2.FAQ.Core.Application.Articles.Dtos
                     ParentId = comment.ParentCommentId,
                     Content = comment.Content,
                     CreatorNick = comment.Creator.Nickname,
-                    CreationTime = comment.CreationTime
+                    CreationTime = comment.CreationTime,
+                    Likes = comment.Likes,
+                    Dislikes = comment.Dislikes,
+                    CreatorId = comment.CreatorId
                 };
             }
         }

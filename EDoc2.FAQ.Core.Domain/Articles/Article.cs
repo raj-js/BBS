@@ -1,9 +1,10 @@
-﻿using EDoc2.FAQ.Core.Domain.SeedWork;
+﻿using EDoc2.FAQ.Core.Domain.Accounts;
+using EDoc2.FAQ.Core.Domain.Articles.Events;
+using EDoc2.FAQ.Core.Domain.Categories;
+using EDoc2.FAQ.Core.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EDoc2.FAQ.Core.Domain.Accounts;
-using EDoc2.FAQ.Core.Domain.Articles.Events;
 
 namespace EDoc2.FAQ.Core.Domain.Articles
 {
@@ -60,6 +61,16 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         public DateTime? FinishTime { get; set; }
 
         /// <summary>
+        /// 类别编号
+        /// </summary>
+        public Guid CategoryId { get; set; }
+
+        /// <summary>
+        /// 分类
+        /// </summary>
+        public virtual Category Category { get; set; }
+
+        /// <summary>
         /// 文章属性
         /// </summary>
         public virtual ICollection<ArticleProperty> Properties { get; set; }
@@ -86,14 +97,12 @@ namespace EDoc2.FAQ.Core.Domain.Articles
         /// </summary>
         public void SetDraft()
         {
-            if(State == null || State.Equals(ArticleState.Rejected))
-                State = ArticleState.Draft;
+            State = ArticleState.Draft;
         }
 
         /// <summary>
         /// 进入审核
         /// </summary>
-        /// <param name="auditorId">审核人编号</param>
         public void SetAuditing()
         {
             if (State != ArticleState.Draft) return;
@@ -169,74 +178,85 @@ namespace EDoc2.FAQ.Core.Domain.Articles
 
         #region 属性修改
 
-        internal ArticleProperty GetOrSetProperty<T>(string name, T @default = default(T))
+        private bool HasProperty(string name)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
 
-            if (Properties == null)
-                Properties = new List<ArticleProperty>();
+            if (Properties == null) return false;
 
-            var property = Properties.SingleOrDefault(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-            if (property == null)
+            return Properties.Any(s => s.Name == name);
+        }
+
+        private ArticleProperty GetProperty<T>(string name)
+        {
+            ArticleProperty property;
+            if (!HasProperty(name))
             {
                 property = new ArticleProperty
                 {
+                    ArticleId = Id,
                     Name = name,
-                    Value = @default.ToString()
+                    Value = default(T)?.ToString()
                 };
+
                 Properties.Add(property);
+                return property;
             }
-            else
-            {
-                if (@default != null && !@default.Equals(default(T)))
-                    property.Value = @default.ToString();
-            }
+
+            property = Properties.Single(p => p.Name == name);
             return property;
         }
 
-        private T GetProperty<T>(string name, T @default = default(T), Func<string, T> converter = null)
+        internal void SetProperty<T>(string name, T value)
         {
-            var property = GetOrSetProperty(name, @default);
+            var property = GetProperty<T>(name);
 
-            return converter == null ? (T)(property.Value as object) : converter(property.Value);
+            property.Value = value?.ToString();
+        }
+
+        private T GetPropertyValue<T>(string name, Func<string, T> converter = null)
+        {
+            var property = GetProperty<T>(name);
+
+            return converter == null ? ((T) (property.Value as object)) : converter(property.Value);
         }
 
         /// <summary>
         /// 获取悬赏分
         /// </summary>
         /// <returns></returns>
-        public int Score => GetProperty(ArticleProperty.Score, 0, int.Parse);
+        public int Score => GetPropertyValue(ArticleProperty.Score, int.Parse);
 
         /// <summary>
         /// 是否已经消耗了积分
         /// </summary>
         /// <returns></returns>
-        public bool HasSpentScore => GetProperty(ArticleProperty.HasSpentSocre, false, bool.Parse);
+        public bool HasSpentScore => GetPropertyValue(ArticleProperty.HasSpentSocre, bool.Parse);
 
         /// <summary>
         /// 获取访问量
         /// </summary>
         /// <returns></returns>
-        public int Pv=> GetProperty(ArticleProperty.Pv, 0, int.Parse);
+        public int Pv => GetPropertyValue(ArticleProperty.Pv, int.Parse);
 
         /// <summary>
         /// 获取最佳回复编号
         /// </summary>
         /// <returns></returns>
-        public string AdoptCommentId => GetProperty(ArticleProperty.AdoptCommentId, string.Empty);
+        public string AdoptCommentId => GetPropertyValue<string>(ArticleProperty.AdoptCommentId);
 
         /// <summary>
         /// 获取赞数
         /// </summary>
         /// <returns></returns>
-        public int Likes => GetProperty(ArticleProperty.Likes, 0, int.Parse);
+        public int Likes => GetPropertyValue(ArticleProperty.Likes, int.Parse);
 
         /// <summary>
         /// 获取踩数
         /// </summary>
         /// <returns></returns>
-        public int Dislikes => GetProperty(ArticleProperty.Dislikes, 0, int.Parse);
+        public int Dislikes => GetPropertyValue(ArticleProperty.Dislikes, int.Parse);
 
         #endregion
     }

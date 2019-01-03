@@ -1,9 +1,10 @@
 ﻿using EDoc2.FAQ.Core.Application.DtoBase;
+using EDoc2.FAQ.Core.Application.Mails;
 using EDoc2.FAQ.Core.Application.ServiceBase;
-using EDoc2.FAQ.Core.Application.Settings;
 using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.Accounts.Services;
 using EDoc2.FAQ.Core.Infrastructure.Extensions;
+using EDoc2.FAQ.Core.Infrastructure.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -13,6 +14,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using EDoc2.FAQ.Core.Domain.Articles.Services;
 using static EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos;
 
 namespace EDoc2.FAQ.Core.Application.Accounts
@@ -21,12 +24,20 @@ namespace EDoc2.FAQ.Core.Application.Accounts
     {
         private readonly IAccountService _accountService;
         private readonly JwtSetting _jwtSetting;
+        private readonly AuthorizeSetting _authorizeSetting;
+        private readonly IMailService _mailService;
+        private readonly IArticleService _articleService;
 
         public AccountAppService(IAccountService accountService,
-            IOptions<JwtSetting> jwtOptions)
+            IOptions<JwtSetting> jwtOptions,
+            IOptions<AuthorizeSetting> authOptions, 
+            IMailService mailService, IArticleService articleService)
         {
             _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
+            _mailService = mailService;
+            _articleService = articleService;
             _jwtSetting = jwtOptions.Value;
+            _authorizeSetting = authOptions.Value;
         }
 
         public async Task<bool> IsEmailRegistered(string email)
@@ -48,18 +59,17 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             if (result.Succeeded)
             {
                 var token = await UserManager.GenerateEmailConfirmationTokenAsync(user);
-                return RespWapper<Register>.Successed(new Register
-                {
-                    UserId = user.Id,
-                    Code = token
-                });
+                var activateUrl = $"{_authorizeSetting.ActivateUrl}/{user.Id}/{HttpUtility.UrlEncode(token)}";
+                _mailService.SendConfirmEmail(user.Email, activateUrl);
+
+                return RespWapper.Successed();
             }
             return RespWapper.Failed(result.Errors.ToRespErrors());
         }
 
         public async Task<RespWapper> EmailConfirm(EmailConfirmReq req)
         {
-            var user = await _accountService.FindUserByIdAsync(req.UserId);
+            var user = await UserManager.FindByIdAsync(req.UserId);
             if (user == null)
                 return RespWapper.Failed(Errors.AccountNotFound);
 
@@ -70,7 +80,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             return result.ToResponse();
         }
 
-        public async Task<RespWapper> GenerateResetPasswordToken(RetrievePasswordReq req)
+        public async Task<RespWapper> RetrievePassword(RetrievePasswordReq req)
         {
             var user = await UserManager.FindByEmailAsync(req.Email);
             if (user == null)
@@ -79,16 +89,16 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             if (user.IsMuted)
                 return RespWapper.Failed(Errors.AccountMuted);
 
-            return RespWapper<RetrievePassword>.Successed(new RetrievePassword
-            {
-                UserId = user.Id,
-                Code = await UserManager.GeneratePasswordResetTokenAsync(user)
-            });
+            var token = await UserManager.GeneratePasswordResetTokenAsync(user);
+            var resetUrl = $"{_authorizeSetting.ResetUrl}/{user.Id}/{HttpUtility.UrlEncode(token)}";
+            _mailService.SendResetPassword(user.Email, resetUrl);
+
+            return RespWapper.Successed();
         }
 
         public async Task<RespWapper> ResetPassword(ResetPasswordReq req)
         {
-            var user = await _accountService.FindUserByIdAsync(req.UserId);
+            var user = await UserManager.FindByIdAsync(req.UserId);
             if (user == null)
                 return RespWapper.Failed(Errors.AccountNotFound);
 
@@ -201,29 +211,25 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             if (targetUser.IsNull())
                 return RespWapper.Failed(Errors.AccountNotFound);
 
-            return RespWapper<Profile>.Successed(Profile.From(targetUser));
+            return RespWapper<ProfileResp>.Successed(ProfileResp.From(targetUser));
         }
 
         public async Task<RespWapper> EditProfile(EditProfileReq req)
         {
-            if (CurrentUser == null || CurrentUser.Id.Equals(req.Id))
+            if (CurrentUser == null || !CurrentUser.Id.Equals(req.Id))
                 return RespWapper.Failed(Errors.InvalidOperation);
 
-            var user = await _accountService.FindUserByIdAsync(req.Id);
-            if (user.IsNull())
-                return RespWapper.Failed(Errors.AccountNotFound);
+            CurrentUser.Company = req.Company;
+            CurrentUser.Signature = req.Signature;
+            CurrentUser.Gender = req.Gender;
+            CurrentUser.City = req.City;
 
-            user.Nickname = req.Nickname;
-            user.Signature = req.Signature;
-            user.Gender = req.Gender;
-            user.City = req.City;
-
-            await _accountService.EditProfile(user);
+            await _accountService.EditProfile(CurrentUser);
             await UnitOfWork.SaveChangesWithDispatchDomainEvents();
-            return RespWapper<Profile>.Successed(Profile.From(user));
+            return RespWapper<ProfileResp>.Successed(ProfileResp.From(CurrentUser));
         }
 
-        public async Task<RespWapper> Follow(string userId)
+        public async Task<RespWapper> FollowOrNot(string userId)
         {
             if (CurrentUser.Id.Equals(userId, StringComparison.OrdinalIgnoreCase))
                 return RespWapper.Failed(Errors.InvalidOperation);
@@ -232,29 +238,119 @@ namespace EDoc2.FAQ.Core.Application.Accounts
             if (targetUser.IsNull())
                 return RespWapper.Failed(Errors.AccountNotFound);
 
-            if (targetUser.IsAdministrator)
-                return RespWapper.Failed(Errors.InvalidOperation);
+            var isFollowed = await _accountService.IsFollow(CurrentUser, userId);
+            if (isFollowed)
+                await _accountService.UnFollowUser(CurrentUser, targetUser);
+            else
+                await _accountService.FollowUser(CurrentUser, targetUser);
 
-            await _accountService.FollowUser(CurrentUser, targetUser);
             await UnitOfWork.SaveChangesWithDispatchDomainEvents();
             return RespWapper.Successed();
         }
 
-        public async Task<RespWapper> UnFollow(string userId)
+        public async Task<RespWapper> GetFollows(GetFollowOrFansReq req)
         {
-            if (CurrentUser.Id.Equals(userId, StringComparison.OrdinalIgnoreCase))
-                return RespWapper.Failed(Errors.InvalidOperation);
-
-            var targetUser = await _accountService.FindUserByIdAsync(userId);
+            var targetUser = await _accountService.FindUserByIdAsync(req.Id);
             if (targetUser.IsNull())
                 return RespWapper.Failed(Errors.AccountNotFound);
 
-            if (targetUser.IsAdministrator)
+            var query = _accountService.GetFollows(targetUser);
+            var dtos = query
+                .Skip((req.PageIndex - 1) * req.PageSize)
+                .Take(req.PageSize)
+                .AsEnumerable()
+                .Select(UserSimpleResp.From)
+                .ToList();
+
+            return RespWapper.Successed(new PagingDto<UserSimpleResp>
+            {
+                TotalCount = query.Count(),
+                Dtos = dtos
+            });
+        }
+
+        public async Task<RespWapper> GetFans(GetFollowOrFansReq req)
+        {
+            var targetUser = await _accountService.FindUserByIdAsync(req.Id);
+            if (targetUser.IsNull())
+                return RespWapper.Failed(Errors.AccountNotFound);
+
+            var query = _accountService.GetFans(targetUser);
+            var dtos = query
+                .Skip((req.PageIndex - 1) * req.PageSize)
+                .Take(req.PageSize)
+                .AsEnumerable()
+                .Select(UserSimpleResp.From)
+                .ToList();
+
+            return RespWapper.Successed(new PagingDto<UserSimpleResp>
+            {
+                TotalCount = query.Count(),
+                Dtos = dtos
+            });
+        }
+
+        public async Task<RespWapper> FavoriteOrNot(Guid id)
+        {
+            var article =  await _articleService.FindById(CurrentUser, id);
+            if (article == null)
+                return RespWapper.Failed(new Error
+                {
+                    Code = "ArticleNotFound",
+                    Description = "资源不存在"
+                });
+
+
+            var isFavorite = await _accountService.IsFavorite(CurrentUser, id);
+
+            if (isFavorite)
+                await _accountService.RemoveFavorite(CurrentUser, article);
+            else
+                await _accountService.AddFavorite(CurrentUser, article);
+
+            await UnitOfWork.SaveChangesAsync();
+            return RespWapper.Successed();
+        }
+
+        public async Task<RespWapper> IsFavorite(Guid id)
+        {
+            return RespWapper.Successed(await _accountService.IsFavorite(CurrentUser, id));
+        }
+
+        public async Task<RespWapper> IsFollow(string id)
+        {
+            return RespWapper.Successed(await _accountService.IsFollow(CurrentUser, id));
+        }
+
+        public async Task<RespWapper> ModifyPassword(ModifyPasswordReq req)
+        {
+            var user = await UserManager.GetUserAsync(HttpContextAccessor.HttpContext.User);
+            if (user == null)
                 return RespWapper.Failed(Errors.InvalidOperation);
 
-            await _accountService.UnFollowUser(CurrentUser, targetUser);
-            await UnitOfWork.SaveChangesWithDispatchDomainEvents();
-            return RespWapper.Successed();
+            var identityResult = await UserManager.ChangePasswordAsync(user, req.Password, req.NewPassword);
+            return identityResult.ToResponse();
+        }
+
+        public async Task<RespWapper> ModifyAvatar(byte[] avatar)
+        {
+            if (CurrentUser.IsNull())
+                return RespWapper.Failed(Errors.AccountNotFound);
+
+            var base64Image = Convert.ToBase64String(avatar);
+            await _accountService.ModifyAvatar(CurrentUser, base64Image);
+            await UnitOfWork.SaveChangesAsync();
+            return RespWapper.Successed(base64Image);
+        }
+
+        public async Task<RespWapper> GetAvatar(string id)
+        {
+            if (id.IsNullOrEmpty()) 
+                return RespWapper.Failed();
+
+            var user = await _accountService.FindUserByIdAsync(id);
+            var base64Image = user.Avatar ?? user.DefaultAvatar();
+            return RespWapper.Successed(Convert.FromBase64String(base64Image));
         }
     }
 }

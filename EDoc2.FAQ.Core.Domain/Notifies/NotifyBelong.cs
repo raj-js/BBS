@@ -1,11 +1,13 @@
-﻿using EDoc2.FAQ.Core.Domain.Applications;
+﻿using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Domain.SeedWork;
 using System;
-using EDoc2.FAQ.Core.Domain.Accounts;
 
-namespace EDoc2.FAQ.Core.Domain.Notifications
+namespace EDoc2.FAQ.Core.Domain.Notifies
 {
-    public class NotifyBox : Entity<Guid>
+    /// <summary>
+    /// 消息箱
+    /// </summary>
+    public class NotifyBelong : Entity<Guid>
     {
         /// <summary>
         /// 通知编号
@@ -41,32 +43,25 @@ namespace EDoc2.FAQ.Core.Domain.Notifications
 
         public virtual User User { get; set; }
 
-        public NotifyBox()
-        {
-
-        }
+        public NotifyBelong() { }
 
         /// <summary>
         /// 创建即阅读
         /// </summary>
         /// <param name="notifyId"></param>
         /// <param name="userId"></param>
-        public NotifyBox(Guid notifyId, string userId)
+        /// <param name="setReaded"></param>
+        public NotifyBelong(Guid notifyId, string userId, bool setReaded = true)
         {
             Id = Guid.NewGuid();
             NotifyId = notifyId;
-            UserId = userId ?? throw new ArgumentNullException(nameof(userId));
+            UserId = userId;
 
-            SetReaded();
-        }
-
-        /// <summary>
-        /// 设置为已读
-        /// </summary>
-        public void SetReaded()
-        {
-            IsReaded = true;
-            ReadTime = DateTime.Now;
+            if (setReaded)
+            {
+                IsReaded = true;
+                ReadTime = DateTime.Now;
+            }
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using EDoc2.FAQ.Core.Application.DtoBase;
 using EDoc2.FAQ.Core.Domain.Categories;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EDoc2.FAQ.Core.Application.Categories.Dtos
@@ -55,6 +56,32 @@ namespace EDoc2.FAQ.Core.Application.Categories.Dtos
 
         #region 响应
 
+        public class CategroyNode
+        {
+            public Guid Key { get; set; }
+            public Guid? ParentId { get; set; }
+
+            public object Value { get; set; }
+
+            public string Title { get; set; }
+
+            public bool IsLeaf { get; set; }
+
+            public List<CategroyNode> Children { get; set; } = new List<CategroyNode>();
+
+            public static CategroyNode From(Category category)
+            {
+                return new CategroyNode
+                {
+                    Key = category.Id,
+                    ParentId = category.ParentId,
+                    Value = category.Id,
+                    Title = category.Name,
+                    IsLeaf = false
+                };
+            }
+        }
+
         public class CategoryResp : EntityDto<Guid>
         {
             public Guid? ParentId { get; set; }
@@ -64,6 +91,8 @@ namespace EDoc2.FAQ.Core.Application.Categories.Dtos
             public string Description { get; set; }
 
             public bool Enable { get; set; }
+
+            public List<CategoryResp> Children { get; set; } = new List<CategoryResp>();
 
             public static CategoryResp From(Category category)
             {
@@ -78,6 +107,6 @@ namespace EDoc2.FAQ.Core.Application.Categories.Dtos
             }
         }
 
-    #endregion
-}
+        #endregion
+    }
 }

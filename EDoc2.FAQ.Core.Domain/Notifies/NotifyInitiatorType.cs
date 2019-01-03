@@ -1,24 +1,30 @@
 ﻿using System.ComponentModel;
 
-namespace EDoc2.FAQ.Core.Domain.Notifications
+namespace EDoc2.FAQ.Core.Domain.Notifies
 {
+    /// <summary>
+    /// 消息发起者类型
+    /// </summary>
     public enum NotifyInitiatorType
     {
         [DisplayName("系统")]
-        System = 1 << 0,
+        System = 1,
+
+        [DisplayName("管理员")]
+        Administrator = 1 << 1,
 
         [DisplayName("版主")]
-        Moderator = 1 << 1,
+        Moderator = 1 << 2,
 
         [DisplayName("会员")]
-        Account = 1 << 2
+        Member = 1 << 3
     }
 
     //public class NotifyInitiatorType : Enumeration
     //{
     //    public static NotifyInitiatorType System = new NotifyInitiatorType(1, "系统");
     //    public static NotifyInitiatorType Moderator = new NotifyInitiatorType(2, "版主");
-    //    public static NotifyInitiatorType Account = new NotifyInitiatorType(3, "会员");
+    //    public static NotifyInitiatorType Member = new NotifyInitiatorType(3, "会员");
 
     //    public NotifyInitiatorType()
     //    {
@@ -30,7 +36,7 @@ namespace EDoc2.FAQ.Core.Domain.Notifications
 
     //    }
 
-    //    public static IEnumerable<NotifyInitiatorType> List() => new[] { System, Moderator, Account };
+    //    public static IEnumerable<NotifyInitiatorType> List() => new[] { System, Moderator, Member };
 
     //    public static NotifyInitiatorType FromName(string name)
     //    {

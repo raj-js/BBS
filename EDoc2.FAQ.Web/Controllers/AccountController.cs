@@ -115,7 +115,6 @@ namespace EDoc2.FAQ.Web.Controllers
                 _logger.LogInformation($"{input.Email} 登录成功");
                 return LocalRedirect(Url.GetLocalUrl(returnUrl));
             }
-
             ViewBag.Errors = result.IsLockedOut ? "用户已锁定" : "邮箱或者密码错误";
             return View(input);
         }

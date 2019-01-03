@@ -13,7 +13,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         Task UpdateUserAsync(User user);
         IQueryable<User> GetUsers();
         User FindUserById(string id);
-        Task<User> FindUserByIdAsync(string id);
+        Task<User> FindUserByIdAsync(string id, bool tracking = true);
         Task<UserSubscriber> AddSubscriber(UserSubscriber subscriber);
         Task<UserSubscriber> UpdateSubscriber(UserSubscriber subscriber);
         Task<UserProperty> AddProperty(UserProperty property);

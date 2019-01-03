@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EDoc2.FAQ.Core.Domain.Articles;
 
 namespace EDoc2.FAQ.Core.Domain.Categories
 {
@@ -67,7 +68,7 @@ namespace EDoc2.FAQ.Core.Domain.Categories
         /// <summary>
         /// 文章
         /// </summary>
-        public virtual ICollection<CategoryArticle> CategoryArticles { get; set; }
+        public virtual ICollection<Article> Articles { get; set; }
 
         public void AddModerator(string moderatorId)
         {
@@ -87,17 +88,6 @@ namespace EDoc2.FAQ.Core.Domain.Categories
             if (moderator == null) return;
 
             CategoryModerators.Remove(moderator);
-        }
-
-        public void AddArticle(Guid articleId)
-        {
-            CategoryArticles = CategoryArticles ?? new List<CategoryArticle>();
-
-            CategoryArticles.Add(new CategoryArticle
-            {
-                CategoryId = Id,
-                ArticleId = articleId
-            });
         }
     }
 }

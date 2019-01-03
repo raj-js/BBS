@@ -1,10 +1,9 @@
-﻿using EDoc2.FAQ.Core.Domain.Services;
+﻿using EDoc2.FAQ.Core.Domain.Accounts;
+using EDoc2.FAQ.Core.Domain.Exceptions;
+using EDoc2.FAQ.Core.Domain.Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Domain.Accounts;
-using EDoc2.FAQ.Core.Domain.Articles;
-using EDoc2.FAQ.Core.Domain.Exceptions;
 
 namespace EDoc2.FAQ.Core.Domain.Categories.Services
 {
@@ -12,8 +11,9 @@ namespace EDoc2.FAQ.Core.Domain.Categories.Services
     {
         #region 查询
 
-        IQueryable<Category> GetRootCategories();
-        IQueryable<Category> GetSubCategories(Category category);
+        IQueryable<Category> GetCategories(User @operator);
+        IQueryable<Category> GetRootCategories(User @operator);
+        IQueryable<Category> GetSubCategories(User @operator, Category category);
         Task<Category> FindCategoryById(Guid id);
 
         #endregion
@@ -65,14 +65,6 @@ namespace EDoc2.FAQ.Core.Domain.Categories.Services
         /// <param name="moderator"></param>
         /// <returns></returns>
         Task RemoveCategoryModerator(User @operator, Category category, User moderator);
-
-        /// <summary>
-        /// 添加文章到指定类别
-        /// </summary>
-        /// <param name="category"></param>
-        /// <param name="article"></param>
-        /// <returns></returns>
-        Task AddCategoryArticle(Category category, Article article);
 
         #endregion
     }

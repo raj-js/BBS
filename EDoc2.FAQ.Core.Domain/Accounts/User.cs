@@ -27,6 +27,11 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
         public Gender Gender { get; set; }
 
         /// <summary>
+        /// 公司
+        /// </summary>
+        public string Company { get; set; }
+
+        /// <summary>
         /// 城市
         /// </summary>
         public string City { get; set; }
@@ -133,7 +138,7 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
                 property = new UserProperty
                 {
                     Name = name,
-                    Value = @default.ToString()
+                    Value = @default?.ToString()
                 };
                 UserProperties.Add(property);
             }
@@ -304,6 +309,13 @@ namespace EDoc2.FAQ.Core.Domain.Accounts
             favorite.IsCancel = true;
             favorite.OperationTime = DateTime.Now;
         }
+
+        public void SetAvatar(string base64Avatar)
+        {
+            GetOrSetProperty(UserProperty.Avatar, base64Avatar);
+        }
+
+        public string Avatar => GetProperty(UserProperty.Avatar, default(string));
 
         #endregion
 

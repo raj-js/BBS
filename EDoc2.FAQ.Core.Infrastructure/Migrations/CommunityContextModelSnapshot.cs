@@ -64,6 +64,8 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.Property<string>("City")
                         .HasMaxLength(128);
 
+                    b.Property<string>("Company");
+
                     b.Property<string>("ConcurrencyStamp");
 
                     b.Property<string>("Email");
@@ -200,20 +202,6 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserScoreChangeReason", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasDefaultValue(1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserScoreChangeReason");
-                });
-
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserScoreHistory", b =>
                 {
                     b.Property<int>("Id")
@@ -228,13 +216,11 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
                     b.Property<int>("OriginScore");
 
-                    b.Property<int?>("ReasonId");
+                    b.Property<int>("Reason");
 
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ReasonId");
 
                     b.HasIndex("UserId");
 
@@ -339,9 +325,9 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("CanComment")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(true);
+                    b.Property<bool>("CanComment");
+
+                    b.Property<Guid>("CategoryId");
 
                     b.Property<string>("Content")
                         .IsRequired();
@@ -368,6 +354,8 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.Property<int>("Type");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("CreatorId");
 
@@ -506,25 +494,6 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Categories.CategoryArticle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<Guid>("ArticleId");
-
-                    b.Property<Guid>("CategoryId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArticleId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("CategoryArticle");
-                });
-
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Categories.CategoryModerator", b =>
                 {
                     b.Property<int>("Id")
@@ -606,10 +575,6 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Accounts.UserScoreHistory", b =>
                 {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.UserScoreChangeReason", "Reason")
-                        .WithMany()
-                        .HasForeignKey("ReasonId");
-
                     b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -647,6 +612,11 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Articles.Article", b =>
                 {
+                    b.HasOne("EDoc2.FAQ.Core.Domain.Categories.Category", "Category")
+                        .WithMany("Articles")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("EDoc2.FAQ.Core.Domain.Accounts.User", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId")
@@ -687,19 +657,6 @@ namespace EDoc2.FAQ.Core.Infrastructure.Migrations
                     b.HasOne("EDoc2.FAQ.Core.Domain.Categories.Category", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId");
-                });
-
-            modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Categories.CategoryArticle", b =>
-                {
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Articles.Article", "Article")
-                        .WithMany()
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("EDoc2.FAQ.Core.Domain.Categories.Category", "Category")
-                        .WithMany("CategoryArticles")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("EDoc2.FAQ.Core.Domain.Categories.CategoryModerator", b =>

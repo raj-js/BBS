@@ -2,13 +2,13 @@
 using EDoc2.FAQ.Core.Application.ServiceBase;
 using EDoc2.FAQ.Core.Domain.Articles;
 using EDoc2.FAQ.Core.Domain.Articles.Services;
+using EDoc2.FAQ.Core.Domain.Categories.Services;
 using EDoc2.FAQ.Core.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Domain.Categories.Services;
 using static EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos;
 
 namespace EDoc2.FAQ.Core.Application.Articles
@@ -51,9 +51,10 @@ namespace EDoc2.FAQ.Core.Application.Articles
             var query = _articleService.GetArticles(CurrentUser);
 
             query = query
+                .WhereTure(req.CategoryId.HasValue, s => req.CategoryId == s.CategoryId)
                 .WhereFalse(req.Title.IsNullOrEmpty(), s => s.Title.Contains(req.Title, StringComparison.OrdinalIgnoreCase))
                 .WhereFalse(req.Keywords.IsNullOrEmpty(), s => s.Keywords.Contains(req.Keywords, StringComparison.OrdinalIgnoreCase))
-                .WhereNotNull(req.State, s => s.State == req.State)
+                .WhereNotNull(req.State, s => (s.State & req.State) > 0)
                 .WhereNotNull(req.Type, s => s.Type == req.Type);
 
             var dtos = query
@@ -105,13 +106,22 @@ namespace EDoc2.FAQ.Core.Application.Articles
 
             var query = _articleService.GetComments(CurrentUser, article);
 
-            var dtos = query
-                .OrderBy(req.OrderBy, req.IsAscending)
+            var dtos = query.OrderBy(req.OrderBy, req.IsAscending)
                 .Skip((req.PageIndex - 1) * req.PageSize)
                 .Take(req.PageSize)
                 .AsEnumerable()
                 .Select(CommentItem.From)
                 .ToList();
+
+            var hasAdoptCommnet = article.State == ArticleState.Solved &&
+                                  article.AdoptCommentId.IsNotNull();
+
+            if (hasAdoptCommnet)
+            {
+                var adoptComment = dtos.Find(s => s.Id == int.Parse(article.AdoptCommentId));
+                dtos.Remove(adoptComment);
+                dtos.Insert(0, adoptComment);
+            }
 
             return RespWapper.Successed(new PagingDto<CommentItem>
             {
@@ -126,14 +136,14 @@ namespace EDoc2.FAQ.Core.Application.Articles
             await _articleService.Create(CurrentUser, question);
 
             var category = await _categoryService.FindCategoryById(req.CategoryId);
-            if(category == null || !category.Enabled)
+            if (category == null || !category.Enabled)
                 return RespWapper.Failed(new Error
                 {
                     Code = "InvalidCategory",
                     Description = "分类不存在或未启用"
                 });
 
-            await _categoryService.AddCategoryArticle(category, question);
+            question.CategoryId = category.Id;
 
             await _articleService.Release(CurrentUser, question, req.Score, Application.IsArticleAuditing);
             await UnitOfWork.SaveChangesAsync();
@@ -153,7 +163,7 @@ namespace EDoc2.FAQ.Core.Application.Articles
                     Description = "分类不存在或未启用"
                 });
 
-            await _categoryService.AddCategoryArticle(category, article);
+            article.CategoryId = category.Id;
 
             await _articleService.Release(CurrentUser, article, Application.IsArticleAuditing);
             await UnitOfWork.SaveChangesAsync();
@@ -173,7 +183,7 @@ namespace EDoc2.FAQ.Core.Application.Articles
                     Description = "分类不存在或未启用"
                 });
 
-            await _categoryService.AddCategoryArticle(category, article);
+            article.CategoryId = category.Id;
 
             await UnitOfWork.SaveChangesAsync();
             return RespWapper.Successed(article.Id);
@@ -398,7 +408,50 @@ namespace EDoc2.FAQ.Core.Application.Articles
 
             await _articleService.Finish(article, adoptComment, req.Unsatisfactory);
             await UnitOfWork.SaveChangesAsync();
-            return RespWapper.Successed();
+            return RespWapper.Successed(ArticleResp.From(article));
+        }
+
+        public async Task<RespWapper> GetUserArticles(UserArticlesReq req)
+        {
+            var query = _articleService.GetArticles(CurrentUser);
+
+            query = query
+                .Where(s => s.CreatorId == req.UserId)
+                .Where(s => s.Type == req.Type);
+
+            var dtos = query
+                .OrderBy(req.OrderBy, req.IsAscending)
+                .Skip((req.PageIndex - 1) * req.PageSize)
+                .Take(req.PageSize)
+                .AsEnumerable()
+                .Select(ListItem.From)
+                .ToList();
+
+            return RespWapper.Successed(new PagingDto<ListItem>
+            {
+                TotalCount = await query.CountAsync(),
+                Dtos = dtos
+            });
+        }
+
+        public async Task<RespWapper> GetUserFavorites(UserFavoritesReq req)
+        {
+            var query = AccountService.GetFavorites(CurrentUser);
+
+            var dtos = query
+                .Skip((req.PageIndex - 1) * req.PageSize)
+                .Take(req.PageSize)
+                .AsEnumerable()
+                .Select(ListItem.From)
+                .ToList();
+
+            await Task.CompletedTask;
+
+            return RespWapper.Successed(new PagingDto<ListItem>
+            {
+                TotalCount = query.Count(),
+                Dtos = dtos
+            });
         }
     }
 }

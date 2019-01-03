@@ -3,6 +3,7 @@ using EDoc2.FAQ.Core.Application.ServiceBase;
 using EDoc2.FAQ.Core.Domain.Categories.Services;
 using EDoc2.FAQ.Core.Infrastructure.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static EDoc2.FAQ.Core.Application.Categories.Dtos.CategoryDtos;
@@ -18,10 +19,35 @@ namespace EDoc2.FAQ.Core.Application.Categories
             _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
         }
 
+        #region Private Methods
+
+        private IEnumerable<CategroyNode> PackTree(Guid? parent, List<CategroyNode> sources)
+        {
+            var children = sources.Where(s => s.ParentId == parent);
+            foreach (var child in children)
+            {
+                child.Children.AddRange(PackTree(child.Key, sources));
+                child.IsLeaf = !child.Children.Any();
+                yield return child;
+            }
+        }
+
+        #endregion
+
+        public async Task<RespWapper> AllCategories()
+        {
+            var categories = _categoryService.GetCategories(CurrentUser)
+                .AsEnumerable()
+                .Select(CategroyNode.From)
+                .ToList();
+
+            await Task.CompletedTask;
+            return RespWapper.Successed(PackTree(null, categories));
+        }
+
         public async Task<RespWapper> GetRootCategories()
         {
-            var categories = _categoryService.GetRootCategories()
-                .WhereFalse(CurrentUser != null && CurrentUser.IsAdministrator, s => s.Enabled);
+            var categories = _categoryService.GetRootCategories(CurrentUser);
 
             await Task.CompletedTask;
             return RespWapper.Successed(categories.Select(s => CategoryResp.From(s)).ToList());
@@ -31,7 +57,7 @@ namespace EDoc2.FAQ.Core.Application.Categories
         {
             var category = await _categoryService.FindCategoryById(categoryId);
 
-            var categories = _categoryService.GetSubCategories(category)
+            var categories = _categoryService.GetSubCategories(CurrentUser, category)
                 .WhereFalse(CurrentUser != null && (CurrentUser.IsAdministrator || CurrentUser.IsModerator), s => s.Enabled);
 
             await Task.CompletedTask;
@@ -62,7 +88,7 @@ namespace EDoc2.FAQ.Core.Application.Categories
         public async Task<RespWapper> Enable(EnableReq req)
         {
             var category = await _categoryService.FindCategoryById(req.Id);
-            if(category == null)
+            if (category == null)
                 return RespWapper.Failed();
 
             await _categoryService.Enable(CurrentUser, category, req.Enable);

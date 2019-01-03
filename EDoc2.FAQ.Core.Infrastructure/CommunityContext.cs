@@ -50,7 +50,6 @@ namespace EDoc2.FAQ.Core.Infrastructure
             b.ApplyConfiguration(new UserClaimEntityTypeConfiguration());
             b.ApplyConfiguration(new UserPropertyEntityTypeConfiguration());
             b.ApplyConfiguration(new UserScoreHistoryEntityTypeConfiguration());
-            b.ApplyConfiguration(new UserScoreChangeReasonEntityTypeConfiguration());
 
             #endregion
 
@@ -58,7 +57,6 @@ namespace EDoc2.FAQ.Core.Infrastructure
 
             b.ApplyConfiguration(new CategoryEntityTypeConfiguration());
             b.ApplyConfiguration(new CategoryModeratorEntityTypeConfiguration());
-            b.ApplyConfiguration(new CategoryArticleEntityTypeConfiguration());
 
             #endregion
 

@@ -6,5 +6,10 @@
         {
             return self == null;
         }
+
+        public static bool IsNotNull(this object self)
+        {
+            return !self.IsNull();
+        }
     }
 }

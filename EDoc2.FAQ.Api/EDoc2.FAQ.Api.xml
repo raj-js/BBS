@@ -49,7 +49,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.GetProfile(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.EditProfileReq)">
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.EditProfile(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.EditProfileReq)">
             <summary>
             更新个人信息
             </summary>
@@ -70,24 +70,72 @@
             <param name="req"></param>
             <returns></returns>
         </member>
-        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.Follow(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.FollowUserReq)">
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.FollowOrNot(System.String)">
             <summary>
-            关注用户
+            关注/取消关注用户
             </summary>
-            <param name="req"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.UnFollow(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.UnFollowUserReq)">
-            <summary>
-            取消关注用户
-            </summary>
-            <param name="req"></param>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.Logout">
             <summary>
             注销当前用户
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.GetFollows(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.GetFollowOrFansReq)">
+            <summary>
+            获取关注
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.GetFans(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.GetFollowOrFansReq)">
+            <summary>
+            获取粉丝
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.FavoriteOrNot(System.Guid)">
+            <summary>
+            添加/移除收藏
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.IsFavorite(System.Guid)">
+            <summary>
+            判断是否收藏
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.IsFollow(System.String)">
+            <summary>
+            判断是否关注了某用户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.ModifyPassword(EDoc2.FAQ.Core.Application.Accounts.Dtos.AccountDtos.ModifyPasswordReq)">
+            <summary>
+            修改密码
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.ModifyAvatar(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            修改用户头像
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.AccountController.GetAvatar(System.String)">
+            <summary>
+            获取头像
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="T:EDoc2.FAQ.Api.Controllers.AdminController">
@@ -270,7 +318,7 @@
         </member>
         <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.Dislike(System.Guid)">
             <summary>
-            赞文章
+            踩文章
             </summary>
             <param name="id"></param>
             <returns></returns>
@@ -310,12 +358,26 @@
             <param name="req"></param>
             <returns></returns>
         </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.GetUserArticles(EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos.UserArticlesReq)">
+            <summary>
+            获取用户文章/问题
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.ArticleController.GetUserFavorites(EDoc2.FAQ.Core.Application.Articles.Dtos.ArticleDtos.UserFavoritesReq)">
+            <summary>
+            获取用户收藏
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
         <member name="T:EDoc2.FAQ.Api.Controllers.AuthorizeController">
             <summary>
             Token 
             </summary>
         </member>
-        <member name="M:EDoc2.FAQ.Api.Controllers.AuthorizeController.#ctor(Microsoft.Extensions.Options.IOptions{EDoc2.FAQ.Core.Application.Settings.JwtSetting},EDoc2.FAQ.Core.Application.Accounts.IAccountAppService)">
+        <member name="M:EDoc2.FAQ.Api.Controllers.AuthorizeController.#ctor(Microsoft.Extensions.Options.IOptions{EDoc2.FAQ.Core.Infrastructure.Settings.JwtSetting},EDoc2.FAQ.Core.Application.Accounts.IAccountAppService)">
             <summary>
             构造器
             </summary>
@@ -339,6 +401,12 @@
             构造器
             </summary>
             <param name="categoryAppService"></param>
+        </member>
+        <member name="M:EDoc2.FAQ.Api.Controllers.CategoryController.All">
+            <summary>
+            获取所有类别， 具有树形结构
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:EDoc2.FAQ.Api.Controllers.CategoryController.GetCategories(System.Nullable{System.Guid})">
             <summary>
@@ -414,6 +482,11 @@
         <member name="T:EDoc2.FAQ.Api.Infrastructure.Modules.ApplicationModule">
             <summary>
             应用程序
+            </summary>
+        </member>
+        <member name="T:EDoc2.FAQ.Api.Infrastructure.Uploads.DisableFormValueModelBindingAttribute">
+            <summary>
+            禁用模板绑定以应对大文件上传
             </summary>
         </member>
     </members>

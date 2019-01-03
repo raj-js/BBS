@@ -1,4 +1,4 @@
-﻿namespace EDoc2.FAQ.Core.Application.Settings
+﻿namespace EDoc2.FAQ.Core.Infrastructure.Settings
 {
     /// <summary>
     /// JwtSetting 配置

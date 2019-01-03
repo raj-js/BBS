@@ -3,6 +3,8 @@ using EDoc2.FAQ.Core.Domain.Accounts;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using EDoc2.FAQ.Core.Infrastructure.Extensions;
+using Microsoft.AspNetCore.Http;
 
 namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
 {
@@ -61,7 +63,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             public string Nickname { get; set; }
 
             [Required]
-            [MaxLength(50)]
+            [StringLength(20, MinimumLength = 6, ErrorMessage = "密码长度必须为 6 - 20 个字符")]
             public string Password { get; set; }
         }
 
@@ -114,17 +116,16 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
         public class EditProfileReq : EntityDto<string>
         {
             [Required]
+            public Gender Gender { get; set; }
+
             [MaxLength(50)]
-            public string Nickname { get; set; }
+            public string Company { get; set; }
+
+            [MaxLength(50)]
+            public string City { get; set; }
 
             [MaxLength(128)]
             public string Signature { get; set; }
-
-            [Required]
-            public Gender Gender { get; set; }
-
-            [MaxLength(128)]
-            public string City { get; set; }
         }
 
         /// <summary>
@@ -170,6 +171,34 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             /// </summary>
             [Required]
             public string Code { get; set; }
+        }
+
+        public class GetFollowOrFansReq : EntityDto<string>, IPagingRequest
+        {
+            public int PageIndex { get; set; }
+            public int PageSize { get; set; }
+            public string OrderBy { get; set; } = "OperationTime";
+            public bool IsAscending { get; set; }
+        }
+
+        public class ModifyPasswordReq
+        {
+            [Required]
+            [StringLength(20, MinimumLength = 6)]
+            public string Password { get; set; }
+
+            [Required]
+            [StringLength(20, MinimumLength = 6)]
+            public string NewPassword { get; set; }
+        }
+
+        /// <summary>
+        /// 修改头像请求
+        /// </summary>
+        public class ModifyAvatarReq
+        {
+            [Required]
+            public IFormFile Avatar { get; set; }
         }
 
         #endregion
@@ -229,22 +258,23 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
         /// <summary>
         /// 用户信息
         /// </summary>
-        public class Profile : EntityDto<string>
+        public class ProfileResp : EntityDto<string>
         {
             public string Nickname { get; set; }
             public string Signature { get; set; }
             public Gender Gender { get; set; }
             public string Email { get; set; }
             public string City { get; set; }
+            public string Company { get; set; }
             public DateTime JoinDate { get; set; }
             public int Follows { get; set; }
             public int Fans { get; set; }
             public int Score { get; set; }
             public bool IsMuted { get; set; }
 
-            public static Profile From(User user)
+            public static ProfileResp From(User user)
             {
-                return new Profile
+                return new ProfileResp
                 {
                     Id = user.Id,
                     Nickname = user.Nickname,
@@ -256,7 +286,8 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
                     Follows = user.Follows,
                     Fans = user.Fans,
                     Score = user.Score,
-                    IsMuted = user.IsMuted
+                    IsMuted = user.IsMuted,
+                    Company = user.Company,
                 };
             }
         }
@@ -280,7 +311,7 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
         /// <summary>
         /// 用户注册
         /// </summary>
-        public class Register
+        public class RegisterResp
         {
             /// <summary>
             /// 用户编号
@@ -291,6 +322,34 @@ namespace EDoc2.FAQ.Core.Application.Accounts.Dtos
             /// 邮件确认 Token
             /// </summary>
             public string Code { get; set; }
+        }
+
+        public class UserSimpleResp : EntityDto<string>
+        {
+            public string Nickname { get; set; }
+            public string Signature { get; set; }
+            public Gender Gender { get; set; }
+            public string Email { get; set; }
+            public string City { get; set; }
+            public string Company { get; set; }
+            public DateTime JoinDate { get; set; }
+            public int Score { get; set; }
+
+            public static UserSimpleResp From(User user)
+            {
+                return new UserSimpleResp
+                {
+                    Id = user.Id,
+                    Nickname = user.Nickname,
+                    Signature = user.Signature,
+                    Gender = user.Gender,
+                    Email = user.Email,
+                    City = user.City,
+                    JoinDate = user.JoinDate,
+                    Score = user.Score,
+                    Company = user.Company
+                };
+            }
         }
 
         #endregion

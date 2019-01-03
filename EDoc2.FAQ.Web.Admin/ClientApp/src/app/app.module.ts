@@ -26,7 +26,7 @@ import { RoleProvider } from './@core/auth/role.provider';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AppRoutingModule,
+    AppRoutingModule, 
 
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
