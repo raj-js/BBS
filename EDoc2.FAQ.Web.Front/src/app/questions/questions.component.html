@@ -1,0 +1,66 @@
+<div nz-row nzGutter="32">
+    <div nz-col class="gutter-row" nzSpan="15" nzOffset="2">
+        <nz-list [nzDataSource]="questions" [nzItemLayout]="'vertical'" [nzRenderItem]="questionItem" [nzLoadMore]="loadMore">
+            <ng-template #questionItem let-item>
+                <nz-list-item [nzActions]="[eyeAction,msgAction]" [nzExtra]="extra">
+                    <ng-template #eyeAction>
+                        <span nz-tooltip nzTitle="访问量">
+                            <i nz-icon type="eye" style="margin-right: 8px;"></i> {{item.pv}}</span>
+                    </ng-template>
+                    <ng-template #msgAction>
+                        <span nz-tooltip nzTitle="评论数">
+                            <i nz-icon type="message" style="margin-right: 8px;"></i> {{item.replies}}
+                        </span>
+                    </ng-template>
+                    <nz-list-item-meta [nzAvatar]="nzAvatar" [nzTitle]="nzTitle" [nzDescription]="nzDescription">
+                        <ng-template #nzAvatar>
+                            <a [routerLink]="[ '/person', item.creatorId ]">
+                                <nz-avatar nzSrc="{{item.creatorId | avatar}}" nzSize="large"></nz-avatar>
+                            </a>
+                        </ng-template>
+                        <ng-template #nzTitle>
+                            <a [routerLink]="[ '/question', item.id ]">{{item.title}}</a>
+                        </ng-template>
+                        <ng-template #nzDescription>
+                            <p>
+                                <span>
+                                    <a [routerLink]="[ '/person', item.creatorId ]"><i nz-icon type="user"></i>
+                                        {{item.creatorNick}}</a>
+                                </span>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <span nz-tooltip nzTitle="发布时间"><i nz-icon type="calendar"></i>
+                                    {{item.creationTime|fdyTime}}</span>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <span nz-tooltip nzTitle="关键字"><i nz-icon type="tag"></i> {{item.keywords}}</span>
+                            </p>
+                        </ng-template>
+                    </nz-list-item-meta>
+                    <ng-template #extra>
+                        <nz-tag nzColor="green">{{item.category}}</nz-tag>
+                        <app-question-state [text]="item.state" [state]="item.stateId"></app-question-state>
+                    </ng-template>
+                </nz-list-item>
+            </ng-template>
+            <ng-template #loadMore>
+                <div class="loadmore">
+                    <button nz-button *ngIf="!loading && !noMoreQuestion" (click)="loadQuestions()">加载更多</button>
+                </div>
+            </ng-template>
+        </nz-list>
+    </div>
+    <div nz-col class="gutter-row" nzSpan="5">
+        <nz-affix [nzOffsetTop]="84">
+            <nz-card nzTitle="问题筛选">
+                <nz-tree-select style="width: 300px;" [nzNodes]="nodes" nzShowSearch nzPlaceHolder="问题类别"
+                    [(ngModel)]="fiters.categoryId" (ngModelChange)="onCategoryChange($event)">
+                </nz-tree-select>
+                <nz-divider></nz-divider>
+                <nz-radio-group (ngModelChange)="onStateChange($event)" [(ngModel)]="fiters.state" [nzButtonStyle]="'solid'">
+                    <label nz-radio-button nzValue="">全&nbsp;&nbsp;部</label>
+                    <label nz-radio-button nzValue="16">未结贴</label>
+                    <label nz-radio-button nzValue="96">已结贴</label>
+                </nz-radio-group>
+            </nz-card>
+        </nz-affix>
+    </div>
+</div>

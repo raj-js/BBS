@@ -1,0 +1,89 @@
+<nz-row nzGutter="8">
+  <nz-col nzSpan="20" nzPush="2">
+    <nz-card nzTitle="写文章">
+      <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <nz-form-item>
+          <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired nzFor="title">标题</nz-form-label>
+          <nz-form-control [nzSm]="17" [nzXs]="24">
+            <input type="text" nz-input formControlName="title" placeholder="请输入标题...">
+            <nz-form-explain *ngIf="validateForm.get('title').dirty && validateForm.get('title').errors">
+              <ng-container *ngIf="validateForm.get('title').hasError('required')">
+                标题必填
+              </ng-container>
+              <ng-container *ngIf="validateForm.get('title').hasError('maxlength')">
+                最多输入50个字符
+              </ng-container>
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired nzFor="summary">摘要</nz-form-label>
+          <nz-form-control [nzSm]="17" [nzXs]="24">
+            <textarea type="text" nz-input formControlName="summary" placeholder="请输入摘要..."></textarea>
+            <nz-form-explain *ngIf="validateForm.get('summary').dirty && validateForm.get('summary').errors">
+              <ng-container *ngIf="validateForm.get('summary').hasError('required')">
+                摘要必填
+              </ng-container>
+              <ng-container *ngIf="validateForm.get('summary').hasError('maxlength')">
+                最多输入128个字符
+              </ng-container>
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired nzFor="content">内容</nz-form-label>
+          <nz-form-control [nzSm]="17" [nzXs]="24">
+            <div id="toolbar" class="toolbar"></div>
+            <div id="editor" class="editor"></div>
+            <textarea nz-input formControlName="content" style="display: none"></textarea>
+            <nz-form-explain *ngIf="validateForm.get('content').dirty && validateForm.get('content').errors">
+              <ng-container *ngIf="validateForm.get('content').hasError('required')">
+                内容必填
+              </ng-container>
+              <ng-container *ngIf="validateForm.get('content').hasError('minlength')">
+                输入的内容太少啦
+              </ng-container>
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired nzFor="categoryId">分类</nz-form-label>
+          <nz-form-control [nzSm]="17" [nzXs]="24">
+            <nz-tree-select formControlName="categoryId" style="width: 300px;" [nzNodes]="categories" nzMultiple="false"
+              nzShowSearch nzPlaceHolder="请选择分类" formControlName="categoryId" (ngModelChange)="onChange($event)">
+            </nz-tree-select>
+            <nz-form-explain *ngIf="validateForm.get('categoryId').dirty && validateForm.get('categoryId').errors">
+              分类必选
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="keywords" nzRequired>
+            <span>
+              关键字
+              <i nz-icon nz-tooltip nzTitle="便于其他用户更好的搜索到您的文章" type="question-circle" theme="outline"></i>
+            </span>
+          </nz-form-label>
+          <nz-form-control [nzSm]="17" [nzXs]="24">
+            <input nz-input id="keywords" formControlName="keywords" style="width: 300px;" placeholder="请输入关键字">
+            <nz-form-explain *ngIf="validateForm.get('keywords').dirty && validateForm.get('keywords').errors">关键字必填</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="canComment" nzRequired>允许评论</nz-form-label>
+          <nz-form-control [nzSm]="17" [nzXs]="24">
+            <nz-switch formControlName="canComment" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"></nz-switch>
+            <ng-template #checkedTemplate><i nz-icon type="check"></i></ng-template>
+            <ng-template #unCheckedTemplate><i nz-icon type="close"></i></ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzSm="21" nzPush="3" nzGutter="16">
+            <button nz-button nzType="primary">立即发布</button>
+            <!-- <button nz-button nzType="default" (click)="saveDraft($event)">存为草稿</button> -->
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </nz-card>
+  </nz-col>
+</nz-row>

@@ -1,0 +1,74 @@
+<nz-row nzGutter="8">
+  <nz-col [nzSpan]="6" [nzPush]="9">
+    <nz-card nzTitle="注册">
+      <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group [nzPrefix]="prefixMail">
+              <input type="text" nz-input formControlName="email" placeholder="请输入邮箱...">
+            </nz-input-group>
+            <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">
+              邮箱格式无效
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group [nzPrefix]="prefixLock">
+              <input type="password" nz-input formControlName="password" placeholder="请输入密码...">
+            </nz-input-group>
+            <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">
+              密码必填
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group [nzPrefix]="prefixLock">
+              <input type="password" nz-input formControlName="checkPassword" placeholder="请再次输入密码...">
+            </nz-input-group>
+            <nz-form-explain *ngIf="validateForm.get('checkPassword').dirty && validateForm.get('checkPassword').errors">
+              <ng-container *ngIf="validateForm.get('checkPassword').hasError('required')">
+                确认密码必填
+              </ng-container>
+              <ng-container *ngIf="validateForm.get('checkPassword').hasError('confirm')">
+                两次输入的密码不一致
+              </ng-container>
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group [nzPrefix]="prefixUser">
+              <input type="text" nz-input formControlName="nickname" placeholder="请输入昵称...">
+            </nz-input-group>
+            <nz-form-explain *ngIf="validateForm.get('nickname').dirty && validateForm.get('nickname').errors">
+              昵称必填
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- <nz-form-item nz-row style="margin-bottom:8px;">
+          <nz-form-control>
+            <label nz-checkbox formControlName="agree">
+              <span>我已阅读 <a> EDoc2问答社区协议 </a></span>
+            </label>
+          </nz-form-control>
+        </nz-form-item> -->
+        <nz-form-item nz-row style="margin-bottom:8px;">
+          <nz-form-control>
+            <button nz-button class="rigister-btn" nzType="primary">注册</button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </nz-card>
+
+  </nz-col>
+</nz-row>
+
+<ng-template #prefixMail><i nz-icon type="mail"></i></ng-template>
+<ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+<ng-template #prefixUser><i nz-icon type="user"></i></ng-template>

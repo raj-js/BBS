@@ -1,0 +1,171 @@
+<div nz-row nzGutter="32">
+  <div nz-col class="gutter-row" nzSpan="15" nzOffset="2">
+    <nz-row nzGutter="32">
+      <nz-col nzSpan="24">
+        <nz-card [nzTitle]="titleTpl">
+          <nz-card-meta [nzDescription]="descriptionTpl"></nz-card-meta>
+          <ng-template #titleTpl>
+            <h1>{{question.title}}</h1>
+          </ng-template>
+          <ng-template #descriptionTpl>
+            <div [innerHTML]="question.content"></div>
+          </ng-template>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+    <nz-divider></nz-divider>
+    <nz-row nzGutter="32">
+      <nz-col nzSpan="24">
+        <nz-list [nzDataSource]="comments" [nzItemLayout]="'vertical'" [nzRenderItem]="item" [nzLoadMore]="loadMore"
+          [nzFooter]="footer">
+          <ng-template #item let-item>
+            <nz-list-item [nzActions]="[likeAction,dislikeAction]" [nzExtra]="extra">
+              <ng-template #likeAction>
+                <span (click)="onLikeComment(item)">
+                  <i nz-icon type="like-o" style="margin-right: 8px;"></i> {{item.likes}}
+                </span>
+              </ng-template>
+              <ng-template #dislikeAction>
+                <span (click)="onDislikeComment(item)">
+                  <i nz-icon type="dislike-o" style="margin-right: 8px;"></i> {{item.dislikes}}
+                </span>
+              </ng-template>
+
+              <nz-list-item-meta [nzTitle]="nzTitle" [nzAvatar]="nzAvatar" [nzDescription]="nznzDescription">
+                <ng-template #nzTitle>
+                  <a [routerLink]="[ '/person', item.creatorId ]">{{item.creatorNick}}</a>
+                  &nbsp;&nbsp;<h6>{{item.creationTime | fdyTime}}回复</h6>
+                </ng-template>
+                <ng-template #nzAvatar>
+                  <nz-avatar nzSrc="{{item.creatorId | avatar}}" nzSize="large"></nz-avatar>
+                </ng-template>
+                <ng-template #nznzDescription>
+                  <div [innerHTML]="item.content | html"></div>
+                </ng-template>
+              </nz-list-item-meta>
+
+              <ng-template #extra>
+                <div *ngIf="canFinish(item.creatorId)">
+                  <a nz-popconfirm [nzTitle]="adoptTitle" (nzOnConfirm)="onAdopt(item)" (nzOnCancel)="cancel()"
+                    nzPlacement="top">
+                    <i nz-icon type="check" theme="outline"></i> 采纳
+                  </a>
+                  <ng-template #adoptTitle>
+                    <p><i nz-icon type="info-circle" theme="outline"></i> 确认采纳用户 '{{item.creatorNick}}' 的回复作</p>
+                    <p>为最佳答案吗?</p>
+                  </ng-template>
+                </div>
+                <i style="font-size: 100px;" *ngIf="!canFinish(item.creatorId) && item.id == question.adoptId" nz-icon [iconfont]="'icon-yicaina'"></i>
+              </ng-template>
+
+            </nz-list-item>
+          </ng-template>
+          <ng-template *ngIf="!loadingMore" #loadMore>
+            <div class="loadmore">
+              <button nz-button (click)="onLoadMore()">加载更多评论</button>
+            </div>
+          </ng-template>
+        </nz-list>
+      </nz-col>
+    </nz-row>
+    <nz-row nzGutter="32">
+      <nz-col nzSpan="24">
+        <ng-container *ngIf="user?.IsValid; else elseTpl">
+          <nz-card>
+            <div id="toolbar" class="toolbar"></div>
+            <div id="editor" class="editor"></div>
+            <button nz-button class="btnReply" (click)="onReply()" nzType="primary">回复</button>
+          </nz-card>
+        </ng-container>
+        <ng-template #elseTpl>
+          <p style="text-align: center;">登录后才可评论！</p>
+        </ng-template>
+      </nz-col>
+    </nz-row>
+  </div>
+  <div nz-col class="gutter-row" nzSpan="5">
+    <nz-affix [nzOffsetTop]="84">
+      <nz-card nzTitle="概要">
+        <nz-row nzGutter="8">
+          <nz-col nzSpan="8">
+            发布人：
+          </nz-col>
+          <nz-col nzSpan="16">
+            <i nz-icon type="user" theme="outline"></i>&nbsp;&nbsp;
+            <a [routerLink]="[ '/person', question.creatorId ]">
+              {{question.creatorNick}}
+            </a>
+          </nz-col>
+          <nz-col nzSpan="8">
+            发布时间：
+          </nz-col>
+          <nz-col nzSpan="16">
+            <i nz-icon type="calendar" theme="outline"></i>&nbsp;&nbsp;
+            {{question.creationTime | fdyTime}}
+          </nz-col>
+          <nz-col nzSpan="8">
+            悬赏分：
+          </nz-col>
+          <nz-col nzSpan="16">
+            <i nz-icon type="money-collect" theme="outline"></i>&nbsp;&nbsp;
+            {{question.score}}
+          </nz-col>
+          <nz-col nzSpan="8">
+            访问量：
+          </nz-col>
+          <nz-col nzSpan="16">
+            <i nz-icon type="eye" theme="outline"></i>&nbsp;&nbsp;
+            {{question.pv}}
+          </nz-col>
+          <nz-col nzSpan="8">
+            评论数：
+          </nz-col>
+          <nz-col nzSpan="16">
+            <i nz-icon type="message" theme="outline"></i>&nbsp;&nbsp;
+            {{question.replies}}
+          </nz-col>
+          <nz-col nzSpan="8">
+            问题状态：
+          </nz-col>
+          <nz-col nzSpan="16">
+            <app-question-state [text]="question.state" [state]="question.stateId"></app-question-state>
+          </nz-col>
+          <nz-col nzSpan="8">
+            关键字：
+          </nz-col>
+          <nz-col nzSpan="16">
+            <i nz-icon type="tag"></i> {{question.keywords}}
+          </nz-col>
+          <nz-col nzSpan="8">
+            类别：
+          </nz-col>
+          <nz-col nzSpan="16">
+            <nz-tag nzColor="magenta">{{question.category}}</nz-tag>
+          </nz-col>
+        </nz-row>
+      </nz-card>
+      <nz-card *ngIf="user?.IsValid" class="opCard">
+        <nz-row nzGutter="8">
+          <nz-col nzSpan="12" style="line-height:30px;">
+            <a (click)="onFavorite()">
+              <ng-container *ngIf="favorite; else cancelFavorite">
+                <i nz-icon type="heart" theme="fill"></i>&nbsp;&nbsp;取消收藏
+              </ng-container>
+              <ng-template #cancelFavorite>
+                <i nz-icon type="heart"></i>&nbsp;&nbsp;收藏
+              </ng-template>
+            </a>
+          </nz-col>
+          <nz-col nzSpan="12">
+            <nz-anchor [nzBounds]="0">
+              <nz-link nzHref="#editor" [nzTitle]="nzTitle"></nz-link>
+              <ng-template #nzTitle>
+                <i nz-icon type="message"></i>&nbsp;&nbsp;评论
+              </ng-template>
+            </nz-anchor>
+          </nz-col>
+        </nz-row>
+      </nz-card>
+    </nz-affix>
+  </div>
+</div>

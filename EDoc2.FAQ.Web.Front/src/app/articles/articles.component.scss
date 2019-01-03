@@ -1,0 +1,9 @@
+nz-list-item {
+    background-color: #FFFFFF !important;
+    margin-bottom: 20px !important;
+    padding: 5px 15px;
+}
+
+:host ::ng-deep div.ant-list-item-meta-description p span a {
+    color: #8c8c8c !important;
+}

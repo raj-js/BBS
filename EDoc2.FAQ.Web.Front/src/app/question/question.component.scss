@@ -1,0 +1,46 @@
+:host ::ng-deep .loadmore {
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 15px;
+    height: 32px;
+    line-height: 32px;
+  }
+
+.toolbar {
+    border: 1px solid #f1f1f1;
+}
+
+.editor {
+    border: 1px solid #f1f1f1;
+    height: 120px;
+}
+
+.btnReply {
+    float: right;
+    margin-top: 10px;
+  }
+
+nz-list-item {
+    background-color: #FFFFFF !important;
+    margin-bottom: 20px !important;
+    padding: 5px 15px;
+}
+
+:host ::ng-deep .ant-anchor-ink:before {
+    background: #FFFFFF !important;
+}
+
+:host ::ng-deep .opCard {
+    margin-top: 10px; 
+    text-align: center;
+    vertical-align: middle;
+}
+
+:host ::ng-deep .opCard a {
+    text-decoration: none;
+    color: #000000;
+}
+
+:host ::ng-deep .adoptComment {
+    background-color: greenyellow;
+}

@@ -1,0 +1,43 @@
+<nz-row nzGutter="8">
+  <nz-col [nzSpan]="6" [nzPush]="9">
+    <nz-card nzTitle="登录">
+      <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group [nzPrefix]="prefixMail">
+              <input type="text" nz-input formControlName="email" placeholder="请输入邮箱...">
+            </nz-input-group>
+            <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">
+              邮箱格式无效
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <nz-input-group [nzPrefix]="prefixLock">
+              <input type="password" nz-input formControlName="password" placeholder="请输入密码...">
+            </nz-input-group>
+            <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">
+              密码必填
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <label nz-checkbox formControlName="rememberMe">
+              <span>记住登录？</span>
+            </label>
+            <a [routerLink]="[ '/forgot' ]" class="login-form-forgot" class="login-form-forgot">忘记密码？</a>
+            <button nz-button class="login-form-button" [nzType]="'primary'">登录</button>
+            或者
+            <a [routerLink]="[ '/register' ]">立即注册！</a>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </nz-card>
+
+  </nz-col>
+</nz-row>
+
+<ng-template #prefixMail><i nz-icon type="mail"></i></ng-template>
+<ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>

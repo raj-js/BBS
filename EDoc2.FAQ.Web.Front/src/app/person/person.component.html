@@ -1,0 +1,378 @@
+<nz-row nzGutter="8">
+  <nz-col nzSpan="16" nzPush="4">
+    <nz-card [nzCover]="coverTpl" class="personInfo">
+      <nz-card-meta [nzTitle]="nzTitle" [nzDescription]="nzDescription" [nzAvatar]="avatarTpl"></nz-card-meta>
+    </nz-card>
+    <ng-template #avatarTpl>
+      <nz-avatar nzShape="square" nzSize="large" nzSrc="{{profile?.id | avatar}}"></nz-avatar>
+    </ng-template>
+    <ng-template #coverTpl>
+      <img height="240" alt="example" src="https://dev-file.iviewui.com/cover_default/large" />
+    </ng-template>
+    <ng-template #nzTitle>
+      <h3>
+        {{profile?.nickname}}
+        <span *ngIf="showFollowState">
+          <nz-divider nzType="vertical"></nz-divider>
+          <ng-container *ngIf="followed; else elseFollow">
+            <button (click)="onFollow()" nz-button nzType="default">取消关注</button>
+          </ng-container>
+          <ng-template #elseFollow>
+            <button (click)="onFollow()" nz-button nzType="default"><i nz-icon type="plus"></i> 关注</button>
+          </ng-template>
+        </span>
+      </h3>
+    </ng-template>
+    <ng-template #nzDescription>
+      <p>
+        <span nz-tooltip nzTitle="公司">
+          <i nz-icon [iconfont]="'icon-company'"></i> {{profile?.company|fdyEmpty}}
+        </span>
+        <nz-divider nzType="vertical"></nz-divider>
+        <span nz-tooltip nzTitle="加入社区时间">
+          <i nz-icon type="calendar"></i> 于 {{profile?.joinDate | fdyTime}} 加入社区
+        </span>
+        <nz-divider nzType="vertical"></nz-divider>
+        <span nz-tooltip nzTitle="所在城市">
+          <i nz-icon type="environment" theme="outline"></i> {{profile?.city|fdyEmpty}}
+        </span>
+        <nz-divider nzType="vertical"></nz-divider>
+        <span nz-tooltip nzTitle="技术积分">
+          <i nz-icon type="money-collect" theme="outline"></i> {{profile?.score}}
+        </span>
+        <nz-divider nzType="vertical"></nz-divider>
+        <span *ngIf="profile?.gender !== -1" nz-tooltip nzTitle="性别">
+          <i nz-icon [type]="profile?.gender === 0 ? 'man': 'woman'" theme="outline"></i>
+        </span>
+      </p>
+      <p>
+          {{profile?.signature | fdyEmpty:'暂无介绍...'}}
+      </p>
+    </ng-template>
+  </nz-col>
+</nz-row>
+<nz-row nzGutter="8">
+  <nz-col nzSpan="16" nzPush="4">
+    <nz-tabset nzSize="large">
+      <nz-tab [nzTitle]="titleArticle">
+        <nz-list [nzDataSource]="articles" [nzItemLayout]="'vertical'" [nzRenderItem]="articleItem" [nzLoadMore]="loadMore">
+          <ng-template #articleItem let-item>
+            <nz-list-item [nzContent]="item.content" [nzActions]="[eyeAction,msgAction,likeAction,dislikeAction]"
+              [nzExtra]="extra">
+              <ng-template #eyeAction>
+                <span nz-tooltip nzTitle="访问量">
+                  <i nz-icon type="eye" style="margin-right: 8px;"></i> {{item.pv}}
+                </span>
+              </ng-template>
+              <ng-template #likeAction>
+                <span nz-tooltip nzTitle="赞">
+                  <i nz-icon type="like-o" style="margin-right: 8px;"></i> {{item.likes}}
+                </span>
+              </ng-template>
+              <ng-template #dislikeAction>
+                <span nz-tooltip nzTitle="踩">
+                  <i nz-icon type="dislike-o" style="margin-right: 8px;"></i> {{item.dislikes}}
+                </span>
+              </ng-template>
+              <ng-template #msgAction>
+                <span nz-tooltip nzTitle="评论数">
+                  <i nz-icon type="message" style="margin-right: 8px;"></i> {{item.replies}}
+                </span>
+              </ng-template>
+              <nz-list-item-meta [nzAvatar]="nzAvatar" [nzTitle]="nzTitle" [nzDescription]="nzDescription">
+                <ng-template #nzAvatar>
+                  <nz-avatar nzSrc="{{item.creatorId | avatar}}"></nz-avatar>
+                </ng-template>
+                <ng-template #nzTitle>
+                  <a [routerLink]="[ '/article', item.id ]">{{item.title}}</a>
+                </ng-template>
+                <ng-template #nzDescription>
+                  <p>
+                    <span><i nz-icon type="user"></i> {{item.creatorNick}}</span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span nz-tooltip nzTitle="发布时间"><i nz-icon type="calendar"></i>
+                      {{item.creationTime|fdyTime}}</span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span nz-tooltip nzTitle="关键字"><i nz-icon type="tag"></i> {{item.keywords}}</span>
+                  </p>
+                  <p>
+                    {{item.summary}}
+                  </p>
+                </ng-template>
+              </nz-list-item-meta>
+              <ng-template #extra>
+                <nz-tag nzColor="magenta">{{item.category}}</nz-tag>
+              </ng-template>
+            </nz-list-item>
+          </ng-template>
+          <ng-template #loadMore>
+            <div class="loadmore">
+              <button nz-button *ngIf="!loading.article && !complete.article" (click)="loadArticles()">加载更多</button>
+            </div>
+          </ng-template>
+        </nz-list>
+      </nz-tab>
+      <nz-tab [nzTitle]="titleQuestion">
+        <nz-list [nzDataSource]="questions" [nzItemLayout]="'vertical'" [nzRenderItem]="questionItem" [nzLoadMore]="loadMore">
+          <ng-template #questionItem let-item>
+            <nz-list-item [nzActions]="[eyeAction,msgAction]" [nzExtra]="extra">
+              <ng-template #eyeAction>
+                <span nz-tooltip nzTitle="访问量">
+                  <i nz-icon type="eye" style="margin-right: 8px;"></i> {{item.pv}}</span>
+              </ng-template>
+              <ng-template #msgAction>
+                <span nz-tooltip nzTitle="评论数">
+                  <i nz-icon type="message" style="margin-right: 8px;"></i> {{item.replies}}
+                </span>
+              </ng-template>
+              <nz-list-item-meta [nzAvatar]="nzAvatar" [nzTitle]="nzTitle" [nzDescription]="nzDescription">
+                <ng-template #nzAvatar>
+                  <nz-avatar nzSrc="{{item.creatorId | avatar}}" nzSize="large"></nz-avatar>
+                </ng-template>
+                <ng-template #nzTitle>
+                  <a [routerLink]="[ '/question', item.id ]">{{item.title}}</a>
+                </ng-template>
+                <ng-template #nzDescription>
+                  <p>
+                    <span><i nz-icon type="user"></i> {{item.creatorNick}}</span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span nz-tooltip nzTitle="发布时间"><i nz-icon type="calendar"></i>
+                      {{item.creationTime|fdyTime}}</span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span nz-tooltip nzTitle="关键字"><i nz-icon type="tag"></i> {{item.keywords}}</span>
+                  </p>
+                </ng-template>
+              </nz-list-item-meta>
+              <ng-template #extra>
+                <nz-tag nzColor="green">{{item.category}}</nz-tag>
+                <app-question-state [text]="item.state" [state]="item.stateId"></app-question-state>
+              </ng-template>
+            </nz-list-item>
+          </ng-template>
+          <ng-template #loadMore>
+            <div class="loadmore">
+              <button nz-button *ngIf="!loading.question && !complete.question" (click)="loadQuestions()">加载更多</button>
+            </div>
+          </ng-template>
+        </nz-list>
+      </nz-tab>
+      <nz-tab [nzTitle]="titleFavorite" *ngIf="this.user.IsValid && this.user.Id === this.id">
+        <nz-list [nzDataSource]="favorites" [nzItemLayout]="'vertical'" [nzRenderItem]="favoriteItem" [nzLoadMore]="loadMore">
+          <ng-template #favoriteItem let-item>
+            <ng-container *ngIf="item.typeId == 1; else articleTpl">
+              <nz-list-item [nzActions]="[eyeAction,msgAction]" [nzExtra]="extra">
+                <ng-template #eyeAction>
+                  <span nz-tooltip nzTitle="访问量">
+                    <i nz-icon type="eye" style="margin-right: 8px;"></i> {{item.pv}}</span>
+                </ng-template>
+                <ng-template #msgAction>
+                  <span nz-tooltip nzTitle="评论数">
+                    <i nz-icon type="message" style="margin-right: 8px;"></i> {{item.replies}}
+                  </span>
+                </ng-template>
+                <nz-list-item-meta [nzAvatar]="nzAvatar" [nzTitle]="nzTitle" [nzDescription]="nzDescription">
+                  <ng-template #nzAvatar>
+                    <nz-avatar nzSrc="{{item.creatorId | avatar}}" nzSize="large"></nz-avatar>
+                  </ng-template>
+                  <ng-template #nzTitle>
+                    <a [routerLink]="[ '/question', item.id ]">{{item.title}}</a>
+                  </ng-template>
+                  <ng-template #nzDescription>
+                    <p>
+                      <span><i nz-icon type="user"></i> {{item.creatorNick}}</span>
+                      <nz-divider nzType="vertical"></nz-divider>
+                      <span nz-tooltip nzTitle="发布时间"><i nz-icon type="calendar"></i>
+                        {{item.creationTime|fdyTime}}</span>
+                      <nz-divider nzType="vertical"></nz-divider>
+                      <span nz-tooltip nzTitle="关键字"><i nz-icon type="tag"></i> {{item.keywords}}</span>
+                    </p>
+                  </ng-template>
+                </nz-list-item-meta>
+                <ng-template #extra>
+                  <nz-tag nzColor="green">{{item.category}}</nz-tag>
+                  <app-question-state [text]="item.state" [state]="item.stateId"></app-question-state>
+                </ng-template>
+              </nz-list-item>
+            </ng-container>
+            <ng-template #articleTpl>
+              <nz-list-item [nzContent]="item.content" [nzActions]="[eyeAction,msgAction,likeAction,dislikeAction]"
+                [nzExtra]="extra">
+                <ng-template #eyeAction>
+                  <span nz-tooltip nzTitle="访问量">
+                    <i nz-icon type="eye" style="margin-right: 8px;"></i> {{item.pv}}
+                  </span>
+                </ng-template>
+                <ng-template #likeAction>
+                  <span nz-tooltip nzTitle="赞">
+                    <i nz-icon type="like-o" style="margin-right: 8px;"></i> {{item.likes}}
+                  </span>
+                </ng-template>
+                <ng-template #dislikeAction>
+                  <span nz-tooltip nzTitle="踩">
+                    <i nz-icon type="dislike-o" style="margin-right: 8px;"></i> {{item.dislikes}}
+                  </span>
+                </ng-template>
+                <ng-template #msgAction>
+                  <span nz-tooltip nzTitle="评论数">
+                    <i nz-icon type="message" style="margin-right: 8px;"></i> {{item.replies}}
+                  </span>
+                </ng-template>
+                <nz-list-item-meta [nzAvatar]="nzAvatar" [nzTitle]="nzTitle" [nzDescription]="nzDescription">
+                  <ng-template #nzAvatar>
+                    <nz-avatar nzSrc="{{item.creatorId | avatar}}"></nz-avatar>
+                  </ng-template>
+                  <ng-template #nzTitle>
+                    <a [routerLink]="[ '/article', item.id ]">{{item.title}}</a>
+                  </ng-template>
+                  <ng-template #nzDescription>
+                    <p>
+                      <span><i nz-icon type="user"></i> {{item.creatorNick}}</span>
+                      <nz-divider nzType="vertical"></nz-divider>
+                      <span nz-tooltip nzTitle="发布时间"><i nz-icon type="calendar"></i>
+                        {{item.creationTime|fdyTime}}</span>
+                      <nz-divider nzType="vertical"></nz-divider>
+                      <span nz-tooltip nzTitle="关键字"><i nz-icon type="tag"></i> {{item.keywords}}</span>
+                    </p>
+                    <p>
+                      {{item.summary}}
+                    </p>
+                  </ng-template>
+                </nz-list-item-meta>
+                <ng-template #extra>
+                  <nz-tag nzColor="magenta">{{item.category}}</nz-tag>
+                </ng-template>
+              </nz-list-item>
+            </ng-template>
+          </ng-template>
+          <ng-template #loadMore>
+            <div class="loadmore">
+              <button nz-button *ngIf="!loading.favorite && !complete.favorite" (click)="loadFavorites()">加载更多</button>
+            </div>
+          </ng-template>
+        </nz-list>
+      </nz-tab>
+      <nz-tab [nzTitle]="titleFollow">
+        <nz-list [nzDataSource]="follows" [nzItemLayout]="'vertical'" [nzRenderItem]="followItem" [nzLoadMore]="loadMore">
+          <ng-template #loadMore>
+            <div class="loadmore">
+              <button nz-button *ngIf="!loading.follow && !complete.follow" (click)="loadFollows()">加载更多</button>
+            </div>
+          </ng-template>
+        </nz-list>
+      </nz-tab>
+      <nz-tab [nzTitle]="titleFans">
+        <nz-list [nzDataSource]="fans" [nzItemLayout]="'vertical'" [nzRenderItem]="fanItem" [nzLoadMore]="loadMore">
+          <ng-template #loadMore>
+            <div class="loadmore">
+              <button nz-button *ngIf="!loading.fan && !complete.fan" (click)="loadFans()">加载更多</button>
+            </div>
+          </ng-template>
+        </nz-list>
+      </nz-tab>
+
+      <ng-template #titleArticle>
+        <i nz-icon type="read"></i> 文章 {{counter.article}}
+      </ng-template>
+      <ng-template #titleQuestion>
+        <i nz-icon type="question"></i> 问题 {{counter.question}}
+      </ng-template>
+      <ng-template #titleFavorite>
+        <i nz-icon type="heart"></i> 收藏 {{counter.favorite}}
+      </ng-template>
+      <ng-template #titleFollow>
+        <i nz-icon type="usergroup-add"></i> 关注 {{counter.follow}}
+      </ng-template>
+      <ng-template #titleFans>
+        <i nz-icon type="usergroup-add"></i> 粉丝 {{counter.fan}}
+      </ng-template>
+    </nz-tabset>
+  </nz-col>
+</nz-row>
+
+<ng-template #followItem let-item>
+    <nz-list-item [nzExtra]="extra">
+      <nz-list-item-meta [nzAvatar]="nzAvatar" [nzTitle]="nzTitle" [nzDescription]="nzDescription">
+        <ng-template #nzAvatar>
+          <a [routerLink]="[ '/person', item.id ]">
+              <nz-avatar nzSrc="{{item.id | avatar}}" nzSize="large"></nz-avatar>
+          </a>
+        </ng-template>
+        <ng-template #nzTitle>
+          <a [routerLink]="[ '/person', item.id ]">{{item.nickname}}</a>
+        </ng-template>
+        <ng-template #nzDescription>
+          <p>
+            <span nz-tooltip nzTitle="公司">
+              <i nz-icon [iconfont]="'icon-company'"></i> {{item.company|fdyEmpty}}
+            </span>
+            <nz-divider nzType="vertical"></nz-divider>
+            <span nz-tooltip nzTitle="加入社区时间">
+              <i nz-icon type="calendar"></i> 于 {{item.joinDate | fdyTime}} 加入社区
+            </span>
+            <nz-divider nzType="vertical"></nz-divider>
+            <span nz-tooltip nzTitle="所在城市">
+              <i nz-icon type="environment" theme="outline"></i> {{item.city|fdyEmpty}}
+            </span>
+            <nz-divider nzType="vertical"></nz-divider>
+            <span nz-tooltip nzTitle="技术积分">
+              <i nz-icon type="money-collect" theme="outline"></i> {{item.score}}
+            </span>
+            <nz-divider nzType="vertical"></nz-divider>
+            <span *ngIf="item.gender !== -1" nz-tooltip nzTitle="性别">
+              <i nz-icon [type]="item.gender === 0 ? 'man': 'woman'" theme="outline"></i>
+            </span>
+          </p>
+          <p>
+            {{item.signature|fdyEmpty:'暂无签名...'}}
+          </p>
+        </ng-template>
+      </nz-list-item-meta>
+      <ng-template #extra>
+          
+      </ng-template>
+    </nz-list-item>
+  </ng-template>
+
+<ng-template #fanItem let-item>
+  <nz-list-item [nzExtra]="extra">
+    <nz-list-item-meta [nzAvatar]="nzAvatar" [nzTitle]="nzTitle" [nzDescription]="nzDescription">
+      <ng-template #nzAvatar>
+        <a [routerLink]="[ '/person', item.id ]">
+            <nz-avatar nzSrc="{{item.id | avatar}}" nzSize="large"></nz-avatar>
+        </a>
+      </ng-template>
+      <ng-template #nzTitle>
+        <a [routerLink]="[ '/person', item.id ]">{{item.nickname}}</a>
+      </ng-template>
+      <ng-template #nzDescription>
+        <p>
+          <span nz-tooltip nzTitle="公司">
+            <i nz-icon [iconfont]="'icon-company'"></i> {{item.company|fdyEmpty}}
+          </span>
+          <nz-divider nzType="vertical"></nz-divider>
+          <span nz-tooltip nzTitle="加入社区时间">
+            <i nz-icon type="calendar"></i> 于 {{item.joinDate | fdyTime}} 加入社区
+          </span>
+          <nz-divider nzType="vertical"></nz-divider>
+          <span nz-tooltip nzTitle="所在城市">
+            <i nz-icon type="environment" theme="outline"></i> {{item.city|fdyEmpty}}
+          </span>
+          <nz-divider nzType="vertical"></nz-divider>
+          <span nz-tooltip nzTitle="技术积分">
+            <i nz-icon type="money-collect" theme="outline"></i> {{item.score}}
+          </span>
+          <nz-divider nzType="vertical"></nz-divider>
+          <span *ngIf="item.gender !== -1" nz-tooltip nzTitle="性别">
+            <i nz-icon [type]="item.gender === 0 ? 'man': 'woman'" theme="outline"></i>
+          </span>
+        </p>
+        <p>
+          {{item.signature|fdyEmpty:'暂无签名...'}}
+        </p>
+      </ng-template>
+    </nz-list-item-meta>
+    <ng-template #extra>
+        
+    </ng-template>
+  </nz-list-item>
+</ng-template>

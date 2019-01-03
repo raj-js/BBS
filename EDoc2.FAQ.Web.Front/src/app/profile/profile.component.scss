@@ -1,0 +1,49 @@
+:host ::ng-deep nz-card.personInfo div.ant-card-meta-avatar {
+    width: 156px;
+    height: 156px;
+    position: relative;
+    top: -60px;
+    padding: 4px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+:host ::ng-deep nz-card.personInfo div.ant-card-meta-avatar nz-avatar {
+    width: 156px;
+    height: 156px;
+}
+
+:host ::ng-deep nz-card.personInfo div.ant-card-body {
+    height: 156px;
+}
+
+:host ::ng-deep nz-card.personInfo div.ant-card-meta-title {
+    margin-left: 15px;
+}
+
+:host ::ng-deep nz-card.personInfo div.ant-card-meta-description {
+    margin-left: 15px;
+    overflow: hidden;
+}
+
+button {
+    margin-left: 8px;
+}
+
+:host ::ng-deep .avatar-uploader > .ant-upload, :host ::ng-deep .avatar {
+    width: 130px;
+    height: 130px;
+    background-repeat: no-repeat;
+    background-size: 130px;
+}
+
+:host ::ng-deep .ant-upload-select-picture-card i {
+    margin-top: 40px;
+    font-size: 52px;
+    color: #999;
+    opacity: 0.5;
+}
+:host ::ng-deep .ant-upload-select-picture-card .ant-upload-text {
+    color: #000;
+    opacity: 0.5;
+}

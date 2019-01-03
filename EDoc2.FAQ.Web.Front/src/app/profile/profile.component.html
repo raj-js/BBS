@@ -1,0 +1,160 @@
+<nz-row>
+  <nz-col nzSpan="16" nzPush="4">
+    <nz-card>
+      <nz-tabset nzTabPosition="left" [nzType]="'line'">
+        <nz-tab nzTitle="个人资料">
+          <nz-card nzBordered="false" [nzCover]="coverTpl" class="personInfo">
+            <nz-card-meta [nzTitle]="nzTitle" [nzDescription]="nzDescription" [nzAvatar]="avatarTpl"></nz-card-meta>
+          </nz-card>
+          <ng-template #avatarTpl>
+            <nz-upload class="avatar-uploader" [nzAction]="uploadAvatarApi" nzName="file"  nzSize="500" nzFileType="image/png,image/jpeg,image/gif,image/bmp"
+              nzListType="picture-card" [nzShowUploadList]="false" [nzCustomRequest]="customReq">
+              <ng-container *ngIf="!avatarUrl">
+                <i nz-icon type="reload"></i>
+                <div class="ant-upload-text">更新头像</div>
+              </ng-container>
+              <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar">
+            </nz-upload>
+          </ng-template>
+          <ng-template #coverTpl>
+            <img height="240" alt="example" src="https://dev-file.iviewui.com/cover_default/large" />
+          </ng-template>
+          <ng-template #nzTitle>
+            <h3>{{profile?.nickname}}</h3>
+          </ng-template>
+          <ng-template #nzDescription>
+            <p>
+              <span nz-tooltip nzTitle="邮箱">
+                <i nz-icon type="mail"></i> {{profile?.email}}
+              </span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span nz-tooltip nzTitle="加入社区时间">
+                <i nz-icon type="calendar"></i> 于 {{profile?.joinDate | fdyTime}} 加入社区
+              </span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span nz-tooltip nzTitle="技术积分">
+                <i nz-icon type="money-collect" theme="outline"></i> {{profile?.score}}
+              </span>
+            </p>
+          </ng-template>
+
+          <nz-card nzBordered="false">
+            <form nz-form [formGroup]="profileForm" (ngSubmit)="submitProfileForm($event,profileForm.value)">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="4">性别</nz-form-label>
+                <nz-form-control [nzSpan]="15">
+                  <nz-radio-group formControlName="gender">
+                    <label nz-radio nzValue="0">男</label>
+                    <label nz-radio nzValue="1">女</label>
+                    <label nz-radio nzValue="-1">保密</label>
+                  </nz-radio-group>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="4">公司</nz-form-label>
+                <div>
+                  <nz-form-control [nzSpan]="15">
+                    <input nz-input type="company" placeholder="请输入您所在的公司" formControlName="company">
+                    <nz-form-explain *ngIf="profileForm.get('company').dirty&&profileForm.get('company').hasError('required')">
+                      30字符以内
+                    </nz-form-explain>
+                  </nz-form-control>
+                </div>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="4">城市</nz-form-label>
+                <nz-form-control [nzSpan]="15">
+                  <input nz-input type="city" placeholder="请输入您所在的城市" formControlName="city">
+                  <nz-form-explain *ngIf="profileForm.get('city').dirty&&profileForm.get('city').hasError('required')">
+                    30字符以内
+                  </nz-form-explain>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="4">签名</nz-form-label>
+                <nz-form-control [nzSpan]="15">
+                  <textarea formControlName="signature" nz-input rows="3" placeholder="写点什么介绍下自己吧..."></textarea>
+                  <nz-form-explain *ngIf="profileForm.get('city').dirty&&profileForm.get('city').hasError('required')">
+                    128字符以内
+                  </nz-form-explain>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control [nzOffset]="4" [nzSpan]="15">
+                  <button nz-button nzType="primary" [disabled]="!profileForm.valid">保存</button>
+                  <button nz-button (click)="goHomePage($event)">前往我的主页</button>
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+          </nz-card>
+        </nz-tab>
+        <nz-tab nzTitle="修改密码">
+          <nz-card [nzTitle]="nzPasswordTitle">
+            <form nz-form [formGroup]="passwordForm" (ngSubmit)="submitPasswordForm($event, passwordForm.value)">
+              <nz-form-item>
+                <nz-form-label nzRequired>当前密码</nz-form-label>
+                <nz-form-control>
+                  <input nz-input type="password" formControlName="password" placeholder="请输入当前密码...">
+                  <nz-form-explain *ngIf="passwordForm.get('password').dirty && passwordForm.get('password').errors">
+                    <ng-container *ngIf="passwordForm.get('password').hasError('required')">
+                      密码必填
+                    </ng-container>
+                    <ng-container *ngIf="passwordForm.get('password').hasError('minlength')">
+                      长度必须为 6 - 20 个字符
+                    </ng-container>
+                    <ng-container *ngIf="passwordForm.get('password').hasError('maxlength')">
+                      长度必须为 6 - 20 个字符
+                    </ng-container>
+                  </nz-form-explain>
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-label nzRequired>新密码</nz-form-label>
+                <nz-form-control>
+                  <input nz-input type="password" formControlName="newPassword" placeholder="请输入新密码...">
+                  <nz-form-explain *ngIf="passwordForm.get('newPassword').dirty && passwordForm.get('newPassword').errors">
+                    <ng-container *ngIf="passwordForm.get('newPassword').hasError('required')">
+                      密码必填
+                    </ng-container>
+                    <ng-container *ngIf="passwordForm.get('newPassword').hasError('minlength')">
+                      长度必须为 6 - 20 个字符
+                    </ng-container>
+                    <ng-container *ngIf="passwordForm.get('newPassword').hasError('maxlength')">
+                      长度必须为 6 - 20 个字符
+                    </ng-container>
+                  </nz-form-explain>
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-label nzRequired>确认密码</nz-form-label>
+                <nz-form-control>
+                  <input nz-input type="password" formControlName="checkPassword" placeholder="请输入新密码...">
+                  <nz-form-explain *ngIf="passwordForm.get('checkPassword').dirty && passwordForm.get('checkPassword').errors">
+                    <ng-container *ngIf="passwordForm.get('checkPassword').hasError('required')">
+                      确认密码必填
+                    </ng-container>
+                    <ng-container *ngIf="passwordForm.get('checkPassword').hasError('confirm')">
+                      两次输入的密码不一致
+                    </ng-container>
+                  </nz-form-explain>
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item nz-row style="margin-bottom:8px;">
+                <nz-form-control>
+                  <button nz-button nzType="primary">提交</button>
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+          </nz-card>
+
+          <ng-template #nzPasswordTitle>
+            <i nz-icon type="lock"></i> 修改密码
+          </ng-template>
+        </nz-tab>
+      </nz-tabset>
+    </nz-card>
+  </nz-col>
+</nz-row>

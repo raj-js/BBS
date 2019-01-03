@@ -1,0 +1,80 @@
+<nz-row nzGutter="8">
+  <nz-col nzSpan="20" nzPush="2">
+    <nz-card nzTitle="提问题">
+      <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <nz-form-item>
+          <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired nzFor="title">标题</nz-form-label>
+          <nz-form-control [nzSm]="17" [nzXs]="24">
+            <input type="text" nz-input formControlName="title" placeholder="请输入标题...">
+            <nz-form-explain *ngIf="validateForm.get('title').dirty && validateForm.get('title').errors">
+              <ng-container *ngIf="validateForm.get('title').hasError('required')">
+                标题必填
+              </ng-container>
+              <ng-container *ngIf="validateForm.get('title').hasError('maxlength')">
+                最多输入50个字符
+              </ng-container>
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired nzFor="content">内容</nz-form-label>
+          <nz-form-control [nzSm]="17" [nzXs]="24">
+            <div id="toolbar" class="toolbar"></div>
+            <div id="editor" class="editor"></div>
+            <textarea nz-input formControlName="content" style="display: none"></textarea>
+            <nz-form-explain *ngIf="validateForm.get('content').dirty && validateForm.get('content').errors">
+              <ng-container *ngIf="validateForm.get('content').hasError('required')">
+                内容必填
+              </ng-container>
+              <ng-container *ngIf="validateForm.get('content').hasError('minlength')">
+                输入的内容太少啦
+              </ng-container>
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired nzFor="categoryId">分类</nz-form-label>
+          <nz-form-control [nzSm]="17" [nzXs]="24">
+            <nz-tree-select formControlName="categoryId" style="width: 300px;" [nzNodes]="categories" nzMultiple="false"
+              nzShowSearch nzPlaceHolder="请选择分类" formControlName="categoryId" (ngModelChange)="onChange($event)">
+            </nz-tree-select>
+            <nz-form-explain *ngIf="validateForm.get('categoryId').dirty && validateForm.get('categoryId').errors">
+              分类必选
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="keywords" nzRequired>
+            <span>
+              关键字
+              <i nz-icon nz-tooltip nzTitle="便于其他用户更好的搜索到您的问题" type="question-circle" theme="outline"></i>
+            </span>
+          </nz-form-label>
+          <nz-form-control [nzSm]="17" [nzXs]="24">
+            <input nz-input id="keywords" formControlName="keywords" style="width: 300px;" placeholder="请输入关键字">
+            <nz-form-explain *ngIf="validateForm.get('keywords').dirty && validateForm.get('keywords').errors">关键字必填</nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="score" nzRequired>悬赏分</nz-form-label>
+          <nz-form-control [nzSm]="17" [nzXs]="24">
+            <div nz-row [nzGutter]="8">
+              <div nz-col [nzSpan]="12">
+                <nz-input-number formControlName="score" [nzMin]="0" [nzMax]="200" [nzStep]="1"></nz-input-number>
+                剩余积分：100
+              </div>
+            </div>
+            <nz-form-explain *ngIf="validateForm.get('score').dirty && validateForm.get('score').errors">
+              悬赏分需设置在 0 - 200 之间（包含0与200）
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzSm="3" nzPush="3">
+            <button nz-button nzType="primary">提交</button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </nz-card>
+  </nz-col>
+</nz-row>
