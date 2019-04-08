@@ -81,7 +81,7 @@ namespace EDoc2.FAQ.Core.Infrastructure
         public CommunityContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<CommunityContext>();
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=EDoc2.FAQ.Community;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            optionsBuilder.UseSqlServer("Data Source=mssql;Initial Catalog=FAQCommunity;Persist Security Info=True;User ID=sa;Password=1qaz2WSX");
 
             return new CommunityContext(optionsBuilder.Options);
         }

@@ -7,6 +7,7 @@ using System.Linq;
 using EDoc2.FAQ.Core.Domain.Accounts.Services;
 using EDoc2.FAQ.Core.Domain.Applications;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace EDoc2.FAQ.Api.Infrastructure
 {
@@ -24,6 +25,8 @@ namespace EDoc2.FAQ.Api.Infrastructure
             using (var scope = provider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetService<CommunityContext>();
+
+                dbContext.Database.Migrate();
 
                 //初始化角色
                 if (!dbContext.Roles.Any())

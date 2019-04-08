@@ -25,6 +25,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using EDoc2.FAQ.Core.Infrastructure.Settings;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EDoc2.FAQ.Api
 {
@@ -69,7 +70,7 @@ namespace EDoc2.FAQ.Api
                         Configuration["ConnectionString"],
                         sqlOptions =>
                         {
-                            sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                            sqlOptions.MigrationsAssembly(typeof(CommunityContext).GetTypeInfo().Assembly.GetName().Name);
                             sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                         }).UseLazyLoadingProxies();
             })
@@ -181,9 +182,9 @@ namespace EDoc2.FAQ.Api
 
             app.UseHttpsRedirection();
 
-
-            loggerFactory.AddNLog();
-            env.ConfigureNLog("NLog.config");
+            loggerFactory.AddConsole();
+            //loggerFactory.AddNLog();
+            //env.ConfigureNLog("NLog.config");
 
             app.UseSwagger()
                .UseSwaggerUi3();
@@ -194,7 +195,8 @@ namespace EDoc2.FAQ.Api
 
             app.UseCors(b =>
             {
-                b.WithOrigins("http://192.168.252.113:4200")
+                //.WithOrigins("http://api:4200")
+                b.AllowAnyOrigin()
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();

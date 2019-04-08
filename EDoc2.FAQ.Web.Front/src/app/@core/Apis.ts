@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://192.168.252.113:5000';
+const API_BASE_URL = `http://${document.location.hostname}:8080`;
 
 export const Apis = {
     BASE_URL : API_BASE_URL,
