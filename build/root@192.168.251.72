@@ -1,0 +1,53 @@
+version: '3.4'
+
+services: 
+  mssql:
+    hostname: mssql
+    image: mcr.microsoft.com/mssql/server
+    ports: 
+      - "1433:1433"
+    environment: 
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=1qaz2WSX
+    networks: 
+      - share
+    volumes: 
+      - db-data:/var/lib/mssql
+  rabbitmq:
+    hostname: rabbitmq
+    image: rabbitmq:management
+    ports: 
+      - "5672:5672"
+      - "15672:15672"
+      - "25672:25672"
+    environment: 
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=1qaz2WSX
+    networks: 
+      - share
+  api: 
+    image: rajsdocker/bbs_api
+    hostname: api
+    ports: 
+      - "8080:80"
+      - "5000:5000"
+    networks: 
+      - share
+    depends_on: 
+      - mssql
+      - rabbitmq
+  web:
+    image: rajsdocker/bbs_web
+    hostname: web
+    ports: 
+      - "80:80"
+    networks: 
+      - share
+    depends_on: 
+      - api
+
+networks: 
+  share:
+
+volumes: 
+  db-data:

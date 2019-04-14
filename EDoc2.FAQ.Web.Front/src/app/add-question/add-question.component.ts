@@ -2,7 +2,7 @@ import {Component, ElementRef, Output, EventEmitter, OnInit, AfterViewInit } fro
 import * as wangEditor from '../../../node_modules/wangeditor/release/wangEditor.min.js';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { CategoryService, ArticleService, AddQuestionReq } from '../@core/ApiProxy.js';
-import * as xss from 'xss';
+import * as xss from '../../../node_modules/xss/dist/xss';
 import { NzMessageService } from 'ng-zorro-antd';
 import { User } from '../@core/User.js';
 import { Router } from '@angular/router';
