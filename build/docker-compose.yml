@@ -45,6 +45,15 @@ services:
       - share
     depends_on: 
       - api
+  admin:
+    image: rajsdocker/bbs_admin
+    hostname: admin
+    ports: 
+      - "8090:80"
+    networks: 
+      - share
+    depends_on: 
+      - api
 
 networks: 
   share:

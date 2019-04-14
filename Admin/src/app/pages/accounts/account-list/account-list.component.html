@@ -1,0 +1,27 @@
+<nb-reveal-card [showToggleButton]="false" [revealed]="revealed">
+  <nb-card-front>
+    <nb-card size="large">
+      <nb-card-header>
+        <span>{{title}}</span>
+        <nb-actions size="medium" class="right">
+          <nb-action icon="nb-search" (click)="toggle()"></nb-action>
+        </nb-actions>
+      </nb-card-header>
+      <nb-card-body>
+        <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)">
+        </ng2-smart-table>
+      </nb-card-body>
+    </nb-card>
+  </nb-card-front>
+  <nb-card-back>
+    <nb-card size="large">
+      <nb-card-header>搜索</nb-card-header>
+      <nb-card-body>
+        <ngx-filter [filters]="filters"></ngx-filter>
+        <button type="submit" class="btn btn-success" (click)="search()">搜索</button>
+        &nbsp;
+        <button type="submit" class="btn btn-default" (click)="cancel()">取消</button>
+      </nb-card-body>
+    </nb-card>
+  </nb-card-back>
+</nb-reveal-card>
