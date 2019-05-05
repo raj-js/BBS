@@ -10,7 +10,7 @@ import { RendersModule } from '../../@theme/components/renders/renders.module';
 
 const COMPONENTS = [
   AccountsComponent,
-  AccountListComponent
+  AccountListComponent,
 ];
 
 @NgModule({
@@ -19,7 +19,7 @@ const COMPONENTS = [
     ThemeModule,
     AccountsRoutingModule,
     Ng2SmartTableModule,
-    RendersModule
+    RendersModule,
   ]
 })
 export class AccountsModule { }

@@ -10,14 +10,14 @@ const routes: Routes = [
     children: [
       {
         path: 'list',
-        component: AccountListComponent
-      }
-    ]
-  }
+        component: AccountListComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AccountsRoutingModule { }

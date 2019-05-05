@@ -13,7 +13,7 @@ import { Filter } from '../../../@theme/components/filter/filter.component';
   selector: 'ngx-account-list',
   templateUrl: './account-list.component.html',
   styleUrls: ['./account-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 @Injectable({
   providedIn: 'root'
@@ -92,46 +92,46 @@ export class AccountListComponent {
 
     this.conf.endPoint = `${Apis.SearchUsers}?${Apis.AccessTokenName}=${Apis.AccessToken}`;
     this.conf.sortFieldKey = "OrderBy";
-    this.conf.pagerPageKey = "PageIndex";
-    this.conf.pagerLimitKey = "PageSize";
-    this.conf.filterFieldKey = "#field#";
-    this.conf.totalKey = "body.totalCount";
-    this.conf.dataKey = "body.dtos";
+    this.conf.pagerPageKey = 'PageIndex';
+    this.conf.pagerLimitKey = 'PageSize';
+    this.conf.filterFieldKey = '#field#';
+    this.conf.totalKey = 'body.totalCount';
+    this.conf.dataKey = 'body.dtos';
 
     this.source = new ServerDataSource(this.http, this.conf);
   }
 
   onCustom(event) {
     switch (event.action) {
-      case "mute": {
+      case 'mute': {
         this.adminService.muteUser(event.data.id)
           .subscribe(resp => {
             if (resp.status == 200) {
               if (resp.result.success) {
-                this.toastrService.success("操作成功！", "屏蔽", { icon: "nb-volume-mute" });
+                this.toastrService.success('操作成功！', '屏蔽', { icon: 'nb-volume-mute' });
                 this.source.refresh();
               } else {
-                this.toastrService.danger(`${resp.result.errors}`, { icon: "nb-volume-mute" });
+                this.toastrService.danger(`${resp.result.errors}`, { icon: 'nb-volume-mute' });
               }
             } else {
-              this.toastrService.danger("操作异常！", `${resp.status}`, { icon: "nb-volume-mute" });
+              this.toastrService.danger('操作异常！', `${resp.status}`, { icon: 'nb-volume-mute' });
             }
           });
         break;
       }
-      case "unmute": {
+      case 'unmute': {
         this.adminService.unmuteUser(event.data.id)
           .subscribe(resp => {
             if (resp.status == 200) {
               if (resp.status == 200) {
                 if (resp.result.success) {
-                  this.toastrService.success("操作成功！", "取消屏蔽", { icon: "nb-volume-high" });
+                  this.toastrService.success('操作成功！', '取消屏蔽', { icon: 'nb-volume-high' });
                   this.source.refresh();
                 } else {
-                  this.toastrService.danger(`${resp.result.errors}`, "取消屏蔽", { icon: "nb-volume-high" });
+                  this.toastrService.danger(`${resp.result.errors}`, '取消屏蔽', { icon: 'nb-volume-high' });
                 }
               } else {
-                this.toastrService.danger("操作异常！", `${resp.status}`, { icon: "nb-volume-high" });
+                this.toastrService.danger('操作异常！', `${resp.status}`, { icon: 'nb-volume-high' });
               }
             }
           });
@@ -145,10 +145,10 @@ export class AccountListComponent {
   }
 
   filters: Filter[] = [
-    new Filter("nickname", "昵称", "string", false, "", undefined),
-    new Filter("email", "邮箱", "string", false, "", undefined),
-    new Filter("emailConfirmed", "邮箱是否确认", "string", false, "", undefined),
-    new Filter("isMuted", "是否屏蔽", "string", false, "", undefined),
+    new Filter('nickname', '昵称', 'string', false, '', undefined),
+    new Filter('email', '邮箱', 'string', false, '', undefined),
+    new Filter('emailConfirmed', '邮箱是否确认', 'string', false, '', undefined),
+    new Filter('isMuted', '是否屏蔽', 'string', false, '', undefined),
   ];
 
   search() {

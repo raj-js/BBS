@@ -26,44 +26,44 @@ import { RoleProvider } from './@core/auth/role.provider';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AppRoutingModule, 
+    AppRoutingModule,
 
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
-    
+
     NbAuthModule.forRoot({
       strategies: [
         NbPasswordAuthStrategy.setup({
-          name: "email",
+          name: 'email',
           token: {
             class: NbAuthJWTToken,
-            key: "body",
+            key: 'body',
           },
           baseEndpoint: Apis.Endpoint,
           login: {
             endpoint: Apis.Authorize,
-            method: "post",
+            method: 'post',
           },
           logout: {
             endpoint: Apis.Logout,
-            method: "post"
+            method: 'post',
           },
           requestPass: {
             endpoint: Apis.ForgetPass,
-            method: "post"
+            method: 'post',
           },
           resetPass: {
             endpoint: Apis.ResetPass,
-            method: "post"
-          }
-        })
+            method: 'post',
+          },
+        }),
       ],
       forms: {
         login: {
           redirectDelay: 100,
           strategy: 'email',
-          showMessages: {     
+          showMessages: {
             success: true,
             error: true,
           },
@@ -72,18 +72,18 @@ import { RoleProvider } from './@core/auth/role.provider';
           redirectDelay: 100,
           strategy: 'email',
         },
-        requestPass:{
+        requestPass: {
           redirectDelay: 100,
           strategy: 'email',
-          showMessages: {     
+          showMessages: {
             success: true,
             error: true,
           },
         },
-        resetPass:{
+        resetPass: {
           redirectDelay: 100,
           strategy: 'email',
-          showMessages: {     
+          showMessages: {
             success: true,
             error: true,
           },
@@ -96,28 +96,28 @@ import { RoleProvider } from './@core/auth/role.provider';
           },
           email: {
             required: true,
-          }
+          },
         },
-      }
+      },
     }),
 
     NbSecurityModule.forRoot({
       accessControl: {
         'MODERATOR': {
-          view: ["user"]
+          view: ['user'],
         },
         'ADMINISTRATOR': {
-          parent: "MODERATOR"
+          parent: 'MODERATOR',
         },
-      }
-    })
+      },
+    }),
   ],
   bootstrap: [AppComponent],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
     AuthGuard,
     { provide: NbRoleProvider, useClass: RoleProvider },
-  ]
+  ],
 })
 export class AppModule {
 }

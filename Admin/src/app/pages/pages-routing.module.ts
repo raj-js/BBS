@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+import { CategroyComponent } from './categroy/categroy.component';
 
 const routes: Routes = [{
   path: '',
@@ -13,10 +14,13 @@ const routes: Routes = [{
     {
       path: 'accounts',
       loadChildren: './accounts/accounts.module#AccountsModule',
-    },{
-      path: "articles",
+    }, {
+      path: 'articles',
       loadChildren: './articles/articles.module#ArticlesModule',
-    },{
+    }, {
+      path: 'category',
+      component: CategroyComponent,
+    }, {
       path: 'dashboard',
       component: ECommerceComponent,
     }, {

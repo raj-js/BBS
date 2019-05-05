@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'ngx-accounts',
   template: `
   <router-outlet></router-outlet>
-`
+`,
 })
 export class AccountsComponent implements OnInit {
 

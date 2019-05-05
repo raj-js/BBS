@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { AuthGuard } from './auth-guard.service';
 
 const routes: Routes = [
-  { 
-    path: 'pages', 
+  {
+    path: 'pages',
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
-    loadChildren: 'app/pages/pages.module#PagesModule' 
+    loadChildren: 'app/pages/pages.module#PagesModule',
   },
   {
     path: 'auth',
