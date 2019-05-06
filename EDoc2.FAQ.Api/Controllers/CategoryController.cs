@@ -57,7 +57,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("add")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<CategoryResp>))]
         public async Task<IActionResult> AddCategory([FromBody]AddCategoryReq req)
@@ -74,7 +74,7 @@ namespace EDoc2.FAQ.Api.Controllers
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        [HttpPut]
+        [HttpPut("enable")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(RespWapper<CategoryResp>))]
         public async Task<IActionResult> Enable([FromBody]EnableReq req)

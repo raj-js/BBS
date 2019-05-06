@@ -65,19 +65,25 @@ namespace EDoc2.FAQ.Core.Application.Categories.Dtos
 
             public string Title { get; set; }
 
+            public bool Enable { get; set; }
+
+            public string Description { get; set; }
+
             public bool IsLeaf { get; set; }
 
             public List<CategroyNode> Children { get; set; } = new List<CategroyNode>();
 
-            public static CategroyNode From(Category category)
+            public static CategroyNode From(Category c)
             {
                 return new CategroyNode
                 {
-                    Key = category.Id,
-                    ParentId = category.ParentId,
-                    Value = category.Id,
-                    Title = category.Name,
-                    IsLeaf = false
+                    Key = c.Id,
+                    ParentId = c.ParentId,
+                    Value = c.Id,
+                    Title = c.Name,
+                    Enable = c.Enabled,
+                    IsLeaf = false,
+                    Description = c.Description,
                 };
             }
         }

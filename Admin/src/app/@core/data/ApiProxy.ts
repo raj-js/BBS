@@ -25,7 +25,7 @@ export class AccountService extends BaseClient {
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         super();
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "http://192.168.251.72:8080";
+        this.baseUrl = baseUrl ? baseUrl : "http://192.168.252.113:5000";
     }
 
     isSignIn(): Observable<SwaggerResponse<FileResponse | null>> {
@@ -1078,7 +1078,7 @@ export class AdminService extends BaseClient {
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         super();
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "http://192.168.251.72:8080";
+        this.baseUrl = baseUrl ? baseUrl : "http://192.168.252.113:5000";
     }
 
     searchUsers(nickname?: string | null | undefined, email?: string | null | undefined, isMuted?: boolean | null | undefined, isModerator?: boolean | null | undefined, pageIndex?: number | undefined, pageSize?: number | undefined, orderBy?: string | null | undefined, isAscending?: boolean | undefined): Observable<SwaggerResponse<RespWapperOfPagingDtoOfListItem | null>> {
@@ -1281,7 +1281,7 @@ export class ApplicationService extends BaseClient {
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         super();
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "http://192.168.251.72:8080";
+        this.baseUrl = baseUrl ? baseUrl : "http://192.168.252.113:5000";
     }
 
     get(): Observable<SwaggerResponse<RespWapperOfProfile | null>> {
@@ -1404,7 +1404,7 @@ export class ArticleService extends BaseClient {
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         super();
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "http://192.168.251.72:8080";
+        this.baseUrl = baseUrl ? baseUrl : "http://192.168.252.113:5000";
     }
 
     getTypes(): Observable<SwaggerResponse<RespWapperOfListOfValueTitlePairOfInt32 | null>> {
@@ -2851,7 +2851,7 @@ export class AuthorizeService extends BaseClient {
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         super();
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "http://192.168.251.72:8080";
+        this.baseUrl = baseUrl ? baseUrl : "http://192.168.252.113:5000";
     }
 
     token(req: LoginReq): Observable<SwaggerResponse<RespWapperOfString | null>> {
@@ -2924,7 +2924,7 @@ export class CategoryService extends BaseClient {
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         super();
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "http://192.168.251.72:8080";
+        this.baseUrl = baseUrl ? baseUrl : "http://192.168.252.113:5000";
     }
 
     all(): Observable<SwaggerResponse<RespWapperOfListOfCategroyNode | null>> {
@@ -3030,7 +3030,7 @@ export class CategoryService extends BaseClient {
     }
 
     addCategory(req: AddCategoryReq): Observable<SwaggerResponse<RespWapperOfCategoryResp | null>> {
-        let url_ = this.baseUrl + "/api/v1/Category";
+        let url_ = this.baseUrl + "/api/v1/Category/add";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(req);
@@ -3088,7 +3088,7 @@ export class CategoryService extends BaseClient {
     }
 
     enable(req: EnableReq): Observable<SwaggerResponse<RespWapperOfCategoryResp | null>> {
-        let url_ = this.baseUrl + "/api/v1/Category";
+        let url_ = this.baseUrl + "/api/v1/Category/enable";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(req);
@@ -5535,6 +5535,8 @@ export class CategroyNode implements ICategroyNode {
     parentId?: string | null;
     value?: any | null;
     title?: string | null;
+    enable!: boolean;
+    description?: string | null;
     isLeaf!: boolean;
     children?: CategroyNode[] | null;
 
@@ -5553,6 +5555,8 @@ export class CategroyNode implements ICategroyNode {
             this.parentId = data["parentId"] !== undefined ? data["parentId"] : <any>null;
             this.value = data["value"] !== undefined ? data["value"] : <any>null;
             this.title = data["title"] !== undefined ? data["title"] : <any>null;
+            this.enable = data["enable"] !== undefined ? data["enable"] : <any>null;
+            this.description = data["description"] !== undefined ? data["description"] : <any>null;
             this.isLeaf = data["isLeaf"] !== undefined ? data["isLeaf"] : <any>null;
             if (data["children"] && data["children"].constructor === Array) {
                 this.children = [];
@@ -5575,6 +5579,8 @@ export class CategroyNode implements ICategroyNode {
         data["parentId"] = this.parentId !== undefined ? this.parentId : <any>null;
         data["value"] = this.value !== undefined ? this.value : <any>null;
         data["title"] = this.title !== undefined ? this.title : <any>null;
+        data["enable"] = this.enable !== undefined ? this.enable : <any>null;
+        data["description"] = this.description !== undefined ? this.description : <any>null;
         data["isLeaf"] = this.isLeaf !== undefined ? this.isLeaf : <any>null;
         if (this.children && this.children.constructor === Array) {
             data["children"] = [];
@@ -5590,6 +5596,8 @@ export interface ICategroyNode {
     parentId?: string | null;
     value?: any | null;
     title?: string | null;
+    enable: boolean;
+    description?: string | null;
     isLeaf: boolean;
     children?: CategroyNode[] | null;
 }

@@ -41,8 +41,8 @@ namespace EDoc2.FAQ.Core.Application.Categories
                 .Select(CategroyNode.From)
                 .ToList();
 
-            await Task.CompletedTask;
-            return RespWapper.Successed(PackTree(null, categories));
+            var packaged = PackTree(null, categories);
+            return await Task.FromResult(RespWapper.Successed(packaged));
         }
 
         public async Task<RespWapper> GetRootCategories()
