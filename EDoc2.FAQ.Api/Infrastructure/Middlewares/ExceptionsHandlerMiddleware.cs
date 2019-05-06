@@ -1,6 +1,7 @@
 ﻿using EDoc2.FAQ.Core.Domain.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -13,14 +14,17 @@ namespace EDoc2.FAQ.Api.Infrastructure.Middlewares
     public class ExceptionsHandlerMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<ExceptionsHandlerMiddleware> _logger;
 
         /// <summary>
         /// 构造器
         /// </summary>
         /// <param name="next"></param>
-        public ExceptionsHandlerMiddleware(RequestDelegate next)
+        public ExceptionsHandlerMiddleware(RequestDelegate next,
+            ILogger<ExceptionsHandlerMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         /// <summary>
@@ -36,6 +40,8 @@ namespace EDoc2.FAQ.Api.Infrastructure.Middlewares
             }
             catch (Exception e)
             {
+                _logger.LogError(e.ToString());
+
                 switch (e)
                 {
                     case AccountNotFoundException _:

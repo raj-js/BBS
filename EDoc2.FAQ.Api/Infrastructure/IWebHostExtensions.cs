@@ -19,7 +19,7 @@ namespace EDoc2.FAQ.Api.Infrastructure
                 var logger = services.GetRequiredService<ILogger<TContext>>();
 
                 var context = services.GetService<TContext>();
-
+                 
                 try
                 {
                     logger.LogInformation($"Migrating database associated with context {typeof(TContext).Name}");

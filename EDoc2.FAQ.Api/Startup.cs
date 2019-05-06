@@ -5,6 +5,7 @@ using EDoc2.FAQ.Api.Infrastructure.Middlewares;
 using EDoc2.FAQ.Api.Infrastructure.Modules;
 using EDoc2.FAQ.Core.Domain.Accounts;
 using EDoc2.FAQ.Core.Infrastructure;
+using EDoc2.FAQ.Core.Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,16 +17,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using NLog.Extensions.Logging;
-using NLog.Web;
 using NSwag;
 using NSwag.SwaggerGeneration.Processors.Security;
 using System;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using EDoc2.FAQ.Core.Infrastructure.Settings;
-using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EDoc2.FAQ.Api
 {
